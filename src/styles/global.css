@@ -1,0 +1,231 @@
+@import "tailwindcss";
+@import "@fontsource-variable/fraunces/index.css";
+@import "@fontsource-variable/inter-tight/index.css";
+
+@theme {
+  --color-bone: #f4eee3;
+  --color-bone-deep: #ebe2d1;
+  --color-ink: #1a2734;
+  --color-ink-soft: #2d3a47;
+  --color-navy: #16283d;
+  --color-rust: #b8552e;
+  --color-rust-deep: #8f3d1d;
+  --color-sage: #5a6a52;
+  --color-sand: #d9c9a8;
+  --color-rule: rgba(26, 39, 52, 0.18);
+
+  --font-display: "Fraunces Variable", "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter Tight Variable", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+
+  --tracking-display: -0.02em;
+  --tracking-eyebrow: 0.18em;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    background: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Subtle grain overlay — section 3, design system */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.15  0 0 0 0 0.2  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 220px 220px;
+  }
+
+  ::selection {
+    background: var(--color-rust);
+    color: var(--color-bone);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: var(--tracking-display);
+    color: var(--color-ink);
+  }
+
+  h1 em, h2 em, h3 em {
+    font-style: italic;
+    color: var(--color-rust);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+
+  a:hover {
+    color: var(--color-rust);
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+    color: var(--color-rust);
+  }
+
+  .display-hero {
+    font-size: clamp(64px, 11vw, 168px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+  }
+
+  .display-xl {
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 1.0;
+  }
+
+  .display-lg {
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 1.05;
+  }
+
+  .display-md {
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1.1;
+  }
+
+  .lede {
+    font-family: var(--font-sans);
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+  }
+
+  .body-prose {
+    font-size: clamp(16px, 1.1vw, 18px);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+
+  .body-prose p + p {
+    margin-top: 1em;
+  }
+
+  /* Drop cap, used on first paragraph of long-form sections */
+  .drop-cap::first-letter {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-rust);
+    font-size: 5.5rem;
+    line-height: 0.85;
+    float: left;
+    padding: 0.25rem 0.75rem 0 0;
+  }
+
+  .rule {
+    border-color: var(--color-rule);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    transition: transform 250ms cubic-bezier(0.2, 0.8, 0.2, 1), background 250ms ease, color 250ms ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-rust {
+    background: var(--color-rust);
+    color: var(--color-bone);
+    border-color: var(--color-rust);
+  }
+
+  .btn-rust:hover {
+    background: var(--color-rust-deep);
+    color: var(--color-bone);
+    border-color: var(--color-rust-deep);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-rule);
+  }
+
+  .btn-ghost:hover {
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+
+  .container-narrow {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .container-wide {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .section-pad {
+    padding-block: clamp(72px, 12vw, 160px);
+  }
+
+  /* Scroll reveal — JS adds .is-in to switch */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.2, 0.7, 0.2, 1), transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal.is-in {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .btn:hover {
+      transform: none;
+    }
+  }
+}

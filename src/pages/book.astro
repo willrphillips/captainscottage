@@ -1,0 +1,33 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { PROPERTY, withBase } from "~/lib/site";
+
+const title = "Book Captain's Cottage — Hull Creek, Heathsville VA";
+const description =
+  "Reserve Captain's Cottage on Virginia's Northern Neck. Book through Airbnb today; direct booking is coming.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={[{ name: "Home", href: "/" }, { name: "Book", href: "/book" }]}
+>
+  {/* Until Phase 6 (direct booking), funnel to the Airbnb listing. */}
+  <meta http-equiv="refresh" content={`0; url=${PROPERTY.airbnbUrl}`} slot="head" />
+
+  <section class="section-pad min-h-[80vh]">
+    <div class="container-narrow">
+      <p class="eyebrow">Booking</p>
+      <h1 class="mt-8 font-display display-xl">Sending you to <em>Airbnb</em>…</h1>
+      <p class="lede mt-8 max-w-xl">
+        Direct booking is coming. For now we book through Airbnb — you'll be redirected automatically. If you aren't, use the button below.
+      </p>
+      <div class="mt-12 flex flex-wrap items-center gap-4">
+        <a href={PROPERTY.airbnbUrl} rel="noopener noreferrer" class="btn btn-rust">
+          Continue to the listing →
+        </a>
+        <a href={withBase("/")} class="btn btn-ghost">Back to the cottage</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

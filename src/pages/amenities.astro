@@ -1,0 +1,17 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import ComingSoon from "~/components/ComingSoon.astro";
+---
+
+<BaseLayout
+  title="Amenities — Captain's Cottage on Hull Creek, Heathsville VA"
+  description="The complete list of amenities at Captain's Cottage: water, kitchen, sleeping, outdoor, accessibility, and more."
+  noindex
+  breadcrumbs={[{ name: "Home", href: "/" }, { name: "Amenities", href: "/amenities" }]}
+>
+  <ComingSoon
+    eyebrow="Amenities"
+    title="The full list is on its way."
+    description="All eighty amenities, organized by category. Coming in Phase 3 of the rebuild."
+  />
+</BaseLayout>

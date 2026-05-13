@@ -1,0 +1,23 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { withBase } from "~/lib/site";
+---
+
+<BaseLayout
+  title="Off the map — Captain's Cottage"
+  description="The page you're after doesn't exist. Let's get you back to the water."
+  noindex
+>
+  <section class="section-pad min-h-[80vh]">
+    <div class="container-narrow">
+      <p class="eyebrow">404</p>
+      <h1 class="mt-8 font-display display-hero max-w-[14ch]">
+        Off the <em>map</em>.
+      </h1>
+      <p class="lede mt-8 max-w-xl">
+        The page you're after doesn't exist — at least not yet. The cottage, the journal, and the booking page are all still here.
+      </p>
+      <a href={withBase("/")} class="btn btn-rust mt-12">Back to the cottage →</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import { DRIVE_TIMES, PROPERTY, withBase } from "~/lib/site";
+
+function fmt(mins: number): string {
+  if (mins < 60) return `${mins} min`;
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  return m ? `${h} hr ${m} min` : `${h} hr`;
+}
+---
+
+<section class="bg-navy text-bone section-pad">
+  <div class="container-wide">
+    <div class="grid gap-12 md:grid-cols-12 md:items-start">
+      <div class="md:col-span-5 reveal">
+        <p class="eyebrow text-sand">Where you are</p>
+        <h2 class="mt-6 font-display display-xl text-bone">
+          On <em>Hull Creek</em>, off the Potomac.
+        </h2>
+        <p class="lede mt-8 text-bone/80 max-w-md">
+          Captain's Cottage sits on a quiet tributary of the Potomac River near where it meets the Chesapeake Bay — the Northern Neck of Virginia. Far enough from the cities to be quiet. Close enough for a weekend.
+        </p>
+        <div class="mt-10 inline-flex items-center gap-6 text-sm text-bone/70">
+          <div>
+            <p class="eyebrow text-sand">Latitude</p>
+            <p class="mt-2 font-display text-2xl">{PROPERTY.geo.lat}° N</p>
+          </div>
+          <div>
+            <p class="eyebrow text-sand">Longitude</p>
+            <p class="mt-2 font-display text-2xl">{Math.abs(PROPERTY.geo.lng)}° W</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="md:col-span-6 md:col-start-7">
+        <p class="eyebrow text-sand reveal">Drive times</p>
+        <ul class="mt-6 divide-y divide-bone/15 border-y border-bone/15">
+          {
+            DRIVE_TIMES.map((d, i) => (
+              <li class="flex items-baseline justify-between gap-6 py-5 reveal" style={`transition-delay: ${i * 50}ms;`}>
+                <span class="font-display text-2xl text-bone md:text-3xl">{d.place}</span>
+                <span class="font-display italic text-sand text-xl md:text-2xl">{fmt(d.minutes)}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a href={withBase("/area")} class="btn btn-ghost mt-10 border-bone/40 text-bone hover:!border-bone hover:!text-bone">
+          Explore the Northern Neck →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

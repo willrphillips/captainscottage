@@ -1,0 +1,35 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Hero from "~/components/Hero.astro";
+import Marquee from "~/components/Marquee.astro";
+import StorySection from "~/components/StorySection.astro";
+import ReviewQuote from "~/components/ReviewQuote.astro";
+import AmenityGrid from "~/components/AmenityGrid.astro";
+import PhotoGallery from "~/components/PhotoGallery.astro";
+import LocationSection from "~/components/LocationSection.astro";
+import JournalPreview from "~/components/JournalPreview.astro";
+import BookingCTA from "~/components/BookingCTA.astro";
+import SchemaVacationRental from "~/components/SchemaVacationRental.astro";
+
+const title = "Captain's Cottage — Waterfront Rental on Hull Creek, Heathsville VA";
+const description =
+  "A waterfront cottage on Virginia's Northern Neck. Private beach, hot tub, cedar sauna, and the quiet water where the Potomac meets the Chesapeake Bay.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={[{ name: "Home", href: "/" }]}
+>
+  <SchemaVacationRental slot="head" images={["/images/hero-cottage-sunset.jpg", "/images/dock-sunset-creek.jpg"]} />
+
+  <Hero />
+  <Marquee />
+  <StorySection />
+  <ReviewQuote />
+  <AmenityGrid />
+  <PhotoGallery />
+  <LocationSection />
+  <JournalPreview />
+  <BookingCTA />
+</BaseLayout>

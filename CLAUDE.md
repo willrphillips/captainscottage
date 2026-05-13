@@ -6,38 +6,53 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `captains_cottage_brief.md` is the source of truth for product, stack, design system, SEO targets, page plan, and the 12-post blog calendar. Read it before non-trivial work. This file summarizes the parts most likely to bite a future session; the brief wins on any conflict.
 
-## Repository status
+## Phase status
 
-Greenfield. Only `README.md`, this file, and the brief exist. There is no `package.json`, no Astro project, no CI workflow yet. The first substantive commit should be the Astro scaffold described in Phase 1 of the brief, after which this file should be updated with real commands and component locations.
+Phase 1 (foundation + home page) is in. Phases 2–6 (blog content, full property page, area/activity guides, polish, direct booking) are still pending. Don't skip ahead.
 
 ## Stack (locked)
 
-- **Astro 5+** static site (near-zero JS by default — non-negotiable for SEO/Core Web Vitals).
-- **MDX** for `src/content/blog/` and `src/content/guides/`, wired through typed content collections (`src/content/config.ts`).
-- **Tailwind v4** with custom color tokens (see below). Don't pull in a component library.
-- **`@fontsource/fraunces` + `@fontsource/inter-tight`** — self-hosted, not Google Fonts CDN.
-- **Astro `<Image>`** for every photo (WebP/AVIF, responsive `srcset`, lazy by default).
-- **Netlify Forms or Formspree** for the contact form. No backend.
-- **Hosting:** GitHub Pages via GitHub Actions deploying the `gh-pages` branch. Cloudflare Pages migration is a later optional step.
+- **Astro 5** static site (near-zero JS by default — non-negotiable for SEO/Core Web Vitals).
+- **MDX** for `src/content/blog/` and `src/content/guides/`, via typed content collections (`src/content/config.ts`). Uses the `glob()` loader.
+- **Tailwind v4** via the `@tailwindcss/vite` plugin and `@import "tailwindcss"` in `src/styles/global.css`. Color/font tokens live in `@theme` in that same file — no `tailwind.config.*` file.
+- **`@fontsource-variable/fraunces` + `@fontsource-variable/inter-tight`** — self-hosted, imported once in `global.css`.
+- **Astro `<Image>` is intentionally _not_ used yet.** The home page uses plain `<img>` against expected slugs in `/public/images/` so the layout renders even before photos arrive. Swap to `<Image>` when real assets are placed in `src/assets/` (typed via `image()` in the content schema for blog heroes).
+- **Plausible** analytics (placeholder `data-domain` in `src/lib/site.ts → SITE.plausibleDomain`).
+- **Hosting:** GitHub Pages via `.github/workflows/deploy.yml` (Actions → upload-pages-artifact → deploy-pages). Triggered on push to `main`.
 
-Bootstrap (Phase 1, once a session is ready to scaffold):
+## Develop
 
 ```bash
-npm create astro@latest .
-npx astro add tailwind mdx sitemap
-npm install @astrojs/rss @fontsource/fraunces @fontsource/inter-tight
+npm install
+npm run dev        # http://localhost:4321/captainscottage
+npm run build      # astro check + static build → ./dist
+npm run preview
 ```
 
-Once scaffolded, standard Astro scripts apply (`npm run dev`, `npm run build`, `npm run preview`). Replace this section with the real commands at that point.
+The `base: "/captainscottage"` setting means every URL is served under `/captainscottage/*` locally and on GH Pages. Internal links go through `withBase()` in `src/lib/site.ts` — never hard-code `/foo`, always `withBase("/foo")`. Canonical/OG URLs go through `absoluteUrl()`; default `pathname` in `BaseLayout` is derived via `stripBase(Astro.url.pathname)` because Astro's `Astro.url.pathname` already includes the base in static builds.
 
-## Layout the brief expects
+## Code layout (as built)
 
-See section 2 of the brief for the full tree. Key conventions:
+- `src/lib/site.ts` — single source of truth for property facts (`PROPERTY`), drive times, standout amenities, headline reviews, nav links, and the `SITE` deployment constants. Every page reads from here. Change a fact in one place, never in markup.
+- `src/styles/global.css` — Tailwind import, fontsource imports, `@theme` tokens, base layer (grain overlay, selection color, heading defaults), and component-layer utilities (`.eyebrow`, `.display-hero`/`-xl`/`-lg`/`-md`, `.lede`, `.body-prose`, `.drop-cap`, `.btn`/`.btn-rust`/`.btn-ghost`, `.container-wide`/`-narrow`, `.section-pad`, `.reveal`). Use these utilities — don't redefine them inline.
+- `src/layouts/BaseLayout.astro` — owns `<head>` (canonical, OG, Twitter, RSS link, sitemap link, Plausible script), the skip link, `<Nav>`/`<Footer>` chrome, and the scroll-reveal `IntersectionObserver`. Exposes a named `head` slot for per-page schema/meta injection. `BlogPost.astro` (Phase 2) will wrap this.
+- `src/components/Schema*.astro` — emit JSON-LD via `<script is:inline type="application/ld+json">`. Pages that render in the head should pass them through the `head` slot of `BaseLayout`. Breadcrumbs are passed as a `breadcrumbs={[...]}` prop on `BaseLayout` and rendered automatically.
+- `src/components/` — section components for the home page (`Hero`, `Marquee`, `StorySection`, `ReviewQuote`, `AmenityGrid`, `PhotoGallery`, `LocationSection`, `JournalPreview`, `BookingCTA`), plus `Nav`, `Footer`, `BlogCard`, and the `ComingSoon` placeholder used by stub pages.
+- `src/pages/` — the home page is real. Every other page (`/the-cottage`, `/amenities`, `/area`, `/activities`, `/journal`, `/faq`) is a `ComingSoon` stub set to `noindex` until its phase fills it in. `/book` redirects to the Airbnb listing (meta-refresh + visible fallback) and stays that way until Phase 6.
+- `src/content/config.ts` — typed `blog` and `guides` collections. The `blog` collection enforces `category: "Lifestyle" | "Travel" | "Real Estate"` to match the brief's content mix.
+- `src/pages/rss.xml.js` + `@astrojs/sitemap` — feed and sitemap auto-generated. The RSS endpoint tolerates an empty `blog` collection (try/catch) so the build doesn't break before posts land.
 
-- `src/pages/area/` and `src/pages/activities/` are flat directories of location/activity pages — each a real 800–1200 word guide, not a stub.
-- `src/pages/journal/[...slug].astro` renders posts from the `blog` collection; `src/pages/journal/index.astro` is the filterable list.
-- `src/layouts/BaseLayout.astro` owns `<head>`, fonts, analytics, and per-page schema injection. `src/layouts/BlogPost.astro` extends it for posts.
-- Schema is a component concern: `src/components/SchemaVacationRental.astro` (and siblings for `FAQPage`, `BlogPosting`, `BreadcrumbList`) emit JSON-LD. Every page gets at least breadcrumbs.
+## Adding a blog post
+
+When Phase 2 begins, create `src/content/blog/<slug>.mdx` with the frontmatter shape in `src/content/config.ts`. The category enum is intentionally narrow — don't widen it without checking the brief's content plan. Add a hero image to `src/assets/blog/` so the schema can type it.
+
+## Image workflow
+
+Photos are wired in via plain `<img>` tags against fixed slugs in `/public/images/` — see `public/images/README.md` for the slot manifest. When real photos arrive:
+
+1. Drop them at the exact slugs in the manifest, or share originals in chat and I'll rename + commit.
+2. For blog post heroes, place under `src/assets/blog/` and import in MDX frontmatter so `image()` in the collection schema typechecks.
+3. Once the hero/gallery photos are real, consider migrating those `<img>` tags to Astro `<Image>` for automatic WebP/AVIF/srcset. Do it when the assets are settled, not before.
 
 ## Design system invariants
 

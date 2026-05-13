@@ -1,0 +1,27 @@
+---
+import { absoluteUrl } from "~/lib/site";
+
+interface Crumb {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+
+const data = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, idx) => ({
+    "@type": "ListItem",
+    position: idx + 1,
+    name: item.name,
+    item: absoluteUrl(item.href),
+  })),
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />

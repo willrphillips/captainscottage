@@ -1,0 +1,23 @@
+---
+import { withBase } from "~/lib/site";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
+const { eyebrow, title, description } = Astro.props;
+---
+
+<section class="section-pad min-h-[80vh]">
+  <div class="container-narrow">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 class="mt-8 font-display display-xl max-w-[18ch]">{title}</h1>
+    <p class="lede mt-8 max-w-xl">{description}</p>
+    <div class="mt-12 flex flex-wrap items-center gap-4">
+      <a href={withBase("/")} class="btn btn-ghost">← Back to the cottage</a>
+      <a href={withBase("/book")} class="btn btn-rust">Stay with us</a>
+    </div>
+  </div>
+</section>

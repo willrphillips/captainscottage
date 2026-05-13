@@ -1,0 +1,39 @@
+---
+import { STANDOUT_AMENITIES, withBase } from "~/lib/site";
+---
+
+<section class="bg-bone section-pad">
+  <div class="container-wide">
+    <div class="grid gap-8 md:grid-cols-12 md:items-end reveal">
+      <header class="md:col-span-7">
+        <p class="eyebrow">Amenities</p>
+        <h2 class="mt-6 font-display display-xl">
+          What you'll find <em>on the water</em>.
+        </h2>
+      </header>
+      <p class="lede md:col-span-4 md:col-start-9">
+        Eighty amenities in total; these are the ones our guests write home about. The full list lives on the amenities page.
+      </p>
+    </div>
+
+    <ol class="mt-16 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule md:grid-cols-3">
+      {
+        STANDOUT_AMENITIES.map((a, i) => (
+          <li class="group flex flex-col bg-bone p-8 transition-colors duration-300 hover:bg-bone-deep reveal" style={`transition-delay: ${i * 60}ms;`}>
+            <span class="font-display text-xl text-rust">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <h3 class="mt-6 font-display text-2xl md:text-[28px]">{a.title}</h3>
+            <p class="body-prose mt-4 text-base">{a.detail}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="mt-12 flex justify-end">
+      <a href={withBase("/amenities")} class="btn btn-ghost">
+        Full amenity list →
+      </a>
+    </div>
+  </div>
+</section>

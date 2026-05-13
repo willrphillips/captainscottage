@@ -1,0 +1,29 @@
+# Image manifest
+
+The home page is wired to these exact filenames in `/public/images/`. Drop in the highest-quality originals you have (JPEG or PNG, 2400px on the long edge is plenty — Astro's `<Image>` component will generate the responsive WebP/AVIF derivatives at build time).
+
+When you bulk-upload photos, share them in chat and I'll match each to a slot below and rename accordingly. If you'd rather place them yourself, keep the slugs identical — every `<img>` on the home page references these paths.
+
+## Slots used on the home page
+
+| Filename | Slot | Ideal shot |
+|---|---|---|
+| `hero-cottage-sunset.jpg` | Hero, full-bleed | Cottage exterior or dock at sunset, landscape ~16:9. The most evocative single image you have. |
+| `dock-sunset-creek.jpg` | Gallery + schema | Private dock, water, ideally with golden west-facing light. Portrait 4:5 works best. |
+| `cottage-exterior-creek.jpg` | Gallery, large left tile | Wide exterior of the cottage with creek visible. Landscape ~4:3. |
+| `sauna-cedar-window.jpg` | Gallery | Cedar sauna interior, window onto the creek. Landscape ~4:3. |
+| `screened-porch-dining.jpg` | Gallery | Screened dining porch set, water view. Landscape ~3:2. |
+| `hot-tub-deck.jpg` | Gallery | Hot tub on the deck, ideally with sunset light. Landscape ~3:2. |
+| `master-bedroom.jpg` | Gallery | Master bedroom, light from the bay window. Landscape ~3:2. |
+| `private-beach-shallow.jpg` | Gallery | The private beach — sand, shallow water, ideally a kid playing or quiet morning. Portrait 4:5. |
+| `og-default.jpg` | OpenGraph + Twitter cards | The single best image for social shares. 1200×630, landscape. Often the same as the hero. |
+
+## Conventions
+
+- **No `IMG_xxxx.jpg`** — descriptive, hyphenated, lowercased filenames. SEO requirement from the brief, §4.
+- **Alt text** lives in `src/components/PhotoGallery.astro` and `src/components/Hero.astro`. Tune them when the real photos land.
+- **Don't commit the heaviest originals** if they're > 5MB each — resize down to ~2400px long edge first; Astro generates responsive variants from there.
+
+## Behavior with missing images
+
+Until the files are present, the home page falls back to gradient placeholders (sand → bone) so the layout reads correctly during development. The hero section has a navy/sage gradient fallback so the headline is always visible.

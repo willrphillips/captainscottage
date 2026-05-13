@@ -1,0 +1,17 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import ComingSoon from "~/components/ComingSoon.astro";
+---
+
+<BaseLayout
+  title="Things to Do — Crabbing, Kayak Fishing & Birding on Hull Creek"
+  description="Activity guides from Captain's Cottage on Hull Creek: crabbing the Potomac, kayak fishing for striped bass, birding the Northern Neck."
+  noindex
+  breadcrumbs={[{ name: "Home", href: "/" }, { name: "Activities", href: "/activities" }]}
+>
+  <ComingSoon
+    eyebrow="On the water"
+    title="Activity guides are coming."
+    description="Crabbing, kayak fishing for stripers, birding the marsh, and where to launch. Real long-form guides, written by hand."
+  />
+</BaseLayout>

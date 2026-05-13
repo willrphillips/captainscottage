@@ -1,0 +1,54 @@
+---
+import { NAV_LINKS, PROPERTY, withBase } from "~/lib/site";
+
+const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<header class="absolute inset-x-0 top-0 z-40">
+  <div class="container-wide flex items-center justify-between py-6 md:py-8">
+    <a href={withBase("/")} class="font-display text-xl tracking-tight md:text-2xl">
+      {PROPERTY.shortName}
+    </a>
+
+    <nav aria-label="Primary" class="hidden items-center gap-8 md:flex">
+      {
+        NAV_LINKS.map((link) => {
+          const href = withBase(link.href);
+          const active = current.startsWith(link.href);
+          return (
+            <a
+              href={href}
+              class:list={["text-sm tracking-wide text-ink-soft", active && "text-ink"]}
+            >
+              {link.label}
+            </a>
+          );
+        })
+      }
+    </nav>
+
+    <a href={withBase("/book")} class="btn btn-ghost hidden md:inline-flex">
+      Stay with us
+    </a>
+
+    <details class="md:hidden">
+      <summary class="list-none cursor-pointer text-sm uppercase tracking-[0.18em] text-ink-soft">
+        Menu
+      </summary>
+      <div class="absolute left-0 right-0 top-full bg-bone border-y border-rule">
+        <nav aria-label="Mobile" class="container-wide flex flex-col gap-4 py-6">
+          {
+            NAV_LINKS.map((link) => (
+              <a href={withBase(link.href)} class="text-base text-ink-soft">
+                {link.label}
+              </a>
+            ))
+          }
+          <a href={withBase("/book")} class="btn btn-rust self-start">
+            Stay with us
+          </a>
+        </nav>
+      </div>
+    </details>
+  </div>
+</header>
