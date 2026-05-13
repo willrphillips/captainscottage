@@ -1,0 +1,100 @@
+---
+import "~/styles/global.css";
+import Nav from "~/components/Nav.astro";
+import Footer from "~/components/Footer.astro";
+import SchemaBreadcrumb from "~/components/SchemaBreadcrumb.astro";
+import { PROPERTY, SITE, absoluteUrl, stripBase } from "~/lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+  /** A clean path *without* the GH Pages base prefix (e.g. "/", "/the-cottage"). */
+  pathname?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  breadcrumbs?: { name: string; href: string }[];
+}
+
+const {
+  title,
+  description,
+  pathname = stripBase(Astro.url.pathname),
+  ogImage = SITE.defaultOgImage,
+  noindex = false,
+  breadcrumbs,
+} = Astro.props;
+
+const canonical = absoluteUrl(pathname);
+const ogImageUrl = ogImage.startsWith("http") ? ogImage : absoluteUrl(ogImage);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#f4eee3" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={PROPERTY.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${PROPERTY.name} Journal`} href={absoluteUrl("/rss.xml")} />
+    <link rel="sitemap" type="application/xml" href={absoluteUrl("/sitemap-index.xml")} />
+
+    {/* Plausible — privacy-first analytics. data-domain set in src/lib/site.ts */}
+    <script is:inline defer data-domain={SITE.plausibleDomain} src="https://plausible.io/js/script.js"></script>
+
+    {breadcrumbs && breadcrumbs.length > 0 && <SchemaBreadcrumb items={breadcrumbs} />}
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-bone">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script is:inline>
+      // Scroll-reveal: 40px translate, 1s ease, per design system.
+      (function () {
+        if (typeof window === "undefined") return;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const els = document.querySelectorAll(".reveal");
+        if (reduce || !("IntersectionObserver" in window)) {
+          els.forEach((el) => el.classList.add("is-in"));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-in");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -80px 0px" }
+        );
+        els.forEach((el) => io.observe(el));
+      })();
+    </script>
+  </body>
+</html>

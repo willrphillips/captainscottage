@@ -1,0 +1,17 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import ComingSoon from "~/components/ComingSoon.astro";
+---
+
+<BaseLayout
+  title="The Northern Neck of Virginia — Travel Guide from Captain's Cottage"
+  description="An overview of Virginia's Northern Neck — Heathsville, Reedville, Kilmarnock, Irvington, Warsaw — from the people who host on Hull Creek."
+  noindex
+  breadcrumbs={[{ name: "Home", href: "/" }, { name: "Area", href: "/area" }]}
+>
+  <ComingSoon
+    eyebrow="The Northern Neck"
+    title="Town guides are being written."
+    description="Heathsville, Reedville, Kilmarnock, Irvington, Warsaw — each town gets a real guide, not a stub. Coming in Phase 4."
+  />
+</BaseLayout>

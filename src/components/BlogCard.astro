@@ -1,0 +1,46 @@
+---
+import { withBase } from "~/lib/site";
+
+interface Props {
+  title: string;
+  excerpt: string;
+  category: "Lifestyle" | "Travel" | "Real Estate";
+  href: string;
+  publishedAt?: Date;
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+const { title, excerpt, category, href, publishedAt, imageSrc, imageAlt } = Astro.props;
+
+const dateLabel = publishedAt
+  ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(publishedAt)
+  : "";
+---
+
+<article class="group flex flex-col">
+  <a href={withBase(href)} class="block overflow-hidden bg-bone-deep">
+    <div class="aspect-[4/5] w-full">
+      {
+        imageSrc ? (
+          <img
+            src={withBase(imageSrc)}
+            alt={imageAlt ?? title}
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          />
+        ) : (
+          <div class="h-full w-full" style="background: linear-gradient(135deg, #d9c9a8 0%, #ebe2d1 60%, #b8552e22 100%);" />
+        )
+      }
+    </div>
+  </a>
+  <div class="mt-6">
+    <p class="eyebrow">{category}{dateLabel && ` · ${dateLabel}`}</p>
+    <h3 class="mt-4 font-display display-md leading-[1.1]">
+      <a href={withBase(href)} class="hover:text-rust">{title}</a>
+    </h3>
+    <p class="body-prose mt-3 text-base">{excerpt}</p>
+  </div>
+</article>

@@ -1,0 +1,27 @@
+---
+import { PROPERTY, withBase } from "~/lib/site";
+---
+
+<section class="bg-bone-deep section-pad">
+  <div class="container-wide">
+    <div class="grid gap-12 md:grid-cols-12 md:items-end">
+      <div class="md:col-span-9 reveal">
+        <p class="eyebrow">Stay with us</p>
+        <h2 class="mt-8 font-display display-hero max-w-[14ch]">
+          The water <em>is waiting</em>.
+        </h2>
+      </div>
+      <div class="md:col-span-3 reveal" style="transition-delay: 160ms;">
+        <p class="body-prose">
+          Book through our Airbnb listing today. Direct booking is coming — drop your email on the contact page and we'll let you know when it opens.
+        </p>
+        <div class="mt-8 flex flex-col gap-3">
+          <a href={withBase("/book")} class="btn btn-rust">Check availability →</a>
+          <a href={PROPERTY.airbnbUrl} rel="noopener noreferrer" target="_blank" class="btn btn-ghost">
+            View on Airbnb
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

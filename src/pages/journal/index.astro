@@ -1,0 +1,17 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import ComingSoon from "~/components/ComingSoon.astro";
+---
+
+<BaseLayout
+  title="The Journal — Notes from the Northern Neck"
+  description="Lifestyle, travel, and real estate notes from Captain's Cottage on Virginia's Northern Neck."
+  noindex
+  breadcrumbs={[{ name: "Home", href: "/" }, { name: "Journal", href: "/journal" }]}
+>
+  <ComingSoon
+    eyebrow="The journal"
+    title="The first posts go live in Phase 2."
+    description="Twelve essays to start: lifestyle, travel, and Northern Neck real estate. RSS feed is already wired."
+  />
+</BaseLayout>

@@ -1,0 +1,41 @@
+---
+const items = [
+  "private beach",
+  "cedar sauna",
+  "hot tub",
+  "4.92 stars",
+  "9 years hosting",
+  "superhost",
+  "private dock",
+  "two screened porches",
+];
+const doubled = [...items, ...items];
+---
+
+<section class="border-y border-rule bg-bone-deep py-6 overflow-hidden">
+  <div class="flex animate-marquee whitespace-nowrap will-change-transform">
+    {
+      doubled.map((label) => (
+        <span class="mx-8 inline-flex items-center gap-8 font-display text-2xl md:text-3xl">
+          <em class="italic text-rust">{label}</em>
+          <span aria-hidden="true" class="text-ink-soft/50">·</span>
+        </span>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  @keyframes captains-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: captains-marquee 42s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation: none;
+    }
+  }
+</style>

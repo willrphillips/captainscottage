@@ -1,0 +1,23 @@
+---
+import { HEADLINE_REVIEWS, PROPERTY } from "~/lib/site";
+---
+
+<section class="bg-navy text-bone section-pad">
+  <div class="container-narrow">
+    <p class="eyebrow text-sand reveal">{PROPERTY.rating} ★ · {PROPERTY.reviewCount} guest reviews</p>
+    <ol class="mt-12 space-y-20">
+      {
+        HEADLINE_REVIEWS.map((r, i) => (
+          <li class="reveal" style={`transition-delay: ${i * 120}ms;`}>
+            <p class="font-display italic display-lg text-bone leading-[1.15]">
+              <span class="text-sand">&ldquo;</span>{r.quote}<span class="text-sand">&rdquo;</span>
+            </p>
+            <p class="mt-6 text-sm uppercase tracking-[0.18em] text-bone/65">
+              {r.author}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

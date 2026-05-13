@@ -1,0 +1,26 @@
+{
+  "name": "captainscottage",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.3.6",
+    "@astrojs/rss": "^4.0.13",
+    "@astrojs/sitemap": "^3.6.0",
+    "@fontsource-variable/fraunces": "^5.2.9",
+    "@fontsource-variable/inter-tight": "^5.2.7",
+    "@tailwindcss/vite": "^4.1.16",
+    "astro": "^5.18.1",
+    "sharp": "^0.34.4",
+    "tailwindcss": "^4.1.16",
+    "typescript": "^5.9.3"
+  }
+}

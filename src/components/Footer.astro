@@ -1,0 +1,56 @@
+---
+import { NAV_LINKS, PROPERTY, withBase } from "~/lib/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-navy text-bone">
+  <div class="container-wide py-20 md:py-28">
+    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <p class="eyebrow text-sand">The Northern Neck · Virginia</p>
+        <p class="mt-6 font-display text-4xl leading-[1.05] md:text-5xl">
+          Stay with us. <em>The water is waiting.</em>
+        </p>
+        <a href={withBase("/book")} class="btn btn-rust mt-10">
+          Check availability
+        </a>
+      </div>
+
+      <div>
+        <p class="eyebrow text-sand">Explore</p>
+        <ul class="mt-6 space-y-3 text-sm">
+          {
+            NAV_LINKS.map((link) => (
+              <li>
+                <a href={withBase(link.href)} class="text-bone/85 hover:text-bone">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="text-sm text-bone/80">
+        <p class="eyebrow text-sand">{PROPERTY.name}</p>
+        <p class="mt-6">{PROPERTY.city}, {PROPERTY.region} {PROPERTY.postalCode}</p>
+        <p>On {PROPERTY.waterway}, off the Potomac.</p>
+        <p class="mt-4">
+          <a href={`mailto:${PROPERTY.email}`} class="text-bone hover:text-rust">
+            {PROPERTY.email}
+          </a>
+        </p>
+        <p class="mt-4">
+          <a href={PROPERTY.airbnbUrl} rel="noopener noreferrer" target="_blank" class="text-bone hover:text-rust">
+            Airbnb listing →
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-16 flex flex-col gap-2 border-t border-bone/15 pt-8 text-xs text-bone/55 md:flex-row md:items-center md:justify-between">
+      <p>© {year} {PROPERTY.owner}. All rights reserved.</p>
+      <p>Hosted on the Northern Neck since {2026 - PROPERTY.superhostYears}.</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,17 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import ComingSoon from "~/components/ComingSoon.astro";
+---
+
+<BaseLayout
+  title="The Cottage — 3 Bedrooms, Private Beach, Sauna & Hot Tub on Hull Creek"
+  description="A full tour of Captain's Cottage on Hull Creek in Heathsville, Virginia: every room, every amenity, the floor plan, and the photo gallery."
+  noindex
+  breadcrumbs={[{ name: "Home", href: "/" }, { name: "The cottage", href: "/the-cottage" }]}
+>
+  <ComingSoon
+    eyebrow="The cottage"
+    title="The full tour is coming."
+    description="We're writing the long-form tour of every room, porch, and corner of the cottage. In the meantime, the home page has the highlights and the Airbnb listing has all 40+ photos."
+  />
+</BaseLayout>

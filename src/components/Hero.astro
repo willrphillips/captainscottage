@@ -1,0 +1,67 @@
+---
+import { PROPERTY, withBase } from "~/lib/site";
+
+interface Props {
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+const {
+  imageSrc = "/images/hero-porch-creek.jpg",
+  imageAlt = "The rattan-furnished screened porch at Captain's Cottage looking out over Hull Creek — cedar-framed screens, ceiling fans, and water beyond in Heathsville, Virginia.",
+} = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-navy text-bone">
+  <div class="absolute inset-0">
+    {/* Placeholder gradient until /public/images/hero-cottage-sunset.jpg lands. Both render via the same <picture> element so the slot is honest. */}
+    <picture>
+      <img
+        src={withBase(imageSrc)}
+        alt={imageAlt}
+        class="h-full w-full object-cover"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        onerror="this.style.display='none'"
+      />
+    </picture>
+    <div
+      aria-hidden="true"
+      class="absolute inset-0"
+      style="background: radial-gradient(120% 70% at 80% 20%, rgba(22,40,61,0.0) 0%, rgba(22,40,61,0.35) 55%, rgba(22,40,61,0.85) 100%), linear-gradient(180deg, rgba(22,40,61,0.55) 0%, rgba(22,40,61,0.15) 40%, rgba(22,40,61,0.8) 100%);"
+    >
+    </div>
+    {/* Texture fallback while images are missing */}
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 -z-10"
+      style="background: linear-gradient(135deg, #16283d 0%, #2d3a47 50%, #5a6a52 100%);"
+    >
+    </div>
+  </div>
+
+  <div class="container-wide relative z-10 pb-20 pt-40 md:pb-28 md:pt-48">
+    <p class="eyebrow text-sand reveal">Captain's Cottage · Heathsville, Virginia</p>
+    <h1 class="mt-8 font-display display-hero text-bone max-w-[18ch] reveal" style="transition-delay: 120ms;">
+      A waterfront retreat where the <em>Potomac</em> meets the <em>Bay</em>.
+    </h1>
+    <div class="mt-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between reveal" style="transition-delay: 220ms;">
+      <p class="lede max-w-md text-bone/85">
+        Three bedrooms, a cedar sauna, a private beach, and a dock that catches sunset gold every evening on Hull Creek.
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <a href={withBase("/book")} class="btn btn-rust">Stay with us →</a>
+        <a href={withBase("/the-cottage")} class="btn btn-ghost border-bone/40 text-bone hover:!border-bone hover:!text-bone">
+          Tour the cottage
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-wide relative z-10 flex items-end justify-between border-t border-bone/15 pb-8 pt-6 text-xs uppercase tracking-[0.18em] text-bone/65">
+    <span>{PROPERTY.rating} ★ · {PROPERTY.reviewCount} reviews</span>
+    <span class="hidden md:inline">Superhost · {PROPERTY.superhostYears} years</span>
+    <span>Top 5% of homes</span>
+  </div>
+</section>
