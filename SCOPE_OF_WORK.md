@@ -2,6 +2,8 @@
 
 **Living document.** Last updated: 2026-05-15. Owner: Will Phillips.
 
+**Status:** This SOW is committed on branch `docs/scope-of-work` and open as PR #2 (doc-only, awaiting merge). No workstream code started yet. Resume point: **Workstream A — blog system**.
+
 This tracks the marketing site **and** the AI content-agent pipeline layered on top of it.
 `captains_cottage_brief.md` remains the product/SEO source of truth; `CLAUDE.md` is the build-rules summary. This file is the project tracker and the spec for the content-automation workstream, which did not exist in the original brief.
 
@@ -125,3 +127,7 @@ Phasing is locked in `CLAUDE.md`/brief §10 — do not jump ahead.
 ## 9. Immediate next step
 
 Build Workstream A (blog system). Everything else depends on a post being able to render.
+
+## 10. Status log
+
+- **2026-05-15** — SOW authored, committed (`docs/scope-of-work`), pushed, opened as PR #2. 4 decisions locked (§2). Paused before Workstream A. Nothing else started.
