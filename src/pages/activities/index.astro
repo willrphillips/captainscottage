@@ -1,17 +1,181 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import ComingSoon from "~/components/ComingSoon.astro";
+import { GUIDEBOOK } from "~/lib/guidebook";
+import { TRAVELER_ADVICE } from "~/lib/guidebook";
+import { STANDOUT_AMENITIES, withBase } from "~/lib/site";
+
+const title = "Things to Do on Virginia's Northern Neck — From Hull Creek";
+const description =
+  "Things to do around Captain's Cottage: crabbing and kayaking from the dock, go-karts, a fishermen's museum, kayak rentals, and local fishing-tour guides on the Northern Neck.";
+
+const onProperty = STANDOUT_AMENITIES.filter((a) =>
+  ["Dock & crab pots", "Move when you want", "Cedar sauna"].includes(a.title)
+);
+
+const offProperty = [
+  {
+    key: "Entertainment" as const,
+    eyebrow: "For the whole family",
+    heading: "Out and about",
+  },
+  {
+    key: "Watercraft" as const,
+    eyebrow: "More boats",
+    heading: "Rentals on the water",
+  },
+  {
+    key: "Sightseeing" as const,
+    eyebrow: "Working water",
+    heading: "Local history",
+  },
+];
+
+const offPropertyPlaces = offProperty.flatMap((s) =>
+  GUIDEBOOK.filter((p) => p.category === s.key)
+);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Things to do on the Northern Neck of Virginia",
+  itemListElement: [
+    ...onProperty.map((a) => ({ name: a.title, description: a.detail })),
+    ...offPropertyPlaces.map((p) => ({ name: p.name, description: p.note })),
+  ].map((item, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: item.name,
+    description: item.description,
+  })),
+};
 ---
 
 <BaseLayout
-  title="Things to Do — Crabbing, Kayak Fishing & Birding on Hull Creek"
-  description="Activity guides from Captain's Cottage on Hull Creek: crabbing the Potomac, kayak fishing for striped bass, birding the Northern Neck."
-  noindex
+  title={title}
+  description={description}
   breadcrumbs={[{ name: "Home", href: "/" }, { name: "Activities", href: "/activities" }]}
 >
-  <ComingSoon
-    eyebrow="On the water"
-    title="Activity guides are coming."
-    description="Crabbing, kayak fishing for stripers, birding the marsh, and where to launch. Real long-form guides, written by hand."
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(schema)}
+    slot="head"
   />
+
+  <section class="section-pad pt-40 md:pt-48">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-end">
+        <header class="md:col-span-7 reveal">
+          <p class="eyebrow">On the water & beyond</p>
+          <h1 class="mt-6 font-display display-xl">
+            Things to do on the <em>Northern Neck</em>.
+          </h1>
+        </header>
+        <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
+          Most days, the dock is the whole itinerary. When you want more, the rest of the peninsula is a short drive — go-karts to a fishermen's museum to a kayak you didn't have to pack.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-8 md:grid-cols-12 md:items-end reveal">
+        <header class="md:col-span-7">
+          <p class="eyebrow">Without leaving</p>
+          <h2 class="mt-6 font-display display-lg">From the dock</h2>
+        </header>
+        <p class="lede md:col-span-4 md:col-start-9">
+          The reason most guests never quite make it into town.
+        </p>
+      </div>
+
+      <ol class="mt-12 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule md:grid-cols-3">
+        {
+          onProperty.map((a, i) => (
+            <li
+              class="flex flex-col bg-bone p-8 reveal"
+              style={`transition-delay: ${i * 60}ms;`}
+            >
+              <h3 class="font-display text-2xl md:text-[28px]">{a.title}</h3>
+              <p class="body-prose mt-4 text-base">{a.detail}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {
+    offProperty.map((s) => {
+      const places = GUIDEBOOK.filter((p) => p.category === s.key);
+      return (
+        <section class="section-pad pt-0">
+          <div class="container-wide">
+            <div class="reveal">
+              <p class="eyebrow">{s.eyebrow}</p>
+              <h2 class="mt-6 font-display display-lg">{s.heading}</h2>
+            </div>
+
+            <ol class="mt-12 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule md:grid-cols-2">
+              {places.map((p, i) => (
+                <li
+                  class="flex flex-col bg-bone p-8 reveal"
+                  style={`transition-delay: ${i * 50}ms;`}
+                >
+                  <div class="flex items-baseline justify-between gap-4">
+                    <h3 class="font-display text-2xl md:text-[28px]">{p.name}</h3>
+                    {p.town && <span class="eyebrow shrink-0">{p.town}</span>}
+                  </div>
+                  <p class="body-prose mt-4 text-base">{p.note}</p>
+                  {p.locals && (
+                    <p class="mt-5 text-sm tracking-wide text-ink-soft/70">
+                      {p.locals} locals recommend
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <section class="bg-bone-deep section-pad">
+    <div class="container-wide">
+      <div class="reveal">
+        <p class="eyebrow">Before you go</p>
+        <h2 class="mt-6 font-display display-lg">Good to know</h2>
+      </div>
+      <div class="mt-12 grid gap-12 md:grid-cols-2">
+        {
+          TRAVELER_ADVICE.map((t, i) => (
+            <div class="reveal" style={`transition-delay: ${i * 80}ms;`}>
+              <h3 class="font-display text-2xl md:text-[28px]">{t.title}</h3>
+              <p class="body-prose mt-4 text-base">{t.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-navy text-bone section-pad">
+    <div class="container-narrow text-center reveal">
+      <p class="eyebrow text-sand">When you're ready</p>
+      <h2 class="mt-6 font-display display-lg text-bone">
+        Pick a weekend. We'll have the <em>sauna</em> warm.
+      </h2>
+      <div class="mt-12 flex flex-wrap justify-center gap-4">
+        <a
+          href={withBase("/area")}
+          class="btn btn-ghost border-bone/40 text-bone hover:!border-bone hover:!text-bone"
+        >
+          ← The area guide
+        </a>
+        <a href={withBase("/book")} class="btn btn-rust">Stay with us</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

@@ -39,14 +39,14 @@ export const DRIVE_TIMES: { place: string; minutes: number }[] = [
 ];
 
 export const STANDOUT_AMENITIES: { title: string; detail: string }[] = [
-  { title: "Private beach", detail: "Brackish, shallow, mostly fresh. Good for kids and quiet mornings." },
+  { title: "Waterfront & water access", detail: "Brackish, shallow, mostly fresh. The sand shifts with every passing season — sometimes a wide private beach, sometimes a small one, but it's always ready for wading." },
   { title: "Cedar sauna", detail: "West-facing window onto the creek. Heat, then cold plunge from the dock." },
   { title: "Hot tub", detail: "On the deck, lit by sunset. Open year-round." },
   { title: "Two screened porches", detail: "Sleeping porch off the back, dining porch over the water." },
   { title: "Dock & crab pots", detail: "Crabbing gear included. Run lines from the dock, pull at dawn." },
   { title: "West-facing sunsets", detail: "The creek lights up gold every evening from May to September." },
   { title: "Dedicated workspace", detail: "103 Mbps Wi-Fi and a quiet desk in the master." },
-  { title: "Kid-ready", detail: "High chair, pack-n-play, removable bed guard. Tides shallow at the beach." },
+  { title: "Kid-ready", detail: "High chair, pack-n-play, removable bed guard. Tides shallow at the water's edge." },
   { title: "Move when you want", detail: "Yoga mats, kettlebells, two kayaks, a paddleboard." },
 ];
 

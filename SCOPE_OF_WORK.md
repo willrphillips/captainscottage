@@ -36,7 +36,8 @@ Weights are judgment estimates of build effort, not equal phases. Confidence: mo
 | Decision | Choice |
 |---|---|
 | Automation level | **Hybrid** — agents auto-draft on a schedule; nothing publishes without approval. |
-| Review surface | **GitHub PR + deployed preview.** Reuses existing GH Pages deploy. No new infra. |
+| Review surface | **Git-based CMS at `/admin`** (Decap or Sveltia), scoped to the blog (`src/content/blog/`). Open from any browser/phone, GitHub-account login, editorial draft→review→publish workflow, commits to the repo. Supersedes the earlier "GitHub PR + preview" choice (owner decision, 2026-05-15). |
+| Scheduled publish mechanism | Each post carries a `publishedAt` date and stays draft until then; a **weekly GitHub Actions cron** rebuilds the site so date-due posts go live (static sites don't self-release without a rebuild trigger). Batch-approve N posts, each releases on its own date (e.g. successive Wednesdays). |
 | Approval gate | **Always gated.** Will can **bulk-approve in batches**, then posts **auto-publish on an agreed date**. |
 | Build order | **Blog system first**, then agent pipeline. |
 | Categories | Locked enum: `Lifestyle | Travel | Real Estate`. Health/amenity/culture angles map into Lifestyle/Travel. No schema change. |
@@ -70,7 +71,7 @@ Claude Code subagents in `.claude/agents/`. Pipeline: **Editor → Researcher �
 - [ ] **Researcher agent** — gathers verifiable facts (tide/jellyfish data, sauna/cold-plunge health literature, Reedville/Irvington specifics, property facts from brief §7). Outputs a per-article research brief. No invented stats.
 - [ ] **Writer agent** — drafts `src/content/blog/<slug>.mdx`, `draft: true`, 800–1500 words, brief voice ("editorial-coastal," Will's first person where specified), ≥2 internal links, 1 booking CTA.
 - [ ] **SEO editor agent** — validates against `CLAUDE.md` checklist: title 50–60 chars, meta 140–160, single keyworded H1, schema, internal links, alt text, word count. Returns pass/fail + concrete fixes; loops back to Writer until pass.
-- [ ] Agent runtime decision — Claude Code **routine** (`/schedule`) vs GitHub Actions cron. Static site cannot self-run; the orchestration brain lives outside it.
+- [ ] Agent runtime — drafting chain runs as a Claude Code **routine** (`/schedule`); a separate **weekly GitHub Actions cron** rebuilds the site to release date-due posts. Static site cannot self-run; the orchestration brain lives outside it.
 - [ ] Orchestration command/routine that runs the full chain for the next N calendar slots.
 
 **Done when:** one command/routine produces a SEO-passing `draft:true` MDX post from a calendar slot with zero hand-editing.
@@ -79,16 +80,16 @@ Claude Code subagents in `.claude/agents/`. Pipeline: **Editor → Researcher �
 
 ## 5. Workstream C — Review, batch approval, scheduled publish (new)
 
-Implements the locked review model: GitHub PR + preview, batch approve, auto-publish on date.
+Implements the locked review model: **Git-based CMS at `/admin`**, batch approve, auto-publish on date. (Supersedes the earlier GitHub-PR review model.)
 
-- [ ] Each drafted post (or a batch) → its own branch + Pull Request.
-- [ ] PR carries a **deployed preview link** (preview build of the rendered post).
-- [ ] Will reviews on GitHub: comment = feedback (routes back to Writer agent), approve = accept.
-- [ ] **Batch approval:** approve several PRs/posts at once; approved posts get a confirmed `publishedAt` date in the calendar but stay `draft:true` until then.
-- [ ] **Scheduled publisher** — a dated job that flips `draft:false` and merges/deploys on the agreed date. Nothing live before its date or without approval.
-- [ ] Feedback loop: a commented PR re-enters the Writer/SEO agents and updates the same PR.
+- [ ] Decap or Sveltia CMS mounted at `/admin`, scoped to the `blog` collection. Editorial workflow enabled (draft → in review → ready).
+- [ ] GitHub-backend auth: GitHub OAuth via a small OAuth proxy (e.g. a free Cloudflare/Netlify function). No new user system — Will logs in with his GitHub account.
+- [ ] Agents write draft posts (`draft:true`) into `src/content/blog/`; they surface in the CMS "in review" column.
+- [ ] **Batch approval:** Will approves several drafts in one sitting from any browser/phone. Each gets a confirmed `publishedAt` date (e.g. successive Wednesdays); posts stay draft/date-gated until then.
+- [ ] **Scheduled publisher:** a weekly GitHub Actions cron rebuilds the site so any post whose `publishedAt` ≤ today goes live. Nothing live before its date or without approval.
+- [ ] Feedback loop: a CMS rejection/comment routes the post back to the Writer/SEO agents, which update the same file.
 
-**Done when:** Will can bulk-approve a batch in one sitting and each post goes live on its own scheduled date with no further action.
+**Done when:** Will can bulk-approve a batch in the `/admin` portal from anywhere in one sitting, and each post auto-publishes on its own scheduled date via the weekly cron with no further action.
 
 ---
 
@@ -131,3 +132,8 @@ Build Workstream A (blog system). Everything else depends on a post being able t
 ## 10. Status log
 
 - **2026-05-15** — SOW authored, committed (`docs/scope-of-work`), pushed, opened as PR #2. 4 decisions locked (§2). Paused before Workstream A. Nothing else started.
+- **2026-05-15** — "private beach" language replaced site-wide with "waterfront"/"water access"; seasonal sand note added to the waterfront amenity. Translucent nav banner added for hero legibility.
+- **2026-05-15** — Host Airbnb guidebook (3989357) transcribed into `src/lib/guidebook.ts` (18 places + traveler advice), typed and staged for the Phase 4 `/area` + `/activities` pages and Phase 2 travel posts.
+- **2026-05-15** — **Owner-authorized phasing override:** built real, indexed `/area` and `/activities` pages from `guidebook.ts` ahead of Phase 4. SEO + ItemList/BreadcrumbList schema in place. Recorded in `CLAUDE.md`. One-time exception, not a precedent. `/faq`, `/the-cottage`, `/amenities` still stubs; blog system (Workstream A) still next.
+- **2026-05-15** — Closed businesses removed from `guidebook.ts` (The Crazy Crab, NN Burger); dependent Reedville Market note rewritten. Empty `BlogCard` image placeholders removed (text-only when no image).
+- **2026-05-15** — **Decision change:** review surface is now a Git-based CMS at `/admin` (Decap/Sveltia), scoped to the blog, superseding GitHub-PR review. Scheduled publish = `publishedAt` date + weekly GitHub Actions rebuild cron. Cross-project agent concepts captured in the new global handbook `~/.claude/HANDBOOK.md`.
