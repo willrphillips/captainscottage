@@ -1,6 +1,6 @@
 {
   "projectId": "captainscottage",
-  "updatedAt": "2026-05-16T00:40:00.000Z",
+  "updatedAt": "2026-05-16T02:10:00.000Z",
   "nodes": {
     "site-foundation": {
       "status": "active",
@@ -26,6 +26,43 @@
       "status": "active",
       "lastRun": "2026-05-15",
       "note": "Built: 'The Art of the Slow Weekend' — builds clean, in RSS + sitemap, SEO checklist met. Workstream A done."
+    },
+    "calendar": {
+      "status": "idle",
+      "lastRun": "2026-05-15",
+      "note": "Built: content/content-calendar.json seeded with brief's 12 posts + 2 amenity-health/culture entries; human gate encoded. Not yet driving an automated run."
+    },
+    "editor": {
+      "status": "idle",
+      "lastRun": "2026-05-15",
+      "note": "Built: .claude/agents/blog-editor.md. Owns the calendar; never approves/publishes. Not yet run."
+    },
+    "researcher": {
+      "status": "idle",
+      "lastRun": "2026-05-15",
+      "note": "Built: .claude/agents/blog-researcher.md. Verifiable facts only, emits content/research/<slug>.md. Not yet run."
+    },
+    "writer": {
+      "status": "idle",
+      "lastRun": "2026-05-15",
+      "note": "Built: .claude/agents/blog-writer.md. Drafts draft:true MDX from the brief. Not yet run."
+    },
+    "seo-editor": {
+      "status": "idle",
+      "lastRun": "2026-05-15",
+      "note": "Built: .claude/agents/blog-seo-editor.md. Validates vs CLAUDE.md checklist + build, loops to writer. Not yet run."
+    },
+    "approve": {
+      "status": "planned",
+      "note": "Human gate. Will batch-approves in the /admin CMS (Workstream C). Not built."
+    },
+    "pr-preview": {
+      "status": "planned",
+      "note": "DIVERGENCE: locked decision changed review surface to a Git CMS at /admin (not PR previews). This node id needs renaming in the Codex-root structure file (living-flowcharts/data/projects/captainscottage.json). Tracked as an OPEN ITEM in SCOPE_OF_WORK.md."
+    },
+    "scheduled-publish": {
+      "status": "planned",
+      "note": "Weekly GitHub Actions cron rebuild + publishDate gate. Not built (Workstream C)."
     }
   }
 }

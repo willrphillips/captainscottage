@@ -1,0 +1,153 @@
+{
+  "_comment": "Master content calendar. The Editor agent owns this file. Status flow: idea -> researched -> drafted -> in-review -> approved -> scheduled -> published. HUMAN GATE: a post may not move past 'in-review' to 'approved' without Will's explicit approval, and may not be 'scheduled'/'published' unless it is 'approved'. publishDate is the intended live date; the post stays draft:true until it is BOTH approved AND its publishDate has arrived (enforced by the weekly rebuild cron + a date check). Agents never set status to 'approved' or 'published' themselves.",
+  "projectId": "captainscottage",
+  "updatedAt": "2026-05-15",
+  "cadence": "weekly, Wednesdays",
+  "gate": {
+    "humanApprovalRequired": true,
+    "approver": "Will Phillips",
+    "rule": "No transition into 'approved' or 'published' by any agent. Will approves in batches; each approved post auto-publishes on its publishDate via the weekly cron."
+  },
+  "posts": [
+    {
+      "slug": "the-art-of-the-slow-weekend",
+      "title": "The Art of the Slow Weekend: How to Truly Disconnect",
+      "category": "Lifestyle",
+      "keywords": ["how to disconnect on vacation", "digital detox weekend", "slow weekend"],
+      "status": "published",
+      "publishDate": "2026-05-15",
+      "approvedBy": "Will Phillips",
+      "note": "Built and published by the prior agent (Workstream A sample post)."
+    },
+    {
+      "slug": "crabbers-morning-on-hull-creek",
+      "title": "A Crabber's Morning on Hull Creek",
+      "category": "Travel",
+      "keywords": ["crabbing Potomac River", "Virginia crabbing guide"],
+      "status": "idea",
+      "publishDate": "2026-05-20",
+      "approvedBy": null,
+      "note": "Brief calendar #2. How-to wrapped in narrative; pulling pots at sunrise."
+    },
+    {
+      "slug": "cottage-sauna-culture",
+      "title": "Cottage Sauna Culture: Why a Hot Sauna and Cold Creek Belong Together",
+      "category": "Lifestyle",
+      "keywords": ["sauna with cold plunge", "Nordic sauna ritual", "sauna health benefits"],
+      "status": "idea",
+      "publishDate": "2026-05-27",
+      "approvedBy": null,
+      "note": "Brief calendar #3. Health-forward: cardiovascular, recovery, hot/cold contrast. Amenity-health angle."
+    },
+    {
+      "slug": "waterfront-kitchen-family-recipes",
+      "title": "Family Recipes for a Waterfront Kitchen: 5 Easy Meals on Vacation",
+      "category": "Lifestyle",
+      "keywords": ["vacation rental dinner ideas", "easy lake house meals"],
+      "status": "idea",
+      "publishDate": "2026-06-03",
+      "approvedBy": null,
+      "note": "Brief calendar #4. Practical, grocery-list-ready."
+    },
+    {
+      "slug": "complete-guide-to-reedville-virginia",
+      "title": "The Complete Guide to Reedville, Virginia",
+      "category": "Travel",
+      "keywords": ["things to do in Reedville VA", "Reedville fishermen's museum"],
+      "status": "idea",
+      "publishDate": "2026-06-10",
+      "approvedBy": null,
+      "note": "Brief calendar #5. Pull from src/lib/guidebook.ts (Reedville Market, Fishermen's Museum, etc.)."
+    },
+    {
+      "slug": "24-hours-in-irvington-virginia",
+      "title": "24 Hours in Irvington: Virginia's Most Charming Riverfront Town",
+      "category": "Travel",
+      "keywords": ["Irvington VA travel", "Tides Inn"],
+      "status": "idea",
+      "publishDate": "2026-06-17",
+      "approvedBy": null,
+      "note": "Brief calendar #6. Day-trip itinerary from the cottage."
+    },
+    {
+      "slug": "weekend-getaways-from-washington-dc",
+      "title": "Weekend Getaways from Washington DC: Why the Northern Neck Beats the Eastern Shore",
+      "category": "Travel",
+      "keywords": ["weekend trips from DC", "alternatives to Eastern Shore Maryland"],
+      "status": "idea",
+      "publishDate": "2026-06-24",
+      "approvedBy": null,
+      "note": "Brief calendar #7. Comparison / competitive positioning."
+    },
+    {
+      "slug": "northern-neck-travel-guide-tides-jellyfish",
+      "title": "Tide Charts, Jellyfish Seasons, and What to Pack: The Real Northern Neck Travel Guide",
+      "category": "Travel",
+      "keywords": ["Northern Neck Virginia travel", "tide chart Heathsville", "Chesapeake jellyfish season"],
+      "status": "idea",
+      "publishDate": "2026-07-01",
+      "approvedBy": null,
+      "note": "Brief calendar #8. Use TRAVELER_ADVICE in src/lib/guidebook.ts (stinger-suit/jellyfish note)."
+    },
+    {
+      "slug": "cost-to-own-waterfront-cottage-northern-neck",
+      "title": "What It Costs to Own a Waterfront Cottage on Virginia's Northern Neck",
+      "category": "Real Estate",
+      "keywords": ["Northern Neck real estate", "Virginia waterfront property"],
+      "status": "idea",
+      "publishDate": "2026-07-08",
+      "approvedBy": null,
+      "note": "Brief calendar #9. Real numbers: taxes, flood insurance, maintenance."
+    },
+    {
+      "slug": "buy-or-rent-on-the-water",
+      "title": "Should You Buy or Rent on the Water? A Frank Look at Vacation Property Math",
+      "category": "Real Estate",
+      "keywords": ["vacation home investment", "should I buy a vacation rental"],
+      "status": "idea",
+      "publishDate": "2026-07-15",
+      "approvedBy": null,
+      "note": "Brief calendar #10. ROI honesty."
+    },
+    {
+      "slug": "northern-neck-vs-outer-banks",
+      "title": "The Northern Neck vs. the Outer Banks: A Real Estate Reality Check",
+      "category": "Real Estate",
+      "keywords": ["Northern Neck vs Outer Banks", "Virginia waterfront real estate"],
+      "status": "idea",
+      "publishDate": "2026-07-22",
+      "approvedBy": null,
+      "note": "Brief calendar #11. Pricing comparison, rental demand."
+    },
+    {
+      "slug": "renovating-a-1950s-waterfront-cottage",
+      "title": "How We Renovated a 1950s Waterfront Cottage Without Losing Its Soul",
+      "category": "Real Estate",
+      "keywords": ["cottage renovation", "waterfront home renovation"],
+      "status": "idea",
+      "publishDate": "2026-07-29",
+      "approvedBy": null,
+      "note": "Brief calendar #12. Visual-heavy, before/after."
+    },
+    {
+      "slug": "health-case-for-hot-tub-and-cold-creek",
+      "title": "Cold Creek, Hot Tub: The Real Health Case for Contrast Water Therapy",
+      "category": "Lifestyle",
+      "keywords": ["hot tub health benefits", "cold water immersion", "contrast therapy"],
+      "status": "idea",
+      "publishDate": "2026-08-05",
+      "approvedBy": null,
+      "note": "Extended (beyond brief 12). Amenity-health angle requested by Will: sauna/hot tub/water access wellness. Distinct from the sauna post — focus hot tub + creek immersion."
+    },
+    {
+      "slug": "northern-neck-watermen-culture",
+      "title": "Oysters, Workboats, and Watermen: The Living Culture of the Northern Neck",
+      "category": "Travel",
+      "keywords": ["Northern Neck culture", "Chesapeake watermen", "Virginia oyster country"],
+      "status": "idea",
+      "publishDate": "2026-08-12",
+      "approvedBy": null,
+      "note": "Extended (beyond brief 12). Northern Neck culture angle requested by Will."
+    }
+  ]
+}
