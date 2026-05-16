@@ -68,7 +68,7 @@ export default defineConfig({
   ],
   vite: {
     cacheDir: VITE_CACHE_DIR,
-    plugins: [tailwindcss(), feedbackSinkPlugin()],
+    plugins: [tailwindcss()],
   },
   image: {
     responsiveStyles: true,

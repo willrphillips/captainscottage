@@ -1,0 +1,10 @@
+{
+  "slug": "the-art-of-the-slow-weekend",
+  "title": "The Art of the Slow Weekend: How to Truly Disconnect",
+  "isDraft": false,
+  "decision": "request-changes",
+  "feedback": "THis one's good. any good listing pictures we can add?",
+  "reviewer": "Will Phillips",
+  "at": "2026-05-16T02:54:33.496Z",
+  "note": "Captured in the preview review panel. Agents consume content/feedback/<slug>.json. 'approve-for-batch' records intent only; publishing remains gated in the CMS."
+}

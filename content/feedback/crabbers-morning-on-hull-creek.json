@@ -1,0 +1,10 @@
+{
+  "slug": "crabbers-morning-on-hull-creek",
+  "title": "Crabbing Hull Creek: A Crabber's Dawn on the Dock",
+  "isDraft": true,
+  "decision": "request-changes",
+  "feedback": "We only have 1 crabpot available. Clarify that without making it sound like a downside. Focus on all the positivity",
+  "reviewer": "Will Phillips",
+  "at": "2026-05-16T02:51:55.833Z",
+  "note": "Captured in the preview review panel. Agents consume content/feedback/<slug>.json. 'approve-for-batch' records intent only; publishing remains gated in the CMS."
+}

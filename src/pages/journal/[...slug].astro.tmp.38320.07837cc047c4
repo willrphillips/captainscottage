@@ -1,0 +1,84 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BlogPost from "~/layouts/BlogPost.astro";
+
+// Preview gate: drafts render in `npm run dev` and in any build run with
+// INCLUDE_DRAFTS=true (the review/preview build). The GitHub Pages deploy
+// runs a plain `npm run build` with no such env, so drafts stay 404 in
+// production. This is what lets Will review a draft AS A PAGE.
+const SHOW_DRAFTS =
+  import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === "true";
+
+export async function getStaticPaths() {
+  const showDrafts =
+    import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === "true";
+  let posts: CollectionEntry<"blog">[] = [];
+  try {
+    posts = await getCollection(
+      "blog",
+      ({ data }) => showDrafts || !data.draft,
+    );
+  } catch {
+    posts = [];
+  }
+
+  return posts.map((entry) => {
+    // Related: same category, nearest publish date, then top up with recents.
+    const sameCategory = posts
+      .filter(
+        (p) => p.id !== entry.id && p.data.category === entry.data.category,
+      )
+      .sort(
+        (a, b) =>
+          Math.abs(+a.data.publishedAt - +entry.data.publishedAt) -
+          Math.abs(+b.data.publishedAt - +entry.data.publishedAt),
+      );
+
+    const related = sameCategory.slice(0, 3);
+    if (related.length < 3) {
+      const filler = posts
+        .filter((p) => p.id !== entry.id && !related.includes(p))
+        .sort((a, b) => +b.data.publishedAt - +a.data.publishedAt)
+        .slice(0, 3 - related.length);
+      related.push(...filler);
+    }
+
+    return { params: { slug: entry.id }, props: { entry, related } };
+  });
+}
+
+interface Props {
+  entry: CollectionEntry<"blog">;
+  related: CollectionEntry<"blog">[];
+}
+
+const { entry, related } = Astro.props;
+const { Content } = await render(entry);
+
+const words = entry.body?.split(/\s+/).filter(Boolean).length ?? 0;
+const readingMinutes = Math.max(1, Math.round(words / 200));
+
+const relatedProps = related.map((p) => ({
+  title: p.data.title,
+  description: p.data.description,
+  category: p.data.category,
+  slug: p.id,
+  publishedAt: p.data.publishedAt,
+}));
+---
+
+<BlogPost
+  title={entry.data.title}
+  description={entry.data.description}
+  category={entry.data.category}
+  slug={entry.id}
+  publishedAt={entry.data.publishedAt}
+  updatedAt={entry.data.updatedAt}
+  author={entry.data.author}
+  keywords={entry.data.keywords}
+  readingMinutes={readingMinutes}
+  related={relatedProps}
+>
+  <Content />
+</BlogPost>

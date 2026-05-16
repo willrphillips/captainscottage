@@ -38,14 +38,14 @@
       "note": "Built: .claude/agents/blog-editor.md. Owns the calendar; never approves/publishes. Not yet run."
     },
     "researcher": {
-      "status": "idle",
+      "status": "active",
       "lastRun": "2026-05-15",
-      "note": "northern-neck-travel-guide-tides-jellyfish brief complete — content/research/northern-neck-travel-guide-tides-jellyfish.md"
+      "note": "waterfront-kitchen-family-recipes"
     },
     "writer": {
       "status": "idle",
       "lastRun": "2026-05-15",
-      "note": "cottage-sauna-culture drafted — ~640w, draft:true, 7 TODO markers for Will, calendar set to drafted"
+      "note": "Built: .claude/agents/blog-writer.md. Drafts draft:true MDX from the brief. Not yet run."
     },
     "seo-editor": {
       "status": "idle",

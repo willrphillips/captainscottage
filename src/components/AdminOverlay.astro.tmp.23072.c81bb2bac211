@@ -147,46 +147,29 @@ const { slug, title, isDraft = false } = Astro.props;
       setTimeout(function () { statusEl.textContent = ""; }, 3000);
     }
 
-    var submitBtn = document.getElementById("ao-submit");
-    submitBtn.addEventListener("click", function () {
+    document.getElementById("ao-save").addEventListener("click", function () {
       var data = payload();
       if (data.decision === "request-changes" && !data.feedback) {
         flash("Add a note first.");
         return;
       }
-      submitBtn.disabled = true;
-      flash("Submitting…");
-      fetch("/__feedback", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(data),
-      })
-        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-        .then(function (res) {
-          submitBtn.disabled = false;
-          if (res.ok && res.j && res.j.ok) {
-            try { localStorage.removeItem(STORE_KEY); } catch (e) {}
-            ta.value = "";
-            flash("Submitted → " + res.j.path);
-          } else {
-            flash("Failed: " + ((res.j && res.j.error) || "server") + ". Downloading instead.");
-            downloadFallback(data);
-          }
-        })
-        .catch(function (err) {
-          submitBtn.disabled = false;
-          flash("No dev server. Downloading instead.");
-          downloadFallback(data);
-        });
-    });
-
-    function downloadFallback(data) {
       var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
       var a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = "feedback-" + slug + ".json";
       a.click();
       URL.revokeObjectURL(a.href);
-    }
+      try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+      flash("Saved. Drop into content/feedback/");
+    });
+
+    document.getElementById("ao-copy").addEventListener("click", function () {
+      var json = JSON.stringify(payload(), null, 2);
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(json).then(function () { flash("Copied."); });
+      } else {
+        flash("Clipboard unavailable.");
+      }
+    });
   })();
 </script>
