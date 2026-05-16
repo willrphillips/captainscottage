@@ -4,9 +4,17 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import BlogCard from "~/components/BlogCard.astro";
 
+// Preview gate: drafts list here only in dev or an INCLUDE_DRAFTS build.
+// Production (plain `npm run build`) excludes them, as before.
+const showDrafts =
+  import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === "true";
+
 let posts: CollectionEntry<"blog">[] = [];
 try {
-  posts = await getCollection("blog", ({ data }) => !data.draft);
+  posts = await getCollection(
+    "blog",
+    ({ data }) => showDrafts || !data.draft,
+  );
 } catch {
   posts = [];
 }

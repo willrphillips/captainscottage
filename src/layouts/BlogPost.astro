@@ -2,6 +2,7 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import SchemaBlogPosting from "~/components/SchemaBlogPosting.astro";
 import BlogCard from "~/components/BlogCard.astro";
+import AdminOverlay from "~/components/AdminOverlay.astro";
 import { withBase } from "~/lib/site";
 
 interface RelatedPost {
@@ -23,6 +24,8 @@ interface Props {
   keywords?: string[];
   readingMinutes: number;
   related?: RelatedPost[];
+  isDraft?: boolean;
+  previewMode?: boolean;
 }
 
 const {
@@ -36,6 +39,8 @@ const {
   keywords = [],
   readingMinutes,
   related = [],
+  isDraft = false,
+  previewMode = false,
 } = Astro.props;
 
 const dateLabel = new Intl.DateTimeFormat("en-US", {
@@ -72,6 +77,13 @@ const pathname = `/journal/${slug}`;
   <article class="section-pad">
     <div class="container-narrow">
       <header class="reveal max-w-[44rem]">
+        {
+          isDraft && previewMode && (
+            <p class="mb-6 inline-block rounded-full border border-rust bg-rust/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.18em] text-rust-deep">
+              Draft preview — not live · review only
+            </p>
+          )
+        }
         <p class="eyebrow">{category}</p>
         <h1 class="mt-6 font-display display-lg leading-[1.05]">{title}</h1>
         <p class="lede mt-8">{description}</p>
@@ -122,6 +134,8 @@ const pathname = `/journal/${slug}`;
       )
     }
   </article>
+
+  {previewMode && <AdminOverlay slug={slug} title={title} isDraft={isDraft} />}
 </BaseLayout>
 
 <style>

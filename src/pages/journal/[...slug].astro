@@ -3,10 +3,22 @@ import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import BlogPost from "~/layouts/BlogPost.astro";
 
+// Preview gate: drafts render in `npm run dev` and in any build run with
+// INCLUDE_DRAFTS=true (the review/preview build). The GitHub Pages deploy
+// runs a plain `npm run build` with no such env, so drafts stay 404 in
+// production. This is what lets Will review a draft AS A PAGE.
+const SHOW_DRAFTS =
+  import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === "true";
+
 export async function getStaticPaths() {
+  const showDrafts =
+    import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === "true";
   let posts: CollectionEntry<"blog">[] = [];
   try {
-    posts = await getCollection("blog", ({ data }) => !data.draft);
+    posts = await getCollection(
+      "blog",
+      ({ data }) => showDrafts || !data.draft,
+    );
   } catch {
     posts = [];
   }
@@ -67,6 +79,8 @@ const relatedProps = related.map((p) => ({
   keywords={entry.data.keywords}
   readingMinutes={readingMinutes}
   related={relatedProps}
+  isDraft={entry.data.draft}
+  previewMode={SHOW_DRAFTS}
 >
   <Content />
 </BlogPost>

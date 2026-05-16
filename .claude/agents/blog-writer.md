@@ -22,6 +22,14 @@ Create `src/content/blog/<slug>.mdx` with:
 - ≥2 internal links via `withBase()` to the pages named in the brief, and exactly one booking CTA.
 - Descriptive, keyword-natural alt text for any image referenced.
 
+## Feedback loop
+- Before drafting, check `content/feedback/<slug>.json`. If it exists:
+  - `decision: "request-changes"` — treat `feedback` as the priority work list. Revise the existing `src/content/blog/<slug>.mdx` to address every point, then re-loop the SEO editor. When done, delete (clear) the feedback file and add a one-line revision summary to the calendar entry `note`.
+  - `decision: "approve-for-batch"` — do NOT publish and do NOT set `approved`. Leave the post at `in-review`, record "Will approved for batch on <at>" in the calendar `note`, and stop. `approvedBy` stays `null` until Will sets it in the CMS.
+
+## Live status
+- On start, set `.flowstatus.json` node `writer` → `{ "status": "active", "lastRun": "<today>", "note": "<slug>" }`. On finish, set it back to `"idle"`. Do not alter other nodes. Keep JSON valid. Node ids must match the FLOWSTATUS contract.
+
 ## Hard rules
 - `draft: true` always. You do not publish; Will does. Never edit `content/content-calendar.json` status to `approved`/`published`.
 - No invented facts. Mirror the brief; surface gaps as visible TODOs, not confident prose.

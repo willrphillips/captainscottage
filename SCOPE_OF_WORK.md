@@ -76,6 +76,28 @@ Claude Code subagents in `.claude/agents/`. Pipeline: **Editor → Researcher �
 
 **Done when:** one command/routine produces a SEO-passing `draft:true` MDX post from a calendar slot with zero hand-editing.
 
+### Workflow contract (for the Living Flowcharts app)
+
+This is the pipeline definition of record (FLOWSTATUS.md says SOW §4–6 owns it). The Living Flowcharts structure file in the Codex root (`living-flowcharts/data/projects/captainscottage.json`) must mirror these node ids and edges; this repo only emits live status into `.flowstatus.json`.
+
+Nodes and edges (handoffs):
+
+- `editor` → `researcher` — Editor advances a calendar slot to `researched` with a handoff note.
+- `researcher` → `writer` — Researcher emits `content/research/<slug>.md` (sourced, gaps flagged).
+- `writer` → `seo-editor` — Writer emits `src/content/blog/<slug>.mdx` (`draft:true`), status `drafted`.
+- `seo-editor` → `writer` — FAIL: numbered fix list, loop back.
+- `seo-editor` → `approve` — PASS: status `in-review`. **Hard human gate. No agent crosses this.**
+- `approve` → `scheduled-publish` — Will batch-approves in the CMS; post stays `draft:true` until `publishDate`.
+- `cms-review` ⇄ `writer` — the preview Review panel writes `content/feedback/<slug>.json`; on the next run the Writer consumes it (request-changes → revise+re-loop; approve-for-batch → record, hold at `in-review`).
+- `metrics` → `editor` (side input) — `blog-metrics` derives `bookingLeadDays`; the Editor's seasonal offset reads it. Never auto-runs.
+
+Live-status emission: each pipeline agent sets its own node `active`/`idle` in `.flowstatus.json` per run (now in every agent's directive). That makes the chart live without a separate watcher — "automatic" in the only sense a static repo can be.
+
+**Codex-root structure additions still required** (outside this repo — do in `living-flowcharts/data/projects/captainscottage.json`):
+1. Rename node `pr-preview` → `cms-review` (review surface changed from PR to the `/admin` Git CMS + preview overlay).
+2. Add node `metrics` (the `blog-metrics` agent / `content/metrics/airbnb-metrics.json`), side-edge into `editor`.
+3. Add the `cms-review ⇄ writer` feedback edge.
+
 ---
 
 ## 5. Workstream C — Review, batch approval, scheduled publish (new)
