@@ -1,0 +1,53 @@
+---
+import { PROPERTY, absoluteUrl } from "~/lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  publishedAt: Date;
+  updatedAt?: Date;
+  author: string;
+  image?: string;
+  keywords?: string[];
+}
+
+const {
+  title,
+  description,
+  slug,
+  publishedAt,
+  updatedAt,
+  author,
+  image,
+  keywords = [],
+} = Astro.props;
+
+const url = absoluteUrl(`/journal/${slug}`);
+const imageUrl = image
+  ? image.startsWith("http")
+    ? image
+    : absoluteUrl(image)
+  : absoluteUrl("/images/og-default.jpg");
+
+const data = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description,
+  image: [imageUrl],
+  datePublished: publishedAt.toISOString(),
+  dateModified: (updatedAt ?? publishedAt).toISOString(),
+  author: { "@type": "Person", name: author },
+  publisher: {
+    "@type": "Organization",
+    name: PROPERTY.name,
+    legalName: PROPERTY.owner,
+  },
+  mainEntityOfPage: { "@type": "WebPage", "@id": url },
+  url,
+  ...(keywords.length ? { keywords: keywords.join(", ") } : {}),
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />
