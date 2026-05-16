@@ -4,6 +4,9 @@
   "updatedAt": "2026-05-15",
   "lastAudit": "2026-05-15",
   "cadence": "weekly, Wednesdays",
+  "bookingLeadDays": 38.5,
+  "seasonTargeting": "Readers booking today arrive ~bookingLeadDays later. The Editor targets the season the reader will EXPERIENCE (publishDate + bookingLeadDays), not the publish date. Seasonal/timely posts must land roughly 5-6 weeks before that lived season. bookingLeadDays is refreshed from content/metrics/airbnb-metrics.json (Gmail-derived). Conversion rate is intentionally NOT a blog KPI — it is Airbnb-listing-side. Track occupancy and booked-nights instead.",
+  "metricsFile": "content/metrics/airbnb-metrics.json",
   "gate": {
     "humanApprovalRequired": true,
     "approver": "Will Phillips",

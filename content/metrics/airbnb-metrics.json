@@ -1,0 +1,38 @@
+{
+  "_comment": "Performance metrics for Captain's Cottage. There is NO Airbnb host API — booking-derived metrics come from Airbnb booking/reservation emails via the Gmail MCP (blog-metrics agent); dashboard-only metrics (search impressions, listing conversion) are manual pastes. Conversion rate is intentionally tracked-but-not-chased here: it is listing-side, not the blog's job. The blog optimizes for occupancy and booked-nights.",
+  "projectId": "captainscottage",
+  "updatedAt": "2026-05-15",
+  "assumptions": {
+    "availableNightsPerMonthDefault": 30,
+    "note": "True occupancy needs an availability denominator Airbnb does not expose by email. Until set per-month, occupancyEst = bookedNights / availableNightsPerMonthDefault and is APPROXIMATE. Override availableNights per period when known."
+  },
+  "current": {
+    "bookingLeadDaysAvg": 38.5,
+    "source": "manual paste from Airbnb Performance dashboard",
+    "asOf": "2026-05-15",
+    "airbnbConversionRatePct": 0.32,
+    "airbnbSearchToListingPct": 10.22,
+    "airbnbListingToBookingPct": 3.09,
+    "conversionNote": "Dashboard-only, manual. Tracked for context, NOT a blog success metric (improving it = editing the Airbnb listing)."
+  },
+  "timeseries": [
+    {
+      "periodStart": "2026-04-15",
+      "periodEnd": "2026-05-15",
+      "source": "manual",
+      "bookingLeadDaysAvg": 38.5,
+      "bookings": null,
+      "bookedNights": null,
+      "availableNights": null,
+      "occupancyEst": null,
+      "grossBookingValue": null,
+      "airbnbConversionRatePct": 0.32
+    }
+  ],
+  "wins": [
+    {
+      "date": "2026-05-15",
+      "note": "Baseline recorded. bookingLeadDays 38.5, Airbnb conversion 0.32%. Blog pipeline live (Workstream A+B). Future entries: dated, factual, correlational — never claim blog caused a booking."
+    }
+  ]
+}
