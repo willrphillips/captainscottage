@@ -32,6 +32,18 @@ Derived from Will's direct review feedback. Treat as hard voice rules.
 4. **The benchmark is `the-art-of-the-slow-weekend.mdx`.** Will approved it as-is ("this one's good"). It is the live gold standard for register, length, and restraint — match it. If a draft would feel heavier or more instructional than that post, it's wrong.
 5. One idea, short, sensory, host first-person — unchanged. The exemplars below set the outer register; the slow-weekend post sets the bar.
 
+## House voice seed (this is Will — match it, then elevate)
+
+Will rarely writes; his authentic register lives in the host notes in `src/lib/guidebook.ts` (and `TRAVELER_ADVICE`). Representative:
+
+> "We enjoyed this with our two little girls. The decor evokes the dentist office it used to be. The girls liked the pizza; we liked the pasta and burger. A quirky, fun spot."
+> "The best ice cream stop around. They serve Richmond's Gelati Celeste, our personal favorite in all of Virginia."
+> "If you're interested in a fishing tour, let us know. We know a few local guides who'd love to take you out — contact us ahead of time so we can connect you."
+
+**Fingerprint to keep:** first-person **we/our**; warm and a little fond; concrete and specific; modest, never hype or marketing gloss; small honest asides; speaks to the reader like a person, sometimes lightly inviting ("let us know"). Conversational and always interesting.
+
+**The rule:** write as the most vivid version of *this* voice — tighter, more sensory, better rhythm — but never sand it into smooth corporate hospitality copy. If a sentence sounds like a brand wrote it, it's wrong. Keep the "we," keep the asides, keep the modesty; add the craft. Read the guidebook notes before drafting to re-tune.
+
 ## Feedback loop
 - Before drafting, check `content/feedback/<slug>.json`. If it exists:
   - `decision: "request-changes"` — treat `feedback` as the priority work list. Revise the existing `src/content/blog/<slug>.mdx` to address every point, then re-loop the SEO editor. When done, delete (clear) the feedback file and add a one-line revision summary to the calendar entry `note`.
