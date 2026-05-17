@@ -88,15 +88,15 @@
       "note": "Brief calendar #7. Comparison / competitive positioning."
     },
     {
-      "slug": "northern-neck-travel-guide-tides-jellyfish",
-      "title": "Northern Neck Travel Guide: Tides, Jellyfish, and What to Pack",
-      "category": "Travel",
-      "keywords": ["Northern Neck Virginia travel", "tide chart Heathsville", "Chesapeake jellyfish season", "Northern Neck what to pack", "sea nettle Chesapeake Bay"],
-      "status": "drafted",
+      "slug": "mornings-with-the-ospreys-hull-creek",
+      "title": "Mornings with the Ospreys on Hull Creek",
+      "category": "Lifestyle",
+      "keywords": ["Northern Neck birding", "ospreys Chesapeake Bay", "bird watching Hull Creek", "Potomac River birds"],
+      "status": "idea",
       "publishDate": "2026-05-27",
       "approvedBy": null,
-      "experiment": "lead-time test: STRONG-SEASONAL, FORWARD ~60d. publish+38.5d ≈ early July; content warns about Aug–Sep jellyfish — pulls bookings for late-summer planners. Moved up from 2026-07-01 for the test.",
-      "note": "Brief calendar #8. Use TRAVELER_ADVICE in src/lib/guidebook.ts (stinger-suit/jellyfish note). Practical info no one else publishes: tide patterns, jellyfish season, mosquito season, best months. Internal links: /area and /activities. Voice: practical, honest, host. | Drafted 2026-05-15. 6 TODO markers for Will (jellyfish timing, mosquito mitigation, tide offset, salinity observation, best-month payoff line, mosquito anecdote). ~730 words."
+      "experiment": "lead-time test: replaces the killed jellyfish post. BIRDS CONTENT PILLAR kickoff (shoulder-season occupancy play). publish+38.5d ≈ early July; ospreys breed on the Chesapeake Apr–Aug so a summer-arrival reader still lives the scene. Positive sensory journal, NOT a guide.",
+      "note": "Replaces 'northern-neck-travel-guide-tides-jellyfish' — that post was killed (its core was a caveat; violates the positive-journal tone rule). Jellyfish/tides/mosquito/what-to-pack content RELOCATES to a planned seasonal 'Before You Go / Good Things to Pack' utilities section (Summer/Fall/Winter/Spring), NOT the journal; research preserved at content/research/northern-neck-travel-guide-tides-jellyfish.md. | THIS post: first-person host, a single bird-rich morning on the dock — ospreys working the creek, herons, eagles. One idea, sensory, the slow-weekend benchmark. Internal links /area + /activities. NEEDS WILL: the actual species he sees from the dock (seed list osprey/bald eagle/great blue heron/egret — confirm + add). Birds pillar = recurring positive posts + eventual 'Birds of Hull Creek' guide + positioning angle."
     },
     {
       "slug": "cost-to-own-waterfront-cottage-northern-neck",
