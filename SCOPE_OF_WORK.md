@@ -11,23 +11,23 @@ This tracks the marketing site **and** the AI content-agent pipeline layered on 
 
 ## 1. Overall completion
 
-**~15% complete.**
+**~58% built (branch only — nothing published).**
 
-Reasoning: the brief defines a 6-phase site build. Phase 1 (the heaviest infrastructure lift — scaffold, design system, home page, deploy pipeline) is done. Phases 2–6 are pending. On top of that, this SOW adds a net-new content-automation workstream (AI agents, review pipeline, publish scheduler) that was not previously scoped, which dilutes the overall percentage.
+Reasoning: heavy progress this run. "Built" ≠ "live": all of it sits on `docs/scope-of-work` (PR #2), nothing merged to `main`, so the public GH Pages site is still just the original Phase-1 home. Posts are `in-review`, pending Will's approval. The remaining ~42% is concentrated in the CMS/scheduled-publish wiring and the still-untouched brief Phases 3/5/6.
 
 | Workstream | Weight | Done | Contribution |
 |---|---:|---:|---:|
 | Phase 1 — Foundation + Home (built) | 22% | 100% | 22.0% |
-| Phase 2 — Blog system | 14% | ~22% | 3.1% |
-| AI content-agent pipeline (new) | 16% | 0% | 0.0% |
-| Review / approval / scheduled publish (new) | 8% | 0% | 0.0% |
+| Phase 2 — Blog system (layout, route, index, posts) | 14% | 100% | 14.0% |
+| AI content-agent pipeline (new) | 16% | ~90% | 14.4% |
+| Review / approval / scheduled publish (new) | 8% | ~45% | 3.6% |
 | Phase 3 — Property + amenities pages | 12% | 0% | 0.0% |
-| Phase 4 — Area + activity guides | 10% | 0% | 0.0% |
+| Phase 4 — Area + activity guides | 10% | ~75% | 7.5% |
 | Phase 5 — Polish + launch | 10% | 0% | 0.0% |
 | Phase 6 — Direct booking | 8% | 0% | 0.0% |
-| **Total** | **100%** | | **~15%** |
+| **Total** | **100%** | | **~61% → call it ~58%** |
 
-Weights are judgment estimates of build effort, not equal phases. Confidence: moderate. The Phase-1 figure is solid (it's shipped and deploying); the new-workstream weights are first-pass and will firm up once the blog system lands.
+Notes: Pipeline ~90% — Editor/Researcher/Writer/SEO/Metrics agents built and run end-to-end, voice model tuned to Will, feedback loop proven; remaining 10% = the scheduled remote routine (built spec'd, not created — needs Todoist token / final go). Review&publish ~45% — draft preview + admin overlay + submit-to-file route done; **CMS at `/admin` + weekly publish cron NOT built**. Phase 4 ~75% — `/area`, `/activities`, `/what-to-bring` real & indexed (owner overrides); per-town deep guides + `guides` MDX collection still pending. Weights are judgment, not equal phases. Confidence: moderate. The headline number is "built on branch," not shipped.
 
 ---
 
@@ -177,6 +177,7 @@ Build Workstream A (blog system). Everything else depends on a post being able t
 - **2026-05-17** — Tone rule sharpened (Will): the journal is positive stories only, **not** the utilities desk. Writer rule #2 rewritten; Editor gained a topic screen (caveat-core → utilities, not the calendar). Consequences: (a) `northern-neck-travel-guide-tides-jellyfish` **killed** as a blog post — draft + feedback deleted, research kept; slot repurposed to **`mornings-with-the-ospreys-hull-creek`** (2026-05-27, Lifestyle). (b) Jellyfish/tides/mosquito/what-to-pack content RELOCATES to a planned **seasonal "Before You Go / Good Things to Pack"** utilities section (Summer/Fall/Winter/Spring) — net-new, NOT a blog post; content being designed with Will. (c) **Birds = content pillar** (occupancy/shoulder-season strategy: birding peaks spring/fall, fills the summer-weak calendar; affluent, off-peak, longer-stay, repeat demographic). Needs Will's real dock species list.
 - **2026-05-17** — Voice seeded to Will's authentic register (guidebook host notes; "match then elevate, never corporate-gloss"). Seasonal pack page named **"What to Bring"** (display) + SEO meta tuned separately; net-new page, NOT a blog post; build deferred until the 4 seasonal lists are locked with Will. Still need from Will: (a) real dock bird species for the ospreys post / birds pillar; (b) cut/add on the draft seasonal pack lists.
 - **2026-05-19** — `What to Bring` content locked with Will (short suggested list, no em-dashes, his wording) and **built as a real indexed page** `src/pages/what-to-bring.astro` (owner-directed net-new page, like the area/activities override; recorded in CLAUDE.md). Source of record: `content/what-to-bring.draft.md`. Builds clean, in production output. **OPEN: page is orphaned** — nothing links *to* it yet; needs a nav or footer entry (chrome decision pending with Will). Birds species confirmed and recorded on the ospreys-post calendar entry.
-- **RESUME POINTER:** next session/run — execute the QUEUED block above (3 feedback-driven revisions via the Writer, photo/hero wiring, recipes draft), then SEO pass. Feedback queue is committed in `content/feedback/`.
-- **OPEN ITEM (draft preview):** `src/pages/journal/[...slug].astro` `getStaticPaths` filters `!data.draft`, so a `draft:true` post has **no rendered URL** (404) and isn't listed. Reviewing a draft today = reading the raw `.mdx`. Workstream C must add a draft-inclusive preview build (e.g. `INCLUDE_DRAFTS` env gate for the CMS/preview context; production stays draft-excluded) so Will can review rendered drafts before batch-approving.
+- **2026-05-19 (batch run)** — Queue executed end-to-end. crabbers revised (one-pot → abundance framing, ~536w), sauna revised (science cut to one hedged line, narrative foregrounded, ~590w, photo TODO), recipes drafted (~706w), ospreys drafted (birds-pillar kickoff, ~623w). All four through Writer (Will-voice seed + positive-tone rules) → SEO+build gate: **all PASS, 0 build errors** (titles/descs trimmed, em-dashes→commas, CTAs normalized). Calendar `drafted → in-review`. Human gate intact (no approved/published/draft:false). Committed `cf54c72`, pushed. Feedback files consumed/cleared.
+- **RESUME POINTER (start here):** 5 posts reviewable on the dev server (Slow Weekend live; crabbers/ospreys/sauna/recipes `in-review`). **Waiting on Will:** (1) review via the admin overlay → Submit "request changes" or "approve for batch"; (2) per-post TODO answers — sauna photo + window/sequence, recipes kitchen gear + a real meal, ospreys most-memorable dock moment (crabbers is clean). On approval: confirm publish dates (batch), then build the **two unbuilt pieces** — `/admin` Git CMS + the weekly publish cron — and create the scheduled remote routine (needs Todoist token). Nothing is live until PR #2 merges to `main` (a deliberate, separate "publish" step Will controls).
+- **RESOLVED 2026-05-19 (was: draft preview):** drafts now render in `npm run dev` and `INCLUDE_DRAFTS` builds (gate in `journal/[...slug].astro` + index); production plain build still excludes them. Admin overlay + submit-to-`content/feedback/` route working. Reviewing a draft no longer means reading raw `.mdx`.
 - **OPEN ITEM:** FLOWSTATUS node `pr-preview` still describes "open a PR with a preview link," which conflicts with the locked CMS-at-`/admin` decision. The chart **structure** is owned by `living-flowcharts/data/projects/captainscottage.json` in the Codex root (outside this repo). That node needs renaming to a CMS-review node; requires editing the Codex-root structure file, not this repo.
