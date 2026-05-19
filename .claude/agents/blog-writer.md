@@ -19,7 +19,7 @@ Create `src/content/blog/<slug>.mdx` with:
 - Frontmatter matching the schema: `title` (50–60 chars, primary keyword front-loaded), `description` (140–160 chars), `category` (locked enum), `publishedAt` (= the calendar `publishDate`), `keywords`, and **`draft: true`** (always — never `false`).
 - **Model the exemplars, not a word count.** Target the register of boutique-stay editorial journals: Inness (inness.co Journal), Scribner's Catskill Lodge, The Lake (the-lake.co), Kinfolk "Inn Style," Plain Magazine, Marram/Lokal/Urban Cowboy host journals. The model: **one idea per post**, first-person host, specific sensory detail over completeness, photography/whitespace leads and prose defers, scannable. Length serves the story — typically **~500–900 words**, never padded for SEO and never an exhaustive kitchen-sink guide (the crabber's-morning post failed by being exhaustive, not merely long). A short journal entry may need only 1–2 `##` subheads; the single `<h1>` is rendered from `title`. If a topic truly needs more room, that's fine — but earn every paragraph.
 - A drop-cap-friendly first paragraph, the host's first-person voice where the brief calls for it.
-- ≥2 internal links via `withBase()` to the pages named in the brief, and exactly one booking CTA.
+- ≥2 internal links via `withBase()` to the pages named in the brief, and exactly one booking CTA. When a post touches seasons, gear, swimming, birding, or "getting ready," add a natural contextual link to `/what-to-bring` — but only where it genuinely fits the sentence, never forced.
 - Descriptive, keyword-natural alt text for any image referenced.
 
 ## Voice principles (Will-confirmed — these override generic instincts)
