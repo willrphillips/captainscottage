@@ -14,6 +14,8 @@ Phase 1 (foundation + home page) is in. Phases 2–6 (blog content, full propert
 
 **Owner override (2026-05-15):** Will explicitly directed building the real `/area` and `/activities` pages ahead of phase order, driven by the host Airbnb guidebook (`src/lib/guidebook.ts`). Those two pages are now live and indexed. This was a one-time, owner-authorized exception — it is not a precedent to skip phasing generally. Blog system (Workstream A) is still the next planned build; `/the-cottage`, `/amenities`, `/faq` remain `ComingSoon` stubs until their phases.
 
+**Owner override (2026-05-19):** `/what-to-bring` — a real, indexed seasonal "what to pack" utility page (`src/pages/what-to-bring.astro`, content of record `content/what-to-bring.draft.md`) — was built ahead of phase order at Will's direction. Same one-time-exception status. It is currently orphaned (no nav/footer link in yet); placement is a pending chrome decision.
+
 ## Live flowchart status (when building the agent pipeline)
 
 `FLOWSTATUS.md` is the integration contract for the Living Flowcharts app in the

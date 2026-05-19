@@ -1,25 +1,23 @@
-# "What to Bring" — working draft (NOT the live page)
+# "What to Bring" — LOCKED copy (source of record)
 
-For the future `/what-to-bring` page. Display title "What to Bring"; SEO
-`<title>`/meta tuned separately (e.g. "What to Pack — Hull Creek Cottage,
-Northern Neck"). Will amends; page built only after this is locked.
-
-**Direction (Will, 2026-05-19):** not a checklist, not nitpicky — people
-figure the obvious out. A short *suggested* list: the few non-obvious things
-that make the stay better, conditionals inline (so season is baked into the
-"if" rather than four separate lists), plus a nice-to-have or two. Host
-voice — warm, modest, "we," a little fond.
+Approved by Will 2026-05-19. Rendered by `src/pages/what-to-bring.astro`.
+Display title "What to Bring"; SEO `<title>`/meta tuned separately. No
+em-dashes (Will's instruction) — colons/commas/normal punctuation only.
 
 ---
 
-You'll sort the obvious stuff. These are the few we'd actually pack — the
-ones guests tell us they wish they'd thought of.
+A book you won't rush. The porch does the rest.
 
-- **A book you won't rush.** The porch does the rest.
-- **Polarized sunglasses.** They turn the creek transparent — worth it for the fishing alone.
-- **A thin stinger suit — if you're here in jellyfish season.** Sea nettles drift in for a 4–6 week stretch somewhere between June and September, never the whole summer and never on schedule. A light layer means it just never matters.
-- **Water shoes — if you mean to wade out.** The shallows are soft and a little oystery underfoot.
-- **Binoculars.** Osprey, eagles, and herons work the water all day. Once, a pair of swans.
-- **Slip-on shoes for the sauna walk.** You'll make the trip down to the dock more than once. You won't want laces.
-- **A swimsuit, whatever month it is.** The hot tub runs all year — the thing nobody expects to want in February.
-- **A nice-to-have or two:** a thermos for the first coffee on the dock before anyone's up; and a bottle worth saving for the night the sunset goes gold.
+Polarized sunglasses. To see in the water if you'll be fishing.
+
+A thin stinger suit, if you're here in jellyfish season. Nettles drift in for four to six weeks somewhere between June and September, never all summer, never on schedule. Swim with a light layer and you'll be covered.
+
+Water shoes, if you mean to wade out. Shallows are soft and a little oystery underfoot.
+
+Binoculars. Osprey, eagles, and herons keep us occupied all day. You never know when you might spot something remarkable.
+
+Slip-on shoes for the sauna walk. You'll make the walk more than once. You won't want laces.
+
+A swimsuit, whatever month it is. Hot tub runs all year, and even when the creek is cold, it's worth a plunge post-sauna.
+
+A nice-to-have: a quality camera for the evening when the sunset goes gold.
