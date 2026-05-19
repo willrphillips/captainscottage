@@ -1,54 +1,25 @@
 # "What to Bring" — working draft (NOT the live page)
 
-Seasonal packing list for the future `/what-to-bring` utility page (display
-title "What to Bring"; SEO `<title>`/meta tuned separately, e.g. "What to
-Pack — Hull Creek Cottage, Northern Neck"). Positive framing, host voice,
-not a generic listicle. Will amends; page is built only after this is locked.
+For the future `/what-to-bring` page. Display title "What to Bring"; SEO
+`<title>`/meta tuned separately (e.g. "What to Pack — Hull Creek Cottage,
+Northern Neck"). Will amends; page built only after this is locked.
 
-Rules locked with Will (2026-05-19):
-- **Swimsuit is year-round** — the hot tub runs all year.
-- **Summer: stinger suits** — sea nettles drift in for a ~4–6 week stretch
-  somewhere between June and September. Never the whole summer, never
-  predictable. Framed as "a thin layer keeps the creek yours either way,"
-  not a warning.
+**Direction (Will, 2026-05-19):** not a checklist, not nitpicky — people
+figure the obvious out. A short *suggested* list: the few non-obvious things
+that make the stay better, conditionals inline (so season is baked into the
+"if" rather than four separate lists), plus a nice-to-have or two. Host
+voice — warm, modest, "we," a little fond.
 
 ---
 
-## Year-round (every visit)
-- A swimsuit — the hot tub runs all year; someone always ends up in it after dark
-- Layers — the water makes its own weather
-- Something to read you won't rush
-- A real camera if you have one; phones miss the light here
+You'll sort the obvious stuff. These are the few we'd actually pack — the
+ones guests tell us they wish they'd thought of.
 
-## Summer — high water, long evenings
-- Swimsuits you'll basically live in
-- A thin stinger suit / rash layer per swimmer — sea nettles come for a 4–6 week stretch somewhere between June and September (never the whole summer, never on schedule); a thin layer means the creek stays yours either way
-- Reef-safe sunscreen + a wide hat for the dock
-- Polarized sunglasses — you'll watch the water for hours
-- One light long layer for porch dusk; the screened porches do the rest
-- Water shoes for crab pots and shoreline footing
-- A soft cooler for long dock afternoons
-
-## Fall — gold light, quiet, birds moving
-- Binoculars — fall migration comes right through; osprey still working, eagles, herons
-- A swimsuit (the hot tub doesn't care what month it is)
-- A warm mid-layer for cool dawns and still-warm afternoons
-- Closed shoes for crisp morning dock walks
-- The book you actually mean to finish
-- A camera — low light, an empty porch
-
-## Winter — deep quiet, sauna season
-- Robe + slippers — the sauna-to-cold-air walk is the whole point
-- A swimsuit — the hot tub under a cold sky is the best it gets
-- Wool socks, more than you think
-- A real coat for bright, sharp water walks
-- Soup-night groceries; the kitchen wants a slow evening
-- Something to read by the fire
-
-## Spring — water warming, best birding
-- Binoculars — spring migration is the year's best; osprey return, eagles, the odd swan
-- A swimsuit (hot tub, still)
-- A layered rain shell; spring on the creek turns fast
-- Mud-ready shoes for the dock and shoreline
-- First-warm-afternoon kayak/paddle clothes
-- A light allergy kit if pollen finds you — the tree line wakes up
+- **A book you won't rush.** The porch does the rest.
+- **Polarized sunglasses.** They turn the creek transparent — worth it for the fishing alone.
+- **A thin stinger suit — if you're here in jellyfish season.** Sea nettles drift in for a 4–6 week stretch somewhere between June and September, never the whole summer and never on schedule. A light layer means it just never matters.
+- **Water shoes — if you mean to wade out.** The shallows are soft and a little oystery underfoot.
+- **Binoculars.** Osprey, eagles, and herons work the water all day. Once, a pair of swans.
+- **Slip-on shoes for the sauna walk.** You'll make the trip down to the dock more than once. You won't want laces.
+- **A swimsuit, whatever month it is.** The hot tub runs all year — the thing nobody expects to want in February.
+- **A nice-to-have or two:** a thermos for the first coffee on the dock before anyone's up; and a bottle worth saving for the night the sunset goes gold.
