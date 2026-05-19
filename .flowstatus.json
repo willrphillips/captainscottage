@@ -1,6 +1,6 @@
 {
   "projectId": "captainscottage",
-  "updatedAt": "2026-05-15T02:10:00.000Z",
+  "updatedAt": "2026-05-19T00:00:00.000Z",
   "nodes": {
     "site-foundation": {
       "status": "active",
@@ -39,18 +39,18 @@
     },
     "researcher": {
       "status": "idle",
-      "lastRun": "2026-05-15",
-      "note": "northern-neck-travel-guide-tides-jellyfish brief complete — content/research/northern-neck-travel-guide-tides-jellyfish.md"
+      "lastRun": "2026-05-19",
+      "note": "mornings-with-the-ospreys-hull-creek brief complete — content/research/mornings-with-the-ospreys-hull-creek.md"
     },
     "writer": {
       "status": "idle",
-      "lastRun": "2026-05-15",
-      "note": "cottage-sauna-culture drafted — ~640w, draft:true, 7 TODO markers for Will, calendar set to drafted"
+      "lastRun": "2026-05-19",
+      "note": "mornings-with-the-ospreys-hull-creek drafted — ~623 words, 1 TODO marker, 2 internal links (/area, /activities), 1 CTA, calendar set to drafted"
     },
     "seo-editor": {
       "status": "idle",
-      "lastRun": "2026-05-15",
-      "note": "Built: .claude/agents/blog-seo-editor.md. Validates vs CLAUDE.md checklist + build, loops to writer. Not yet run."
+      "lastRun": "2026-05-19",
+      "note": "Batch PASS: all 4 posts (crabbers, sauna, recipes, ospreys) passed and set to in-review. Mechanical fixes applied: title lengths, description lengths, em-dash->comma/colon throughout, sauna CTA->withBase(/book). Calendar updated."
     },
     "approve": {
       "status": "planned",
