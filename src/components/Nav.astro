@@ -4,7 +4,7 @@ import { NAV_LINKS, PROPERTY, withBase } from "~/lib/site";
 const current = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
-<header class="absolute inset-x-0 top-9 md:top-10 z-40 bg-bone/70 backdrop-blur-sm border-b border-rule">
+<header class="sticky top-9 md:top-10 z-40 bg-bone/70 backdrop-blur-sm border-b border-rule">
   <div class="container-wide flex items-center justify-between py-6 md:py-8">
     <a href={withBase("/")} class="font-display text-xl tracking-tight md:text-2xl">
       {PROPERTY.shortName}
