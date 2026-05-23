@@ -29,6 +29,7 @@ export const PROPERTY = {
   // `rating` drops to 4.80 or below (strict > 4.80 threshold).
   superhost: true,
   guestFavorite: true,
+  top5Percent: true, // "Top 5% of homes" — Airbnb-side; flip if it ever falls off
   airbnbUrl: "https://www.airbnb.com/h/captainscottageva",
   email: "stay@captainscottage.com",
   owner: "Good Old Boys LLC",

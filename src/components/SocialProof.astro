@@ -1,54 +1,105 @@
 ---
 import { PROPERTY } from "~/lib/site";
 
-// Conditional, restrained social-proof strip. Each badge renders ONLY while
-// its underlying truth holds:
-//   - Guest Favorite: PROPERTY.guestFavorite === true
-//   - Superhost:      PROPERTY.superhost === true
-//   - Rating:         PROPERTY.rating > 4.80 (strict)
+// Slim navy social-proof bar pinned to the top of every page.
+// Three conditional slots — each renders ONLY while its underlying truth holds.
+//   left:   PROPERTY.rating > 4.80 (strict)
+//   center: PROPERTY.guestFavorite === true
+//   right:  PROPERTY.top5Percent === true
 // Source of truth is `PROPERTY` in src/lib/site.ts — no live Airbnb API; flip
 // the booleans / update the rating when Airbnb status changes. If all three
-// fail, the whole strip renders nothing.
+// fail, the bar renders nothing.
+//
+// IP NOTE: the Guest Favorite mark below is a STAND-IN — laurel/olive brackets
+// flanking italic text in a warm gold. It deliberately differs from Airbnb's
+// trademarked badge. Replace with Airbnb's official asset when Will provides
+// it (drop image at `public/images/airbnb-guest-favorite.{png,svg}` and swap
+// the inline SVG for an `<img>`).
 
-const showGuestFavorite = PROPERTY.guestFavorite === true;
-const showSuperhost = PROPERTY.superhost === true;
 const showRating = typeof PROPERTY.rating === "number" && PROPERTY.rating > 4.8;
-const any = showGuestFavorite || showSuperhost || showRating;
+const showGuestFavorite = PROPERTY.guestFavorite === true;
+const showTop5 = PROPERTY.top5Percent === true;
+const any = showRating || showGuestFavorite || showTop5;
 
 const ratingDisplay = showRating ? PROPERTY.rating.toFixed(2) : "";
+const GOLD = "#e8b923";
 ---
 
 {
   any && (
-    <section class="bg-bone-deep border-y border-rule" aria-label="Captain's Cottage standing on Airbnb">
-      <div class="container-wide py-6 md:py-7">
-        <ul class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 md:gap-x-14">
-          {showGuestFavorite && (
-            <li class="flex items-baseline gap-3 reveal">
-              <span class="eyebrow">Airbnb</span>
-              <span class="font-display italic text-rust text-xl md:text-2xl">Guest Favorite</span>
-            </li>
-          )}
-          {showSuperhost && (
-            <li class="flex items-baseline gap-3 reveal" style="transition-delay: 60ms;">
-              <span class="eyebrow">Host</span>
-              <span class="font-display italic text-rust text-xl md:text-2xl">Superhost</span>
-              {PROPERTY.superhostYears > 0 && (
-                <span class="text-sm text-ink-soft">· {PROPERTY.superhostYears} years</span>
-              )}
-            </li>
-          )}
-          {showRating && (
-            <li class="flex items-baseline gap-3 reveal" style="transition-delay: 120ms;">
-              <span class="eyebrow">Rating</span>
-              <span class="font-display text-ink text-xl md:text-2xl">
-                {ratingDisplay} <span class="text-rust">★</span>
-              </span>
-              <span class="text-sm text-ink-soft">· {PROPERTY.reviewCount} reviews</span>
-            </li>
-          )}
-        </ul>
+    <aside
+      class="absolute inset-x-0 top-0 z-50 bg-navy text-bone border-b border-bone/15"
+      aria-label="Captain's Cottage standing"
+    >
+      <div class="container-wide flex h-9 items-center md:h-10">
+        <div class="grid w-full grid-cols-3 items-center text-xs tracking-[0.18em]">
+          {/* LEFT — rating */}
+          <div class="flex items-center gap-2 justify-self-start">
+            {showRating && (
+              <>
+                <span class="font-display text-base md:text-lg leading-none text-bone">{ratingDisplay}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  aria-hidden="true"
+                  style={`fill:${GOLD}`}
+                >
+                  <path d="M12 1.7l3.18 6.43 7.1 1.03-5.14 5.01 1.21 7.07L12 17.9l-6.35 3.34 1.21-7.07L1.72 9.16l7.1-1.03L12 1.7z" />
+                </svg>
+                <span class="ml-2 text-bone/80">· {PROPERTY.reviewCount} REVIEWS</span>
+              </>
+            )}
+          </div>
+
+          {/* CENTER — Guest Favorite (stand-in mark) */}
+          <div class="flex items-center justify-center">
+            {showGuestFavorite && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 260 48"
+                width="220"
+                height="32"
+                aria-label="Guest Favorite"
+                role="img"
+              >
+                <g fill={GOLD}>
+                  {/* left olive branch */}
+                  <path d="M40 8c-9 5-14 14-14 16s5 11 14 16c-1-5-2-10-2-16s1-11 2-16z" />
+                  <ellipse cx="32" cy="14" rx="5" ry="2.4" transform="rotate(-32 32 14)" />
+                  <ellipse cx="27" cy="20" rx="6" ry="2.6" transform="rotate(-14 27 20)" />
+                  <ellipse cx="25" cy="28" rx="6" ry="2.6" transform="rotate(8 25 28)" />
+                  <ellipse cx="29" cy="34" rx="5.5" ry="2.5" transform="rotate(24 29 34)" />
+                  {/* right olive branch (mirror) */}
+                  <path d="M220 8c9 5 14 14 14 16s-5 11-14 16c1-5 2-10 2-16s-1-11-2-16z" />
+                  <ellipse cx="228" cy="14" rx="5" ry="2.4" transform="rotate(32 228 14)" />
+                  <ellipse cx="233" cy="20" rx="6" ry="2.6" transform="rotate(14 233 20)" />
+                  <ellipse cx="235" cy="28" rx="6" ry="2.6" transform="rotate(-8 235 28)" />
+                  <ellipse cx="231" cy="34" rx="5.5" ry="2.5" transform="rotate(-24 231 34)" />
+                </g>
+                <text
+                  x="130"
+                  y="30"
+                  text-anchor="middle"
+                  font-family="'Fraunces Variable', Fraunces, Georgia, serif"
+                  font-style="italic"
+                  font-size="18"
+                  font-weight="500"
+                  fill={GOLD}
+                >Guest Favorite</text>
+              </svg>
+            )}
+          </div>
+
+          {/* RIGHT — Top 5% of homes */}
+          <div class="flex items-center justify-self-end">
+            {showTop5 && (
+              <span class="uppercase text-bone/85">Top 5% of homes</span>
+            )}
+          </div>
+        </div>
       </div>
-    </section>
+    </aside>
   )
 }
