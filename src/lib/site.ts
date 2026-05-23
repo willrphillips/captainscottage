@@ -22,7 +22,11 @@ export const PROPERTY = {
   checkOut: "11:00 AM",
   rating: 4.92,
   reviewCount: 137,
+  // Will's overall Superhost tenure (across prior properties + this cottage).
+  // Captain's Cottage itself was acquired in fall 2022 — see `cottageAcquiredYear`.
+  // Do NOT use `superhostYears` to imply hosting this cottage that long.
   superhostYears: 9,
+  cottageAcquiredYear: 2022,
   // Airbnb has no host API — these are manually maintained. Flip to `false`
   // if/when Airbnb changes status; the SocialProof component hides each
   // badge independently. The rating badge also hides automatically when

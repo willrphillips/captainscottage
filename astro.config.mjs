@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, writeFileSync, appendFileSync } from "node:fs";
 
 const SITE = "https://willrphillips.github.io";
 const BASE = "/captainscottage";
@@ -37,6 +37,25 @@ function feedbackSinkPlugin() {
               JSON.stringify(data, null, 2) + "\n",
               "utf8",
             );
+            // Append to the persistent voice-feedback log so the Writer
+            // can keep tuning to Will's evolving voice. The per-slug file
+            // gets cleared by the Writer when consumed; this log never is.
+            try {
+              const logPath = resolve(process.cwd(), "content/voice-feedback-log.md");
+              const stamp = data.at || new Date().toISOString();
+              const decision = data.decision || "(no-decision)";
+              const reviewer = data.reviewer || "Will Phillips";
+              const fb = (data.feedback || "").toString().trim();
+              const entry =
+                `\n## ${stamp} · ${slug}\n` +
+                `**Decision:** ${decision}  \n` +
+                `**Reviewer:** ${reviewer}\n\n` +
+                (fb ? fb : "_(no notes — decision only)_") +
+                "\n\n---\n";
+              appendFileSync(logPath, entry, "utf8");
+            } catch (_) {
+              /* logging is best-effort; never fail the submit */
+            }
             res.statusCode = 200;
             res.setHeader("content-type", "application/json");
             res.end(JSON.stringify({ ok: true, path: "content/feedback/" + slug + ".json" }));
