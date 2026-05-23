@@ -11,6 +11,12 @@ const imageUrls = images.length
   ? images.map((src) => absoluteUrl(src))
   : [absoluteUrl("/images/og-default.jpg")];
 
+// Same threshold as the SocialProof visual badge: only surface aggregateRating
+// in structured data when the rating is above 4.80. If it slips at or below,
+// the schema field disappears alongside the visible badge — never advertise a
+// rating you wouldn't show on the page.
+const showRating = typeof PROPERTY.rating === "number" && PROPERTY.rating > 4.8;
+
 const data = {
   "@context": "https://schema.org",
   "@type": "VacationRental",
@@ -46,13 +52,17 @@ const data = {
   numberOfBedrooms: PROPERTY.bedrooms,
   numberOfBathroomsTotal: PROPERTY.bathrooms,
   occupancy: { "@type": "QuantitativeValue", maxValue: PROPERTY.maxGuests },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: PROPERTY.rating,
-    reviewCount: PROPERTY.reviewCount,
-    bestRating: 5,
-    worstRating: 1,
-  },
+  ...(showRating
+    ? {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: PROPERTY.rating,
+          reviewCount: PROPERTY.reviewCount,
+          bestRating: 5,
+          worstRating: 1,
+        },
+      }
+    : {}),
   checkinTime: "16:00",
   checkoutTime: "11:00",
 };

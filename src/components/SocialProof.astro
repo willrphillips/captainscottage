@@ -1,0 +1,54 @@
+---
+import { PROPERTY } from "~/lib/site";
+
+// Conditional, restrained social-proof strip. Each badge renders ONLY while
+// its underlying truth holds:
+//   - Guest Favorite: PROPERTY.guestFavorite === true
+//   - Superhost:      PROPERTY.superhost === true
+//   - Rating:         PROPERTY.rating > 4.80 (strict)
+// Source of truth is `PROPERTY` in src/lib/site.ts — no live Airbnb API; flip
+// the booleans / update the rating when Airbnb status changes. If all three
+// fail, the whole strip renders nothing.
+
+const showGuestFavorite = PROPERTY.guestFavorite === true;
+const showSuperhost = PROPERTY.superhost === true;
+const showRating = typeof PROPERTY.rating === "number" && PROPERTY.rating > 4.8;
+const any = showGuestFavorite || showSuperhost || showRating;
+
+const ratingDisplay = showRating ? PROPERTY.rating.toFixed(2) : "";
+---
+
+{
+  any && (
+    <section class="bg-bone-deep border-y border-rule" aria-label="Captain's Cottage standing on Airbnb">
+      <div class="container-wide py-6 md:py-7">
+        <ul class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 md:gap-x-14">
+          {showGuestFavorite && (
+            <li class="flex items-baseline gap-3 reveal">
+              <span class="eyebrow">Airbnb</span>
+              <span class="font-display italic text-rust text-xl md:text-2xl">Guest Favorite</span>
+            </li>
+          )}
+          {showSuperhost && (
+            <li class="flex items-baseline gap-3 reveal" style="transition-delay: 60ms;">
+              <span class="eyebrow">Host</span>
+              <span class="font-display italic text-rust text-xl md:text-2xl">Superhost</span>
+              {PROPERTY.superhostYears > 0 && (
+                <span class="text-sm text-ink-soft">· {PROPERTY.superhostYears} years</span>
+              )}
+            </li>
+          )}
+          {showRating && (
+            <li class="flex items-baseline gap-3 reveal" style="transition-delay: 120ms;">
+              <span class="eyebrow">Rating</span>
+              <span class="font-display text-ink text-xl md:text-2xl">
+                {ratingDisplay} <span class="text-rust">★</span>
+              </span>
+              <span class="text-sm text-ink-soft">· {PROPERTY.reviewCount} reviews</span>
+            </li>
+          )}
+        </ul>
+      </div>
+    </section>
+  )
+}

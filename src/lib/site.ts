@@ -23,6 +23,12 @@ export const PROPERTY = {
   rating: 4.92,
   reviewCount: 137,
   superhostYears: 9,
+  // Airbnb has no host API — these are manually maintained. Flip to `false`
+  // if/when Airbnb changes status; the SocialProof component hides each
+  // badge independently. The rating badge also hides automatically when
+  // `rating` drops to 4.80 or below (strict > 4.80 threshold).
+  superhost: true,
+  guestFavorite: true,
   airbnbUrl: "https://www.airbnb.com/h/captainscottageva",
   email: "stay@captainscottage.com",
   owner: "Good Old Boys LLC",
