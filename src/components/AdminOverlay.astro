@@ -1,20 +1,43 @@
 ---
 // Preview-only review overlay. BlogPost renders this ONLY when previewMode
-// is true (npm run dev, or an INCLUDE_DRAFTS build). It is never emitted in
-// the production GitHub Pages build, so it cannot appear on the live site.
-//
-// A static site cannot run agents or write files from the browser. So this
-// overlay CAPTURES a review decision + feedback and hands it back as a JSON
-// file (download + clipboard). You drop that into content/feedback/<slug>.json
-// (or commit it via the Git CMS). The Writer/SEO agents read that file on
-// their next run and revise. "Automatic" = the loop is wired; a run still
-// has to be triggered. This is the honest boundary.
+// is true (npm run dev, or an INCLUDE_DRAFTS build). It is NEVER emitted in
+// the production GitHub Pages build, so nothing here can appear on the live
+// site — by design.
+import { getCollection } from "astro:content";
+import { withBase } from "~/lib/site";
+
 interface Props {
   slug: string;
   title: string;
   isDraft?: boolean;
 }
 const { slug, title, isDraft = false } = Astro.props;
+
+// Pending-review queue: every draft post is awaiting Will's approval.
+let pending: { slug: string; title: string }[] = [];
+try {
+  const drafts = await getCollection("blog", ({ data }) => data.draft === true);
+  drafts.sort((a, b) => +a.data.publishedAt - +b.data.publishedAt);
+  pending = drafts.map((p) => ({ slug: p.id, title: p.data.title }));
+} catch {
+  pending = [];
+}
+
+const currentIndex = pending.findIndex((p) => p.slug === slug);
+const total = pending.length;
+const position = currentIndex >= 0 ? currentIndex + 1 : 0;
+const prev =
+  currentIndex > 0
+    ? pending[currentIndex - 1]
+    : currentIndex === 0 && total > 1
+      ? pending[total - 1]
+      : null;
+const next =
+  currentIndex >= 0 && currentIndex < total - 1
+    ? pending[currentIndex + 1]
+    : currentIndex === total - 1 && total > 1
+      ? pending[0]
+      : null;
 ---
 
 <aside
@@ -22,7 +45,7 @@ const { slug, title, isDraft = false } = Astro.props;
   data-slug={slug}
   data-title={title}
   data-draft={String(isDraft)}
-  class="fixed bottom-4 right-4 z-[70] w-[min(92vw,420px)] rounded-md border border-rule bg-bone shadow-lg"
+  class="fixed bottom-4 right-4 z-[70] w-[min(92vw,440px)] rounded-md border border-rule bg-bone shadow-lg"
 >
   <button
     type="button"
@@ -32,13 +55,75 @@ const { slug, title, isDraft = false } = Astro.props;
     <span class="text-xs font-medium uppercase tracking-[0.18em]">
       Review panel{isDraft ? " · draft" : ""}
     </span>
-    <span id="ao-caret" class="text-bone/70">▾</span>
+    <span class="flex items-center gap-3 text-bone/70">
+      {
+        total > 0 && currentIndex >= 0 && (
+          <span class="text-[11px] uppercase tracking-[0.18em]">
+            {position} / {total}
+          </span>
+        )
+      }
+      <span id="ao-caret">▾</span>
+    </span>
   </button>
 
   <div id="ao-body" class="space-y-4 p-4">
+    {/* Nav between pending posts */}
+    {
+      total > 1 && (
+        <div class="flex items-center justify-between text-xs text-ink-soft">
+          {prev ? (
+            <a
+              href={withBase("/journal/" + prev.slug)}
+              class="flex items-center gap-1 hover:text-ink"
+              title={prev.title}
+            >
+              ← Prev
+            </a>
+          ) : (
+            <span class="text-ink-soft/40">← Prev</span>
+          )}
+          <span class="text-ink-soft/70">
+            {position > 0 ? `${position} of ${total} drafts pending` : `${total} drafts pending`}
+          </span>
+          {next ? (
+            <a
+              href={withBase("/journal/" + next.slug)}
+              class="flex items-center gap-1 hover:text-ink"
+              title={next.title}
+            >
+              Next →
+            </a>
+          ) : (
+            <span class="text-ink-soft/40">Next →</span>
+          )}
+        </div>
+      )
+    }
+
+    {/* Pending-rewrite banner — toggled by JS via localStorage flag */}
+    <div
+      id="ao-pending"
+      style="display:none"
+      class="rounded border border-sage bg-sage/10 px-3 py-2 text-xs text-sage"
+    >
+      <div class="flex items-start justify-between gap-3">
+        <span>
+          ✓ Feedback submitted — <strong>rewrite pending</strong>. The Writer agent will pick this up on the next run.
+        </span>
+        <button
+          type="button"
+          id="ao-clear-pending"
+          class="shrink-0 underline hover:no-underline"
+          title="Clear the local 'pending' flag (does not affect the saved feedback file)"
+        >
+          clear
+        </button>
+      </div>
+    </div>
+
     <p class="text-sm text-ink-soft">
-      Reviewing <strong>{title}</strong>. Your feedback is saved as a file the
-      writing agents read on their next run. Nothing here publishes.
+      Reviewing <strong>{title}</strong>. Your feedback is saved as a file the writing agents read on their next run. Nothing here publishes.
     </p>
 
     <div class="flex gap-2">
@@ -59,7 +144,7 @@ const { slug, title, isDraft = false } = Astro.props;
     <textarea
       id="ao-feedback"
       rows="5"
-      placeholder="What should change? Be specific — section, sentence, fact to fix. (Approving for batch records the decision; final publish is still your gate in the CMS.)"
+      placeholder="What should change? Be specific — section, sentence, fact to fix. (Ctrl+Enter to submit. Approving for batch records the decision; final publish is still your gate.)"
       class="w-full resize-y rounded border border-rule bg-white p-3 text-sm text-ink outline-none focus:border-ink"
     ></textarea>
 
@@ -71,13 +156,12 @@ const { slug, title, isDraft = false } = Astro.props;
       >
         Submit feedback
       </button>
-      <span id="ao-status" class="text-xs text-sage"></span>
+      <span class="text-[11px] text-ink-soft/60">⌘/Ctrl + Enter</span>
+      <span id="ao-status" class="ml-auto text-xs text-sage"></span>
     </div>
 
     <p class="text-xs text-ink-soft/70">
-      Submitting writes <code>content/feedback/{slug}.json</code> straight into
-      the project. The Writer/SEO agents read it on the next run. (Dev review
-      only — needs the local dev server.)
+      Submitting writes <code>content/feedback/{slug}.json</code> straight into the project. Dev review only — never bundled into the production site.
     </p>
   </div>
 </aside>
@@ -92,6 +176,8 @@ const { slug, title, isDraft = false } = Astro.props;
     var body = document.getElementById("ao-body");
     var caret = document.getElementById("ao-caret");
     var statusEl = document.getElementById("ao-status");
+    var pendingBanner = document.getElementById("ao-pending");
+    var clearBtn = document.getElementById("ao-clear-pending");
 
     document.getElementById("ao-toggle").addEventListener("click", function () {
       var hidden = body.style.display === "none";
@@ -99,10 +185,11 @@ const { slug, title, isDraft = false } = Astro.props;
       caret.textContent = hidden ? "▾" : "▸";
     });
 
-    // Persist across the dev server's hot-reloads (file changes during a
-    // session trigger HMR, which would otherwise wipe the textarea).
+    // Persist textarea across HMR reloads.
     var STORE_KEY = "ao-feedback:" + slug;
+    var PENDING_KEY = "ao-pending:" + slug;
     var ta = document.getElementById("ao-feedback");
+
     try {
       var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
       if (saved) {
@@ -113,6 +200,26 @@ const { slug, title, isDraft = false } = Astro.props;
         }
       }
     } catch (e) {}
+
+    // Show the "rewrite pending" banner if we previously submitted feedback
+    // for this slug and haven't cleared it yet.
+    function refreshPendingBanner() {
+      try {
+        if (localStorage.getItem(PENDING_KEY)) {
+          pendingBanner.style.display = "";
+        } else {
+          pendingBanner.style.display = "none";
+        }
+      } catch (e) {}
+    }
+    refreshPendingBanner();
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        try { localStorage.removeItem(PENDING_KEY); } catch (e) {}
+        refreshPendingBanner();
+      });
+    }
 
     function persist() {
       try {
@@ -135,20 +242,22 @@ const { slug, title, isDraft = false } = Astro.props;
         title: title,
         isDraft: isDraft,
         decision: decision,
-        feedback: document.getElementById("ao-feedback").value.trim(),
+        feedback: ta.value.trim(),
         reviewer: "Will Phillips",
         at: new Date().toISOString(),
-        note: "Captured in the preview review panel. Agents consume content/feedback/<slug>.json. 'approve-for-batch' records intent only; publishing remains gated in the CMS."
+        note: "Captured in the preview review panel. Agents consume content/feedback/<slug>.json. 'approve-for-batch' records intent only; publishing remains gated."
       };
     }
 
     function flash(msg) {
       statusEl.textContent = msg;
-      setTimeout(function () { statusEl.textContent = ""; }, 3000);
+      clearTimeout(flash._t);
+      flash._t = setTimeout(function () { statusEl.textContent = ""; }, 4000);
     }
 
     var submitBtn = document.getElementById("ao-submit");
-    submitBtn.addEventListener("click", function () {
+
+    function doSubmit() {
       var data = payload();
       if (data.decision === "request-changes" && !data.feedback) {
         flash("Add a note first.");
@@ -165,19 +274,33 @@ const { slug, title, isDraft = false } = Astro.props;
         .then(function (res) {
           submitBtn.disabled = false;
           if (res.ok && res.j && res.j.ok) {
-            try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+            try {
+              localStorage.removeItem(STORE_KEY);
+              localStorage.setItem(PENDING_KEY, new Date().toISOString());
+            } catch (e) {}
             ta.value = "";
+            refreshPendingBanner();
             flash("Submitted → " + res.j.path);
           } else {
             flash("Failed: " + ((res.j && res.j.error) || "server") + ". Downloading instead.");
             downloadFallback(data);
           }
         })
-        .catch(function (err) {
+        .catch(function () {
           submitBtn.disabled = false;
           flash("No dev server. Downloading instead.");
           downloadFallback(data);
         });
+    }
+
+    submitBtn.addEventListener("click", doSubmit);
+
+    // Ctrl/Cmd + Enter shortcut from within the textarea.
+    ta.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        doSubmit();
+      }
     });
 
     function downloadFallback(data) {

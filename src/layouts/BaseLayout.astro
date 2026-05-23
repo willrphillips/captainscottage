@@ -4,7 +4,7 @@ import Nav from "~/components/Nav.astro";
 import SocialProof from "~/components/SocialProof.astro";
 import Footer from "~/components/Footer.astro";
 import SchemaBreadcrumb from "~/components/SchemaBreadcrumb.astro";
-import { PROPERTY, SITE, absoluteUrl, stripBase } from "~/lib/site";
+import { PROPERTY, SITE, absoluteUrl, stripBase, withBase } from "~/lib/site";
 
 interface Props {
   title: string;
@@ -55,7 +55,7 @@ const ogImageUrl = ogImage.startsWith("http") ? ogImage : absoluteUrl(ogImage);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    <link rel="icon" href={absoluteUrl("/favicon.svg")} type="image/svg+xml" />
+    <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={`${PROPERTY.name} Journal`} href={absoluteUrl("/rss.xml")} />
     <link rel="sitemap" type="application/xml" href={absoluteUrl("/sitemap-index.xml")} />
 
