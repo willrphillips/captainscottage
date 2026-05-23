@@ -100,17 +100,10 @@ const pathname = `/journal/${slug}`;
         <slot />
       </div>
 
-      <div class="reveal mt-20 flex flex-col items-start gap-6 border-t border-rule pt-12">
-        <div>
-          <p class="eyebrow">Stay with us</p>
-          <h2 class="mt-4 font-display display-md max-w-[18ch]">
-            The water <em>is waiting</em>.
-          </h2>
-        </div>
-        <a href={withBase("/book")} class="btn btn-rust">
-          Check availability →
-        </a>
-      </div>
+      {/* The per-post body now carries its own closing CTA (Writer
+          directive). The old "Stay with us / The water is waiting" CTA
+          block lived here with a top border bar — removed at Will's
+          request so the post reads as one continuous voice. */}
     </div>
 
     {
