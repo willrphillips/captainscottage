@@ -1,17 +1,134 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import ComingSoon from "~/components/ComingSoon.astro";
+import { PROPERTY, withBase } from "~/lib/site";
+
+const title = "FAQ — Captain's Cottage, Hull Creek, Northern Neck";
+const description =
+  "Quick honest answers about Captain's Cottage on Hull Creek in Heathsville, Virginia: getting there, the water, kids, working remotely, the best months to come.";
+
+// Conversational answers in the host voice — not a kitchen-sink list.
+// The schema below mirrors these for AI overviews / Google rich results.
+const faqs = [
+  {
+    q: "How do we get to you?",
+    a: "We're in Heathsville on Virginia's Northern Neck, on Hull Creek where it meets the lower Potomac. About 2 hours from Richmond, 2¾ from Washington, DC. Last stretch is on country two-lanes; have the address loaded before you turn off the main road.",
+  },
+  {
+    q: "What's the water actually like?",
+    a: "Brackish, shallow, mostly fresh. The creek is calm and easy to wade out into — good for kids and quiet mornings. The dock catches the last of the sun. Sand shifts with the seasons; some visits there's a wide little beach, some visits a small one, but it's always ready for wading.",
+  },
+  {
+    q: "Is it good for kids?",
+    a: "Very. The water near the dock is shallow, there's a high chair and pack-n-play, a removable bed guard, and a single crab pot on the dock that's basically a free morning activity. Bring water shoes and binoculars and you're set.",
+  },
+  {
+    q: "Can we work from there?",
+    a: "Yes. 103 Mbps Wi-Fi and a real desk in the master bedroom. Most guests don't use it. The ones who need to, do.",
+  },
+  {
+    q: "What about jellyfish?",
+    a: "Sea nettles drift through the lower Chesapeake for a four-to-six-week stretch somewhere between June and September — never all summer, never on a schedule. If you're here in that window a thin stinger suit or rash guard means you don't think about them. The packing list has more.",
+  },
+  {
+    q: "When's the best time to come?",
+    a: "Late spring and early fall, if you can — water warming, birds migrating, fewer bugs. Summer is peak everything (crabs, swimming, long evenings). Winter is the deep-quiet version, when the sauna and hot tub do their best work.",
+  },
+  {
+    q: "Do we need to bring crabbing gear?",
+    a: "No. The pot and the line are on the dock. The bait you can grab at the Food Lion fifteen minutes away — chicken necks work fine.",
+  },
+  {
+    q: "Where do we eat?",
+    a: "The kitchen is set up for slow meals; cook in if the porch is calling. When you want to go out, the area guide has the short list we'd send a friend to — waterfront seafood in Reedville, ice cream that's worth the drive, a brewery in Callao.",
+  },
+  {
+    q: "Check-in, check-out, how many of us?",
+    a: `Check-in ${PROPERTY.checkIn}, check-out ${PROPERTY.checkOut}, up to ${PROPERTY.maxGuests} guests. ${PROPERTY.bedrooms} bedrooms, ${PROPERTY.beds} beds, ${PROPERTY.bathrooms} baths. Booking, dates, and cancellation all run through the Airbnb listing.`,
+  },
+  {
+    q: "Can we bring the dog?",
+    a: "We love dogs and we know you do too — but the cottage isn't pet-friendly. The shoreline gets walked by herons and the master rugs aren't replaceable; sorry to be the bearer.",
+  },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 ---
 
 <BaseLayout
-  title="FAQ — Captain's Cottage, Hull Creek Heathsville VA"
-  description="Frequently asked questions about staying at Captain's Cottage: check-in, water safety, tides, jellyfish, Wi-Fi, distance from DC and Richmond."
-  noindex
-  breadcrumbs={[{ name: "Home", href: "/" }, { name: "FAQ", href: "/faq" }]}
+  title={title}
+  description={description}
+  breadcrumbs={[
+    { name: "Home", href: "/" },
+    { name: "FAQ", href: "/faq" },
+  ]}
 >
-  <ComingSoon
-    eyebrow="FAQ"
-    title="Answers, with proper schema, in Phase 3."
-    description="Twenty questions covering check-in, water safety, tides, jellyfish, Wi-Fi for remote work, kid amenities, and drive times. All with FAQPage schema for AI Overviews."
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(schema)}
+    slot="head"
   />
+
+  <section class="section-pad pt-40 md:pt-48">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-end">
+        <header class="md:col-span-7 reveal">
+          <p class="eyebrow">Before you ask</p>
+          <h1 class="mt-6 font-display display-xl">
+            A few questions we <em>always</em> get.
+          </h1>
+        </header>
+        <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
+          The honest, short version. If we missed something, message us through the
+          <a href={PROPERTY.airbnbUrl} target="_blank" rel="noopener">Airbnb listing</a> — we read everything.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="mx-auto max-w-[44rem] divide-y divide-rule border-y border-rule">
+        {
+          faqs.map((f, i) => (
+            <details
+              class="group reveal py-6"
+              style={`transition-delay: ${(i % 4) * 50}ms;`}
+            >
+              <summary class="flex cursor-pointer items-baseline justify-between gap-4 list-none">
+                <span class="font-display text-xl md:text-2xl text-ink">{f.q}</span>
+                <span class="shrink-0 font-display italic text-rust text-2xl transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+              </summary>
+              <p class="body-prose mt-4 text-base">{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-navy text-bone section-pad">
+    <div class="container-narrow text-center reveal">
+      <p class="eyebrow text-sand">Still curious</p>
+      <h2 class="mt-6 font-display display-lg text-bone">
+        The rest is easier to <em>show you</em>.
+      </h2>
+      <p class="lede mt-8 text-bone/80 mx-auto max-w-xl">
+        Wander through <a href={withBase("/amenities")}>what's here</a>, <a href={withBase("/area")}>the area</a>, and
+        <a href={withBase("/what-to-bring")}> what to bring</a> — or just come down.
+      </p>
+      <div class="mt-12 flex flex-wrap justify-center gap-4">
+        <a href={withBase("/journal")} class="btn btn-ghost border-bone/40 text-bone hover:!border-bone hover:!text-bone">Read the journal</a>
+        <a href={withBase("/book")} class="btn btn-rust">Stay with us</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
