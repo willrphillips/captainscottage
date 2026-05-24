@@ -1,0 +1,96 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { withBase } from "~/lib/site";
+
+const title = "What to Pack for a Hull Creek Cottage Stay, Northern Neck";
+const description =
+  "A short, honest list of what to bring to Captain's Cottage on Hull Creek, Virginia's Northern Neck: a stinger suit in jellyfish season, binoculars, slip-ons, and a few quiet nice-to-haves.";
+
+const items = [
+  {
+    lead: "A book you won't rush.",
+    rest: "The porch does the rest.",
+  },
+  {
+    lead: "Polarized sunglasses.",
+    rest: "To see into the water if you'll be fishing.",
+  },
+  {
+    lead: "A thin stinger suit, if you're here in jellyfish season.",
+    rest: "Nettles drift in for four to six weeks somewhere between June and September, never all summer, never on schedule. Swim with a light layer and you'll be covered.",
+  },
+  {
+    lead: "Water shoes, if you mean to wade out.",
+    rest: "The shallows are soft and a little oystery underfoot.",
+  },
+  {
+    lead: "Binoculars.",
+    rest: "Osprey, eagles, and herons keep us occupied all day. You never know when you might spot something remarkable.",
+  },
+  {
+    lead: "Slip-on shoes for the sauna walk.",
+    rest: "You'll make the walk more than once. You won't want laces.",
+  },
+  {
+    lead: "A swimsuit, whatever month it is.",
+    rest: "The hot tub runs all year, and even when the creek is cold, it's worth a plunge post-sauna.",
+  },
+  {
+    lead: "A nice-to-have:",
+    rest: "a quality camera for the evening the sunset goes gold.",
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  pathname="/what-to-bring"
+  breadcrumbs={[
+    { name: "Home", href: "/" },
+    { name: "What to Bring", href: "/what-to-bring" },
+  ]}
+>
+  <section class="section-pad">
+    <div class="container-narrow">
+      <header class="reveal max-w-[42rem]">
+        <p class="eyebrow">Before you come</p>
+        <h1 class="mt-6 font-display display-lg leading-[1.05]">What to Bring</h1>
+        <p class="lede mt-8">
+          You'll sort the obvious things. These are the few we'd actually pack
+          for a stay on <a href={withBase("/area")}>Hull Creek</a> — the ones
+          guests tell us they wish they'd thought of.
+        </p>
+      </header>
+
+      <div class="reveal mt-14 h-px bg-rule"></div>
+
+      <ul class="mt-14 space-y-8">
+        {
+          items.map((it, i) => (
+            <li
+              class="body-prose reveal max-w-[42rem] text-lg"
+              style={`transition-delay: ${(i % 6) * 60}ms;`}
+            >
+              <strong class="font-medium text-ink">{it.lead}</strong> {it.rest}
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="reveal mt-20 flex flex-col items-start gap-6 border-t border-rule pt-12">
+        <div>
+          <p class="eyebrow">When you're ready</p>
+          <h2 class="mt-4 font-display display-md max-w-[18ch]">
+            The rest is <em>already here</em>.
+          </h2>
+          <p class="body-prose mt-4 max-w-[40rem]">
+            More on the seasons and the water in
+            <a href={withBase("/journal")}>the journal</a>.
+          </p>
+        </div>
+        <a href={withBase("/book")} class="btn btn-rust">Check availability →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

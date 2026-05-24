@@ -11,12 +11,18 @@ const imageUrls = images.length
   ? images.map((src) => absoluteUrl(src))
   : [absoluteUrl("/images/og-default.jpg")];
 
+// Same threshold as the SocialProof visual badge: only surface aggregateRating
+// in structured data when the rating is above 4.80. If it slips at or below,
+// the schema field disappears alongside the visible badge — never advertise a
+// rating you wouldn't show on the page.
+const showRating = typeof PROPERTY.rating === "number" && PROPERTY.rating > 4.8;
+
 const data = {
   "@context": "https://schema.org",
   "@type": "VacationRental",
   name: PROPERTY.name,
   description:
-    "Waterfront cottage with private beach, hot tub, and cedar sauna on Hull Creek in Heathsville, Virginia.",
+    "Waterfront cottage with water access, hot tub, and cedar sauna on Hull Creek in Heathsville, Virginia.",
   url: absoluteUrl("/"),
   image: imageUrls,
   brand: PROPERTY.owner,
@@ -33,7 +39,7 @@ const data = {
     longitude: PROPERTY.geo.lng,
   },
   amenityFeature: [
-    { "@type": "LocationFeatureSpecification", name: "Private beach", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Water access", value: true },
     { "@type": "LocationFeatureSpecification", name: "Hot tub", value: true },
     { "@type": "LocationFeatureSpecification", name: "Cedar sauna", value: true },
     { "@type": "LocationFeatureSpecification", name: "Dock with crab pots", value: true },
@@ -46,13 +52,17 @@ const data = {
   numberOfBedrooms: PROPERTY.bedrooms,
   numberOfBathroomsTotal: PROPERTY.bathrooms,
   occupancy: { "@type": "QuantitativeValue", maxValue: PROPERTY.maxGuests },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: PROPERTY.rating,
-    reviewCount: PROPERTY.reviewCount,
-    bestRating: 5,
-    worstRating: 1,
-  },
+  ...(showRating
+    ? {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: PROPERTY.rating,
+          reviewCount: PROPERTY.reviewCount,
+          bestRating: 5,
+          worstRating: 1,
+        },
+      }
+    : {}),
   checkinTime: "16:00",
   checkoutTime: "11:00",
 };

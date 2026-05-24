@@ -1,41 +1,30 @@
 ---
+// Static amenity strip. Was a scrolling marquee that doubled its items in
+// the DOM for a seamless loop — the doubling caused visible duplicates
+// (Will flagged "cedar sauna" appearing twice). Dropped the animation so
+// each item shows once. Centered, wraps on narrow screens.
 const items = [
-  "private beach",
+  "waterfront",
   "cedar sauna",
   "hot tub",
-  "4.92 stars",
-  "9 years hosting",
-  "superhost",
   "private dock",
   "two screened porches",
 ];
-const doubled = [...items, ...items];
 ---
 
-<section class="border-y border-rule bg-bone-deep py-6 overflow-hidden">
-  <div class="flex animate-marquee whitespace-nowrap will-change-transform">
-    {
-      doubled.map((label) => (
-        <span class="mx-8 inline-flex items-center gap-8 font-display text-2xl md:text-3xl">
-          <em class="italic text-rust">{label}</em>
-          <span aria-hidden="true" class="text-ink-soft/50">·</span>
-        </span>
-      ))
-    }
+<section class="border-y border-rule bg-bone-deep py-6">
+  <div class="container-wide">
+    <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 md:gap-x-10">
+      {
+        items.map((label, i) => (
+          <>
+            {i > 0 && (
+              <li aria-hidden="true" class="font-display text-ink-soft/50 text-2xl md:text-3xl">·</li>
+            )}
+            <li class="font-display italic text-rust text-2xl md:text-3xl">{label}</li>
+          </>
+        ))
+      }
+    </ul>
   </div>
 </section>
-
-<style>
-  @keyframes captains-marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  .animate-marquee {
-    animation: captains-marquee 42s linear infinite;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .animate-marquee {
-      animation: none;
-    }
-  }
-</style>

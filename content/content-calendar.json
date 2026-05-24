@@ -1,0 +1,162 @@
+{
+  "_comment": "Master content calendar. The Editor agent owns this file. Status flow: idea -> researched -> drafted -> in-review -> approved -> scheduled -> published. HUMAN GATE: a post may not move past 'in-review' to 'approved' without Will's explicit approval, and may not be 'scheduled'/'published' unless it is 'approved'. publishDate is the intended live date; the post stays draft:true until it is BOTH approved AND its publishDate has arrived (enforced by the weekly rebuild cron + a date check). Agents never set status to 'approved' or 'published' themselves.",
+  "projectId": "captainscottage",
+  "updatedAt": "2026-05-15",
+  "lastAudit": "2026-05-15",
+  "leadTimeExperiment": "May–Jun 2026 batch: 4 posts testing whether season-fit at publishDate+bookingLeadDays moves bookings. crabbers (strong-seasonal), tides-jellyfish (strong-seasonal forward ~60d), sauna (deliberate mismatch / control), recipes (evergreen baseline). Measure bookings 20–60d out via blog-metrics, then retest.",
+  "cadence": "weekly, Wednesdays",
+  "bookingLeadDays": 38.5,
+  "seasonTargeting": "Readers booking today arrive ~bookingLeadDays later. The Editor targets the season the reader will EXPERIENCE (publishDate + bookingLeadDays), not the publish date. Seasonal/timely posts must land roughly 5-6 weeks before that lived season. bookingLeadDays is refreshed from content/metrics/airbnb-metrics.json (Gmail-derived). Conversion rate is intentionally NOT a blog KPI — it is Airbnb-listing-side. Track occupancy and booked-nights instead.",
+  "metricsFile": "content/metrics/airbnb-metrics.json",
+  "gate": {
+    "humanApprovalRequired": true,
+    "approver": "Will Phillips",
+    "rule": "No transition into 'approved' or 'published' by any agent. Will approves in batches; each approved post auto-publishes on its publishDate via the weekly cron."
+  },
+  "posts": [
+    {
+      "slug": "the-art-of-the-slow-weekend",
+      "title": "The Art of the Slow Weekend: How to Truly Disconnect",
+      "category": "Lifestyle",
+      "keywords": ["how to disconnect on vacation", "digital detox weekend", "slow weekend"],
+      "status": "published",
+      "publishDate": "2026-05-15",
+      "approvedBy": "Will Phillips",
+      "note": "Built and published by the prior agent (Workstream A sample post)."
+    },
+    {
+      "slug": "crabbers-morning-on-hull-creek",
+      "title": "A Crabber's Morning on Hull Creek",
+      "category": "Lifestyle",
+      "keywords": ["crabbing Potomac River", "Virginia crabbing guide", "crabbing Hull Creek", "how to catch blue crabs Potomac"],
+      "status": "in-review",
+      "publishDate": "2026-05-20",
+      "approvedBy": null,
+      "experiment": "lead-time test: STRONG-SEASONAL. publish+38.5d ≈ late June = peak crab season. Hypothesis: high booking pull.",
+      "note": "CATEGORY CORRECTED: brief §6 places this post under Lifestyle (narrative/brand-building), not Travel. Calendar had it as Travel — brief wins. Flag for Will to confirm. | ANGLE: first-person narrative dawn scene — Will (or a guest) walks the dock before sunrise, pulls the crab pots the cottage provides, culls the catch, cooks it that morning. The how-to is embedded in the story, not a listicle. Warm, sensory, unhurried — it earns the Lifestyle label. | TARGET READER: prospective guests who are curious whether crabbing is genuinely accessible at the cottage, and travel/lifestyle readers searching 'crabbing Potomac River' or 'Virginia crabbing guide' who may not yet know the property exists. This is a soft-sell awareness post. | WHAT TO RESEARCH: (1) Blue crab season dates on the Potomac / Northumberland County — typical peak (late June–August), legal minimum size (5 inches point-to-point per VMRC), and the VMRC recreational license requirement for non-residents. (2) Practical how-to: baiting a crab pot with chicken necks vs. oily fish, how long to leave pots, how many the cottage provides, how to tell a male jimmy from a female sook. (3) Hull Creek-specific: brackish/mostly-fresh water note from brief §7 (shallow, good for kids); tide influence on crab pot placement. (4) Sensory/atmosphere details: pre-dawn dock sounds on Hull Creek, fog off the water, herons, smell of low tide — Will can supply firsthand, or researcher can note placeholders. (5) Cooking: steaming blues with Old Bay on the screened porch. One simple recipe beat (not the full recipes post — that is post #4). (6) Any local crabbing lore tied to the Northern Neck watermen culture (cross-reference with the later 'Oysters, Workboats, and Watermen' post to avoid duplication). | INTERNAL LINKS REQUIRED (≥2): (a) /activities/ — the activities hub page is live; link naturally when describing what the cottage makes possible. (b) /area/ — the Northern Neck overview page is live; link when contextualizing Hull Creek / Potomac geography. Optional third link: /journal/the-art-of-the-slow-weekend (already published) if the narrative calls for a 'slow morning' callback. | VOICE: Will's first-person or close third on a guest; editorial-coastal, not instructional. Warm but not cutesy. No shell emojis, no puns on 'crabby.' Drop cap on the opening paragraph per design system. | REVISION 2026-05-15: Rewritten per Will's voice-model feedback — cut from ~800 exhaustive words to ~620 focused words. Dropped: full culling how-to (jimmy/sook breakdown), bait section, detailed steaming instructions, regulations deep-dive, Lewis patent history block, tidal mechanics subsection. Kept: dawn sensory scene, dock/fog/osprey, one-sentence regulations pointer to mrc.virginia.gov, brief steaming beat, Maya quote, both internal links, one CTA. | REVISION 2026-05-19: Resolved one-pot reality with abundance framing (we keep one pot, everyone takes turns — never a caveat). Removed all TODO pot-count markers. Stripped apology-shaped language throughout. Post tightened to ~520 words matching slow-weekend register. | REVISION 2026-05-23 (Will feedback round 1): Applied 4 changes — crab pot sentence rewritten to Will's exact wording; 'on a dock in Northumberland County' simplified to 'on the dock'; fog references removed (Will has never seen fog); /activities closing paragraph replaced with slow-weekend callback link (/journal/the-art-of-the-slow-weekend). Internal links now /area + slow-weekend post (2 links, SEO floor maintained). | REVISION 2026-05-23 (Will feedback round 2): Maya quote moved to top as blockquote epigraph with 'Real review, Maya from Brooklyn' attribution; removed /journal/the-art-of-the-slow-weekend internal link (posts must stand alone); 'a slow weekend' now plain phrase only; replaced removed link with natural /what-to-bring contextual link in the culling paragraph (rubber gloves / what to bring for the dock). Internal links: /area + /what-to-bring (2 links, SEO floor maintained). ~530 words."
+    },
+    {
+      "slug": "cottage-sauna-culture",
+      "title": "Cottage Sauna Culture: Why a Hot Sauna and Cold Creek Belong Together",
+      "category": "Lifestyle",
+      "keywords": ["sauna with cold plunge", "Nordic sauna ritual", "sauna health benefits"],
+      "status": "in-review",
+      "publishDate": "2026-06-03",
+      "approvedBy": null,
+      "experiment": "lead-time test: DELIBERATE SEASONAL MISMATCH. publish+38.5d ≈ mid-July; a hot sauna sells weaker in peak summer. This is the control for 'does season-fit move bookings' — expect it to underperform the seasonal posts. Health-forward angle still evergreen.",
+      "note": "Brief calendar #3. Health-forward: cardiovascular, recovery, hot/cold contrast (hedged, sourced — no medical guarantees). Amenity-health angle. Internal links: /amenities (when live) else /activities and /the-cottage; /area. Voice: warm, Will's CrossFit background lightly hinted, not clinical. | Drafted 2026-05-15. ~640 words. 7 TODO markers for Will (sauna temp, window view, water temp by season, his personal sequence, sauna capacity, year-round availability, guest safety guidance). Health claims hedged: Laukkanen cohort flagged observational-only; RCT results acknowledged non-significant; cold-water mood study n=33 and 'largely unknown' mechanism preserved; no guarantees stated. | Revised 2026-05-19 per Will's feedback: science section removed (one hedged sentence only), narrative/transformative register foregrounded, photo TODO marker added at top, ~590 words."
+    },
+    {
+      "slug": "waterfront-kitchen-family-recipes",
+      "title": "Family Recipes for a Waterfront Kitchen: 5 Easy Meals on Vacation",
+      "category": "Lifestyle",
+      "keywords": ["vacation rental dinner ideas", "easy lake house meals"],
+      "status": "in-review",
+      "publishDate": "2026-06-10",
+      "approvedBy": null,
+      "experiment": "lead-time test: EVERGREEN BASELINE. No seasonal signal — the control to compare the seasonal posts against. publish+38.5d ≈ mid-July; relevance season-neutral.",
+      "note": "Brief calendar #4. Practical, grocery-list-ready, 5 easy meals. Internal links: /the-cottage and /area. Voice: practical, warm, family. Do NOT overlap the crabbing post's one cooking beat — this one owns recipes. | Drafted 2026-05-19. ~540 words. 4 TODO markers (kitchen equipment, Will's real meal anchor, Jeff's Country Market status, kitchen detail specificity). Internal links: /area (Kellum Farms), /the-cottage (dining porch). 1 booking CTA to /book."
+    },
+    {
+      "slug": "complete-guide-to-reedville-virginia",
+      "title": "The Complete Guide to Reedville, Virginia",
+      "category": "Travel",
+      "keywords": ["things to do in Reedville VA", "Reedville fishermen's museum"],
+      "status": "idea",
+      "publishDate": "2026-06-17",
+      "approvedBy": null,
+      "note": "Brief calendar #5. Pull from src/lib/guidebook.ts (Reedville Market, Fishermen's Museum, etc.)."
+    },
+    {
+      "slug": "24-hours-in-irvington-virginia",
+      "title": "24 Hours in Irvington: Virginia's Most Charming Riverfront Town",
+      "category": "Travel",
+      "keywords": ["Irvington VA travel", "Tides Inn"],
+      "status": "idea",
+      "publishDate": "2026-06-24",
+      "approvedBy": null,
+      "note": "Brief calendar #6. Day-trip itinerary from the cottage."
+    },
+    {
+      "slug": "weekend-getaways-from-washington-dc",
+      "title": "Weekend Getaways from Washington DC: Why the Northern Neck Beats the Eastern Shore",
+      "category": "Travel",
+      "keywords": ["weekend trips from DC", "alternatives to Eastern Shore Maryland"],
+      "status": "idea",
+      "publishDate": "2026-07-01",
+      "approvedBy": null,
+      "note": "Brief calendar #7. Comparison / competitive positioning."
+    },
+    {
+      "slug": "mornings-with-the-ospreys-hull-creek",
+      "title": "Mornings with the Ospreys on Hull Creek",
+      "category": "Lifestyle",
+      "keywords": ["Northern Neck birding", "ospreys Chesapeake Bay", "bird watching Hull Creek", "Potomac River birds"],
+      "status": "in-review",
+      "publishDate": "2026-05-27",
+      "approvedBy": null,
+      "experiment": "lead-time test: replaces the killed jellyfish post. BIRDS CONTENT PILLAR kickoff (shoulder-season occupancy play). publish+38.5d ≈ early July; ospreys breed on the Chesapeake Apr–Aug so a summer-arrival reader still lives the scene. Positive sensory journal, NOT a guide.",
+      "note": "Replaces 'northern-neck-travel-guide-tides-jellyfish' — that post was killed (its core was a caveat; violates the positive-journal tone rule). Jellyfish/tides/mosquito/what-to-pack content RELOCATES to a planned seasonal 'Before You Go / Good Things to Pack' utilities section (Summer/Fall/Winter/Spring), NOT the journal; research preserved at content/research/northern-neck-travel-guide-tides-jellyfish.md. | THIS post: first-person host, a single bird-rich morning on the dock — ospreys working the creek, herons, eagles. One idea, sensory, the slow-weekend benchmark. Internal links /area + /activities. SPECIES CONFIRMED BY WILL (firsthand from the dock): osprey, bald eagle, great blue heron, egret, kingfisher; swans seen ONCE (treat as rare/occasional — do not overstate). Researcher still verifies any behavior/seasonality claims; the sighting list itself is owner firsthand. Birds pillar = recurring positive posts + eventual 'Birds of Hull Creek' guide + positioning angle. | Drafted 2026-05-19. ~623 words. 1 TODO marker (Will's single memorable bird moment — the heart of the post). 2 internal links (/area Northern Neck context, /activities waterfront). 1 CTA to /book."
+    },
+    {
+      "slug": "cost-to-own-waterfront-cottage-northern-neck",
+      "title": "What It Costs to Own a Waterfront Cottage on Virginia's Northern Neck",
+      "category": "Real Estate",
+      "keywords": ["Northern Neck real estate", "Virginia waterfront property"],
+      "status": "idea",
+      "publishDate": "2026-07-08",
+      "approvedBy": null,
+      "note": "Brief calendar #9. Real numbers: taxes, flood insurance, maintenance."
+    },
+    {
+      "slug": "buy-or-rent-on-the-water",
+      "title": "Should You Buy or Rent on the Water? A Frank Look at Vacation Property Math",
+      "category": "Real Estate",
+      "keywords": ["vacation home investment", "should I buy a vacation rental"],
+      "status": "idea",
+      "publishDate": "2026-07-15",
+      "approvedBy": null,
+      "note": "Brief calendar #10. ROI honesty."
+    },
+    {
+      "slug": "northern-neck-vs-outer-banks",
+      "title": "The Northern Neck vs. the Outer Banks: A Real Estate Reality Check",
+      "category": "Real Estate",
+      "keywords": ["Northern Neck vs Outer Banks", "Virginia waterfront real estate"],
+      "status": "idea",
+      "publishDate": "2026-07-22",
+      "approvedBy": null,
+      "note": "Brief calendar #11. Pricing comparison, rental demand."
+    },
+    {
+      "slug": "renovating-a-1950s-waterfront-cottage",
+      "title": "How We Renovated a 1950s Waterfront Cottage Without Losing Its Soul",
+      "category": "Real Estate",
+      "keywords": ["cottage renovation", "waterfront home renovation"],
+      "status": "idea",
+      "publishDate": "2026-07-29",
+      "approvedBy": null,
+      "note": "Brief calendar #12. Visual-heavy, before/after."
+    },
+    {
+      "slug": "health-case-for-hot-tub-and-cold-creek",
+      "title": "Cold Creek, Hot Tub: The Real Health Case for Contrast Water Therapy",
+      "category": "Lifestyle",
+      "keywords": ["hot tub health benefits", "cold water immersion", "contrast therapy"],
+      "status": "idea",
+      "publishDate": "2026-08-05",
+      "approvedBy": null,
+      "note": "Extended (beyond brief 12). Amenity-health angle requested by Will: sauna/hot tub/water access wellness. Distinct from the sauna post — focus hot tub + creek immersion."
+    },
+    {
+      "slug": "northern-neck-watermen-culture",
+      "title": "Oysters, Workboats, and Watermen: The Living Culture of the Northern Neck",
+      "category": "Travel",
+      "keywords": ["Northern Neck culture", "Chesapeake watermen", "Virginia oyster country"],
+      "status": "idea",
+      "publishDate": "2026-08-12",
+      "approvedBy": null,
+      "note": "Extended (beyond brief 12). Northern Neck culture angle requested by Will."
+    }
+  ]
+}

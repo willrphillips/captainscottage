@@ -28,6 +28,11 @@ const year = new Date().getFullYear();
               </li>
             ))
           }
+          <li>
+            <a href={withBase("/what-to-bring")} class="text-bone/85 hover:text-bone">
+              What to Bring
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -50,7 +55,7 @@ const year = new Date().getFullYear();
 
     <div class="mt-16 flex flex-col gap-2 border-t border-bone/15 pt-8 text-xs text-bone/55 md:flex-row md:items-center md:justify-between">
       <p>© {year} {PROPERTY.owner}. All rights reserved.</p>
-      <p>Hosted on the Northern Neck since {2026 - PROPERTY.superhostYears}.</p>
+      <p>Hosted on the Northern Neck since {PROPERTY.cottageAcquiredYear}.</p>
     </div>
   </div>
 </footer>

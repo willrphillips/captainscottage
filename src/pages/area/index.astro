@@ -1,17 +1,147 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import ComingSoon from "~/components/ComingSoon.astro";
+import { GUIDEBOOK } from "~/lib/guidebook";
+import { DRIVE_TIMES, absoluteUrl, withBase } from "~/lib/site";
+
+const title = "Northern Neck Virginia Travel Guide — Captain's Cottage";
+const description =
+  "Where to eat, shop, and explore on Virginia's Northern Neck — Reedville, Kilmarnock, Tappahannock — handpicked by the hosts of Captain's Cottage on Hull Creek.";
+
+const sections = [
+  {
+    key: "Food & drink" as const,
+    eyebrow: "Where to eat",
+    heading: "The food scene",
+    lede: "Waterfront seafood, a brewery, an ice cream stop worth the drive — the places we send guests to, and a few we keep going back to ourselves.",
+  },
+  {
+    key: "Sightseeing" as const,
+    eyebrow: "Worth the trip",
+    heading: "Sightseeing",
+    lede: "Working-water history, a few minutes from the dock.",
+  },
+  {
+    key: "Shopping" as const,
+    eyebrow: "Treasure hunting",
+    heading: "Antiques & markets",
+    lede: "Antique galleries, a thrift shop or two, and country markets stocked by local farmers and watermen.",
+  },
+];
+
+const featured = sections.flatMap((s) => GUIDEBOOK.filter((p) => p.category === s.key));
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Northern Neck of Virginia — area guide",
+  itemListElement: featured.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: p.name,
+    description: p.note,
+  })),
+};
 ---
 
 <BaseLayout
-  title="The Northern Neck of Virginia — Travel Guide from Captain's Cottage"
-  description="An overview of Virginia's Northern Neck — Heathsville, Reedville, Kilmarnock, Irvington, Warsaw — from the people who host on Hull Creek."
-  noindex
+  title={title}
+  description={description}
   breadcrumbs={[{ name: "Home", href: "/" }, { name: "Area", href: "/area" }]}
 >
-  <ComingSoon
-    eyebrow="The Northern Neck"
-    title="Town guides are being written."
-    description="Heathsville, Reedville, Kilmarnock, Irvington, Warsaw — each town gets a real guide, not a stub. Coming in Phase 4."
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(schema)}
+    slot="head"
   />
+
+  <section class="section-pad pt-40 md:pt-48">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-end">
+        <header class="md:col-span-7 reveal">
+          <p class="eyebrow">The Northern Neck</p>
+          <h1 class="mt-6 font-display display-xl">
+            A travel guide to Virginia's <em>Northern Neck</em>.
+          </h1>
+        </header>
+        <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
+          The Northern Neck is the peninsula where the Potomac meets the Chesapeake Bay. These are the places we point guests to from the cottage — the host's own short list, not a scrape of every business in the county. Coming to stay? Here's <a href={withBase("/what-to-bring")}>what to bring</a>.
+        </p>
+      </div>
+
+      <div class="mt-16 reveal">
+        <p class="eyebrow">From the cottage</p>
+        <ul class="mt-6 flex flex-wrap gap-x-10 gap-y-3 border-y border-rule py-5">
+          {
+            DRIVE_TIMES.slice(0, 5).map((d) => (
+              <li class="font-display text-lg md:text-xl">
+                {d.place}
+                <span class="ml-2 italic text-rust">{d.minutes} min</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {
+    sections.map((s) => {
+      const places = GUIDEBOOK.filter((p) => p.category === s.key);
+      return (
+        <section class="section-pad pt-0">
+          <div class="container-wide">
+            <div class="grid gap-8 md:grid-cols-12 md:items-end reveal">
+              <header class="md:col-span-7">
+                <p class="eyebrow">{s.eyebrow}</p>
+                <h2 class="mt-6 font-display display-lg">{s.heading}</h2>
+              </header>
+              <p class="lede md:col-span-4 md:col-start-9">{s.lede}</p>
+            </div>
+
+            <ol class="mt-12 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule md:grid-cols-2">
+              {places.map((p, i) => (
+                <li
+                  class="flex flex-col bg-bone p-8 reveal"
+                  style={`transition-delay: ${i * 50}ms;`}
+                >
+                  <div class="flex items-baseline justify-between gap-4">
+                    <h3 class="font-display text-2xl md:text-[28px]">{p.name}</h3>
+                    {p.town && <span class="eyebrow shrink-0">{p.town}</span>}
+                  </div>
+                  <p class="body-prose mt-4 text-base">{p.note}</p>
+                  {p.locals && (
+                    <p class="mt-5 text-sm tracking-wide text-ink-soft/70">
+                      {p.locals} locals recommend
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <section class="bg-navy text-bone section-pad">
+    <div class="container-narrow text-center reveal">
+      <p class="eyebrow text-sand">Out on the water</p>
+      <h2 class="mt-6 font-display display-lg text-bone">
+        The area is good. The <em>dock</em> is better.
+      </h2>
+      <p class="lede mt-8 text-bone/80 mx-auto max-w-xl">
+        Crabbing, kayaking, and a cedar sauna are a few steps from the back door. See what there is to do without leaving the property.
+      </p>
+      <div class="mt-12 flex flex-wrap justify-center gap-4">
+        <a
+          href={withBase("/activities")}
+          class="btn btn-ghost border-bone/40 text-bone hover:!border-bone hover:!text-bone"
+        >
+          Things to do →
+        </a>
+        <a href={withBase("/book")} class="btn btn-rust">Stay with us</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

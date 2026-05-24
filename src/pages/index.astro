@@ -13,7 +13,7 @@ import SchemaVacationRental from "~/components/SchemaVacationRental.astro";
 
 const title = "Captain's Cottage — Waterfront Rental on Hull Creek, Heathsville VA";
 const description =
-  "A waterfront cottage on Virginia's Northern Neck. Private beach, hot tub, cedar sauna, and the quiet water where the Potomac meets the Chesapeake Bay.";
+  "A waterfront cottage on Virginia's Northern Neck. Water access, hot tub, cedar sauna, and the quiet water where the Potomac meets the Chesapeake Bay.";
 ---
 
 <BaseLayout
@@ -23,7 +23,7 @@ const description =
 >
   <SchemaVacationRental slot="head" images={["/images/hero-porch-creek.jpg", "/images/dock-hull-creek.jpg", "/images/cottage-exterior-creek.jpg"]} />
 
-  <Hero />
+  <Hero slot="hero" />
   <Marquee />
   <StorySection />
   <ReviewQuote />

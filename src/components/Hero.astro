@@ -12,7 +12,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-navy text-bone">
+<section class="relative isolate flex min-h-[calc(100svh-3.5rem)] md:min-h-[calc(100svh-5rem)] flex-col justify-end overflow-hidden bg-navy text-bone">
   <div class="absolute inset-0">
     {/* Placeholder gradient until /public/images/hero-cottage-sunset.jpg lands. Both render via the same <picture> element so the slot is honest. */}
     <picture>
@@ -41,14 +41,14 @@ const {
     </div>
   </div>
 
-  <div class="container-wide relative z-10 pb-20 pt-40 md:pb-28 md:pt-48">
+  <div class="container-wide relative z-10 pb-10 pt-10 md:pb-14 md:pt-14">
     <p class="eyebrow text-sand reveal">Captain's Cottage · Heathsville, Virginia</p>
     <h1 class="mt-8 font-display display-hero text-bone max-w-[18ch] reveal" style="transition-delay: 120ms;">
       A waterfront retreat where the <em>Potomac</em> meets the <em>Bay</em>.
     </h1>
     <div class="mt-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between reveal" style="transition-delay: 220ms;">
       <p class="lede max-w-md text-bone/85">
-        Three bedrooms, a cedar sauna, a private beach, and a dock that catches sunset gold every evening on Hull Creek.
+        Three bedrooms, a cedar sauna, water access, and a dock that catches sunset gold every evening on Hull Creek.
       </p>
       <div class="flex flex-wrap items-center gap-4">
         <a href={withBase("/book")} class="btn btn-rust">Stay with us →</a>
@@ -59,9 +59,7 @@ const {
     </div>
   </div>
 
-  <div class="container-wide relative z-10 flex items-end justify-between border-t border-bone/15 pb-8 pt-6 text-xs uppercase tracking-[0.18em] text-bone/65">
-    <span>{PROPERTY.rating} ★ · {PROPERTY.reviewCount} reviews</span>
-    <span class="hidden md:inline">Superhost · {PROPERTY.superhostYears} years</span>
-    <span>Top 5% of homes</span>
-  </div>
+  {/* (Removed) Duplicate in-hero trust strip — the same three signals
+       (rating · Superhost · Top 5%) live in the global SocialProof navy bar
+       at the top of every page. */}
 </section>

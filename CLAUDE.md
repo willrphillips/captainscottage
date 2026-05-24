@@ -6,9 +6,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `captains_cottage_brief.md` is the source of truth for product, stack, design system, SEO targets, page plan, and the 12-post blog calendar. Read it before non-trivial work. This file summarizes the parts most likely to bite a future session; the brief wins on any conflict.
 
+`SCOPE_OF_WORK.md` is the living project tracker: completion %, locked decisions, workstreams, and the current resume point. Read it to see what's done and what's next.
+
 ## Phase status
 
 Phase 1 (foundation + home page) is in. Phases 2–6 (blog content, full property page, area/activity guides, polish, direct booking) are still pending. Don't skip ahead.
+
+**Owner override (2026-05-15):** Will explicitly directed building the real `/area` and `/activities` pages ahead of phase order, driven by the host Airbnb guidebook (`src/lib/guidebook.ts`). Those two pages are now live and indexed. This was a one-time, owner-authorized exception — it is not a precedent to skip phasing generally. Blog system (Workstream A) is still the next planned build; `/the-cottage`, `/amenities`, `/faq` remain `ComingSoon` stubs until their phases.
+
+**Owner override (2026-05-19):** `/what-to-bring` — a real, indexed seasonal "what to pack" utility page (`src/pages/what-to-bring.astro`, content of record `content/what-to-bring.draft.md`) — was built ahead of phase order at Will's direction. Same one-time-exception status. It is currently orphaned (no nav/footer link in yet); placement is a pending chrome decision.
+
+## Live flowchart status (when building the agent pipeline)
+
+`FLOWSTATUS.md` is the integration contract for the Living Flowcharts app in the
+Codex root. As you build each agent/workstream piece, update `.flowstatus.json`
+(node ids per the table in `FLOWSTATUS.md`). Do not redefine the pipeline here —
+structure lives in `living-flowcharts/data/projects/captainscottage.json`;
+pipeline meaning lives in `SCOPE_OF_WORK.md`. This repo only emits live status.
 
 ## Stack (locked)
 
