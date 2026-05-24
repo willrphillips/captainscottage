@@ -63,20 +63,21 @@ const photos = [
       </a>
     </header>
 
-    <div class="mt-16 grid gap-4 md:grid-cols-12">
+    <div class="mt-16 grid gap-4 md:grid-cols-12 md:auto-rows-[clamp(220px,22vw,340px)]">
       {
         photos.map((p, i) => (
-          <figure class:list={["overflow-hidden bg-bone-deep reveal", p.span]} style={`transition-delay: ${i * 60}ms;`}>
-            <div class={`${p.aspect} relative w-full`}>
-              <img
-                src={withBase(p.src)}
-                alt={p.alt}
-                loading="lazy"
-                decoding="async"
-                class="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
-                onerror="this.parentElement.classList.add('placeholder')"
-              />
-            </div>
+          <figure
+            class:list={["overflow-hidden bg-bone-deep reveal aspect-[3/2] md:aspect-auto", p.span]}
+            style={`transition-delay: ${i * 60}ms;`}
+          >
+            <img
+              src={withBase(p.src)}
+              alt={p.alt}
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+              onerror="this.parentElement.classList.add('placeholder')"
+            />
           </figure>
         ))
       }
