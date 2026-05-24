@@ -1,56 +1,53 @@
 ---
+import { getCollection } from "astro:content";
 import BlogCard from "~/components/BlogCard.astro";
 import { withBase } from "~/lib/site";
 
-// Hand-curated featured posts. Once src/content/blog/ has real entries,
-// swap to: const posts = await getCollection("blog", ({ data }) => !data.draft);
-const posts = [
-  {
-    title: "The art of the slow weekend",
-    excerpt:
-      "How to actually disconnect at a waterfront cottage — written by a host who has watched a thousand guests learn it.",
-    category: "Lifestyle" as const,
-    href: "/journal/the-art-of-the-slow-weekend",
-  },
-  {
-    title: "A crabber's morning on Hull Creek",
-    excerpt:
-      "Pulling pots at sunrise, working the lines, and what to do with a peck of blues before lunch.",
-    category: "Travel" as const,
-    href: "/journal/crabbers-morning-hull-creek",
-  },
-  {
-    title: "Cottage sauna culture",
-    excerpt:
-      "Why a hot cedar sauna and a cold creek belong together — and what it does for your week.",
-    category: "Lifestyle" as const,
-    href: "/journal/cottage-sauna-culture",
-  },
-];
+// Pulls the three most recent NON-DRAFT posts from the blog collection so
+// the home page never points at a draft (which would 404 in production).
+// If nothing is published yet, the section quietly hides.
+let posts: { title: string; excerpt: string; category: "Lifestyle" | "Travel" | "Real Estate"; href: string; publishedAt: Date }[] = [];
+try {
+  const all = await getCollection("blog", ({ data }) => !data.draft);
+  posts = all
+    .sort((a, b) => +b.data.publishedAt - +a.data.publishedAt)
+    .slice(0, 3)
+    .map((p) => ({
+      title: p.data.title,
+      excerpt: p.data.description,
+      category: p.data.category,
+      href: `/journal/${p.id}`,
+      publishedAt: p.data.publishedAt,
+    }));
+} catch {
+  posts = [];
+}
 ---
 
-<section class="section-pad">
-  <div class="container-wide">
-    <header class="reveal flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-      <div>
-        <p class="eyebrow">The journal</p>
-        <h2 class="mt-6 font-display display-xl max-w-[16ch]">
-          Notes from the <em>Northern Neck</em>.
-        </h2>
-      </div>
-      <a href={withBase("/journal")} class="btn btn-ghost self-start">
-        Read the journal →
-      </a>
-    </header>
-
-    <div class="mt-16 grid gap-12 md:grid-cols-3">
-      {
-        posts.map((p, i) => (
-          <div class="reveal" style={`transition-delay: ${i * 100}ms;`}>
-            <BlogCard {...p} />
+{
+  posts.length > 0 && (
+    <section class="section-pad">
+      <div class="container-wide">
+        <header class="reveal flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="eyebrow">The journal</p>
+            <h2 class="mt-6 font-display display-xl max-w-[16ch]">
+              Notes from the <em>Northern Neck</em>.
+            </h2>
           </div>
-        ))
-      }
-    </div>
-  </div>
-</section>
+          <a href={withBase("/journal")} class="btn btn-ghost self-start">
+            Read the journal →
+          </a>
+        </header>
+
+        <div class="mt-16 grid gap-12 md:grid-cols-3">
+          {posts.map((p, i) => (
+            <div class="reveal" style={`transition-delay: ${i * 100}ms;`}>
+              <BlogCard {...p} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
