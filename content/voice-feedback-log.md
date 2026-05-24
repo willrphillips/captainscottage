@@ -40,3 +40,41 @@ Remove references to fog. Never seen it.
 Remove the reference to the activities page. Change that closing paragraph.
 
 ---
+
+## 2026-05-23T12:51:35.180Z · crabbers-morning-on-hull-creek
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+Don't reference other journals in posts. I want them to stand alone. change second-to-last paragraph to just reference "a slow weekend" but not the post.
+
+Can we also change the review note to a quote at the top of the story as a kind of header? We can remove the specifics of the reviewer and just leave the quote. You can put very small attribute at the bottom of it with something like "Real review, Maya from Brooklyn" or something
+
+---
+
+## 2026-05-23T20:37:46.063Z · the-art-of-the-slow-weekend
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+replace " watching guests cross Hull Creek" with "trips to our home on Hull Creek"
+
+---
+
+## 2026-05-23T20:40:51.715Z · the-art-of-the-slow-weekend
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+replace "The cottage has 103 Mbps Wi-Fi and a real desk in the master bedroom" with "The cottage has fast Wi-Fi and a real desk in the master bedroom"
+
+Referencing 103Mbps is a meaninglessly weird detail. Too robotic.
+
+---
+
+## 2026-05-24T09:36:31.862Z · the-art-of-the-slow-weekend
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+The friction section is goofy.  It's a good idea, but rewrite the whole thing. Nothing about crab pots. Come up with some other content.
+
+Remove references to people emailing me. NO need to make that up. ANd the last paragraph is also too ethereal and poetic. It just reads silly
+
+---

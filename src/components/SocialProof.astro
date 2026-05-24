@@ -34,21 +34,20 @@ const GOLD = "#e8b923";
       <div class="container-wide flex h-9 items-center md:h-10">
         <div class="grid w-full grid-cols-3 items-center text-xs tracking-[0.18em]">
           {/* LEFT — rating */}
-          <div class="flex items-center gap-2 justify-self-start">
+          <div class="flex items-center gap-1.5 md:gap-2 justify-self-start">
             {showRating && (
               <>
-                <span class="font-display text-base md:text-lg leading-none text-bone">{ratingDisplay}</span>
+                <span class="font-display text-sm md:text-lg leading-none text-bone">{ratingDisplay}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  width="20"
-                  height="20"
+                  class="h-3.5 w-3.5 md:h-5 md:w-5"
                   aria-hidden="true"
                   style={`fill:${GOLD}`}
                 >
                   <path d="M12 1.7l3.18 6.43 7.1 1.03-5.14 5.01 1.21 7.07L12 17.9l-6.35 3.34 1.21-7.07L1.72 9.16l7.1-1.03L12 1.7z" />
                 </svg>
-                <span class="ml-2 text-bone/80">· {PROPERTY.reviewCount} REVIEWS</span>
+                <span class="text-[10px] md:text-xs text-bone/80">· {PROPERTY.reviewCount} <span class="hidden sm:inline">REVIEWS</span></span>
               </>
             )}
           </div>
@@ -57,14 +56,13 @@ const GOLD = "#e8b923";
               halves (id 75401, supplied by Will). Two inline copies of the
               same paths: the left branch group on the left of the text, the
               right branch group on the right. Coloured gold via fill. */}
-          <div class="flex items-center justify-center gap-3">
+          <div class="flex items-center justify-center gap-1.5 md:gap-3">
             {showGuestFavorite && (
               <>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 14 28"
-                  width="22"
-                  height="28"
+                  class="h-5 w-[10px] md:h-7 md:w-[22px]"
                   aria-hidden="true"
                   style={`fill:${GOLD}`}
                 >
@@ -84,15 +82,14 @@ const GOLD = "#e8b923";
                 </svg>
 
                 <span
-                  class="font-display italic text-base md:text-lg"
+                  class="font-display italic text-[11px] leading-none md:text-lg"
                   style={`color:${GOLD}`}
                 >Guest Favorite</span>
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="14.685 0 14 28"
-                  width="22"
-                  height="28"
+                  class="h-5 w-[10px] md:h-7 md:w-[22px]"
                   aria-hidden="true"
                   style={`fill:${GOLD}`}
                 >
@@ -114,10 +111,13 @@ const GOLD = "#e8b923";
             )}
           </div>
 
-          {/* RIGHT — Top 5% of homes */}
-          <div class="flex items-center justify-self-end">
+          {/* RIGHT — Top 5% of homes (shortened on mobile) */}
+          <div class="flex items-center justify-self-end text-right">
             {showTop5 && (
-              <span class="uppercase text-bone/85">Top 5% of homes</span>
+              <span class="uppercase text-bone/85 text-[10px] md:text-xs">
+                <span class="md:hidden">Top 5%</span>
+                <span class="hidden md:inline">Top 5% of homes</span>
+              </span>
             )}
           </div>
         </div>
