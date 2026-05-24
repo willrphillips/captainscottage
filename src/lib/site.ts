@@ -35,7 +35,7 @@ export const PROPERTY = {
   guestFavorite: true,
   top5Percent: true, // "Top 5% of homes" — Airbnb-side; flip if it ever falls off
   airbnbUrl: "https://www.airbnb.com/h/captainscottageva",
-  email: "stay@captainscottage.com",
+  // email intentionally removed — site directs all contact to the Airbnb listing
   owner: "Good Old Boys LLC",
 } as const;
 
