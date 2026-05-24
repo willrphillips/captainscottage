@@ -1,17 +1,159 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import ComingSoon from "~/components/ComingSoon.astro";
+import { PROPERTY, STANDOUT_AMENITIES, withBase } from "~/lib/site";
+
+const title = "Amenities at Captain's Cottage — Hull Creek, Northern Neck";
+const description =
+  "What's at Captain's Cottage in Heathsville, Virginia: cedar sauna, hot tub, private dock with crab pot, kayaks, screened porches, 103 Mbps Wi-Fi, kid-ready setup.";
+
+// Sections drawn from STANDOUT_AMENITIES + PROPERTY. The full 80-item
+// Airbnb list will replace these once Will supplies it.
+const onTheWater = STANDOUT_AMENITIES.filter((a) =>
+  [
+    "Waterfront & water access",
+    "Dock & crab pots",
+    "Cedar sauna",
+    "Hot tub",
+    "West-facing sunsets",
+  ].includes(a.title),
+);
+
+const insideTheCottage = [
+  {
+    title: "Three bedrooms, four beds",
+    detail: `Sleeps up to ${PROPERTY.maxGuests}. ${PROPERTY.bathrooms} baths. A mahogany four-poster in the master, a wicker trunk at the foot of the bed, a soft second bedroom for kids.`,
+  },
+  ...STANDOUT_AMENITIES.filter((a) =>
+    ["Two screened porches"].includes(a.title),
+  ),
+  {
+    title: "Open kitchen",
+    detail:
+      "Deep-green cabinets, open shelving, a brass faucet, and counter space that wants a slow Saturday meal. Coffee in the morning happens here before anyone else is up.",
+  },
+];
+
+const forWorkingAndMoving = STANDOUT_AMENITIES.filter((a) =>
+  ["Dedicated workspace", "Move when you want"].includes(a.title),
+);
+
+const forFamilies = STANDOUT_AMENITIES.filter((a) =>
+  ["Kid-ready"].includes(a.title),
+);
+
+const sections = [
+  { heading: "On the water", lede: "The dock is the whole point, and most of the day ends up there.", items: onTheWater },
+  { heading: "Inside the cottage", lede: "Quiet rooms, warm light, and porches that take up about half the house.", items: insideTheCottage },
+  { heading: "For working", lede: "A real desk and a real connection — the few hours of email you can't avoid.", items: forWorkingAndMoving },
+  { heading: "With kids", lede: "Small things that make a stay with little ones easier than you'd expect.", items: forFamilies },
+];
 ---
 
 <BaseLayout
-  title="Amenities — Captain's Cottage on Hull Creek, Heathsville VA"
-  description="The complete list of amenities at Captain's Cottage: water, kitchen, sleeping, outdoor, accessibility, and more."
-  noindex
-  breadcrumbs={[{ name: "Home", href: "/" }, { name: "Amenities", href: "/amenities" }]}
+  title={title}
+  description={description}
+  breadcrumbs={[
+    { name: "Home", href: "/" },
+    { name: "Amenities", href: "/amenities" },
+  ]}
 >
-  <ComingSoon
-    eyebrow="Amenities"
-    title="The full list is on its way."
-    description="All eighty amenities, organized by category. Coming in Phase 3 of the rebuild."
-  />
+  <section class="section-pad pt-40 md:pt-48">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-end">
+        <header class="md:col-span-7 reveal">
+          <p class="eyebrow">What's here</p>
+          <h1 class="mt-6 font-display display-xl">
+            The things at <em>Captain's Cottage</em>.
+          </h1>
+        </header>
+        <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
+          The short list, in plain language. The full eighty-item Airbnb
+          catalogue lives on the <a href={PROPERTY.airbnbUrl} target="_blank" rel="noopener">listing itself</a>; here are
+          the ones we'd actually mention if you asked.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {
+    sections.map((s, si) => (
+      <section class="section-pad pt-0">
+        <div class="container-wide">
+          <div class="grid gap-8 md:grid-cols-12 md:items-end reveal">
+            <header class="md:col-span-7">
+              <p class="eyebrow">{si === 0 ? "First" : "Also"}</p>
+              <h2 class="mt-6 font-display display-lg">{s.heading}</h2>
+            </header>
+            <p class="lede md:col-span-4 md:col-start-9">{s.lede}</p>
+          </div>
+
+          <ol class="mt-12 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule md:grid-cols-2">
+            {s.items.map((a, i) => (
+              <li
+                class="flex flex-col bg-bone p-8 reveal"
+                style={`transition-delay: ${i * 50}ms;`}
+              >
+                <h3 class="font-display text-2xl md:text-[28px]">{a.title}</h3>
+                <p class="body-prose mt-4 text-base">{a.detail}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="reveal">
+        <p class="eyebrow">House numbers</p>
+        <h2 class="mt-6 font-display display-lg">A few specifics worth knowing.</h2>
+      </div>
+      <dl class="mt-12 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule md:grid-cols-3">
+        <div class="flex flex-col bg-bone p-8 reveal">
+          <dt class="eyebrow">Guests</dt>
+          <dd class="mt-4 font-display text-3xl md:text-4xl">Up to {PROPERTY.maxGuests}</dd>
+        </div>
+        <div class="flex flex-col bg-bone p-8 reveal" style="transition-delay: 60ms;">
+          <dt class="eyebrow">Bedrooms · Beds · Baths</dt>
+          <dd class="mt-4 font-display text-3xl md:text-4xl">
+            {PROPERTY.bedrooms} · {PROPERTY.beds} · {PROPERTY.bathrooms}
+          </dd>
+        </div>
+        <div class="flex flex-col bg-bone p-8 reveal" style="transition-delay: 120ms;">
+          <dt class="eyebrow">Wi-Fi</dt>
+          <dd class="mt-4 font-display text-3xl md:text-4xl">{PROPERTY.wifiMbps} Mbps</dd>
+        </div>
+        <div class="flex flex-col bg-bone p-8 reveal" style="transition-delay: 180ms;">
+          <dt class="eyebrow">Check-in / Check-out</dt>
+          <dd class="mt-4 font-display text-2xl md:text-3xl">{PROPERTY.checkIn} · {PROPERTY.checkOut}</dd>
+        </div>
+        <div class="flex flex-col bg-bone p-8 reveal" style="transition-delay: 240ms;">
+          <dt class="eyebrow">Hosted since</dt>
+          <dd class="mt-4 font-display text-3xl md:text-4xl">{PROPERTY.cottageAcquiredYear}</dd>
+        </div>
+        <div class="flex flex-col bg-bone p-8 reveal" style="transition-delay: 300ms;">
+          <dt class="eyebrow">On</dt>
+          <dd class="mt-4 font-display text-3xl md:text-4xl">{PROPERTY.waterway}</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="bg-navy text-bone section-pad">
+    <div class="container-narrow text-center reveal">
+      <p class="eyebrow text-sand">When you're ready</p>
+      <h2 class="mt-6 font-display display-lg text-bone">
+        The list is fine. The <em>place</em> is better.
+      </h2>
+      <p class="lede mt-8 text-bone/80 mx-auto max-w-xl">
+        More on the surroundings on the <a href={withBase("/area")}>area guide</a> and what we make possible from the dock on
+        <a href={withBase("/activities")}> things to do</a>.
+      </p>
+      <div class="mt-12 flex flex-wrap justify-center gap-4">
+        <a href={withBase("/what-to-bring")} class="btn btn-ghost border-bone/40 text-bone hover:!border-bone hover:!text-bone">What to bring →</a>
+        <a href={withBase("/book")} class="btn btn-rust">Stay with us</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
