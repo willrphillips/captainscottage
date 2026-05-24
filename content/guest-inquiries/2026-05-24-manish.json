@@ -1,0 +1,36 @@
+{
+  "at": "2026-05-24T14:00:00Z",
+  "guest": "Manish",
+  "stayDates": "2026-05-31 to 2026-06-06",
+  "partySize": { "adults": 3, "children": 0 },
+  "questions": [
+    "Hello Will/Maria - do you have life vests for use with the kayak(s)?",
+    "Also how shallow/deep will the water around the pier be when we arrive? Is it ok to wade through it or swim in it?"
+  ],
+  "willResponse": "Hi there Manish! I'm so sorry to have missed responding to your message! For the life vests, we have two adult sized life jackets and a few scattered youth and child life jackets for going out on the kayaks. I see on the reservation it lists 3 adults. You should be fine for one or two out at a time, but if all 3 would like to go out at the same time (we have 2 kayaks and a paddleboard) then I would recommend bringing one or two of your own to be sure they're the right fit. But if you just want to casually ride around you should be fine.\n\nAs for the water depth, the water at the end of the dock during low tide is about 2-4ft during low tide and 4-6ft during high tide generally. It's easy to wade out as we've generally found that the deepest parts of Hull Creek where our house is situated is only about 6-7ft at most, but all the water by the dock is generally much shallower. And it's definitely fine to swim as well. Since we're on a tributary to the Potomac River, the current of the water flows left-to-right out to the ocean while the tide goes out, and then right-to-left up away from the ocean as the tide comes in. So be mindful that the current can change throughout the day as the tide changes if you go out on a kayak or paddleboard. Paddling upstream can be tiring so just plan your timing and direction accordingly.\n\nI hope that answers your questions! Let me know if I've missed anything. We're looking forward to hosting you!",
+  "facts": [
+    "Life vest inventory: 2 adult-sized life jackets, plus a few scattered youth/child sizes.",
+    "Watercraft inventory at the dock: 2 kayaks and 1 paddleboard.",
+    "Recommend guests bring their own PFDs if more than 2 adults want to be on the water at the same time, to guarantee fit.",
+    "Water depth at the end of the dock: ~2–4 ft at low tide, ~4–6 ft at high tide.",
+    "Deepest part of Hull Creek near the house is ~6–7 ft at most; water immediately around the dock is generally shallower than that.",
+    "Wading and swimming around the dock are both fine.",
+    "Hull Creek is a tributary of the Potomac. Current direction reverses with the tide: flows left-to-right (out toward the ocean) on the outgoing tide; right-to-left (away from the ocean) on the incoming tide.",
+    "Practical kayak/paddleboard tip: plan timing and direction around the tide because paddling upstream can be tiring."
+  ],
+  "voiceNotes": [
+    "Opens with a warm greeting using the guest's first name and an exclamation.",
+    "When late: leads with a sincere, plain-spoken apology ('I'm so sorry to have missed responding to your message!'). No corporate hedge.",
+    "References the reservation specifically ('I see on the reservation it lists 3 adults') to show he's actually looked.",
+    "Hedges naturally and generously: 'generally,' 'about,' 'should be fine,' 'at most.' Never overpromises a number.",
+    "Gives the practical safety/logistics beat without alarmism — frames as 'just so you know,' not 'be careful.'",
+    "Explains the why behind a tip (tide → current direction → paddling effort) instead of issuing a rule.",
+    "Closes by inviting follow-up ('Let me know if I've missed anything') and looking forward to the stay ('We're looking forward to hosting you!').",
+    "Signs as 'Will' (sometimes Will & Marla). No formal sign-off block.",
+    "Uses contractions throughout. Sentence-level grammar is conversational, not edited prose — keep that texture; do not over-polish."
+  ],
+  "followUps": [
+    "Roll the life-vest inventory, dock depth numbers, and current-reverses-with-tide fact into src/lib/site.ts or src/lib/guidebook.ts so the website/guidebook stop being silent on these.",
+    "Consider adding a short 'On the water' section to /activities or /what-to-bring covering: PFD inventory, depth, current behavior, recommend-bring-your-own-PFD-for-fit guidance."
+  ]
+}
