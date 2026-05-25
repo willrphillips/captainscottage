@@ -38,7 +38,13 @@ const data = {
   image: [imageUrl],
   datePublished: publishedAt.toISOString(),
   dateModified: (updatedAt ?? publishedAt).toISOString(),
-  author: { "@type": "Person", name: author },
+  author: {
+    "@type": "Person",
+    name: author,
+    description: `Host of ${PROPERTY.name} on ${PROPERTY.waterway}, ${PROPERTY.city}, ${PROPERTY.regionFull}. Owner-operator since ${PROPERTY.cottageAcquiredYear}.`,
+    sameAs: [PROPERTY.airbnbUrl],
+    url: absoluteUrl("/"),
+  },
   publisher: {
     "@type": "Organization",
     name: PROPERTY.name,

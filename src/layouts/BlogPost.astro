@@ -13,6 +13,14 @@ interface RelatedPost {
   publishedAt: Date;
 }
 
+type AudienceTag =
+  | "family"
+  | "romantic"
+  | "outdoor"
+  | "food"
+  | "seasonal"
+  | "remote-work";
+
 interface Props {
   title: string;
   description: string;
@@ -26,6 +34,7 @@ interface Props {
   related?: RelatedPost[];
   isDraft?: boolean;
   previewMode?: boolean;
+  audience?: AudienceTag[];
 }
 
 const {
@@ -41,7 +50,17 @@ const {
   related = [],
   isDraft = false,
   previewMode = false,
+  audience = [],
 } = Astro.props;
+
+const AUDIENCE_LABELS: Record<AudienceTag, string> = {
+  family: "Family",
+  romantic: "Romantic",
+  outdoor: "Outdoor",
+  food: "Food & kitchen",
+  seasonal: "Seasonal",
+  "remote-work": "Remote work",
+};
 
 const dateLabel = new Intl.DateTimeFormat("en-US", {
   month: "long",
@@ -92,6 +111,17 @@ const pathname = `/journal/${slug}`;
           <time datetime={isoDate}>{dateLabel}</time> ·{" "}
           {readingMinutes} min read
         </p>
+        {
+          audience.length > 0 && (
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {audience.map((tag) => (
+                <li class="rounded-full border border-rule px-3 py-1 text-xs uppercase tracking-[0.14em] text-ink-soft">
+                  {AUDIENCE_LABELS[tag]}
+                </li>
+              ))}
+            </ul>
+          )
+        }
       </header>
 
       <div class="reveal mt-16 h-px bg-rule"></div>
