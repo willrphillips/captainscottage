@@ -15,9 +15,19 @@ import { withBase } from "~/lib/site";
         Off the <em>map</em>.
       </h1>
       <p class="lede mt-8 max-w-xl">
-        The page you're after doesn't exist — at least not yet. The cottage, the journal, and the booking page are all still here.
+        The page you're after doesn't exist — at least not yet. Try one of these instead.
       </p>
-      <a href={withBase("/")} class="btn btn-rust mt-12">Back to the cottage →</a>
+      <ul class="mt-10 grid gap-3 text-base md:grid-cols-2">
+        <li><a href={withBase("/")} class="text-rust underline-offset-4 hover:underline">The cottage (home)</a></li>
+        <li><a href={withBase("/the-cottage")} class="text-rust underline-offset-4 hover:underline">A tour, room by room</a></li>
+        <li><a href={withBase("/amenities")} class="text-rust underline-offset-4 hover:underline">What's here (amenities)</a></li>
+        <li><a href={withBase("/area")} class="text-rust underline-offset-4 hover:underline">The Northern Neck</a></li>
+        <li><a href={withBase("/activities")} class="text-rust underline-offset-4 hover:underline">Things to do</a></li>
+        <li><a href={withBase("/what-to-bring")} class="text-rust underline-offset-4 hover:underline">What to bring</a></li>
+        <li><a href={withBase("/journal")} class="text-rust underline-offset-4 hover:underline">The journal</a></li>
+        <li><a href={withBase("/faq")} class="text-rust underline-offset-4 hover:underline">FAQ</a></li>
+      </ul>
+      <a href={withBase("/book")} class="btn btn-rust mt-12">Stay with us</a>
     </div>
   </section>
 </BaseLayout>

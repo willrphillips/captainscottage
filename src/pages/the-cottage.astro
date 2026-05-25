@@ -1,17 +1,224 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import ComingSoon from "~/components/ComingSoon.astro";
+import { PROPERTY, withBase } from "~/lib/site";
+
+const title = "The Cottage — Waterfront 3-Bedroom on Hull Creek, Virginia";
+const description =
+  "A long-form tour of Captain's Cottage on Hull Creek: three bedrooms, two screened porches, a cedar sauna, a hot tub by the water, and a dock that catches every evening's last gold.";
 ---
 
 <BaseLayout
-  title="The Cottage — 3 Bedrooms, Waterfront, Sauna & Hot Tub on Hull Creek"
-  description="A full tour of Captain's Cottage on Hull Creek in Heathsville, Virginia: every room, every amenity, the floor plan, and the photo gallery."
-  noindex
-  breadcrumbs={[{ name: "Home", href: "/" }, { name: "The cottage", href: "/the-cottage" }]}
+  title={title}
+  description={description}
+  breadcrumbs={[
+    { name: "Home", href: "/" },
+    { name: "The cottage", href: "/the-cottage" },
+  ]}
 >
-  <ComingSoon
-    eyebrow="The cottage"
-    title="The full tour is coming."
-    description="We're writing the long-form tour of every room, porch, and corner of the cottage. In the meantime, the home page has the highlights and the Airbnb listing has all 40+ photos."
-  />
+  <section class="section-pad pt-40 md:pt-48">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-end">
+        <header class="md:col-span-7 reveal">
+          <p class="eyebrow">A tour</p>
+          <h1 class="mt-6 font-display display-xl">
+            The <em>cottage</em>, room by room.
+          </h1>
+        </header>
+        <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
+          Three bedrooms, two screened porches, a cedar sauna, a hot tub on the dock, and a stretch of Hull Creek that does most of the work. The walkthrough, in the order it would happen.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <figure class="overflow-hidden bg-bone-deep">
+        <img
+          src={withBase("/images/hero-porch-creek.jpg")}
+          alt="The rattan-furnished screened porch at Captain's Cottage looking out over Hull Creek — cedar-framed screens, ceiling fans, water beyond."
+          class="h-auto w-full"
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">Arriving</p>
+          <h2 class="mt-6 font-display display-lg">A quiet driveway and a creek you can hear before you see it.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>You'll turn off the country two-lane onto a gravel drive lined with trees. The cottage sits low and white against the water, with the dock running out past the lawn. On a still afternoon you can hear the creek before you've finished unpacking — small things on the surface, an osprey calling from somewhere upstream, the soft slap of a paddle if someone's already out there.</p>
+          <p>It's about <a href={withBase("/area")}>two hours from Richmond and two and three-quarters from Washington, DC</a>, which makes it short enough for a weekend and far enough that the noise drops by the time you reach the bridge.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-4 md:grid-cols-12 md:auto-rows-[clamp(220px,22vw,340px)]">
+        <figure class="md:col-span-7 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/living-room-rattan.jpg")} alt="The living room at Captain's Cottage — rattan chairs, a vintage red rug, and the dining nook beyond." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="md:col-span-5 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/kitchen-green-cabinets.jpg")} alt="The kitchen at Captain's Cottage — deep-green cabinets, open shelving, brass faucet, the counter that wants a slow Saturday meal." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">Inside</p>
+          <h2 class="mt-6 font-display display-lg">A living room that doesn't ask you to do anything.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>The living room has rattan chairs, a vintage red rug, a sectional that has survived a thousand barefoot kids and a few wet swimsuits, and a dining nook that flows out to the screened porch. Everything points toward the water in the end. The lamps are soft, not bright; you light them in the evening and the room shifts.</p>
+          <p>The kitchen has deep-green cabinets, open shelving, a brass faucet, and counter space that wants a slow Saturday meal. It is set up for actual cooking — pans that have been seasoned, a coffee setup that doesn't require explanation, knives that are sharp enough to chop without arguing with you. See the <a href={withBase("/amenities")}>amenities page</a> for the specifics, or just look around when you arrive — most of it is right where you'd guess.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-4 md:grid-cols-12 md:auto-rows-[clamp(220px,22vw,340px)]">
+        <figure class="md:col-span-6 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/screened-porch-dining.jpg")} alt="The wooden dining table on the screened porch at Captain's Cottage, with pendant lights and white siding." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="md:col-span-6 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/extras/screened-porch-creek-view.jpg")} alt="View from the screened porch at Captain's Cottage looking out across Hull Creek — cedar framing, the dock just below." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">The porches</p>
+          <h2 class="mt-6 font-display display-lg">Two screened porches — one to eat on, one to sleep on.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>The dining porch is the one with the long table and the pendants — most meals end up here once you've been a day or two. The other porch, off the back, has a daybed; it's the porch you end up reading on at three in the afternoon and not getting up from. Both face the creek. Both are screened, which matters: this is mosquito country in midsummer, and the screens are why you'll still want to be outside at dusk.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-4 md:grid-cols-12 md:auto-rows-[clamp(220px,22vw,340px)]">
+        <figure class="md:col-span-7 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/master-bedroom.jpg")} alt="Master bedroom at Captain's Cottage with a mahogany four-poster bed and a wicker trunk at the foot." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="md:col-span-5 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/extras/second-bedroom.jpg")} alt="Second bedroom at Captain's Cottage — bright, soft, set up for kids or a quiet guest." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">Sleeping</p>
+          <h2 class="mt-6 font-display display-lg">Three bedrooms, four beds, room for six.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>The master has a mahogany four-poster and a wicker trunk at the foot of the bed; it gets the morning light first. The second bedroom is the kid room — soft, bright, with a removable bed guard if you've got a small sleeper. A third room rounds it out. Four beds total, up to six guests, {PROPERTY.bathrooms} baths. Linens are real linens, not the kind that crinkle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-4 md:grid-cols-12 md:auto-rows-[clamp(220px,22vw,340px)]">
+        <figure class="md:col-span-7 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/cedar-sauna-creek-sunset.jpg")} alt="The cedar barrel sauna at Captain's Cottage on Hull Creek, lit by late-afternoon sun with the creek and treeline behind." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="md:col-span-5 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/hot-tub-hull-creek.jpg")} alt="The hot tub on the back deck at Captain's Cottage, bubbling water in the foreground, Hull Creek beyond." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">Outside</p>
+          <h2 class="mt-6 font-display display-lg">The dock, the sauna, and the hot tub do most of the work.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>The dock runs out past a stretch of brackish, shallow creek — wadeable at the edge, kid-friendly, the kind of water you can stand in for an hour without getting bored. There's a crab pot on the dock and a kayak and paddleboard tucked under it.</p>
+          <p>The cedar barrel sauna sits a few steps from the back door with a west-facing window onto the creek; heat until you mean it, then walk out to the dock and into the water. The hot tub is on the deck, lit by the last of the sun, and runs year-round — even in February. Most guests end up using it more in winter than they expected.</p>
+          <p>The rest of <a href={withBase("/activities")}>what you can do from the dock</a> sits on the activities page; the <a href={withBase("/area")}>broader Northern Neck</a> is its own guide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="reveal">
+        <p class="eyebrow">House numbers</p>
+        <h2 class="mt-6 font-display display-lg">The specifics.</h2>
+      </div>
+      <dl class="mt-12 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule md:grid-cols-3">
+        <div class="flex flex-col bg-bone p-8 reveal">
+          <dt class="eyebrow">Guests</dt>
+          <dd class="mt-4 font-display text-3xl md:text-4xl">Up to {PROPERTY.maxGuests}</dd>
+        </div>
+        <div class="flex flex-col bg-bone p-8 reveal" style="transition-delay: 60ms;">
+          <dt class="eyebrow">Bedrooms · Beds · Baths</dt>
+          <dd class="mt-4 font-display text-3xl md:text-4xl">{PROPERTY.bedrooms} · {PROPERTY.beds} · {PROPERTY.bathrooms}</dd>
+        </div>
+        <div class="flex flex-col bg-bone p-8 reveal" style="transition-delay: 120ms;">
+          <dt class="eyebrow">Wi-Fi</dt>
+          <dd class="mt-4 font-display text-3xl md:text-4xl">{PROPERTY.wifiMbps} Mbps</dd>
+        </div>
+        <div class="flex flex-col bg-bone p-8 reveal" style="transition-delay: 180ms;">
+          <dt class="eyebrow">Check-in / Check-out</dt>
+          <dd class="mt-4 font-display text-2xl md:text-3xl">{PROPERTY.checkIn} · {PROPERTY.checkOut}</dd>
+        </div>
+        <div class="flex flex-col bg-bone p-8 reveal" style="transition-delay: 240ms;">
+          <dt class="eyebrow">On</dt>
+          <dd class="mt-4 font-display text-3xl md:text-4xl">{PROPERTY.waterway}</dd>
+        </div>
+        <div class="flex flex-col bg-bone p-8 reveal" style="transition-delay: 300ms;">
+          <dt class="eyebrow">In</dt>
+          <dd class="mt-4 font-display text-3xl md:text-4xl">{PROPERTY.city}, {PROPERTY.region}</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="bg-navy text-bone section-pad">
+    <div class="container-narrow text-center reveal">
+      <p class="eyebrow text-sand">When you're ready</p>
+      <h2 class="mt-6 font-display display-lg text-bone">
+        The dock takes it <em>from there</em>.
+      </h2>
+      <p class="lede mt-8 text-bone/80 mx-auto max-w-xl">
+        See the seasonal <a href={withBase("/what-to-bring")}>what to bring</a> page, the <a href={withBase("/area")}>area</a>, or just check the dates.
+      </p>
+      <div class="mt-12 flex flex-wrap justify-center gap-4">
+        <a href={withBase("/amenities")} class="btn btn-ghost border-bone/40 text-bone hover:!border-bone hover:!text-bone">Amenities →</a>
+        <a href={withBase("/book")} class="btn btn-rust">Stay with us</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

@@ -1,0 +1,200 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { DRIVE_TIMES, withBase } from "~/lib/site";
+
+const title = "Northern Neck Getaway Guide — From Hull Creek, Virginia";
+const description =
+  "A host-written Northern Neck getaway guide: how to get here from DC, Richmond, and Norfolk, the towns worth a stop, the best activities near Hull Creek, and what each season feels like on the water.";
+
+const toc = [
+  { id: "from-dc", label: "From Washington, DC" },
+  { id: "from-richmond", label: "From Richmond" },
+  { id: "from-norfolk", label: "From Norfolk / Virginia Beach" },
+  { id: "towns", label: "Nearby towns worth visiting" },
+  { id: "activities", label: "Best activities near Hull Creek" },
+  { id: "family", label: "Family-friendly ideas" },
+  { id: "romantic", label: "Quiet romantic getaway ideas" },
+  { id: "seasons", label: "Seasonal notes" },
+  { id: "fit", label: "Where Captain's Cottage fits in" },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={[
+    { name: "Home", href: "/" },
+    { name: "Getaway guide", href: "/getaway-guide" },
+  ]}
+>
+  <section class="section-pad pt-40 md:pt-48">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-end">
+        <header class="md:col-span-7 reveal">
+          <p class="eyebrow">The whole trip</p>
+          <h1 class="mt-6 font-display display-xl">
+            A Northern Neck <em>getaway</em>, from Hull Creek out.
+          </h1>
+        </header>
+        <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
+          Where to come in from, what's worth a stop along the way, and what each season actually feels like on the water. The version we'd tell a friend planning a weekend.
+        </p>
+      </div>
+
+      <div class="mt-12 reveal">
+        <p class="eyebrow">Jump to</p>
+        <ul class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          {toc.map((t) => (
+            <li><a href={`#${t.id}`} class="text-ink-soft hover:text-ink underline-offset-4 hover:underline">{t.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="from-dc" class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">Getting here</p>
+          <h2 class="mt-6 font-display display-lg">From Washington, DC.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>About <strong>two and three-quarter hours</strong>, mostly on US-301 south and VA-3 east through Tappahannock and Warsaw. The last twenty minutes are country two-lanes; load the address before you turn off the main road and the rest takes care of itself. Leave on a Friday after lunch and you'll be on the dock for sunset.</p>
+          <p>Bridge timing matters — the Harry Nice Memorial Bridge over the Potomac can back up on Friday evenings; an early afternoon start dodges it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="from-richmond" class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">Getting here</p>
+          <h2 class="mt-6 font-display display-lg">From Richmond.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>About <strong>two hours</strong>, mostly on US-360 east. Stop in Tappahannock if you want to break the drive — there's a quiet riverfront and a few good places to grab lunch. After that, you're an hour out, and the road gets quieter the whole way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="from-norfolk" class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">Getting here</p>
+          <h2 class="mt-6 font-display display-lg">From Norfolk or Virginia Beach.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>About <strong>two hours</strong> if traffic is reasonable, mostly up I-64 and then north on US-17 across the Coleman Bridge. It's the longest of the three approaches but the prettiest if you take the Middle Peninsula stretch slowly. There's no shortage of places to stop for crab cakes on the way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="towns" class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">Worth a stop</p>
+          <h2 class="mt-6 font-display display-lg">The towns we'd actually point you at.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p><strong>Reedville</strong> (about 15 minutes from the cottage) was a fishing fortune town in the late 1800s and still feels like one. The <a href={withBase("/area")}>Fishermen's Museum</a> is genuinely worth a couple of hours; Reedville Market is good waterfront dining if you want to eat near the water.</p>
+          <p><strong>Kilmarnock</strong> (about 30 minutes) is the closest thing to a "downtown" — antique shopping, a few solid restaurants, the basics for restocking. <strong>Irvington</strong> (about 45 minutes) is the prettier one of the two, with the Tides Inn and a lane of antique shops worth a slow afternoon.</p>
+          <p>Smaller villages — Heathsville, Wicomico Church, Burgess, Lottsburg, White Stone — pass by as you drive; each has a market or a marker worth a stop if you're not in a hurry. We have the host's <a href={withBase("/area")}>short list of where to eat and what to do</a> on its own page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="activities" class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">On the water</p>
+          <h2 class="mt-6 font-display display-lg">What there is to do near Hull Creek.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>Most of the day ends up on the dock. There's a crab pot on the line, two kayaks and a paddleboard, a cedar sauna a few steps from the back door, and a hot tub on the deck that runs year-round. Birding is genuinely good — ospreys, bald eagles, great blue heron, egret, kingfisher, and once a pair of swans drifting past. Fishing tours can be arranged through local guides; ask us before the trip and we'll connect you.</p>
+          <p>The fuller list lives on <a href={withBase("/activities")}>things to do</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="family" class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">With kids</p>
+          <h2 class="mt-6 font-display display-lg">Family-friendly without being babyish.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>The water at the dock is shallow and brackish — easy wading for small kids, no surf, no surprises. The cottage has a high chair, a pack-n-play, and a removable bed guard for a small sleeper. The single crab pot is half the morning entertainment by itself. For an afternoon out, the Compass Entertainment Complex (movies, go-karts, mini golf) is a short drive when the rain rolls in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="romantic" class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">Just the two</p>
+          <h2 class="mt-6 font-display display-lg">A quiet romantic weekend.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>The shoulder seasons — late spring, early fall — are when the cottage does its best work for couples. The screened porches with a bottle of something good. The sauna-then-cold-creek ritual at dusk. Sunsets are reliably gold from May through September. Dinner in Reedville or Irvington if you want to go out; the kitchen if you don't. Most couples don't leave the property more than once.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="seasons" class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">By season</p>
+          <h2 class="mt-6 font-display display-lg">What each part of the year actually feels like.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p><strong>Late spring (May–early June):</strong> water warming, birds migrating, jellyfish not yet around. Probably the sweet spot.</p>
+          <p><strong>Summer (June–August):</strong> peak everything. Long days, warm water, crabs running, the dock at its busiest. Sea nettles can drift in for a four-to-six-week stretch somewhere in that window; a thin stinger suit makes it a non-issue (see <a href={withBase("/what-to-bring")}>what to bring</a>).</p>
+          <p><strong>Fall (September–October):</strong> gold light, quieter, fall migration moves through. The hot tub starts earning its keep.</p>
+          <p><strong>Winter (December–February):</strong> the deep-quiet version. Sauna season. Bald eagles year-round on the Potomac.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fit" class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">Where we fit</p>
+          <h2 class="mt-6 font-display display-lg">Why people use Captain's Cottage as the base.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>The Northern Neck has plenty of options, including bigger resorts at the Tides Inn and a handful of inns scattered through Kilmarnock and Irvington. We're the quieter option — a three-bedroom waterfront cottage with a real dock, a sauna, a hot tub, and a kitchen set up for actual cooking. Up to {DRIVE_TIMES[0]?.minutes ? "six" : "six"} guests, two screened porches, and a stretch of Hull Creek that takes care of the rest. Take the <a href={withBase("/the-cottage")}>full tour</a> if you want a closer look.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-navy text-bone section-pad">
+    <div class="container-narrow text-center reveal">
+      <p class="eyebrow text-sand">Ready to plan</p>
+      <h2 class="mt-6 font-display display-lg text-bone">
+        Pick a weekend. The <em>creek</em> does the rest.
+      </h2>
+      <div class="mt-12 flex flex-wrap justify-center gap-4">
+        <a href={withBase("/faq")} class="btn btn-ghost border-bone/40 text-bone hover:!border-bone hover:!text-bone">Common questions →</a>
+        <a href={withBase("/book")} class="btn btn-rust">Stay with us</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

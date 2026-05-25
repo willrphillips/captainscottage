@@ -1,0 +1,35 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import PhotoGallery from "~/components/PhotoGallery.astro";
+
+const title = "Photos of Captain's Cottage — Hull Creek, Northern Neck";
+const description =
+  "Photos of Captain's Cottage on Hull Creek: the porches, the cedar sauna, the hot tub on the dock, the kitchen, the bedrooms, and the creek that does most of the work.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={[
+    { name: "Home", href: "/" },
+    { name: "Photos", href: "/photos" },
+  ]}
+>
+  <section class="section-pad pt-40 md:pt-48 pb-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-end">
+        <header class="md:col-span-7 reveal">
+          <p class="eyebrow">A look around</p>
+          <h1 class="mt-6 font-display display-xl">
+            <em>Photos</em> of the cottage.
+          </h1>
+        </header>
+        <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
+          Click any photo to open it large. Arrows or ← → on the keyboard move you between shots; Esc closes. The Airbnb listing has the full set.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <PhotoGallery />
+</BaseLayout>
