@@ -14,6 +14,12 @@ const blog = defineCollection({
       hero: image().optional(),
       heroAlt: z.string().optional(),
       keywords: z.array(z.string()).default([]),
+      // Audience tags per brief: family / romantic / outdoor / food / seasonal / remote-work.
+      // Optional — posts can carry zero, one, or several. Used by future filtering UI
+      // and by the Editor agent when selecting the next calendar slot.
+      audience: z
+        .array(z.enum(["family", "romantic", "outdoor", "food", "seasonal", "remote-work"]))
+        .default([]),
       draft: z.boolean().default(false),
     }),
 });

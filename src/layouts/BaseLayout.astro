@@ -59,8 +59,33 @@ const ogImageUrl = ogImage.startsWith("http") ? ogImage : absoluteUrl(ogImage);
     <link rel="alternate" type="application/rss+xml" title={`${PROPERTY.name} Journal`} href={absoluteUrl("/rss.xml")} />
     <link rel="sitemap" type="application/xml" href={absoluteUrl("/sitemap-index.xml")} />
 
-    {/* Plausible — privacy-first analytics. data-domain set in src/lib/site.ts */}
-    <script is:inline defer data-domain={SITE.plausibleDomain} src="https://plausible.io/js/script.js"></script>
+    {/* Plausible — privacy-first analytics with automatic outbound-link
+        tracking (captures every click to Airbnb / external partners as a
+        "Outbound Link: click" goal). Cookieless. data-domain set in
+        src/lib/site.ts. */}
+    <script is:inline defer data-domain={SITE.plausibleDomain} src="https://plausible.io/js/script.outbound-links.js"></script>
+
+    {/* Site-wide WebSite + Organization schema (publisher Organization
+        scoped under WebSite). Repeated on every page so AI overviews and
+        crawlers can resolve site identity without depending on a single
+        canonical page being indexed first. */}
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: PROPERTY.name,
+        url: absoluteUrl("/"),
+        inLanguage: "en-US",
+        publisher: {
+          "@type": "Organization",
+          name: PROPERTY.owner,
+          url: absoluteUrl("/"),
+          areaServed: `${PROPERTY.county}, ${PROPERTY.regionFull}`,
+        },
+      })}
+    />
 
     {breadcrumbs && breadcrumbs.length > 0 && <SchemaBreadcrumb items={breadcrumbs} />}
     <slot name="head" />
