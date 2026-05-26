@@ -1,7 +1,6 @@
 # Captain's Cottage — robots.txt
 # AI/LLM crawlers are explicitly welcomed so the site is quotable in
-# ChatGPT, Claude, Perplexity, and Google AI Overviews. Update the
-# Sitemap URL when the custom domain swap happens.
+# ChatGPT, Claude, Perplexity, and Google AI Overviews.
 
 User-agent: *
 Allow: /
@@ -44,4 +43,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://willrphillips.github.io/captainscottage/sitemap-index.xml
+Sitemap: https://captainscottageva.com/sitemap-index.xml

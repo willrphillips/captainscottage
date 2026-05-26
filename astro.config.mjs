@@ -6,8 +6,8 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { mkdirSync, writeFileSync, appendFileSync } from "node:fs";
 
-const SITE = "https://willrphillips.github.io";
-const BASE = "/captainscottage";
+const SITE = "https://captainscottageva.com";
+const BASE = "/";
 
 // Dev-only feedback sink. The AdminOverlay POSTs review feedback here while
 // reviewing in `npm run dev`; this writes content/feedback/<slug>.json so the
