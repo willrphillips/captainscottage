@@ -89,10 +89,10 @@ export const NAV_LINKS: { label: string; href: string }[] = [
 ];
 
 export const SITE = {
-  origin: "https://willrphillips.github.io",
-  base: "/captainscottage",
+  origin: "https://captainscottageva.com",
+  base: "/",
   defaultOgImage: "/images/og-default.jpg",
-  plausibleDomain: "willrphillips.github.io/captainscottage",
+  plausibleDomain: "captainscottageva.com",
 } as const;
 
 // Build absolute URLs that account for the GH Pages base path.
