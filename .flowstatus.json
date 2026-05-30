@@ -34,8 +34,8 @@
     },
     "editor": {
       "status": "idle",
-      "lastRun": "2026-05-15",
-      "note": "Built: .claude/agents/blog-editor.md. Owns the calendar; never approves/publishes. Not yet run."
+      "lastRun": "2026-05-30",
+      "note": "publish-schedule-confirmation complete: Wednesday weekly cadence confirmed for 5 approved posts; calendar publishDate synced to MDX publishedAt; idea-status posts cascaded forward to clear collisions. No workflow change (12:00 UTC cron retained)."
     },
     "researcher": {
       "status": "idle",
