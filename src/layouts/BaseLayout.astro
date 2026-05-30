@@ -59,11 +59,12 @@ const ogImageUrl = ogImage.startsWith("http") ? ogImage : absoluteUrl(ogImage);
     <link rel="alternate" type="application/rss+xml" title={`${PROPERTY.name} Journal`} href={absoluteUrl("/rss.xml")} />
     <link rel="sitemap" type="application/xml" href={absoluteUrl("/sitemap-index.xml")} />
 
-    {/* Plausible — privacy-first analytics with automatic outbound-link
-        tracking (captures every click to Airbnb / external partners as a
-        "Outbound Link: click" goal). Cookieless. data-domain set in
-        src/lib/site.ts. */}
-    <script is:inline defer data-domain={SITE.plausibleDomain} src="https://plausible.io/js/script.outbound-links.js"></script>
+    {/* Cloudflare Web Analytics — free, privacy-first, cookieless,
+        no banner needed. Beacon-only (no proxy required, runs against
+        captainscottageva.com which lives on Namecheap → GitHub Pages).
+        Captures pageviews + sources + top pages + device. Token lives
+        here directly because it's a public beacon ID, not a secret. */}
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "65a2130dfad443a19d40a2f4e88a4905"}'></script>
 
     {/* Site-wide WebSite + Organization schema (publisher Organization
         scoped under WebSite). Repeated on every page so AI overviews and
