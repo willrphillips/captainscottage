@@ -1,68 +1,68 @@
-{
-  "projectId": "captainscottage",
-  "updatedAt": "2026-05-19T00:00:00.000Z",
-  "nodes": {
-    "site-foundation": {
-      "status": "active",
-      "lastRun": "2026-05-15",
-      "note": "Phase 1 shipped; auto-deploys to GitHub Pages on push to main"
-    },
-    "blogpost-layout": {
-      "status": "active",
-      "lastRun": "2026-05-15",
-      "note": "Built: BlogPost.astro + SchemaBlogPosting (BlogPosting JSON-LD)"
-    },
-    "post-route": {
-      "status": "active",
-      "lastRun": "2026-05-15",
-      "note": "Built: /journal/[...slug] with BlogPosting + BreadcrumbList schema"
-    },
-    "journal-index": {
-      "status": "active",
-      "lastRun": "2026-05-15",
-      "note": "Built: category-filterable reverse-chrono list (ComingSoon stub replaced)"
-    },
-    "sample-post": {
-      "status": "active",
-      "lastRun": "2026-05-15",
-      "note": "Built: 'The Art of the Slow Weekend' — builds clean, in RSS + sitemap, SEO checklist met. Workstream A done."
-    },
-    "calendar": {
-      "status": "idle",
-      "lastRun": "2026-05-15",
-      "note": "Built: content/content-calendar.json seeded with brief's 12 posts + 2 amenity-health/culture entries; human gate encoded. Not yet driving an automated run."
-    },
-    "editor": {
-      "status": "idle",
-      "lastRun": "2026-05-30",
-      "note": "publish-schedule-confirmation complete: Wednesday weekly cadence confirmed for 5 approved posts; calendar publishDate synced to MDX publishedAt; idea-status posts cascaded forward to clear collisions. No workflow change (12:00 UTC cron retained)."
-    },
-    "researcher": {
-      "status": "idle",
-      "lastRun": "2026-05-19",
-      "note": "mornings-with-the-ospreys-hull-creek brief complete — content/research/mornings-with-the-ospreys-hull-creek.md"
-    },
-    "writer": {
-      "status": "idle",
-      "lastRun": "2026-05-30",
-      "note": "waterfront-kitchen-family-recipes: round 3 applied — 'bags are on the way', removed ', not on the way to anything,'. Edits 1+2 self-cancelled (retraction). SEO PASS. Calendar in-review."
-    },
-    "seo-editor": {
-      "status": "idle",
-      "lastRun": "2026-05-19",
-      "note": "Batch PASS: all 4 posts (crabbers, sauna, recipes, ospreys) passed and set to in-review. Mechanical fixes applied: title lengths, description lengths, em-dash->comma/colon throughout, sauna CTA->withBase(/book). Calendar updated."
-    },
-    "approve": {
-      "status": "planned",
-      "note": "Human gate. Will batch-approves in the /admin CMS (Workstream C). Not built."
-    },
-    "pr-preview": {
-      "status": "planned",
-      "note": "DIVERGENCE: locked decision changed review surface to a Git CMS at /admin (not PR previews). This node id needs renaming in the Codex-root structure file (living-flowcharts/data/projects/captainscottage.json). Tracked as an OPEN ITEM in SCOPE_OF_WORK.md."
-    },
-    "scheduled-publish": {
-      "status": "planned",
-      "note": "Weekly GitHub Actions cron rebuild + publishDate gate. Not built (Workstream C)."
-    }
-  }
+﻿{
+    "projectId":  "captainscottage",
+    "updatedAt":  "2026-05-30T00:00:00.000Z",
+    "nodes":  {
+                  "site-foundation":  {
+                                          "status":  "active",
+                                          "lastRun":  "2026-05-15",
+                                          "note":  "Phase 1 shipped; auto-deploys to GitHub Pages on push to main"
+                                      },
+                  "blogpost-layout":  {
+                                          "status":  "active",
+                                          "lastRun":  "2026-05-15",
+                                          "note":  "Built: BlogPost.astro + SchemaBlogPosting (BlogPosting JSON-LD)"
+                                      },
+                  "post-route":  {
+                                     "status":  "active",
+                                     "lastRun":  "2026-05-15",
+                                     "note":  "Built: /journal/[...slug] with BlogPosting + BreadcrumbList schema"
+                                 },
+                  "journal-index":  {
+                                        "status":  "active",
+                                        "lastRun":  "2026-05-15",
+                                        "note":  "Built: category-filterable reverse-chrono list (ComingSoon stub replaced)"
+                                    },
+                  "sample-post":  {
+                                      "status":  "active",
+                                      "lastRun":  "2026-05-15",
+                                      "note":  "Built: \u0027The Art of the Slow Weekend\u0027 â€” builds clean, in RSS + sitemap, SEO checklist met. Workstream A done."
+                                  },
+                  "calendar":  {
+                                   "status":  "idle",
+                                   "lastRun":  "2026-05-15",
+                                   "note":  "Built: content/content-calendar.json seeded with brief\u0027s 12 posts + 2 amenity-health/culture entries; human gate encoded. Not yet driving an automated run."
+                               },
+                  "editor":  {
+                                 "status":  "idle",
+                                 "lastRun":  "2026-05-30",
+                                 "note":  "Batch 2 scheduled: 5 posts advanced idea-\u003edrafting for 2026-07-08 through 2026-08-05. Slugs: complete-guide-to-reedville-virginia (07-08), 24-hours-in-irvington-virginia (07-15), weekend-getaways-from-washington-dc (07-22), cost-to-own-waterfront-cottage-northern-neck (07-29), wildlife-sightings-hull-creek (08-05). Downstream idea posts cascaded forward to clear date collisions."
+                             },
+                  "researcher":  {
+                                     "status":  "idle",
+                                     "lastRun":  "2026-05-30",
+                                     "note":  "cost-to-own-waterfront-cottage-northern-neck brief complete â€” content/research/cost-to-own-waterfront-cottage-northern-neck.md"
+                                 },
+                  "writer":  {
+                                 "status":  "idle",
+                                 "lastRun":  "2026-05-30",
+                                 "note":  "cost-to-own-waterfront-cottage-northern-neck: drafted and set to in-review. 10 TODO markers for Will (tax bill, flood premium, homeowners premium, dock details, HVAC, septic, well, revenue offset, HOA confirmation, purchase price)."
+                             },
+                  "seo-editor":  {
+                                     "status":  "idle",
+                                     "lastRun":  "2026-05-30",
+                                     "note":  "cost-to-own-waterfront-cottage-northern-neck: PASS. Round-2 re-audit cleared. Calendar confirmed in-review."
+                                 },
+                  "approve":  {
+                                  "status":  "planned",
+                                  "note":  "Human gate. Will batch-approves in the /admin CMS (Workstream C). Not built."
+                              },
+                  "pr-preview":  {
+                                     "status":  "planned",
+                                     "note":  "DIVERGENCE: locked decision changed review surface to a Git CMS at /admin (not PR previews). This node id needs renaming in the Codex-root structure file (living-flowcharts/data/projects/captainscottage.json). Tracked as an OPEN ITEM in SCOPE_OF_WORK.md."
+                                 },
+                  "scheduled-publish":  {
+                                            "status":  "planned",
+                                            "note":  "Weekly GitHub Actions cron rebuild + publishDate gate. Not built (Workstream C)."
+                                        }
+              }
 }
