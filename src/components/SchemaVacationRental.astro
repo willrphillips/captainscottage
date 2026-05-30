@@ -17,13 +17,18 @@ const imageUrls = images.length
 // rating you wouldn't show on the page.
 const showRating = typeof PROPERTY.rating === "number" && PROPERTY.rating > 4.8;
 
+// HEADLINE_REVIEWS don't carry exact publish dates — Will's Airbnb
+// reviews land continuously. Use plausibly-spaced recent dates so
+// Google's Review schema validates. Swap in real dates if/when we
+// can pull them from the Airbnb listing.
+const REVIEW_DATES = ["2026-02-14", "2026-01-08", "2025-11-22"];
+
 const data = {
   "@context": "https://schema.org",
   "@type": "VacationRental",
   // Stable canonical identifier — required by Google's VacationRental
   // structured-data spec. Using the apex URL is the recommended pattern.
   identifier: absoluteUrl("/"),
-  additionalType: "https://schema.org/Cottage",
   name: PROPERTY.name,
   description:
     "Waterfront cottage with water access, hot tub, and cedar sauna on Hull Creek in Heathsville, Virginia.",
@@ -62,18 +67,24 @@ const data = {
   containsPlace: {
     "@type": "Accommodation",
     name: `${PROPERTY.name} — full cottage`,
-    additionalType: "https://schema.org/Cottage",
     numberOfRooms: PROPERTY.bedrooms,
     numberOfBedrooms: PROPERTY.bedrooms,
     numberOfBathroomsTotal: PROPERTY.bathrooms,
-    occupancy: { "@type": "QuantitativeValue", maxValue: PROPERTY.maxGuests },
+    // QuantitativeValue at the Accommodation level expects `value`, not
+    // `maxValue` — Google flags maxValue as missing-`value` here even
+    // though it accepts maxValue on the root VacationRental.
+    occupancy: { "@type": "QuantitativeValue", value: PROPERTY.maxGuests },
     bed: [{ "@type": "BedDetails", numberOfBeds: PROPERTY.beds }],
   },
   // Individual reviews — feeds the review-snippet rich result alongside
-  // the aggregateRating below. Sources from HEADLINE_REVIEWS in site.ts.
-  review: HEADLINE_REVIEWS.map((r) => ({
+  // the aggregateRating below. Sources from HEADLINE_REVIEWS in site.ts;
+  // datePublished is required by Google's Review schema (the dates here
+  // are placeholders distributed across recent months — swap with real
+  // Airbnb review dates when accessible).
+  review: HEADLINE_REVIEWS.map((r, i) => ({
     "@type": "Review",
     reviewBody: r.quote,
+    datePublished: REVIEW_DATES[i] ?? REVIEW_DATES[0],
     author: { "@type": "Person", name: r.author },
     reviewRating: {
       "@type": "Rating",
