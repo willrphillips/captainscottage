@@ -1,5 +1,18 @@
 # Post-launch SEO / AEO / GEO playbook
 
+> **Live progress (updated 2026-05-30):**
+> - ✅ Domain live: https://captainscottageva.com (HTTPS, cert, www→apex)
+> - ✅ Analytics: Cloudflare Web Analytics (free) — replaced Plausible
+> - ✅ Google Search Console: verified, sitemap submitted, home indexed,
+>   VacationRental schema all-green / rich-result eligible
+> - ✅ Auto-publish cron live (5 posts ship weekly 06-03 → 07-01;
+>   5 more drafted for 07-08 → 08-05)
+> - ⬜ Bing Webmaster + IndexNow key + IndexNow Action (next)
+> - ⬜ PageSpeed Insights spot check
+> - ⬜ Airbnb listing description → add the new URL (top backlink)
+> - ⬜ Per-town deep guides, guest-reply bootstrap run
+
+
 A staged proliferation plan for **Captain's Cottage** once the production
 domain is live. Operates inside the project's locked constraints:
 
