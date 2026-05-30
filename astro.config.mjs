@@ -14,6 +14,25 @@ const BASE = "/";
 // Writer/SEO agents can consume it. configureServer runs ONLY in the dev
 // server — it is never part of the static production build, so GitHub Pages
 // is unaffected and no server adapter is needed.
+// Flip the `approvedAt` line in a post's MDX frontmatter.
+// approve=true  → set/replace approvedAt with the current ISO timestamp
+// approve=false → strip any approvedAt line
+// Returns the resulting ISO (or null if cleared). Throws on bad input.
+function setApprovedAtInMdx(slug, approve) {
+  const mdxPath = resolve(process.cwd(), "src/content/blog", slug + ".mdx");
+  if (!existsSync(mdxPath)) throw new Error("post not found: " + slug);
+  const original = readFileSync(mdxPath, "utf8");
+  const fmMatch = original.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!fmMatch) throw new Error("no frontmatter found");
+  const fmBlock = fmMatch[1];
+  const after = original.slice(fmMatch[0].length);
+  const lines = fmBlock.split(/\r?\n/).filter((l) => !/^approvedAt:\s*/.test(l));
+  const iso = approve ? new Date().toISOString() : null;
+  if (approve) lines.push(`approvedAt: ${iso}`);
+  writeFileSync(mdxPath, `---\n${lines.join("\n")}\n---${after}`, "utf8");
+  return iso;
+}
+
 function feedbackSinkPlugin() {
   return {
     name: "captains-cottage-feedback-sink",
@@ -48,6 +67,34 @@ function feedbackSinkPlugin() {
           res.statusCode = 200;
           res.setHeader("content-type", "application/json");
           res.end(JSON.stringify({ ok: true, slug, status, body }));
+          return;
+        }
+
+        // PUT /__feedback/approve  → flips a post's frontmatter
+        //   body: { slug, approve: true|false }
+        //     approve=true  → write `approvedAt: <ISO>` into the MDX
+        //     approve=false → remove `approvedAt` (re-open for review)
+        // Always keeps `draft: true` — the actual publish remains Will's
+        // manual flip. The review queue filters out posts with `approvedAt`.
+        if (req.method === "PUT" && req.url.startsWith("/__feedback/approve")) {
+          let raw = "";
+          req.on("data", (c) => (raw += c));
+          req.on("end", () => {
+            try {
+              const data = JSON.parse(raw || "{}");
+              const slug = String(data.slug || "").replace(/[^a-z0-9-]/gi, "").toLowerCase();
+              if (!slug) throw new Error("missing/invalid slug");
+              const approve = data.approve !== false;
+              const iso = setApprovedAtInMdx(slug, approve);
+              res.statusCode = 200;
+              res.setHeader("content-type", "application/json");
+              res.end(JSON.stringify({ ok: true, slug, approve, approvedAt: iso }));
+            } catch (err) {
+              res.statusCode = 400;
+              res.setHeader("content-type", "application/json");
+              res.end(JSON.stringify({ ok: false, error: String(err && err.message || err) }));
+            }
+          });
           return;
         }
 
@@ -104,9 +151,18 @@ function feedbackSinkPlugin() {
             } catch (_) {
               /* logging is best-effort; never fail the submit */
             }
+            // If this submission is an "approve-for-batch" decision,
+            // flip the post's frontmatter so it falls out of the review
+            // queue. `draft: true` stays — actual publish remains Will's
+            // manual flip.
+            let approvedAt = null;
+            if (data.decision === "approve-for-batch") {
+              try { approvedAt = setApprovedAtInMdx(slug, true); } catch (_) {}
+            }
+
             res.statusCode = 200;
             res.setHeader("content-type", "application/json");
-            res.end(JSON.stringify({ ok: true, path: "content/feedback/" + slug + ".json" }));
+            res.end(JSON.stringify({ ok: true, path: "content/feedback/" + slug + ".json", approvedAt }));
           } catch (err) {
             res.statusCode = 400;
             res.setHeader("content-type", "application/json");

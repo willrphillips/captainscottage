@@ -166,3 +166,23 @@ _(no notes — decision only)_
 _(no notes — decision only)_
 
 ---
+
+## 2026-05-30T10:59:40.763Z · waterfront-kitchen-family-recipes
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+Replace "The kitchen’s its own room, separate from the rest of the house, which means whoever’s cooking can stay focused or hide from the kids depending on the moment." with "I don't think this sounds appealing. And you technically are next to the kitchen nook, and 3rd bedroom. It's a little central but a litle disconnected. I'd focus on the feeling of the kitchen and looking over the water rather than it being separate or connected".
+
+On "Food is a 30-minute grocery run round-trip: Food Lion isn’t fancy, but the staff is friendly and it’s got everything you need": This doesn't sound appealing either. You could mention something about how our protip is to order groceries for delivery on the drive down so that it's on the way when you get there without a detour needed. Then you can add a note about taking a trip to Kellum Farms. It's not on the way to food lion really
+
+Much better.
+
+---
+
+## 2026-05-30T11:01:06.882Z · the-art-of-the-slow-weekend
+**Decision:** approve-for-batch  
+**Reviewer:** Will Phillips
+
+_(no notes — decision only)_
+
+---

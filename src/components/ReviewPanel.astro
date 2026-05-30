@@ -31,18 +31,40 @@ interface Props {
   slug: string;
   title: string;
   isDraft?: boolean;
+  approvedAt?: Date | null;
 }
-const { slug, title, isDraft = false } = Astro.props;
+const { slug, title, isDraft = false, approvedAt = null } = Astro.props;
+const isApproved = !!approvedAt;
 
-// Pending-review queue: every draft post is awaiting Will's approval.
+// Pending-review queue: drafts that are NOT yet approved-for-batch.
+// Approved drafts fall out — they wait for Will's final publish flip.
 let pending: { slug: string; title: string }[] = [];
 try {
-  const drafts = await getCollection("blog", ({ data }) => data.draft === true);
+  const drafts = await getCollection(
+    "blog",
+    ({ data }) => data.draft === true && !data.approvedAt,
+  );
   drafts.sort((a, b) => +a.data.publishedAt - +b.data.publishedAt);
   pending = drafts.map((p) => ({ slug: p.id, title: p.data.title }));
 } catch {
   pending = [];
 }
+
+// Count of approved-but-not-yet-published posts (shown in the panel header).
+let approvedCount = 0;
+try {
+  const approved = await getCollection(
+    "blog",
+    ({ data }) => data.draft === true && !!data.approvedAt,
+  );
+  approvedCount = approved.length;
+} catch {
+  approvedCount = 0;
+}
+
+const approvedDateLabel = approvedAt
+  ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(approvedAt)
+  : "";
 
 const currentIndex = pending.findIndex((p) => p.slug === slug);
 const total = pending.length;
@@ -137,16 +159,23 @@ const next =
   <button
     type="button"
     id="rp-toggle"
-    class="flex w-full items-center justify-between gap-3 rounded-t-md bg-ink px-4 py-3 text-left text-bone"
+    class={`flex w-full items-center justify-between gap-3 rounded-t-md px-4 py-3 text-left text-bone ${isApproved ? "bg-sage" : "bg-ink"}`}
   >
     <span class="text-xs font-medium uppercase tracking-[0.18em]">
-      Review · suggestions
+      {isApproved ? "Approved · ready to publish" : "Review · suggestions"}
     </span>
     <span class="flex items-center gap-3 text-bone/70">
       {
-        total > 0 && currentIndex >= 0 && (
+        !isApproved && total > 0 && currentIndex >= 0 && (
           <span class="text-[11px] uppercase tracking-[0.18em]">
             {position} / {total}
+          </span>
+        )
+      }
+      {
+        isApproved && (
+          <span class="text-[11px] uppercase tracking-[0.18em]">
+            ✓
           </span>
         )
       }
@@ -157,22 +186,43 @@ const next =
 
   <div id="rp-body" class="flex-1 overflow-auto">
     {
-      total > 1 && (
-        <div class="flex items-center justify-between border-b border-rule px-4 py-2 text-xs text-ink-soft">
-          {prev ? (
-            <a href={withBase("/journal/" + prev.slug)} class="hover:text-ink" title={prev.title}>← Prev</a>
-          ) : (
-            <span class="text-ink-soft/40">← Prev</span>
-          )}
-          <span class="text-ink-soft/70">
-            {position > 0 ? `${position} of ${total}` : `${total} drafts`}
-          </span>
-          {next ? (
-            <a href={withBase("/journal/" + next.slug)} class="hover:text-ink" title={next.title}>Next →</a>
-          ) : (
-            <span class="text-ink-soft/40">Next →</span>
+      isApproved ? (
+        <div class="border-b border-rule px-4 py-3 text-xs text-ink-soft">
+          <p class="text-sage">
+            ✓ <strong>Approved</strong> on <time datetime={approvedAt?.toISOString()}>{approvedDateLabel}</time>.
+          </p>
+          <p class="mt-2">
+            This post is out of the review queue. It will go live when you set <code>draft: false</code> in the frontmatter (or use a future Publish action). <strong>{approvedCount}</strong> approved {approvedCount === 1 ? "post" : "posts"} waiting to publish.
+          </p>
+          {total > 0 && (
+            <p class="mt-3">
+              <strong>{total}</strong> {total === 1 ? "draft" : "drafts"} still pending review.
+              {next && (
+                <>
+                  {" "}<a href={withBase("/journal/" + next.slug)} class="text-rust underline hover:no-underline" title={next.title}>Go to next →</a>
+                </>
+              )}
+            </p>
           )}
         </div>
+      ) : (
+        total > 1 && (
+          <div class="flex items-center justify-between border-b border-rule px-4 py-2 text-xs text-ink-soft">
+            {prev ? (
+              <a href={withBase("/journal/" + prev.slug)} class="hover:text-ink" title={prev.title}>← Prev</a>
+            ) : (
+              <span class="text-ink-soft/40">← Prev</span>
+            )}
+            <span class="text-ink-soft/70">
+              {position > 0 ? `${position} of ${total}` : `${total} drafts`}
+            </span>
+            {next ? (
+              <a href={withBase("/journal/" + next.slug)} class="hover:text-ink" title={next.title}>Next →</a>
+            ) : (
+              <span class="text-ink-soft/40">Next →</span>
+            )}
+          </div>
+        )
       )
     }
 
@@ -184,52 +234,68 @@ const next =
       </div>
     </div>
 
-    {/* The growing list of suggestions for this session. */}
-    <div class="px-4 pt-4">
-      <p class="text-[11px] uppercase tracking-[0.16em] text-ink-soft">Suggestions</p>
-      <ul id="rp-list" class="mt-2 space-y-2">
-        <li id="rp-empty" class="rounded border border-dashed border-rule px-3 py-3 text-xs text-ink-soft/70">
-          Highlight any text in the post. A small toolbar appears with <em>Suggest</em>, <em>Comment</em>, and <em>Rewrite</em>.
-        </li>
-      </ul>
-    </div>
+    {
+      isApproved ? (
+        <div class="space-y-3 p-4">
+          <p class="text-sm text-ink-soft">
+            Need to change something after all? Re-open it for review and the queue will pick it up again.
+          </p>
+          <div class="flex items-center gap-2">
+            <button type="button" id="rp-unapprove" class="rounded border border-rule px-3 py-2 text-sm text-ink-soft hover:border-rust hover:text-rust">
+              Re-open for changes
+            </button>
+            <span id="rp-status" class="ml-auto text-xs text-sage"></span>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div class="px-4 pt-4">
+            <p class="text-[11px] uppercase tracking-[0.16em] text-ink-soft">Suggestions</p>
+            <ul id="rp-list" class="mt-2 space-y-2">
+              <li id="rp-empty" class="rounded border border-dashed border-rule px-3 py-3 text-xs text-ink-soft/70">
+                Highlight any text in the post. A small toolbar appears with <em>Suggest</em>, <em>Comment</em>, and <em>Rewrite</em>.
+              </li>
+            </ul>
+          </div>
 
-    {/* Free-form note + decision + submit. */}
-    <div class="space-y-3 border-t border-rule p-4 mt-4">
-      <label class="block">
-        <span class="mb-1 block text-[11px] uppercase tracking-[0.16em] text-ink-soft">Overall note (optional)</span>
-        <textarea
-          id="rp-freenote"
-          rows="3"
-          placeholder="Anything that doesn't anchor to a specific selection."
-          class="w-full resize-y rounded border border-rule bg-white p-2 text-sm text-ink outline-none focus:border-ink"
-        ></textarea>
-      </label>
+          <div class="space-y-3 border-t border-rule p-4 mt-4">
+            <label class="block">
+              <span class="mb-1 block text-[11px] uppercase tracking-[0.16em] text-ink-soft">Overall note (optional)</span>
+              <textarea
+                id="rp-freenote"
+                rows="3"
+                placeholder="Anything that doesn't anchor to a specific selection."
+                class="w-full resize-y rounded border border-rule bg-white p-2 text-sm text-ink outline-none focus:border-ink"
+              ></textarea>
+            </label>
 
-      <div class="flex gap-2">
-        <label class="flex-1">
-          <input type="radio" name="rp-decision" value="request-changes" checked class="peer sr-only" />
-          <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-rust peer-checked:bg-rust/10 peer-checked:text-rust-deep">
-            Request changes
-          </span>
-        </label>
-        <label class="flex-1">
-          <input type="radio" name="rp-decision" value="approve-for-batch" class="peer sr-only" />
-          <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-sage peer-checked:bg-sage/10 peer-checked:text-sage">
-            Approve
-          </span>
-        </label>
-      </div>
+            <div class="flex gap-2">
+              <label class="flex-1">
+                <input type="radio" name="rp-decision" value="request-changes" checked class="peer sr-only" />
+                <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-rust peer-checked:bg-rust/10 peer-checked:text-rust-deep">
+                  Request changes
+                </span>
+              </label>
+              <label class="flex-1">
+                <input type="radio" name="rp-decision" value="approve-for-batch" class="peer sr-only" />
+                <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-sage peer-checked:bg-sage/10 peer-checked:text-sage">
+                  Approve
+                </span>
+              </label>
+            </div>
 
-      <div class="flex items-center gap-2">
-        <button type="button" id="rp-submit" class="btn btn-rust !px-4 !py-2 text-sm">Submit</button>
-        <span class="text-[11px] text-ink-soft/60">⌘/Ctrl+↵</span>
-        <span id="rp-status" class="ml-auto text-xs text-sage"></span>
-      </div>
-      <p class="text-xs text-ink-soft/70">
-        Saves to <code>content/feedback/{slug}.json</code>. Dev review only — never bundled into the production site.
-      </p>
-    </div>
+            <div class="flex items-center gap-2">
+              <button type="button" id="rp-submit" class="btn btn-rust !px-4 !py-2 text-sm">Submit</button>
+              <span class="text-[11px] text-ink-soft/60">⌘/Ctrl+↵</span>
+              <span id="rp-status" class="ml-auto text-xs text-sage"></span>
+            </div>
+            <p class="text-xs text-ink-soft/70">
+              Saves to <code>content/feedback/{slug}.json</code>. Dev review only — never bundled into the production site.
+            </p>
+          </div>
+        </>
+      )
+    }
   </div>
 </aside>
 
@@ -300,7 +366,7 @@ const next =
   .rp-card .rp-card-remove:hover { color: var(--color-rust); }
 </style>
 
-<script is:inline define:vars={{ slug, title, isDraft }}>
+<script is:inline define:vars={{ slug, title, isDraft, isApproved }}>
   (function () {
     var STORE_KEY = "rp-session:" + slug;
     var BANNER_KEY = "rp-banner:" + slug;
@@ -308,10 +374,61 @@ const next =
     var panel = document.getElementById("rp-panel");
     var body = document.getElementById("rp-body");
     var caret = document.getElementById("rp-caret");
+    var statusEl = document.getElementById("rp-status");
+
+    if (!panel) return;
+
+    // Common: toggle the panel open/closed (works in both states).
+    document.getElementById("rp-toggle").addEventListener("click", function () {
+      var hidden = body.style.display === "none";
+      body.style.display = hidden ? "" : "none";
+      caret.textContent = hidden ? "▾" : "▸";
+    });
+
+    function flash(msg) {
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      clearTimeout(flash._t);
+      flash._t = setTimeout(function () { statusEl.textContent = ""; }, 4000);
+    }
+
+    // Approved state: only wire the "Re-open for changes" button.
+    if (isApproved) {
+      var unapproveBtn = document.getElementById("rp-unapprove");
+      if (unapproveBtn) {
+        unapproveBtn.addEventListener("click", function () {
+          if (!confirm("Re-open this post for changes? It will go back into the review queue.")) return;
+          unapproveBtn.disabled = true;
+          flash("Re-opening…");
+          fetch("/__feedback/approve", {
+            method: "PUT",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ slug: slug, approve: false }),
+          })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (res) {
+              if (res && res.ok) {
+                try { localStorage.removeItem(BANNER_KEY); } catch (e) {}
+                flash("Re-opened. Reloading…");
+                setTimeout(function () { window.location.reload(); }, 600);
+              } else {
+                unapproveBtn.disabled = false;
+                flash("Failed to re-open.");
+              }
+            })
+            .catch(function () {
+              unapproveBtn.disabled = false;
+              flash("No dev server.");
+            });
+        });
+      }
+      return; // Skip the rest of the wiring (no chip / popover / form in approved mode).
+    }
+
+    // Review (non-approved) state from here down.
     var countEl = document.getElementById("rp-count");
     var listEl = document.getElementById("rp-list");
     var emptyEl = document.getElementById("rp-empty");
-    var statusEl = document.getElementById("rp-status");
     var freeNoteEl = document.getElementById("rp-freenote");
     var submitBtn = document.getElementById("rp-submit");
     var bannerEl = document.getElementById("rp-banner");
@@ -329,7 +446,7 @@ const next =
     var popClose = document.getElementById("rp-popover-close");
     var postBody = document.querySelector(".post-body");
 
-    if (!panel || !postBody) return;
+    if (!postBody) return;
 
     // ---- State -----------------------------------------------------------
 
@@ -397,14 +514,6 @@ const next =
         })
         .catch(function () {});
     })();
-
-    // ---- Toggle ----------------------------------------------------------
-
-    document.getElementById("rp-toggle").addEventListener("click", function () {
-      var hidden = body.style.display === "none";
-      body.style.display = hidden ? "" : "none";
-      caret.textContent = hidden ? "▾" : "▸";
-    });
 
     // ---- Selection chip --------------------------------------------------
 
@@ -602,12 +711,6 @@ const next =
 
     // ---- Submit ----------------------------------------------------------
 
-    function flash(msg) {
-      statusEl.textContent = msg;
-      clearTimeout(flash._t);
-      flash._t = setTimeout(function () { statusEl.textContent = ""; }, 4000);
-    }
-
     function payload() {
       var decision = (document.querySelector('input[name="rp-decision"]:checked') || {}).value || "request-changes";
       return {
@@ -672,7 +775,12 @@ const next =
               while (m.firstChild) parent.insertBefore(m.firstChild, m);
               parent.removeChild(m);
             });
-            flash("Submitted → " + res.j.path);
+            if (res.j.approvedAt) {
+              flash("Approved — moving to approved state…");
+              setTimeout(function () { window.location.reload(); }, 700);
+            } else {
+              flash("Submitted → " + res.j.path);
+            }
           } else {
             flash("Failed: " + ((res.j && res.j.error) || "server") + ". Downloading instead.");
             downloadFallback(data);

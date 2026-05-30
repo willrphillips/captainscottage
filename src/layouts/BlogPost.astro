@@ -35,6 +35,7 @@ interface Props {
   isDraft?: boolean;
   previewMode?: boolean;
   audience?: AudienceTag[];
+  approvedAt?: Date | null;
 }
 
 const {
@@ -51,6 +52,7 @@ const {
   isDraft = false,
   previewMode = false,
   audience = [],
+  approvedAt = null,
 } = Astro.props;
 
 const AUDIENCE_LABELS: Record<AudienceTag, string> = {
@@ -166,7 +168,7 @@ const pathname = `/journal/${slug}`;
     }
   </article>
 
-  {previewMode && <ReviewPanel slug={slug} title={title} isDraft={isDraft} />}
+  {previewMode && <ReviewPanel slug={slug} title={title} isDraft={isDraft} approvedAt={approvedAt} />}
 </BaseLayout>
 
 <style>
