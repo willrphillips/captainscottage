@@ -34,8 +34,8 @@
     },
     "editor": {
       "status": "idle",
-      "lastRun": "2026-05-15",
-      "note": "Built: .claude/agents/blog-editor.md. Owns the calendar; never approves/publishes. Not yet run."
+      "lastRun": "2026-05-30",
+      "note": "publish-schedule-confirmation complete: Wednesday weekly cadence confirmed for 5 approved posts; calendar publishDate synced to MDX publishedAt; idea-status posts cascaded forward to clear collisions. No workflow change (12:00 UTC cron retained)."
     },
     "researcher": {
       "status": "idle",
@@ -44,8 +44,8 @@
     },
     "writer": {
       "status": "idle",
-      "lastRun": "2026-05-24",
-      "note": "the-art-of-the-slow-weekend revised per Will's 2026-05-24 feedback — friction section rewritten (kayak/sauna/cooking; no crab pots); email reference removed; closing paragraph tightened; prior pending voice fixes applied"
+      "lastRun": "2026-05-30",
+      "note": "waterfront-kitchen-family-recipes: round 3 applied — 'bags are on the way', removed ', not on the way to anything,'. Edits 1+2 self-cancelled (retraction). SEO PASS. Calendar in-review."
     },
     "seo-editor": {
       "status": "idle",

@@ -1,0 +1,29 @@
+{
+  "slug": "waterfront-kitchen-family-recipes",
+  "title": "Vacation Dinner Ideas: Real Meals in a Waterfront Kitchen",
+  "isDraft": true,
+  "decision": "request-changes",
+  "edits": [
+    {
+      "id": "eeqvpdk12",
+      "kind": "suggest",
+      "anchor": "The kitchen’s its own room, separate from the rest of the house, which means whoever’s cooking can stay focused or hide from the kids depending on the moment.",
+      "replacement": "I don't think this sounds appealing. And you technically are next to the kitchen nook, and 3rd bedroom. It's a little central but a litle disconnected. I'd focus on the feeling of the kitchen and looking over the water rather than it being separate or connected",
+      "note": "",
+      "at": "2026-05-30T10:55:30.631Z"
+    },
+    {
+      "id": "epnoquyeu",
+      "kind": "comment",
+      "anchor": "Food is a 30-minute grocery run round-trip: Food Lion isn’t fancy, but the staff is friendly and it’s got everything you need",
+      "replacement": "",
+      "note": "This doesn't sound appealing either. You could mention something about how our protip is to order groceries for delivery on the drive down so that it's on the way when you get there without a detour needed. Then you can add a note about taking a trip to Kellum Farms. It's not on the way to food lion really",
+      "at": "2026-05-30T10:57:17.890Z"
+    }
+  ],
+  "freeNote": "Much better.",
+  "feedback": "Replace \"The kitchen’s its own room, separate from the rest of the house, which means whoever’s cooking can stay focused or hide from the kids depending on the moment.\" with \"I don't think this sounds appealing. And you technically are next to the kitchen nook, and 3rd bedroom. It's a little central but a litle disconnected. I'd focus on the feeling of the kitchen and looking over the water rather than it being separate or connected\".\n\nOn \"Food is a 30-minute grocery run round-trip: Food Lion isn’t fancy, but the staff is friendly and it’s got everything you need\": This doesn't sound appealing either. You could mention something about how our protip is to order groceries for delivery on the drive down so that it's on the way when you get there without a detour needed. Then you can add a note about taking a trip to Kellum Farms. It's not on the way to food lion really\n\nMuch better.",
+  "reviewer": "Will Phillips",
+  "at": "2026-05-30T10:59:40.763Z",
+  "note": "Captured via ReviewPanel (artifact-style). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated."
+}

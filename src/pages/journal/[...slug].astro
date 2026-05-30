@@ -82,6 +82,7 @@ const relatedProps = related.map((p) => ({
   isDraft={entry.data.draft}
   previewMode={SHOW_DRAFTS}
   audience={entry.data.audience}
+  approvedAt={entry.data.approvedAt ?? null}
 >
   <Content />
 </BlogPost>

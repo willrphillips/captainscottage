@@ -1,0 +1,51 @@
+name: Auto-publish approved drafts
+
+# Daily check: any approved draft post whose publishedAt date has
+# arrived gets flipped from `draft: true` to `draft: false`. The flip
+# is committed to main; the existing Deploy workflow listens on push
+# to main and rebuilds the site automatically.
+#
+# Eligibility rules (enforced by .github/scripts/auto-publish.mjs):
+#   - draft: true
+#   - approvedAt: present (Will hit "Approve" in the ReviewPanel)
+#   - publishedAt <= today (UTC)
+#
+# Manual trigger also available via the Actions tab.
+
+on:
+  schedule:
+    # 12:00 UTC daily = 08:00 ET (during EDT). Posts go live in the
+    # morning ET on their publishedAt date.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  flip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Flip eligible drafts
+        id: flip
+        run: node .github/scripts/auto-publish.mjs
+
+      - name: Commit + push if anything flipped
+        if: steps.flip.outputs.flipped != '0' && steps.flip.outputs.flipped != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/blog/
+          git commit -m "Auto-publish: flip approved drafts whose publishedAt has arrived
+
+          Triggered by .github/workflows/auto-publish.yml on the daily cron.
+          See .github/scripts/auto-publish.mjs for eligibility rules."
+          git push

@@ -46,9 +46,46 @@ Will rarely writes; his authentic register lives in the host notes in `src/lib/g
 **The rule:** write as the most vivid version of *this* voice — tighter, more sensory, better rhythm — but never sand it into smooth corporate hospitality copy. If a sentence sounds like a brand wrote it, it's wrong. Keep the "we," keep the asides, keep the modesty; add the craft. Read the guidebook notes before drafting to re-tune.
 
 ## Feedback loop
-- Before drafting, check `content/feedback/<slug>.json`. If it exists:
-  - `decision: "request-changes"` — treat `feedback` as the priority work list. Revise the existing `src/content/blog/<slug>.mdx` to address every point, then re-loop the SEO editor. When done, delete (clear) the feedback file and add a one-line revision summary to the calendar entry `note`.
-  - `decision: "approve-for-batch"` — do NOT publish and do NOT set `approved`. Leave the post at `in-review`, record "Will approved for batch on <at>" in the calendar `note`, and stop. `approvedBy` stays `null` until Will sets it in the CMS.
+- Before drafting, check `content/feedback/<slug>.json`. The file may carry one or both of:
+  - `feedback` — free-form text. Treat as the priority work list, top-down. (Legacy free-text path.)
+  - `edits` — an **array of structured suggestions** produced by the ReviewPanel. Each entry has the shape:
+    ```json
+    {
+      "id": "e_abc",
+      "kind": "suggest" | "comment" | "rewrite",
+      "anchor": "exact text Will selected in the rendered post",
+      "replacement": "what should replace it (suggest) or instruction (rewrite)",
+      "note": "optional extra context",
+      "at": "ISO timestamp"
+    }
+    ```
+    Process **every entry** in `edits[]`. For each:
+    - **kind "suggest"**: locate `anchor` verbatim in the MDX. If found, replace it with `replacement`. If the anchor crosses MDX expressions (e.g. it includes link text rendered from `[stay with us](...)`), match by the visible text and edit just the visible-text portion. Honor any extra `note`.
+    - **kind "comment"**: not a literal text edit — apply the spirit of the comment to the anchor region. Decide what change best honors it; document what you did in the rewrite manifest (below).
+    - **kind "rewrite"**: rewrite the anchor (and surrounding sentence/paragraph if needed) according to `replacement` as the instruction.
+    - **If the anchor cannot be located** (exact or fuzzy with context), mark that entry as `unresolved` in the manifest and add a one-line note explaining why. Do **not** silently skip it.
+  - `freeNote` — optional umbrella note from the panel; treat as a global voice instruction on top of the structured edits.
+- After applying:
+  - Empty `content/feedback/<slug>.json` to `{}` so the auto-clear banner fires.
+  - Write `content/rewrites/<slug>.json` (overwrite each round) — a manifest of what changed:
+    ```json
+    {
+      "slug": "<slug>",
+      "round": <int — increment by 1 over the previous round in this file, or 1 if no prior>,
+      "appliedAt": "<ISO>",
+      "edits": [
+        { "editId": "e_abc", "kind": "suggest|comment|rewrite", "anchor": "...", "before": "...", "after": "...", "status": "applied|unresolved", "note": "..." }
+      ],
+      "writerChanges": [
+        { "before": "...", "after": "...", "why": "cascade consistency" }
+      ],
+      "freeNoteAddressed": true
+    }
+    ```
+    The UI uses this to highlight rewritten regions on the next render.
+  - Add a one-line revision summary to the calendar entry `note`.
+- `decision: "approve-for-batch"` — do NOT publish and do NOT set `approved`. Leave the post at `in-review`, record "Will approved for batch on <at>" in the calendar `note`, and stop. `approvedBy` stays `null` until Will sets it manually.
+- `content/feedback-archive/<slug>-<ISO>.json` — **read-only, permanent record** of every submission. You may consult older rounds for context but **never modify or delete** archive files.
 
 ## Live status
 - On start, set `.flowstatus.json` node `writer` → `{ "status": "active", "lastRun": "<today>", "note": "<slug>" }`. On finish, set it back to `"idle"`. Do not alter other nodes. Keep JSON valid. Node ids must match the FLOWSTATUS contract.

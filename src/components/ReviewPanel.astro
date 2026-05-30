@@ -1,0 +1,991 @@
+---
+/**
+ * ReviewPanel — inline review surface for draft journal posts.
+ *
+ * Rendered ONLY when previewMode is true (npm run dev, or a build with
+ * INCLUDE_DRAFTS=true). NEVER emitted in the production GitHub Pages
+ * build — see src/pages/journal/[...slug].astro. The production reader
+ * sees the post, nothing else.
+ *
+ * Flow:
+ *   1. Reader selects any text inside `.post-body`.
+ *   2. A floating action chip appears next to the selection with three
+ *      verbs: Suggest edit, Comment, Rewrite. (The chip is positioned
+ *      next to the selection by necessity — selection-anchored UI must
+ *      float; it's not a popup window in the modal sense.)
+ *   3. Picking a verb opens a small popover anchored to the selection.
+ *      Submit pushes a structured entry into the in-memory `edits[]`
+ *      array and renders a card in the inline review section below
+ *      the post.
+ *   4. Per-paragraph suggestion underlines stay on the page so the
+ *      reader can see what they've already flagged.
+ *   5. The inline review section collects every suggestion this
+ *      session, shows historical feedback rounds from the archive,
+ *      shows the latest rewrite manifest, and lets the reader add a
+ *      free-form note, pick a decision, and submit. Submit POSTs to
+ *      the dev-only `/__feedback` endpoint (astro.config.mjs).
+ *      The writer agent reads `content/feedback/<slug>.json` on its
+ *      next run.
+ */
+import { getCollection } from "astro:content";
+import { withBase } from "~/lib/site";
+import { readdirSync, readFileSync, existsSync } from "node:fs";
+import { resolve, join } from "node:path";
+
+interface Props {
+  slug: string;
+  title: string;
+  isDraft?: boolean;
+  approvedAt?: Date | null;
+}
+const { slug, title, isDraft = false, approvedAt = null } = Astro.props;
+const isApproved = !!approvedAt;
+
+// ---- Pending-review queue ------------------------------------------------
+
+let pending: { slug: string; title: string }[] = [];
+try {
+  const drafts = await getCollection(
+    "blog",
+    ({ data }) => data.draft === true && !data.approvedAt,
+  );
+  drafts.sort((a, b) => +a.data.publishedAt - +b.data.publishedAt);
+  pending = drafts.map((p) => ({ slug: p.id, title: p.data.title }));
+} catch {
+  pending = [];
+}
+
+let approvedCount = 0;
+try {
+  const approved = await getCollection(
+    "blog",
+    ({ data }) => data.draft === true && !!data.approvedAt,
+  );
+  approvedCount = approved.length;
+} catch {
+  approvedCount = 0;
+}
+
+const approvedDateLabel = approvedAt
+  ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(approvedAt)
+  : "";
+
+const currentIndex = pending.findIndex((p) => p.slug === slug);
+const total = pending.length;
+const position = currentIndex >= 0 ? currentIndex + 1 : 0;
+const prev =
+  currentIndex > 0
+    ? pending[currentIndex - 1]
+    : currentIndex === 0 && total > 1
+      ? pending[total - 1]
+      : null;
+const next =
+  currentIndex >= 0 && currentIndex < total - 1
+    ? pending[currentIndex + 1]
+    : currentIndex === total - 1 && total > 1
+      ? pending[0]
+      : null;
+
+// ---- Historical feedback (archive + rewrites) ---------------------------
+
+type FeedbackArchiveEntry = {
+  at: string;
+  decision: string;
+  freeNote?: string;
+  feedback?: string;
+  edits?: {
+    id?: string;
+    kind?: string;
+    anchor?: string;
+    replacement?: string;
+    note?: string;
+    at?: string;
+  }[];
+};
+
+type RewriteManifest = {
+  round?: number;
+  appliedAt?: string;
+  edits?: {
+    editId?: string;
+    kind?: string;
+    anchor?: string;
+    before?: string;
+    after?: string;
+    status?: string;
+    note?: string;
+  }[];
+  writerChanges?: { before?: string; after?: string; why?: string }[];
+  freeNoteAddressed?: boolean;
+};
+
+let archive: FeedbackArchiveEntry[] = [];
+try {
+  const archiveDir = resolve(process.cwd(), "content/feedback-archive");
+  if (existsSync(archiveDir)) {
+    const files = readdirSync(archiveDir).filter(
+      (f) => f.startsWith(slug + "-") && f.endsWith(".json"),
+    );
+    archive = files.map((f) => {
+      try {
+        return JSON.parse(readFileSync(join(archiveDir, f), "utf8")) as FeedbackArchiveEntry;
+      } catch {
+        return null;
+      }
+    }).filter((x): x is FeedbackArchiveEntry => x !== null);
+  }
+} catch {
+  archive = [];
+}
+
+// Backfill from content/voice-feedback-log.md — older entries that
+// predate the structured feedback-archive directory only live there.
+// Block shape inside the log:
+//   ## <ISO> · <slug>
+//   **Decision:** <decision>
+//   **Reviewer:** <name>
+//
+//   <body...>
+//
+//   ---
+try {
+  const logPath = resolve(process.cwd(), "content/voice-feedback-log.md");
+  if (existsSync(logPath)) {
+    const raw = readFileSync(logPath, "utf8");
+    const blocks = raw.split(/\n---\n/);
+    const seenAt = new Set(archive.map((a) => a.at));
+    const fromLog: FeedbackArchiveEntry[] = [];
+    for (const block of blocks) {
+      const head = block.match(/##\s+([0-9T:.\-Z]+)\s+·\s+([a-z0-9-]+)/);
+      if (!head) continue;
+      const at = head[1];
+      const entrySlug = head[2];
+      if (entrySlug !== slug) continue;
+      if (seenAt.has(at)) continue;
+      const decision = (block.match(/\*\*Decision:\*\*\s+([^\n]+?)(?:\s*\(consumed[^)]*\))?\s*\n/) || [, "(unknown)"])[1].trim();
+      const reviewer = (block.match(/\*\*Reviewer:\*\*\s+([^\n]+)/) || [, ""])[1].trim();
+      const bodyStart = block.indexOf("**Reviewer:**");
+      const afterReviewer = bodyStart >= 0 ? block.slice(bodyStart).replace(/^[^\n]+\n/, "") : block;
+      const feedback = afterReviewer.replace(/^\s*\n+/, "").replace(/_\(no notes[^)]*\)_/, "").trim();
+      fromLog.push({
+        at,
+        decision,
+        feedback,
+        edits: [],
+      });
+      seenAt.add(at);
+    }
+    archive = archive.concat(fromLog);
+  }
+} catch {
+  /* log parse is best-effort */
+}
+
+archive.sort((a, b) => (b.at || "").localeCompare(a.at || ""));
+
+let latestRewrite: RewriteManifest | null = null;
+try {
+  const rewritePath = resolve(process.cwd(), "content/rewrites", slug + ".json");
+  if (existsSync(rewritePath)) {
+    latestRewrite = JSON.parse(readFileSync(rewritePath, "utf8")) as RewriteManifest;
+  }
+} catch {
+  latestRewrite = null;
+}
+
+function fmtDate(iso: string): string {
+  try {
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    }).format(new Date(iso));
+  } catch {
+    return iso;
+  }
+}
+---
+
+{/* ---------- Floating UI (necessary: must anchor to text selection) ---------- */}
+
+<div
+  id="rp-chip"
+  role="toolbar"
+  aria-label="Review actions for selected text"
+  class="pointer-events-auto fixed z-[80] hidden -translate-x-1/2 items-center gap-1 rounded-full border border-rule bg-bone shadow-lg"
+  style="padding: 4px 6px"
+>
+  <button type="button" data-rp-action="suggest" class="rp-chip-btn" title="Suggest edit">
+    <span aria-hidden="true">✎</span><span class="rp-chip-label">Suggest</span>
+  </button>
+  <button type="button" data-rp-action="comment" class="rp-chip-btn" title="Comment">
+    <span aria-hidden="true">💬</span><span class="rp-chip-label">Comment</span>
+  </button>
+  <button type="button" data-rp-action="rewrite" class="rp-chip-btn" title="Ask writer to rewrite">
+    <span aria-hidden="true">⚡</span><span class="rp-chip-label">Rewrite</span>
+  </button>
+</div>
+
+<div
+  id="rp-popover"
+  class="pointer-events-auto fixed z-[80] hidden w-[min(92vw,420px)] rounded-md border border-rule bg-bone shadow-xl"
+>
+  <header class="flex items-center justify-between gap-3 border-b border-rule px-4 py-3">
+    <span id="rp-popover-title" class="text-xs font-medium uppercase tracking-[0.18em] text-ink"></span>
+    <button type="button" id="rp-popover-close" class="text-ink-soft hover:text-ink" aria-label="Close">×</button>
+  </header>
+  <div class="space-y-3 p-4">
+    <blockquote
+      id="rp-popover-anchor"
+      class="rounded border-l-2 border-rust bg-rust/5 px-3 py-2 text-sm italic text-ink-soft"
+    ></blockquote>
+    <label class="block">
+      <span class="mb-1 block text-[11px] uppercase tracking-[0.16em] text-ink-soft" id="rp-popover-replacement-label">
+        Replacement
+      </span>
+      <textarea
+        id="rp-popover-replacement"
+        rows="3"
+        class="w-full resize-y rounded border border-rule bg-white p-2 text-sm text-ink outline-none focus:border-ink"
+      ></textarea>
+    </label>
+    <label class="block">
+      <span class="mb-1 block text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+        Note (optional)
+      </span>
+      <textarea
+        id="rp-popover-note"
+        rows="2"
+        placeholder="Anything the writer should know about this change"
+        class="w-full resize-y rounded border border-rule bg-white p-2 text-sm text-ink outline-none focus:border-ink"
+      ></textarea>
+    </label>
+    <div class="flex items-center justify-end gap-2">
+      <button type="button" id="rp-popover-cancel" class="text-xs text-ink-soft underline hover:no-underline">
+        Cancel
+      </button>
+      <button type="button" id="rp-popover-save" class="btn btn-rust !px-4 !py-2 text-sm">
+        Add to suggestions
+      </button>
+    </div>
+  </div>
+</div>
+
+{/* ---------- Side-by-side review aside (column inside a 2-col grid) ---------- */}
+
+<aside
+  id="rp-section"
+  data-slug={slug}
+  data-title={title}
+  data-draft={String(isDraft)}
+  class="rp-pane lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto"
+>
+  <div class="rounded-md border border-rule bg-bone-deep/30 p-5 md:p-6">
+    {/* Header */}
+    <header class="border-b border-rule pb-3">
+      <p class="eyebrow text-[10px]">{isApproved ? "Queued to publish" : "Review tooling"}</p>
+      <h2 class="mt-2 font-display text-xl">
+        {isApproved ? "This draft is queued" : "Review this draft"}
+      </h2>
+      <p class="mt-2 text-xs text-ink-soft">
+        {isApproved
+          ? "Out of the queue. Final publish stays manual."
+          : "Highlight any text in the post to bring up the inline toolbar. Nothing here ships to the live site."}
+      </p>
+      {
+        total > 0 && (
+          <div class="mt-3 flex items-center justify-between text-[11px] text-ink-soft">
+            <span>{position > 0 ? `${position} of ${total} pending` : `${total} pending`}</span>
+            {approvedCount > 0 && (
+              <span class="text-sage">+{approvedCount} queued</span>
+            )}
+          </div>
+        )
+      }
+    </header>
+
+    {/* Queue nav */}
+    {
+      !isApproved && total > 1 && (
+        <nav class="mt-3 flex items-center justify-between gap-2 text-[11px] text-ink-soft">
+          {prev ? (
+            <a href={withBase("/journal/" + prev.slug)} class="truncate hover:text-ink" title={prev.title}>← {prev.title}</a>
+          ) : (
+            <span class="text-ink-soft/40">← Prev</span>
+          )}
+          {next ? (
+            <a href={withBase("/journal/" + next.slug)} class="truncate text-right hover:text-ink" title={next.title}>{next.title} →</a>
+          ) : (
+            <span class="text-ink-soft/40">Next →</span>
+          )}
+        </nav>
+      )
+    }
+
+    {/* Submitted-state banner */}
+    <div id="rp-banner" style="display:none" class="mt-3 rounded border px-3 py-2 text-xs">
+      <div class="flex items-start justify-between gap-3">
+        <span id="rp-banner-copy"></span>
+        <button type="button" id="rp-banner-clear" class="shrink-0 underline hover:no-underline">clear</button>
+      </div>
+    </div>
+
+    {/* Body: single column, stacked. Suggestions / decision on top, then history below. */}
+    <div class="mt-5 space-y-6">
+      {/* Pending suggestions + submit (hidden when approved) */}
+      <div>
+        {
+          isApproved ? (
+            <div class="rounded-md border border-sage/40 bg-sage/5 px-4 py-4 text-sm">
+              <p class="text-sage">
+                ✓ <strong>Approved</strong> on <time datetime={approvedAt?.toISOString()}>{approvedDateLabel}</time>.
+              </p>
+              <p class="mt-2 text-ink-soft">
+                <strong>{approvedCount}</strong> approved {approvedCount === 1 ? "post is" : "posts are"} queued to publish.
+              </p>
+              <div class="mt-4 flex items-center gap-2">
+                <button type="button" id="rp-unapprove" class="rounded border border-rule px-3 py-2 text-sm text-ink-soft hover:border-rust hover:text-rust">
+                  Re-open for changes
+                </button>
+                <span id="rp-status" class="ml-auto text-xs text-sage"></span>
+              </div>
+            </div>
+          ) : (
+            <div class="space-y-6">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.16em] text-ink-soft">This session's suggestions</p>
+                <ul id="rp-list" class="mt-3 space-y-2">
+                  <li id="rp-empty" class="rounded border border-dashed border-rule px-4 py-4 text-sm text-ink-soft/70">
+                    Highlight any text in the post above. An inline toolbar appears with <em>Suggest</em>, <em>Comment</em>, and <em>Rewrite</em>.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="space-y-3">
+                <label class="block">
+                  <span class="mb-1 block text-[11px] uppercase tracking-[0.16em] text-ink-soft">Overall note (optional)</span>
+                  <textarea
+                    id="rp-freenote"
+                    rows="3"
+                    placeholder="Anything that doesn't anchor to a specific selection."
+                    class="w-full resize-y rounded border border-rule bg-white p-2 text-sm text-ink outline-none focus:border-ink"
+                  ></textarea>
+                </label>
+
+                <div class="flex gap-2">
+                  <label class="flex-1">
+                    <input type="radio" name="rp-decision" value="request-changes" checked class="peer sr-only" />
+                    <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-rust peer-checked:bg-rust/10 peer-checked:text-rust-deep">
+                      Request changes
+                    </span>
+                  </label>
+                  <label class="flex-1">
+                    <input type="radio" name="rp-decision" value="approve-for-batch" class="peer sr-only" />
+                    <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-sage peer-checked:bg-sage/10 peer-checked:text-sage">
+                      Approve
+                    </span>
+                  </label>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <button type="button" id="rp-submit" class="btn btn-rust !px-4 !py-2 text-sm">Submit</button>
+                  <span class="text-[11px] text-ink-soft/60">⌘/Ctrl+↵</span>
+                  <span id="rp-status" class="ml-auto text-xs text-sage"></span>
+                </div>
+                <p class="text-xs text-ink-soft/70">
+                  Saves to <code>content/feedback/{slug}.json</code> + an immutable copy in <code>content/feedback-archive/</code>.
+                </p>
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      {/* History (stacked below the suggestion form in this side pane). */}
+      <div class="space-y-6 border-t border-rule pt-5">
+        {/* Latest rewrite manifest */}
+        {
+          latestRewrite && (
+            <div>
+              <p class="text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+                Latest rewrite{latestRewrite.round ? " · round " + latestRewrite.round : ""}
+                {latestRewrite.appliedAt && (
+                  <span class="ml-2 text-ink-soft/60">{fmtDate(latestRewrite.appliedAt)}</span>
+                )}
+              </p>
+              <ul class="mt-3 space-y-3">
+                {(latestRewrite.edits || []).map((ed) => (
+                  <li class="rounded border border-rule bg-white p-3 text-xs">
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-[10px] uppercase tracking-[0.16em] text-ink-soft">
+                        {ed.kind} · {ed.status}
+                      </span>
+                      {ed.editId && <code class="text-[10px] text-ink-soft/60">{ed.editId}</code>}
+                    </div>
+                    {ed.before && (
+                      <p class="mt-2 text-ink-soft line-through">{ed.before}</p>
+                    )}
+                    {ed.after && (
+                      <p class="mt-1 text-ink">{ed.after}</p>
+                    )}
+                    {ed.note && <p class="mt-2 text-[11px] italic text-ink-soft">{ed.note}</p>}
+                  </li>
+                ))}
+                {(latestRewrite.writerChanges || []).map((wc) => (
+                  <li class="rounded border border-dashed border-rule bg-bone p-3 text-xs">
+                    <span class="text-[10px] uppercase tracking-[0.16em] text-ink-soft">Writer cascade</span>
+                    {wc.before && <p class="mt-2 text-ink-soft line-through">{wc.before}</p>}
+                    {wc.after && <p class="mt-1 text-ink">{wc.after}</p>}
+                    {wc.why && <p class="mt-2 text-[11px] italic text-ink-soft">{wc.why}</p>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+
+        {/* Past feedback rounds */}
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+            Feedback history{archive.length ? ` · ${archive.length}` : ""}
+          </p>
+          {archive.length === 0 ? (
+            <p class="mt-3 rounded border border-dashed border-rule px-4 py-4 text-sm text-ink-soft/70">
+              No prior rounds yet. This will fill in as you submit feedback.
+            </p>
+          ) : (
+            <ol class="mt-3 space-y-3">
+              {archive.map((round, i) => (
+                <li class="rounded border border-rule bg-white p-3 text-xs">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="font-medium text-ink">{fmtDate(round.at)}</span>
+                    <span
+                      class:list={[
+                        "rounded-full px-2 py-[2px] text-[10px] uppercase tracking-[0.12em]",
+                        round.decision === "approve-for-batch"
+                          ? "bg-sage/15 text-sage"
+                          : "bg-rust/15 text-rust-deep",
+                      ]}
+                    >
+                      {round.decision || "—"}
+                    </span>
+                  </div>
+                  {(round.edits || []).length > 0 && (
+                    <ul class="mt-2 space-y-2">
+                      {(round.edits || []).map((e) => (
+                        <li class="rounded bg-bone-deep/40 p-2">
+                          <span class="text-[10px] uppercase tracking-[0.16em] text-ink-soft">{e.kind}</span>
+                          {e.anchor && <p class="mt-1 italic text-ink-soft">"{e.anchor}"</p>}
+                          {e.replacement && <p class="mt-1 text-ink">→ {e.replacement}</p>}
+                          {e.note && <p class="mt-1 text-[11px] text-ink-soft">{e.note}</p>}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {round.freeNote && (
+                    <p class="mt-2 italic text-ink-soft">{round.freeNote}</p>
+                  )}
+                  {/* If the round has no edits[] but does have a legacy
+                      `feedback` free-text payload, render that. */}
+                  {(!round.edits || round.edits.length === 0) && round.feedback && (
+                    <p class="mt-2 whitespace-pre-wrap text-ink">{round.feedback}</p>
+                  )}
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<style is:global>
+  .rp-chip-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--color-ink);
+    background: transparent;
+    cursor: pointer;
+    transition: background 120ms ease;
+  }
+  .rp-chip-btn:hover { background: rgba(184, 85, 46, 0.1); color: var(--color-rust-deep); }
+  .rp-chip-label { font-weight: 500; }
+
+  .post-body mark.rp-anchored {
+    background: rgba(184, 85, 46, 0.16);
+    color: inherit;
+    padding: 0 2px;
+    border-bottom: 1px dashed var(--color-rust);
+    cursor: help;
+  }
+  .post-body mark.rp-anchored[data-kind="comment"] {
+    background: rgba(90, 106, 82, 0.16);
+    border-bottom-color: var(--color-sage);
+  }
+  .post-body mark.rp-anchored[data-kind="rewrite"] {
+    background: rgba(22, 40, 61, 0.12);
+    border-bottom-color: var(--color-navy);
+  }
+
+  .rp-card {
+    border: 1px solid var(--color-rule);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 13px;
+    background: white;
+  }
+  .rp-card[data-kind="suggest"] { border-left: 3px solid var(--color-rust); }
+  .rp-card[data-kind="comment"] { border-left: 3px solid var(--color-sage); }
+  .rp-card[data-kind="rewrite"] { border-left: 3px solid var(--color-navy); }
+  .rp-card .rp-card-anchor {
+    color: var(--color-ink-soft);
+    font-style: italic;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .rp-card .rp-card-payload { color: var(--color-ink); }
+  .rp-card .rp-card-note { font-size: 11px; color: var(--color-ink-soft); margin-top: 4px; }
+  .rp-card .rp-card-remove {
+    float: right;
+    font-size: 11px;
+    color: var(--color-ink-soft);
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .rp-card .rp-card-remove:hover { color: var(--color-rust); }
+</style>
+
+<script is:inline define:vars={{ slug, title, isDraft, isApproved }}>
+  (function () {
+    var STORE_KEY = "rp-session:" + slug;
+    var BANNER_KEY = "rp-banner:" + slug;
+
+    var section = document.getElementById("rp-section");
+    var statusEl = document.getElementById("rp-status");
+    var bannerEl = document.getElementById("rp-banner");
+    var bannerCopy = document.getElementById("rp-banner-copy");
+    var bannerClear = document.getElementById("rp-banner-clear");
+
+    if (!section) return;
+
+    function flash(msg) {
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      clearTimeout(flash._t);
+      flash._t = setTimeout(function () { statusEl.textContent = ""; }, 4000);
+    }
+
+    function renderBanner() {
+      if (!bannerEl) return;
+      try {
+        var raw = localStorage.getItem(BANNER_KEY);
+        if (!raw) { bannerEl.style.display = "none"; return; }
+        var meta = {};
+        try { meta = JSON.parse(raw); } catch (e) { meta = { decision: "request-changes" }; }
+        bannerEl.style.display = "";
+        if (meta.decision === "approve-for-batch") {
+          bannerEl.className = "mt-4 rounded border border-sage bg-sage/10 px-3 py-2 text-xs text-sage";
+          bannerCopy.innerHTML = "✓ Approved — <strong>queued to publish</strong>. Final publish is still your gate (flip <code>draft: false</code>).";
+        } else {
+          bannerEl.className = "mt-4 rounded border border-rust bg-rust/10 px-3 py-2 text-xs text-rust-deep";
+          bannerCopy.innerHTML = "✓ Submitted — <strong>rewrite pending</strong>. The Writer agent picks this up on its next run.";
+        }
+      } catch (e) {}
+    }
+    renderBanner();
+
+    if (bannerClear) {
+      bannerClear.addEventListener("click", function () {
+        try { localStorage.removeItem(BANNER_KEY); } catch (e) {}
+        renderBanner();
+      });
+    }
+
+    (function autoClearIfConsumed() {
+      try { if (!localStorage.getItem(BANNER_KEY)) return; } catch (e) { return; }
+      fetch("/__feedback?slug=" + encodeURIComponent(slug))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (res) {
+          if (res && res.ok && res.status === "consumed") {
+            try { localStorage.removeItem(BANNER_KEY); } catch (e) {}
+            renderBanner();
+            flash("Rewrite applied — banner cleared.");
+          }
+        })
+        .catch(function () {});
+    })();
+
+    // Approved-state path: only wire the "Re-open" button.
+    if (isApproved) {
+      var unapproveBtn = document.getElementById("rp-unapprove");
+      if (unapproveBtn) {
+        unapproveBtn.addEventListener("click", function () {
+          if (!confirm("Re-open this post for changes? It goes back into the review queue.")) return;
+          unapproveBtn.disabled = true;
+          flash("Re-opening…");
+          fetch("/__feedback/approve", {
+            method: "PUT",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ slug: slug, approve: false }),
+          })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (res) {
+              if (res && res.ok) {
+                try { localStorage.removeItem(BANNER_KEY); } catch (e) {}
+                flash("Re-opened. Reloading…");
+                setTimeout(function () { window.location.reload(); }, 600);
+              } else {
+                unapproveBtn.disabled = false;
+                flash("Failed to re-open.");
+              }
+            })
+            .catch(function () {
+              unapproveBtn.disabled = false;
+              flash("No dev server.");
+            });
+        });
+      }
+      return;
+    }
+
+    // ---- Review-state wiring (selection chip + popover + list + submit) ----
+
+    var listEl = document.getElementById("rp-list");
+    var emptyEl = document.getElementById("rp-empty");
+    var freeNoteEl = document.getElementById("rp-freenote");
+    var submitBtn = document.getElementById("rp-submit");
+    var chip = document.getElementById("rp-chip");
+    var pop = document.getElementById("rp-popover");
+    var popTitle = document.getElementById("rp-popover-title");
+    var popAnchor = document.getElementById("rp-popover-anchor");
+    var popReplacement = document.getElementById("rp-popover-replacement");
+    var popReplacementLabel = document.getElementById("rp-popover-replacement-label");
+    var popNote = document.getElementById("rp-popover-note");
+    var popSave = document.getElementById("rp-popover-save");
+    var popCancel = document.getElementById("rp-popover-cancel");
+    var popClose = document.getElementById("rp-popover-close");
+    var postBody = document.querySelector(".post-body");
+
+    if (!postBody) return;
+
+    var session = { edits: [] };
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+      if (saved && Array.isArray(saved.edits)) session.edits = saved.edits;
+      if (saved && typeof saved.freeNote === "string") freeNoteEl.value = saved.freeNote;
+      if (saved && saved.decision) {
+        var r = document.querySelector('input[name="rp-decision"][value="' + saved.decision + '"]');
+        if (r) r.checked = true;
+      }
+    } catch (e) {}
+
+    function persist() {
+      try {
+        localStorage.setItem(STORE_KEY, JSON.stringify({
+          edits: session.edits,
+          freeNote: freeNoteEl.value,
+          decision: (document.querySelector('input[name="rp-decision"]:checked') || {}).value || "request-changes",
+        }));
+      } catch (e) {}
+    }
+
+    var currentSelectionText = "";
+    var currentSelectionRange = null;
+
+    function hideChip() { chip.style.display = "none"; }
+    function showChipAtRange(range) {
+      var rect = range.getBoundingClientRect();
+      if (!rect || (rect.width === 0 && rect.height === 0)) return hideChip();
+      chip.style.display = "inline-flex";
+      var top = rect.top - chip.offsetHeight - 8;
+      if (top < 8) top = rect.bottom + 8;
+      chip.style.top = top + "px";
+      chip.style.left = (rect.left + rect.width / 2) + "px";
+    }
+
+    document.addEventListener("selectionchange", function () {
+      var sel = window.getSelection();
+      if (!sel || sel.isCollapsed || sel.rangeCount === 0) return hideChip();
+      var range = sel.getRangeAt(0);
+      var anchorEl = range.commonAncestorContainer;
+      var inBody = false;
+      var node = anchorEl.nodeType === 1 ? anchorEl : anchorEl.parentNode;
+      while (node) {
+        if (node === postBody) { inBody = true; break; }
+        if (node === section || node === pop) return hideChip();
+        node = node.parentNode;
+      }
+      if (!inBody) return hideChip();
+      var text = sel.toString().trim();
+      if (text.length < 2) return hideChip();
+      currentSelectionText = text;
+      currentSelectionRange = range.cloneRange();
+      showChipAtRange(range);
+    });
+
+    var popKind = "suggest";
+
+    function openPopover(kind) {
+      popKind = kind;
+      if (!currentSelectionText) return;
+      if (kind === "suggest") {
+        popTitle.textContent = "Suggest edit";
+        popReplacementLabel.textContent = "Replacement";
+        popReplacement.style.display = "";
+        popReplacement.placeholder = "What should it say instead?";
+      } else if (kind === "comment") {
+        popTitle.textContent = "Comment";
+        popReplacement.style.display = "none";
+      } else if (kind === "rewrite") {
+        popTitle.textContent = "Ask writer to rewrite";
+        popReplacementLabel.textContent = "Rewrite instructions";
+        popReplacement.style.display = "";
+        popReplacement.placeholder = "How should the writer approach this rewrite?";
+      }
+      popAnchor.textContent = '"' + currentSelectionText + '"';
+      popReplacement.value = "";
+      popNote.value = "";
+      pop.style.display = "block";
+      var rect = currentSelectionRange.getBoundingClientRect();
+      var top = rect.bottom + 10;
+      var left = Math.max(16, Math.min(window.innerWidth - 16 - 420, rect.left));
+      pop.style.top = top + "px";
+      pop.style.left = left + "px";
+      hideChip();
+      setTimeout(function () {
+        (kind === "comment" ? popNote : popReplacement).focus();
+      }, 50);
+    }
+
+    function closePopover() { pop.style.display = "none"; }
+
+    Array.prototype.forEach.call(
+      document.querySelectorAll('[data-rp-action]'),
+      function (btn) {
+        btn.addEventListener("click", function () {
+          openPopover(btn.getAttribute("data-rp-action"));
+        });
+      }
+    );
+    popCancel.addEventListener("click", closePopover);
+    popClose.addEventListener("click", closePopover);
+
+    popSave.addEventListener("click", function () {
+      var replacement = popReplacement.value.trim();
+      var note = popNote.value.trim();
+      if (popKind === "suggest" && !replacement) { popReplacement.focus(); return; }
+      if (popKind === "rewrite" && !replacement) { popReplacement.focus(); return; }
+      if (popKind === "comment" && !note) { popNote.focus(); return; }
+      var entry = {
+        id: "e" + Math.random().toString(36).slice(2, 10),
+        kind: popKind,
+        anchor: currentSelectionText,
+        replacement: popKind === "comment" ? "" : replacement,
+        note: note,
+        at: new Date().toISOString(),
+      };
+      session.edits.push(entry);
+      persist();
+      markAnchorInBody(entry);
+      renderList();
+      closePopover();
+      flash("Suggestion added.");
+    });
+
+    function escapeHtml(s) { return s.replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    }); }
+
+    function markAnchorInBody(entry) {
+      var walker = document.createTreeWalker(postBody, NodeFilter.SHOW_TEXT, null);
+      var node;
+      while ((node = walker.nextNode())) {
+        var idx = node.nodeValue.indexOf(entry.anchor);
+        if (idx === -1) continue;
+        var range = document.createRange();
+        range.setStart(node, idx);
+        range.setEnd(node, idx + entry.anchor.length);
+        var mark = document.createElement("mark");
+        mark.className = "rp-anchored";
+        mark.setAttribute("data-kind", entry.kind);
+        mark.setAttribute("data-edit-id", entry.id);
+        mark.setAttribute("title", entry.kind === "comment" ? entry.note : (entry.replacement || entry.note));
+        try { range.surroundContents(mark); } catch (e) {}
+        return;
+      }
+    }
+
+    function rehydrateAnchors() {
+      session.edits.forEach(markAnchorInBody);
+    }
+    rehydrateAnchors();
+
+    function renderList() {
+      listEl.innerHTML = "";
+      if (session.edits.length === 0) {
+        listEl.appendChild(emptyEl);
+        return;
+      }
+      session.edits.forEach(function (entry) {
+        var li = document.createElement("li");
+        li.className = "rp-card";
+        li.setAttribute("data-kind", entry.kind);
+        var kindLabel = entry.kind === "suggest" ? "Edit" : entry.kind === "comment" ? "Comment" : "Rewrite";
+        var payload = "";
+        if (entry.kind === "suggest") payload = "→ " + escapeHtml(entry.replacement);
+        else if (entry.kind === "rewrite") payload = "↻ " + escapeHtml(entry.replacement);
+        else payload = escapeHtml(entry.note);
+        li.innerHTML =
+          '<button type="button" class="rp-card-remove" data-remove="' + entry.id + '">remove</button>' +
+          '<div class="rp-card-anchor">' + escapeHtml('"' + entry.anchor + '"') + '</div>' +
+          '<div class="rp-card-payload"><strong>' + kindLabel + ':</strong> ' + payload + '</div>' +
+          (entry.note && entry.kind !== "comment"
+            ? '<div class="rp-card-note">' + escapeHtml(entry.note) + '</div>'
+            : "");
+        listEl.appendChild(li);
+      });
+      Array.prototype.forEach.call(listEl.querySelectorAll("[data-remove]"), function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.getAttribute("data-remove");
+          session.edits = session.edits.filter(function (e) { return e.id !== id; });
+          var marks = postBody.querySelectorAll('mark.rp-anchored[data-edit-id="' + id + '"]');
+          Array.prototype.forEach.call(marks, function (m) {
+            var parent = m.parentNode;
+            while (m.firstChild) parent.insertBefore(m.firstChild, m);
+            parent.removeChild(m);
+          });
+          persist();
+          renderList();
+        });
+      });
+    }
+    renderList();
+
+    function payload() {
+      var decision = (document.querySelector('input[name="rp-decision"]:checked') || {}).value || "request-changes";
+      return {
+        slug: slug,
+        title: title,
+        isDraft: !!isDraft,
+        decision: decision,
+        edits: session.edits,
+        freeNote: freeNoteEl.value.trim(),
+        feedback: buildLegacyFeedback(),
+        reviewer: "Will Phillips",
+        at: new Date().toISOString(),
+        note: "Captured via ReviewPanel (inline). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated.",
+      };
+    }
+
+    function buildLegacyFeedback() {
+      var parts = [];
+      session.edits.forEach(function (e) {
+        if (e.kind === "suggest") {
+          parts.push('Replace "' + e.anchor + '" with "' + e.replacement + '".' + (e.note ? " (" + e.note + ")" : ""));
+        } else if (e.kind === "comment") {
+          parts.push('On "' + e.anchor + '": ' + e.note);
+        } else if (e.kind === "rewrite") {
+          parts.push('Rewrite "' + e.anchor + '" — ' + e.replacement + (e.note ? " (" + e.note + ")" : ""));
+        }
+      });
+      if (freeNoteEl.value.trim()) parts.push(freeNoteEl.value.trim());
+      return parts.join("\n\n");
+    }
+
+    function doSubmit() {
+      var data = payload();
+      if (data.decision === "request-changes" && data.edits.length === 0 && !data.freeNote) {
+        flash("Add a suggestion or a note first.");
+        return;
+      }
+      submitBtn.disabled = true;
+      flash("Submitting…");
+      fetch("/__feedback", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          submitBtn.disabled = false;
+          if (res.ok && res.j && res.j.ok) {
+            try {
+              localStorage.removeItem(STORE_KEY);
+              localStorage.setItem(BANNER_KEY, JSON.stringify({ decision: data.decision, at: data.at }));
+            } catch (e) {}
+            session.edits = [];
+            freeNoteEl.value = "";
+            renderList();
+            renderBanner();
+            Array.prototype.forEach.call(postBody.querySelectorAll("mark.rp-anchored"), function (m) {
+              var parent = m.parentNode;
+              while (m.firstChild) parent.insertBefore(m.firstChild, m);
+              parent.removeChild(m);
+            });
+            if (res.j.approvedAt) {
+              flash("Approved — reloading to show queued-to-publish state…");
+              setTimeout(function () { window.location.reload(); }, 700);
+            } else {
+              flash("Submitted → " + res.j.path);
+            }
+          } else {
+            flash("Failed: " + ((res.j && res.j.error) || "server") + ". Downloading instead.");
+            downloadFallback(data);
+          }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          flash("No dev server. Downloading instead.");
+          downloadFallback(data);
+        });
+    }
+
+    submitBtn.addEventListener("click", doSubmit);
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+        if (pop.style.display === "block") return;
+        e.preventDefault();
+        doSubmit();
+      }
+      if (e.key === "Escape" && pop.style.display === "block") {
+        closePopover();
+      }
+    });
+
+    freeNoteEl.addEventListener("input", persist);
+    Array.prototype.forEach.call(
+      document.querySelectorAll('input[name="rp-decision"]'),
+      function (el) { el.addEventListener("change", persist); }
+    );
+
+    function downloadFallback(data) {
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "feedback-" + slug + ".json";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    document.addEventListener("mousedown", function (e) {
+      if (chip.contains(e.target)) return;
+      if (pop.contains(e.target)) return;
+      setTimeout(function () {
+        var sel = window.getSelection();
+        if (!sel || sel.isCollapsed) hideChip();
+      }, 0);
+    });
+  })();
+</script>

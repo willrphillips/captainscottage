@@ -1,0 +1,45 @@
+{
+  "slug": "waterfront-kitchen-family-recipes",
+  "round": 2,
+  "appliedAt": "2026-05-30T00:00:00.000Z",
+  "edits": [
+    {
+      "editId": "egh7rnhbv",
+      "kind": "suggest",
+      "anchor": "home",
+      "before": "home",
+      "after": "(not applied — superseded by edit ev0pv23zf)",
+      "status": "superseded",
+      "note": "Will submitted this edit (anchor 'home' → 'on the way.') then immediately retracted it 22 seconds later with edit ev0pv23zf. The retraction takes precedence; 'home' in 'before you leave home' remains unchanged."
+    },
+    {
+      "editId": "ev0pv23zf",
+      "kind": "suggest",
+      "anchor": "home",
+      "before": "home",
+      "after": "(not applied — retraction note, not insertable text)",
+      "status": "retraction",
+      "note": "Will's replacement text was 'nevermind - \"home\" is ok' — a meta-note retracting edit egh7rnhbv, not prose to insert. Treated as a retraction; 'home' left in place as intended."
+    },
+    {
+      "editId": "ekvvvu4h1",
+      "kind": "suggest",
+      "anchor": "waiting",
+      "before": "you pull up and the bags are waiting",
+      "after": "you pull up and the bags are on the way",
+      "status": "applied",
+      "note": "Changed 'waiting' to 'on the way' in the grocery-delivery pro-tip sentence. 'On the way' better reflects that the order is dispatched before you arrive rather than already sitting at the door."
+    },
+    {
+      "editId": "ecsg0bnv6",
+      "kind": "suggest",
+      "anchor": "not on the way to anything",
+      "before": "it's a proper small excursion, not on the way to anything, but worth it",
+      "after": "it's a proper small excursion, but worth it",
+      "status": "applied",
+      "note": "Removed the phrase ', not on the way to anything,' — Will flagged it for removal. Sentence reads naturally without it; no dangling comma left behind."
+    }
+  ],
+  "writerChanges": [],
+  "freeNoteAddressed": true
+}

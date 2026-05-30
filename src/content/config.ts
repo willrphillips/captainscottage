@@ -21,6 +21,11 @@ const blog = defineCollection({
         .array(z.enum(["family", "romantic", "outdoor", "food", "seasonal", "remote-work"]))
         .default([]),
       draft: z.boolean().default(false),
+      // Set by the ReviewPanel when Will hits "Approve" — the post is
+      // batch-approved and removed from the review queue, but still
+      // gated by `draft: true` until Will manually flips it. Cleared
+      // by the panel's "Re-open" action.
+      approvedAt: z.coerce.date().optional(),
     }),
 });
 
