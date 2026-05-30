@@ -186,3 +186,17 @@ Much better.
 _(no notes — decision only)_
 
 ---
+
+## 2026-05-30T11:52:07.549Z · waterfront-kitchen-family-recipes
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+Replace "home" with "on the way.".
+
+Replace "home" with "nevermind - "home" is ok".
+
+Replace "waiting" with "on the way".
+
+Replace "not on the way to anything" with "remove this". (remove this)
+
+---

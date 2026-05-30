@@ -1,0 +1,45 @@
+{
+  "slug": "waterfront-kitchen-family-recipes",
+  "title": "Vacation Dinner Ideas: Real Meals in a Waterfront Kitchen",
+  "isDraft": true,
+  "decision": "request-changes",
+  "edits": [
+    {
+      "id": "egh7rnhbv",
+      "kind": "suggest",
+      "anchor": "home",
+      "replacement": "on the way.",
+      "note": "",
+      "at": "2026-05-30T11:50:56.668Z"
+    },
+    {
+      "id": "ev0pv23zf",
+      "kind": "suggest",
+      "anchor": "home",
+      "replacement": "nevermind - \"home\" is ok",
+      "note": "",
+      "at": "2026-05-30T11:51:18.768Z"
+    },
+    {
+      "id": "ekvvvu4h1",
+      "kind": "suggest",
+      "anchor": "waiting",
+      "replacement": "on the way",
+      "note": "",
+      "at": "2026-05-30T11:51:28.153Z"
+    },
+    {
+      "id": "ecsg0bnv6",
+      "kind": "suggest",
+      "anchor": "not on the way to anything",
+      "replacement": "remove this",
+      "note": "remove this",
+      "at": "2026-05-30T11:51:46.669Z"
+    }
+  ],
+  "freeNote": "",
+  "feedback": "Replace \"home\" with \"on the way.\".\n\nReplace \"home\" with \"nevermind - \"home\" is ok\".\n\nReplace \"waiting\" with \"on the way\".\n\nReplace \"not on the way to anything\" with \"remove this\". (remove this)",
+  "reviewer": "Will Phillips",
+  "at": "2026-05-30T11:52:07.549Z",
+  "note": "Captured via ReviewPanel (inline). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated."
+}
