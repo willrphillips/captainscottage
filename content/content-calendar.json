@@ -59,33 +59,42 @@
     },
     {
       "slug": "complete-guide-to-reedville-virginia",
-      "title": "The Complete Guide to Reedville, Virginia",
+      "title": "Reedville, Virginia: Complete Guide to the Fishing Village",
+      "description": "Reedville built its Victorian mansions on menhaden, and the fish plant still runs. Museum, waterfront dining, and the best ice cream on the Northern Neck.",
       "category": "Travel",
-      "keywords": ["things to do in Reedville VA", "Reedville fishermen's museum"],
-      "status": "idea",
+      "keywords": ["things to do in Reedville VA", "Reedville fishermen's museum", "Reedville VA restaurants", "Reedville fishing village", "Northern Neck day trip from DC"],
+      "audience": ["DC/Richmond day-trippers", "Northern Neck visitors", "history and foodie travelers"],
+      "status": "in-review",
       "publishDate": "2026-07-08",
+      "targetExperienceDate": "2026-08-15",
       "approvedBy": null,
-      "note": "Brief calendar #5. Pull from src/lib/guidebook.ts (Reedville Market, Fishermen's Museum, etc.)."
+      "note": "Drafted 2026-05-30. Central insight: Victorian mansions + active Omega Protein smokestack in the same Cockrell Creek sightline. Narrative travel (not listicle): menhaden/founding history leads, then museum, Millionaire's Row walk, Reedville Market, Chitterchats. Tommy's corrected to Reedville Market throughout. Gelati Celesti spelling verified. Skipjack cruise pricing omitted (UNVERIFIED). No invented skipjack race. Internal links: /area + /activities. One CTA to /book. SEO PASS: title 57 chars, description 155 chars, primary keyword front-loaded. | Round 2 2026-05-30: em-dash cleanup (15 instances removed from body and frontmatter; commas, colons, semicolons, and rephrases used throughout). | SEO re-audit PASS 2026-05-30: zero em-dashes confirmed, all 9 checklist items cleared, build clean. Set to in-review for Will."
     },
     {
       "slug": "24-hours-in-irvington-virginia",
       "title": "24 Hours in Irvington: Virginia's Most Charming Riverfront Town",
+      "description": "A day-trip itinerary from Captain's Cottage to Irvington, VA — the Tides Inn, local restaurants, antique shops, and the Rappahannock waterfront. 45 minutes, worlds away.",
       "category": "Travel",
-      "keywords": ["Irvington VA travel", "Tides Inn"],
-      "status": "idea",
+      "keywords": ["Irvington VA travel guide", "things to do Irvington Virginia", "Tides Inn Irvington", "Rappahannock River town", "Northern Neck day trip"],
+      "audience": ["guests looking for day-trip ideas", "couples and families visiting the Northern Neck", "Tides Inn / upscale traveler segment"],
+      "status": "in-review",
       "publishDate": "2026-07-15",
+      "targetExperienceDate": "2026-08-22",
       "approvedBy": null,
-      "note": "Brief calendar #6. Day-trip itinerary from the cottage."
+      "note": "Brief calendar #6. Slot rationale: publishDate+38.5d = Aug 22 = peak late summer; reader is a cottage guest or prospect looking for what to do in range. ANGLE: tight 24-hour itinerary framed as 'the sleeper town your friends haven't found yet' — Tides Inn for a drink or dinner even if not staying, Carter's Creek waterfront, Hope and Glory Inn atmosphere, Irvington Farmers' Market (Saturdays), local spots. Differentiate from Reedville post: Reedville = working fishing village / gritty history; Irvington = refined riverfront, slower pace, a different register. TARGET READER: someone already booked at the cottage who wants to plan one day out, or a DC traveler researching 'what's near the Northern Neck.' RESEARCH: current Tides Inn dining availability for non-guests; Irvington farmers market schedule; restaurants (Trick Dog Cafe, Chesapeake Restaurant history); drive time from the cottage (45 min per brief §7). INTERNAL LINKS (≥2): /area/ + /journal/complete-guide-to-reedville-virginia (both are nearby town pieces, natural companion link once Reedville is live; if not yet live substitute /activities/). VOICE: aspirational itinerary, second person or first-person host recommendation; not a Tripadvisor list. | DRAFTED 2026-05-30: Irvington-as-contrast-to-Reedville frame; morning (The Local, farmers market, Steamboat Museum), midday (The Office, The Vine), afternoon (Tides Inn / Fish Hawk beat with TODO for non-guest access), pre-dinner (Hope & Glory / Dog and Oyster), dinner (Dredge or The Colonnade). Trick Dog marked CLOSED; replaced by Dredge throughout. 1 TODO: Will to confirm Fish Hawk non-guest bar access. SEO PASS. Internal links: /journal/complete-guide-to-reedville-virginia + /area. | Revised 2026-05-30: 'since 2012' removed from The Local description (unverified year); replaced with 'a longtime Virginia Living Best of pick'. SEO re-audit PASS."
     },
     {
       "slug": "weekend-getaways-from-washington-dc",
-      "title": "Weekend Getaways from Washington DC: Why the Northern Neck Beats the Eastern Shore",
+      "title": "Weekend Getaways from Washington DC: Northern Neck",
+      "description": "Tired of Bay Bridge Friday traffic? Here's an honest head-to-head: the Eastern Shore vs. Virginia's Northern Neck for your next DC weekend getaway.",
       "category": "Travel",
-      "keywords": ["weekend trips from DC", "alternatives to Eastern Shore Maryland"],
-      "status": "idea",
+      "keywords": ["weekend trips from DC", "alternatives to Eastern Shore Maryland", "Northern Neck from DC", "weekend road trip DC Virginia waterfront", "Chesapeake Bay weekend getaway DC"],
+      "audience": ["DC-area travelers", "repeat Eastern Shore visitors looking for something new", "remote workers planning a long weekend"],
+      "status": "in-review",
       "publishDate": "2026-07-22",
+      "targetExperienceDate": "2026-08-30",
       "approvedBy": null,
-      "note": "Brief calendar #7. Comparison / competitive positioning."
+      "note": "Drafted 2026-05-30. Honest head-to-head: DC to Northern Neck (2h45, no bridge) vs. DC to St. Michaels (90min no-traffic but Bay Bridge MDTA Friday advisory). Water character contrast (open Chesapeake vs. sheltered Hull Creek). Destination character contrast (boutique St. Michaels vs. quieter Northern Neck). 4-persona closing framework. 4 TODO markers for Will: Bay Bridge personal memory, dining-scene framing honest read, Northern Neck rental price range, Eastern Shore personal experience. Internal links: /area + /activities (round 2 fix). One CTA to /book. ~640 words. | SEO PASS 2026-05-30 (round-2 re-audit): all 9 checklist items cleared. Title 50 chars, description 147 chars, primary keyword front-loaded; both internal links via withBase(); no hero (documented via MDX comment); no image issues; build clean (0 errors, 0 warnings); BlogPosting + BreadcrumbList schema confirmed via post route; MDTA advisory attributed; AirROI stat sourced and hedged. Set to in-review for Will."
     },
     {
       "slug": "mornings-with-the-ospreys-hull-creek",
@@ -101,12 +110,15 @@
     {
       "slug": "cost-to-own-waterfront-cottage-northern-neck",
       "title": "What It Costs to Own a Waterfront Cottage on Virginia's Northern Neck",
+      "description": "The real numbers behind waterfront cottage ownership on Virginia's Northern Neck — property taxes, flood insurance, maintenance, and what Will actually spent. No glossing over it.",
       "category": "Real Estate",
-      "keywords": ["Northern Neck real estate", "Virginia waterfront property"],
-      "status": "idea",
+      "keywords": ["Northern Neck real estate costs", "Virginia waterfront property", "waterfront cottage costs Virginia", "Northern Neck property taxes", "flood insurance Virginia waterfront"],
+      "audience": ["prospective waterfront property buyers", "vacation rental investors", "DC/Richmond professionals considering a second home"],
+      "status": "in-review",
       "publishDate": "2026-07-29",
+      "targetExperienceDate": "2026-09-07",
       "approvedBy": null,
-      "note": "Brief calendar #9. Real numbers: taxes, flood insurance, maintenance."
+      "note": "Brief calendar #9. Slot rationale: evergreen — Real Estate posts are season-neutral; placed at slot 4 of 5 to break the three-Travel run and serve the category-balance requirement. ANGLE: Will's first-person, real-numbers account of what waterfront cottage ownership costs on the Northern Neck — Northumberland County property tax rate (pull from public records), flood insurance realities (Zone AE vs. X; annual premium range), annual maintenance (dock, HVAC, septic, exterior paint cycle), HOA (none, but mention the absence matters), and what the Airbnb revenue actually offsets. Honest and specific — the internet is full of 'is it worth it?' posts that dodge the numbers. This one doesn't. TARGET READER: a DC or Richmond professional who is thinking about buying a waterfront second home, has saved enough, and wants to know if the math works before calling a realtor. RESEARCH: Northumberland County real estate tax rate (public data, Commissioner of Revenue); FEMA flood zone for Hull Creek waterfront properties; average flood insurance cost in NFIP Zone AE in Virginia; rough maintenance cost ranges for a 1950s cottage (can use Will's actuals or ranges if he prefers not to publish exact figures — flag as a TODO). Will should supply: his actual tax bill (or ballpark), insurance premium, any big maintenance items from recent years. INTERNAL LINKS (≥2): /area/ (Northern Neck geography / property context) + /the-cottage (the actual property as a case study — once live; if still a stub, link to home page). VOICE: Will's voice, frank, no boosterism — the best advertisement for buying here is that the honest version still makes people want it. | Drafted 2026-05-30. ~920 words. 10 TODO markers for Will (assessed value/tax bill, flood premium + Elevation Certificate, homeowners premium + wind rider, dock material/age/spend, HVAC type/age/utilities, septic last pump-out, well age/work, revenue offset disclosure, HOA confirmation, purchase price). Internal links: /area + /book (CTA). SEO PASS: title 54 chars, description 159 chars, primary keyword front-loaded. No em-dashes in body prose. Contractions on."
     },
     {
       "slug": "buy-or-rent-on-the-water",
@@ -114,9 +126,9 @@
       "category": "Real Estate",
       "keywords": ["vacation home investment", "should I buy a vacation rental"],
       "status": "idea",
-      "publishDate": "2026-08-05",
+      "publishDate": "2026-08-12",
       "approvedBy": null,
-      "note": "Brief calendar #10. ROI honesty."
+      "note": "Brief calendar #10. ROI honesty. SCHEDULING NOTE: bumped from 2026-08-05 to 2026-08-12 to make room for wildlife-sightings-hull-creek (Lifestyle) at 08-05 — avoids two Real Estate posts back-to-back and maintains category balance in the batch."
     },
     {
       "slug": "northern-neck-vs-outer-banks",
@@ -124,9 +136,9 @@
       "category": "Real Estate",
       "keywords": ["Northern Neck vs Outer Banks", "Virginia waterfront real estate"],
       "status": "idea",
-      "publishDate": "2026-08-12",
+      "publishDate": "2026-08-19",
       "approvedBy": null,
-      "note": "Brief calendar #11. Pricing comparison, rental demand."
+      "note": "Brief calendar #11. Pricing comparison, rental demand. SCHEDULING NOTE: cascaded from 2026-08-12 to 2026-08-19 — buy-or-rent moved to 08-12, wildlife moved to 08-05."
     },
     {
       "slug": "renovating-a-1950s-waterfront-cottage",
@@ -134,9 +146,9 @@
       "category": "Real Estate",
       "keywords": ["cottage renovation", "waterfront home renovation"],
       "status": "idea",
-      "publishDate": "2026-08-19",
+      "publishDate": "2026-08-26",
       "approvedBy": null,
-      "note": "Brief calendar #12. Visual-heavy, before/after."
+      "note": "Brief calendar #12. Visual-heavy, before/after. SCHEDULING NOTE: cascaded from 2026-08-19 to 2026-08-26."
     },
     {
       "slug": "health-case-for-hot-tub-and-cold-creek",
@@ -144,19 +156,22 @@
       "category": "Lifestyle",
       "keywords": ["hot tub health benefits", "cold water immersion", "contrast therapy"],
       "status": "idea",
-      "publishDate": "2026-08-26",
+      "publishDate": "2026-09-02",
       "approvedBy": null,
-      "note": "Extended (beyond brief 12). Amenity-health angle requested by Will: sauna/hot tub/water access wellness. Distinct from the sauna post — focus hot tub + creek immersion."
+      "note": "Extended (beyond brief 12). Amenity-health angle requested by Will: sauna/hot tub/water access wellness. Distinct from the sauna post — focus hot tub + creek immersion. SCHEDULING NOTE: cascaded from 2026-08-26 to 2026-09-02."
     },
     {
       "slug": "wildlife-sightings-hull-creek",
       "title": "What Shows Up When You Stay Long Enough: Wildlife on Hull Creek",
+      "description": "A seahorse in the crab pot. A sea turtle in the creek. A fox at the edge of the cornfield. The wildlife that appears at Captain's Cottage when you slow down long enough to notice.",
       "category": "Lifestyle",
-      "keywords": ["Hull Creek wildlife", "Chesapeake Bay wildlife", "Northern Neck nature", "Virginia waterfront wildlife"],
-      "status": "idea",
-      "publishDate": "2026-09-02",
+      "keywords": ["Hull Creek wildlife", "Chesapeake Bay wildlife", "Northern Neck nature", "Virginia waterfront wildlife", "Chesapeake Bay sea turtle"],
+      "audience": ["nature-curious travelers", "families with kids", "repeat guests and slow-travel seekers"],
+      "status": "in-review",
+      "publishDate": "2026-08-05",
+      "targetExperienceDate": "2026-09-12",
       "approvedBy": null,
-      "note": "Will-supplied wildlife sightings list (2026-05-24) — content/research/wildlife-sightings-hull-creek.md. Once-in-years moments (seahorse in the crab pot, sea turtle in the creek, otter from shore in winter, fox in the cornfield, swans drifting past) framed as gifts of long residency. Cownose ray migration anchors a May seasonal moment. RESEARCHER must verify any biology/behavior claims (sea otters are very unusual east of the Mississippi — flag as TODO if leaned on). Voice: list-in-prose of small wonders, abundance never apology, no fabrication."
+      "note": "Drafted 2026-05-30. Cownose rays as seasonal spine (early May arrival, mid-June birthing, pods in the thousands). List-in-prose structure: rays open, then seahorse (crab pot, extraordinary rarity at this latitude), sea turtle (loggerhead or Kemp's ridley, species unasserted per brief), river otter (winter shore sighting), fox (cornfield edge), hummingbirds/swans as texture. 'Why this place holds what it holds' closing paragraph frames the ecology. 6 TODO markers left for Will: cownose ray visual from dock, seahorse year, sea turtle size/appearance/condition, otter sighting detail/ID confidence, fox species (red vs. gray), swan species/season. 'Sea otter' corrected to 'river otter' (Lontra canadensis) throughout. No em-dashes in body prose. Contractions throughout. Internal links: /area + /activities. One CTA to /book. SEO PASS. | SCHEDULING NOTE: moved forward from 2026-09-02 to 2026-08-05 to fill slot 5 of this batch and break a Real Estate back-to-back."
     },
     {
       "slug": "northern-neck-watermen-culture",
