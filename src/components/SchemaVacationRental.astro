@@ -1,5 +1,5 @@
 ---
-import { PROPERTY, absoluteUrl } from "~/lib/site";
+import { PROPERTY, HEADLINE_REVIEWS, absoluteUrl } from "~/lib/site";
 
 interface Props {
   images?: string[];
@@ -20,6 +20,10 @@ const showRating = typeof PROPERTY.rating === "number" && PROPERTY.rating > 4.8;
 const data = {
   "@context": "https://schema.org",
   "@type": "VacationRental",
+  // Stable canonical identifier — required by Google's VacationRental
+  // structured-data spec. Using the apex URL is the recommended pattern.
+  identifier: absoluteUrl("/"),
+  additionalType: "https://schema.org/Cottage",
   name: PROPERTY.name,
   description:
     "Waterfront cottage with water access, hot tub, and cedar sauna on Hull Creek in Heathsville, Virginia.",
@@ -52,6 +56,32 @@ const data = {
   numberOfBedrooms: PROPERTY.bedrooms,
   numberOfBathroomsTotal: PROPERTY.bathrooms,
   occupancy: { "@type": "QuantitativeValue", maxValue: PROPERTY.maxGuests },
+  // containsPlace describes the rentable unit (single accommodation, not
+  // separately bookable rooms). Required for Google's vacation-rental
+  // rich result.
+  containsPlace: {
+    "@type": "Accommodation",
+    name: `${PROPERTY.name} — full cottage`,
+    additionalType: "https://schema.org/Cottage",
+    numberOfRooms: PROPERTY.bedrooms,
+    numberOfBedrooms: PROPERTY.bedrooms,
+    numberOfBathroomsTotal: PROPERTY.bathrooms,
+    occupancy: { "@type": "QuantitativeValue", maxValue: PROPERTY.maxGuests },
+    bed: [{ "@type": "BedDetails", numberOfBeds: PROPERTY.beds }],
+  },
+  // Individual reviews — feeds the review-snippet rich result alongside
+  // the aggregateRating below. Sources from HEADLINE_REVIEWS in site.ts.
+  review: HEADLINE_REVIEWS.map((r) => ({
+    "@type": "Review",
+    reviewBody: r.quote,
+    author: { "@type": "Person", name: r.author },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: 5,
+      bestRating: 5,
+      worstRating: 1,
+    },
+  })),
   ...(showRating
     ? {
         aggregateRating: {
