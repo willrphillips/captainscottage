@@ -200,3 +200,11 @@ Replace "waiting" with "on the way".
 Replace "not on the way to anything" with "remove this". (remove this)
 
 ---
+
+## 2026-05-30T11:56:06.057Z · waterfront-kitchen-family-recipes
+**Decision:** approve-for-batch  
+**Reviewer:** Will Phillips
+
+_(no notes — decision only)_
+
+---

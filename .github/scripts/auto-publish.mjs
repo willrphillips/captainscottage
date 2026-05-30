@@ -1,0 +1,61 @@
+#!/usr/bin/env node
+/**
+ * auto-publish.mjs — flips `draft: true` to `draft: false` on any blog
+ * post that is:
+ *   - currently a draft (`draft: true`)
+ *   - has been Will-approved (`approvedAt` present in frontmatter)
+ *   - has reached or passed its `publishedAt` date (UTC midnight)
+ *
+ * Run from .github/workflows/auto-publish.yml on a daily cron. Pure Node,
+ * no dependencies beyond the standard library. Idempotent — running it
+ * twice is harmless; nothing flips a second time.
+ *
+ * If anything flips, the workflow that called this script commits the
+ * change and triggers the existing deploy workflow.
+ */
+import { readFileSync, writeFileSync, readdirSync } from "node:fs";
+import { resolve, join } from "node:path";
+
+const blogDir = resolve(process.cwd(), "src/content/blog");
+// `today` is UTC date-only so the comparison with `publishedAt: YYYY-MM-DD`
+// is stable regardless of where the runner happens to live.
+const today = new Date().toISOString().slice(0, 10);
+let flippedCount = 0;
+const log = [];
+
+for (const f of readdirSync(blogDir).filter((f) => f.endsWith(".mdx"))) {
+  const path = join(blogDir, f);
+  const raw = readFileSync(path, "utf8");
+  const fmMatch = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!fmMatch) continue;
+  const fmBlock = fmMatch[1];
+  const after = raw.slice(fmMatch[0].length);
+
+  const isDraft = /^draft:\s*true\s*$/m.test(fmBlock);
+  const hasApproved = /^approvedAt:\s*/m.test(fmBlock);
+  const publishedMatch = fmBlock.match(/^publishedAt:\s*(\d{4}-\d{2}-\d{2})/m);
+
+  if (!isDraft || !hasApproved || !publishedMatch) continue;
+  const publishedAt = publishedMatch[1];
+  // String compare is fine for ISO-prefixed dates.
+  if (publishedAt > today) continue;
+
+  const newFmBlock = fmBlock.replace(/^draft:\s*true\s*$/m, "draft: false");
+  writeFileSync(path, `---\n${newFmBlock}\n---${after}`, "utf8");
+  flippedCount++;
+  log.push(`${f}  draft:true → draft:false  (publishedAt ${publishedAt})`);
+}
+
+if (flippedCount === 0) {
+  console.log(`auto-publish: no eligible posts (today ${today}).`);
+} else {
+  console.log(`auto-publish: flipped ${flippedCount} post(s) (today ${today}):`);
+  for (const line of log) console.log("  " + line);
+}
+
+// Emit GITHUB_OUTPUT so the workflow can branch on whether anything changed.
+if (process.env.GITHUB_OUTPUT) {
+  writeFileSync(process.env.GITHUB_OUTPUT, `flipped=${flippedCount}\n`, {
+    flag: "a",
+  });
+}
