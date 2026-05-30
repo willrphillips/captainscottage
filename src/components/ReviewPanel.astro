@@ -133,11 +133,55 @@ try {
         return null;
       }
     }).filter((x): x is FeedbackArchiveEntry => x !== null);
-    archive.sort((a, b) => (b.at || "").localeCompare(a.at || ""));
   }
 } catch {
   archive = [];
 }
+
+// Backfill from content/voice-feedback-log.md — older entries that
+// predate the structured feedback-archive directory only live there.
+// Block shape inside the log:
+//   ## <ISO> · <slug>
+//   **Decision:** <decision>
+//   **Reviewer:** <name>
+//
+//   <body...>
+//
+//   ---
+try {
+  const logPath = resolve(process.cwd(), "content/voice-feedback-log.md");
+  if (existsSync(logPath)) {
+    const raw = readFileSync(logPath, "utf8");
+    const blocks = raw.split(/\n---\n/);
+    const seenAt = new Set(archive.map((a) => a.at));
+    const fromLog: FeedbackArchiveEntry[] = [];
+    for (const block of blocks) {
+      const head = block.match(/##\s+([0-9T:.\-Z]+)\s+·\s+([a-z0-9-]+)/);
+      if (!head) continue;
+      const at = head[1];
+      const entrySlug = head[2];
+      if (entrySlug !== slug) continue;
+      if (seenAt.has(at)) continue;
+      const decision = (block.match(/\*\*Decision:\*\*\s+([^\n]+?)(?:\s*\(consumed[^)]*\))?\s*\n/) || [, "(unknown)"])[1].trim();
+      const reviewer = (block.match(/\*\*Reviewer:\*\*\s+([^\n]+)/) || [, ""])[1].trim();
+      const bodyStart = block.indexOf("**Reviewer:**");
+      const afterReviewer = bodyStart >= 0 ? block.slice(bodyStart).replace(/^[^\n]+\n/, "") : block;
+      const feedback = afterReviewer.replace(/^\s*\n+/, "").replace(/_\(no notes[^)]*\)_/, "").trim();
+      fromLog.push({
+        at,
+        decision,
+        feedback,
+        edits: [],
+      });
+      seenAt.add(at);
+    }
+    archive = archive.concat(fromLog);
+  }
+} catch {
+  /* log parse is best-effort */
+}
+
+archive.sort((a, b) => (b.at || "").localeCompare(a.at || ""));
 
 let latestRewrite: RewriteManifest | null = null;
 try {
