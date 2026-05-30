@@ -1,31 +1,36 @@
 ---
 /**
- * ReviewPanel — Artifact-style review surface for draft journal posts.
+ * ReviewPanel — inline review surface for draft journal posts.
  *
- * Replaces the older AdminOverlay (which kept a single free-text feedback
- * box). New flow:
+ * Rendered ONLY when previewMode is true (npm run dev, or a build with
+ * INCLUDE_DRAFTS=true). NEVER emitted in the production GitHub Pages
+ * build — see src/pages/journal/[...slug].astro. The production reader
+ * sees the post, nothing else.
  *
+ * Flow:
  *   1. Reader selects any text inside `.post-body`.
  *   2. A floating action chip appears next to the selection with three
- *      verbs: Suggest edit, Comment, Rewrite.
- *   3. Picking a verb opens a small inline popover anchored to the
- *      selection. Submit pushes a structured entry into the in-memory
- *      `edits[]` array and renders a card in the side panel.
- *   4. Per-paragraph suggestion underlines stay on the page so the reader
- *      can see what they've already flagged.
- *   5. A right-side panel collects every suggestion this session, lets
- *      the reader add a free-form note, pick a decision, and submit.
- *      Submit POSTs to the dev-only `/__feedback` endpoint (defined in
- *      astro.config.mjs). The writer agent reads `content/feedback/
- *      <slug>.json` on its next run.
- *
- * Render gate: this component is only mounted when `previewMode` is true
- * (npm run dev, or a build with INCLUDE_DRAFTS=true). It is NEVER emitted
- * in the production GitHub Pages build — see `src/pages/journal/
- * [...slug].astro`.
+ *      verbs: Suggest edit, Comment, Rewrite. (The chip is positioned
+ *      next to the selection by necessity — selection-anchored UI must
+ *      float; it's not a popup window in the modal sense.)
+ *   3. Picking a verb opens a small popover anchored to the selection.
+ *      Submit pushes a structured entry into the in-memory `edits[]`
+ *      array and renders a card in the inline review section below
+ *      the post.
+ *   4. Per-paragraph suggestion underlines stay on the page so the
+ *      reader can see what they've already flagged.
+ *   5. The inline review section collects every suggestion this
+ *      session, shows historical feedback rounds from the archive,
+ *      shows the latest rewrite manifest, and lets the reader add a
+ *      free-form note, pick a decision, and submit. Submit POSTs to
+ *      the dev-only `/__feedback` endpoint (astro.config.mjs).
+ *      The writer agent reads `content/feedback/<slug>.json` on its
+ *      next run.
  */
 import { getCollection } from "astro:content";
 import { withBase } from "~/lib/site";
+import { readdirSync, readFileSync, existsSync } from "node:fs";
+import { resolve, join } from "node:path";
 
 interface Props {
   slug: string;
@@ -36,8 +41,8 @@ interface Props {
 const { slug, title, isDraft = false, approvedAt = null } = Astro.props;
 const isApproved = !!approvedAt;
 
-// Pending-review queue: drafts that are NOT yet approved-for-batch.
-// Approved drafts fall out — they wait for Will's final publish flip.
+// ---- Pending-review queue ------------------------------------------------
+
 let pending: { slug: string; title: string }[] = [];
 try {
   const drafts = await getCollection(
@@ -50,7 +55,6 @@ try {
   pending = [];
 }
 
-// Count of approved-but-not-yet-published posts (shown in the panel header).
 let approvedCount = 0;
 try {
   const approved = await getCollection(
@@ -81,9 +85,87 @@ const next =
     : currentIndex === total - 1 && total > 1
       ? pending[0]
       : null;
+
+// ---- Historical feedback (archive + rewrites) ---------------------------
+
+type FeedbackArchiveEntry = {
+  at: string;
+  decision: string;
+  freeNote?: string;
+  feedback?: string;
+  edits?: {
+    id?: string;
+    kind?: string;
+    anchor?: string;
+    replacement?: string;
+    note?: string;
+    at?: string;
+  }[];
+};
+
+type RewriteManifest = {
+  round?: number;
+  appliedAt?: string;
+  edits?: {
+    editId?: string;
+    kind?: string;
+    anchor?: string;
+    before?: string;
+    after?: string;
+    status?: string;
+    note?: string;
+  }[];
+  writerChanges?: { before?: string; after?: string; why?: string }[];
+  freeNoteAddressed?: boolean;
+};
+
+let archive: FeedbackArchiveEntry[] = [];
+try {
+  const archiveDir = resolve(process.cwd(), "content/feedback-archive");
+  if (existsSync(archiveDir)) {
+    const files = readdirSync(archiveDir).filter(
+      (f) => f.startsWith(slug + "-") && f.endsWith(".json"),
+    );
+    archive = files.map((f) => {
+      try {
+        return JSON.parse(readFileSync(join(archiveDir, f), "utf8")) as FeedbackArchiveEntry;
+      } catch {
+        return null;
+      }
+    }).filter((x): x is FeedbackArchiveEntry => x !== null);
+    archive.sort((a, b) => (b.at || "").localeCompare(a.at || ""));
+  }
+} catch {
+  archive = [];
+}
+
+let latestRewrite: RewriteManifest | null = null;
+try {
+  const rewritePath = resolve(process.cwd(), "content/rewrites", slug + ".json");
+  if (existsSync(rewritePath)) {
+    latestRewrite = JSON.parse(readFileSync(rewritePath, "utf8")) as RewriteManifest;
+  }
+} catch {
+  latestRewrite = null;
+}
+
+function fmtDate(iso: string): string {
+  try {
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    }).format(new Date(iso));
+  } catch {
+    return iso;
+  }
+}
 ---
 
-{/* Floating selection chip — JS positions it just above the selection. */}
+{/* ---------- Floating UI (necessary: must anchor to text selection) ---------- */}
+
 <div
   id="rp-chip"
   role="toolbar"
@@ -102,7 +184,6 @@ const next =
   </button>
 </div>
 
-{/* Popover that opens when a chip action is picked. */}
 <div
   id="rp-popover"
   class="pointer-events-auto fixed z-[80] hidden w-[min(92vw,420px)] rounded-md border border-rule bg-bone shadow-xl"
@@ -148,159 +229,239 @@ const next =
   </div>
 </div>
 
-{/* Side panel — toggleable. */}
-<aside
-  id="rp-panel"
+{/* ---------- Inline review section (flows in the page) ---------- */}
+
+<section
+  id="rp-section"
   data-slug={slug}
   data-title={title}
   data-draft={String(isDraft)}
-  class="fixed right-4 top-24 z-[70] w-[min(92vw,360px)] max-h-[calc(100vh-8rem)] overflow-hidden rounded-md border border-rule bg-bone shadow-lg flex flex-col"
+  class="border-t-2 border-rust/40 bg-bone-deep/30"
 >
-  <button
-    type="button"
-    id="rp-toggle"
-    class={`flex w-full items-center justify-between gap-3 rounded-t-md px-4 py-3 text-left text-bone ${isApproved ? "bg-sage" : "bg-ink"}`}
-  >
-    <span class="text-xs font-medium uppercase tracking-[0.18em]">
-      {isApproved ? "Approved · ready to publish" : "Review · suggestions"}
-    </span>
-    <span class="flex items-center gap-3 text-bone/70">
+  <div class="container-narrow py-12 md:py-16">
+    {/* Header */}
+    <header class="flex flex-wrap items-end justify-between gap-4 border-b border-rule pb-4">
+      <div>
+        <p class="eyebrow">{isApproved ? "Approved · queued to publish" : "Review tooling"}</p>
+        <h2 class="mt-2 font-display text-2xl md:text-3xl">
+          {isApproved ? "This draft is queued to publish" : "Review this draft"}
+        </h2>
+        <p class="mt-3 text-sm text-ink-soft max-w-[44rem]">
+          {isApproved
+            ? "It's out of the review queue. Final publish (flipping draft:false) is still your manual step."
+            : "Highlight any text in the post above to bring up the inline toolbar. Suggestions, comments, and rewrite requests accumulate below. Nothing here ships to the live site — this whole section is gated to dev/preview mode."}
+        </p>
+      </div>
       {
-        !isApproved && total > 0 && currentIndex >= 0 && (
-          <span class="text-[11px] uppercase tracking-[0.18em]">
-            {position} / {total}
-          </span>
-        )
-      }
-      {
-        isApproved && (
-          <span class="text-[11px] uppercase tracking-[0.18em]">
-            ✓
-          </span>
-        )
-      }
-      <span id="rp-count" class="rounded-full bg-rust px-2 py-[2px] text-[10px] font-semibold text-bone" style="display:none">0</span>
-      <span id="rp-caret">▾</span>
-    </span>
-  </button>
-
-  <div id="rp-body" class="flex-1 overflow-auto">
-    {
-      isApproved ? (
-        <div class="border-b border-rule px-4 py-3 text-xs text-ink-soft">
-          <p class="text-sage">
-            ✓ <strong>Approved</strong> on <time datetime={approvedAt?.toISOString()}>{approvedDateLabel}</time>.
-          </p>
-          <p class="mt-2">
-            This post is out of the review queue. It will go live when you set <code>draft: false</code> in the frontmatter (or use a future Publish action). <strong>{approvedCount}</strong> approved {approvedCount === 1 ? "post" : "posts"} waiting to publish.
-          </p>
-          {total > 0 && (
-            <p class="mt-3">
-              <strong>{total}</strong> {total === 1 ? "draft" : "drafts"} still pending review.
-              {next && (
-                <>
-                  {" "}<a href={withBase("/journal/" + next.slug)} class="text-rust underline hover:no-underline" title={next.title}>Go to next →</a>
-                </>
-              )}
-            </p>
-          )}
-        </div>
-      ) : (
-        total > 1 && (
-          <div class="flex items-center justify-between border-b border-rule px-4 py-2 text-xs text-ink-soft">
-            {prev ? (
-              <a href={withBase("/journal/" + prev.slug)} class="hover:text-ink" title={prev.title}>← Prev</a>
-            ) : (
-              <span class="text-ink-soft/40">← Prev</span>
-            )}
-            <span class="text-ink-soft/70">
-              {position > 0 ? `${position} of ${total}` : `${total} drafts`}
-            </span>
-            {next ? (
-              <a href={withBase("/journal/" + next.slug)} class="hover:text-ink" title={next.title}>Next →</a>
-            ) : (
-              <span class="text-ink-soft/40">Next →</span>
+        total > 0 && (
+          <div class="text-xs text-ink-soft">
+            <p>{position > 0 ? `${position} of ${total} pending` : `${total} pending`}</p>
+            {approvedCount > 0 && (
+              <p class="mt-1 text-sage">+{approvedCount} queued to publish</p>
             )}
           </div>
         )
+      }
+    </header>
+
+    {/* Queue nav */}
+    {
+      !isApproved && total > 1 && (
+        <nav class="mt-4 flex items-center justify-between text-sm text-ink-soft">
+          {prev ? (
+            <a href={withBase("/journal/" + prev.slug)} class="hover:text-ink" title={prev.title}>← {prev.title}</a>
+          ) : (
+            <span class="text-ink-soft/40">← Prev</span>
+          )}
+          {next ? (
+            <a href={withBase("/journal/" + next.slug)} class="hover:text-ink" title={next.title}>{next.title} →</a>
+          ) : (
+            <span class="text-ink-soft/40">Next →</span>
+          )}
+        </nav>
       )
     }
 
-    {/* Submitted-state banner. JS toggles + sets copy based on stored decision. */}
-    <div id="rp-banner" style="display:none" class="m-4 rounded border px-3 py-2 text-xs">
+    {/* Submitted-state banner */}
+    <div id="rp-banner" style="display:none" class="mt-4 rounded border px-3 py-2 text-xs">
       <div class="flex items-start justify-between gap-3">
         <span id="rp-banner-copy"></span>
         <button type="button" id="rp-banner-clear" class="shrink-0 underline hover:no-underline">clear</button>
       </div>
     </div>
 
-    {
-      isApproved ? (
-        <div class="space-y-3 p-4">
-          <p class="text-sm text-ink-soft">
-            Need to change something after all? Re-open it for review and the queue will pick it up again.
+    {/* Body: two-column on desktop. Pending suggestions / decision on left,
+        history on right. */}
+    <div class="mt-8 grid gap-10 md:grid-cols-[1.2fr_1fr] md:gap-12">
+      {/* Left: pending suggestions + submit (hidden when approved) */}
+      <div>
+        {
+          isApproved ? (
+            <div class="rounded-md border border-sage/40 bg-sage/5 px-4 py-4 text-sm">
+              <p class="text-sage">
+                ✓ <strong>Approved</strong> on <time datetime={approvedAt?.toISOString()}>{approvedDateLabel}</time>.
+              </p>
+              <p class="mt-2 text-ink-soft">
+                <strong>{approvedCount}</strong> approved {approvedCount === 1 ? "post is" : "posts are"} queued to publish.
+              </p>
+              <div class="mt-4 flex items-center gap-2">
+                <button type="button" id="rp-unapprove" class="rounded border border-rule px-3 py-2 text-sm text-ink-soft hover:border-rust hover:text-rust">
+                  Re-open for changes
+                </button>
+                <span id="rp-status" class="ml-auto text-xs text-sage"></span>
+              </div>
+            </div>
+          ) : (
+            <div class="space-y-6">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.16em] text-ink-soft">This session's suggestions</p>
+                <ul id="rp-list" class="mt-3 space-y-2">
+                  <li id="rp-empty" class="rounded border border-dashed border-rule px-4 py-4 text-sm text-ink-soft/70">
+                    Highlight any text in the post above. An inline toolbar appears with <em>Suggest</em>, <em>Comment</em>, and <em>Rewrite</em>.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="space-y-3">
+                <label class="block">
+                  <span class="mb-1 block text-[11px] uppercase tracking-[0.16em] text-ink-soft">Overall note (optional)</span>
+                  <textarea
+                    id="rp-freenote"
+                    rows="3"
+                    placeholder="Anything that doesn't anchor to a specific selection."
+                    class="w-full resize-y rounded border border-rule bg-white p-2 text-sm text-ink outline-none focus:border-ink"
+                  ></textarea>
+                </label>
+
+                <div class="flex gap-2">
+                  <label class="flex-1">
+                    <input type="radio" name="rp-decision" value="request-changes" checked class="peer sr-only" />
+                    <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-rust peer-checked:bg-rust/10 peer-checked:text-rust-deep">
+                      Request changes
+                    </span>
+                  </label>
+                  <label class="flex-1">
+                    <input type="radio" name="rp-decision" value="approve-for-batch" class="peer sr-only" />
+                    <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-sage peer-checked:bg-sage/10 peer-checked:text-sage">
+                      Approve
+                    </span>
+                  </label>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <button type="button" id="rp-submit" class="btn btn-rust !px-4 !py-2 text-sm">Submit</button>
+                  <span class="text-[11px] text-ink-soft/60">⌘/Ctrl+↵</span>
+                  <span id="rp-status" class="ml-auto text-xs text-sage"></span>
+                </div>
+                <p class="text-xs text-ink-soft/70">
+                  Saves to <code>content/feedback/{slug}.json</code> + an immutable copy in <code>content/feedback-archive/</code>.
+                </p>
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      {/* Right: review history */}
+      <aside class="space-y-8">
+        {/* Latest rewrite manifest */}
+        {
+          latestRewrite && (
+            <div>
+              <p class="text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+                Latest rewrite{latestRewrite.round ? " · round " + latestRewrite.round : ""}
+                {latestRewrite.appliedAt && (
+                  <span class="ml-2 text-ink-soft/60">{fmtDate(latestRewrite.appliedAt)}</span>
+                )}
+              </p>
+              <ul class="mt-3 space-y-3">
+                {(latestRewrite.edits || []).map((ed) => (
+                  <li class="rounded border border-rule bg-white p-3 text-xs">
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-[10px] uppercase tracking-[0.16em] text-ink-soft">
+                        {ed.kind} · {ed.status}
+                      </span>
+                      {ed.editId && <code class="text-[10px] text-ink-soft/60">{ed.editId}</code>}
+                    </div>
+                    {ed.before && (
+                      <p class="mt-2 text-ink-soft line-through">{ed.before}</p>
+                    )}
+                    {ed.after && (
+                      <p class="mt-1 text-ink">{ed.after}</p>
+                    )}
+                    {ed.note && <p class="mt-2 text-[11px] italic text-ink-soft">{ed.note}</p>}
+                  </li>
+                ))}
+                {(latestRewrite.writerChanges || []).map((wc) => (
+                  <li class="rounded border border-dashed border-rule bg-bone p-3 text-xs">
+                    <span class="text-[10px] uppercase tracking-[0.16em] text-ink-soft">Writer cascade</span>
+                    {wc.before && <p class="mt-2 text-ink-soft line-through">{wc.before}</p>}
+                    {wc.after && <p class="mt-1 text-ink">{wc.after}</p>}
+                    {wc.why && <p class="mt-2 text-[11px] italic text-ink-soft">{wc.why}</p>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+
+        {/* Past feedback rounds */}
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+            Feedback history{archive.length ? ` · ${archive.length}` : ""}
           </p>
-          <div class="flex items-center gap-2">
-            <button type="button" id="rp-unapprove" class="rounded border border-rule px-3 py-2 text-sm text-ink-soft hover:border-rust hover:text-rust">
-              Re-open for changes
-            </button>
-            <span id="rp-status" class="ml-auto text-xs text-sage"></span>
-          </div>
-        </div>
-      ) : (
-        <>
-          <div class="px-4 pt-4">
-            <p class="text-[11px] uppercase tracking-[0.16em] text-ink-soft">Suggestions</p>
-            <ul id="rp-list" class="mt-2 space-y-2">
-              <li id="rp-empty" class="rounded border border-dashed border-rule px-3 py-3 text-xs text-ink-soft/70">
-                Highlight any text in the post. A small toolbar appears with <em>Suggest</em>, <em>Comment</em>, and <em>Rewrite</em>.
-              </li>
-            </ul>
-          </div>
-
-          <div class="space-y-3 border-t border-rule p-4 mt-4">
-            <label class="block">
-              <span class="mb-1 block text-[11px] uppercase tracking-[0.16em] text-ink-soft">Overall note (optional)</span>
-              <textarea
-                id="rp-freenote"
-                rows="3"
-                placeholder="Anything that doesn't anchor to a specific selection."
-                class="w-full resize-y rounded border border-rule bg-white p-2 text-sm text-ink outline-none focus:border-ink"
-              ></textarea>
-            </label>
-
-            <div class="flex gap-2">
-              <label class="flex-1">
-                <input type="radio" name="rp-decision" value="request-changes" checked class="peer sr-only" />
-                <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-rust peer-checked:bg-rust/10 peer-checked:text-rust-deep">
-                  Request changes
-                </span>
-              </label>
-              <label class="flex-1">
-                <input type="radio" name="rp-decision" value="approve-for-batch" class="peer sr-only" />
-                <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-sage peer-checked:bg-sage/10 peer-checked:text-sage">
-                  Approve
-                </span>
-              </label>
-            </div>
-
-            <div class="flex items-center gap-2">
-              <button type="button" id="rp-submit" class="btn btn-rust !px-4 !py-2 text-sm">Submit</button>
-              <span class="text-[11px] text-ink-soft/60">⌘/Ctrl+↵</span>
-              <span id="rp-status" class="ml-auto text-xs text-sage"></span>
-            </div>
-            <p class="text-xs text-ink-soft/70">
-              Saves to <code>content/feedback/{slug}.json</code>. Dev review only — never bundled into the production site.
+          {archive.length === 0 ? (
+            <p class="mt-3 rounded border border-dashed border-rule px-4 py-4 text-sm text-ink-soft/70">
+              No prior rounds yet. This will fill in as you submit feedback.
             </p>
-          </div>
-        </>
-      )
-    }
+          ) : (
+            <ol class="mt-3 space-y-3">
+              {archive.map((round, i) => (
+                <li class="rounded border border-rule bg-white p-3 text-xs">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="font-medium text-ink">{fmtDate(round.at)}</span>
+                    <span
+                      class:list={[
+                        "rounded-full px-2 py-[2px] text-[10px] uppercase tracking-[0.12em]",
+                        round.decision === "approve-for-batch"
+                          ? "bg-sage/15 text-sage"
+                          : "bg-rust/15 text-rust-deep",
+                      ]}
+                    >
+                      {round.decision || "—"}
+                    </span>
+                  </div>
+                  {(round.edits || []).length > 0 && (
+                    <ul class="mt-2 space-y-2">
+                      {(round.edits || []).map((e) => (
+                        <li class="rounded bg-bone-deep/40 p-2">
+                          <span class="text-[10px] uppercase tracking-[0.16em] text-ink-soft">{e.kind}</span>
+                          {e.anchor && <p class="mt-1 italic text-ink-soft">"{e.anchor}"</p>}
+                          {e.replacement && <p class="mt-1 text-ink">→ {e.replacement}</p>}
+                          {e.note && <p class="mt-1 text-[11px] text-ink-soft">{e.note}</p>}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {round.freeNote && (
+                    <p class="mt-2 italic text-ink-soft">{round.freeNote}</p>
+                  )}
+                  {/* If the round has no edits[] but does have a legacy
+                      `feedback` free-text payload, render that. */}
+                  {(!round.edits || round.edits.length === 0) && round.feedback && (
+                    <p class="mt-2 whitespace-pre-wrap text-ink">{round.feedback}</p>
+                  )}
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
+      </aside>
+    </div>
   </div>
-</aside>
+</section>
 
 <style is:global>
-  /* Chip / popover button styling — match the design system. */
   .rp-chip-btn {
     display: inline-flex;
     align-items: center;
@@ -317,7 +478,6 @@ const next =
   .rp-chip-btn:hover { background: rgba(184, 85, 46, 0.1); color: var(--color-rust-deep); }
   .rp-chip-label { font-weight: 500; }
 
-  /* Suggestion underlines inside the post body. */
   .post-body mark.rp-anchored {
     background: rgba(184, 85, 46, 0.16);
     color: inherit;
@@ -334,7 +494,6 @@ const next =
     border-bottom-color: var(--color-navy);
   }
 
-  /* Suggestion cards in the side panel. */
   .rp-card {
     border: 1px solid var(--color-rule);
     border-radius: 6px;
@@ -371,19 +530,13 @@ const next =
     var STORE_KEY = "rp-session:" + slug;
     var BANNER_KEY = "rp-banner:" + slug;
 
-    var panel = document.getElementById("rp-panel");
-    var body = document.getElementById("rp-body");
-    var caret = document.getElementById("rp-caret");
+    var section = document.getElementById("rp-section");
     var statusEl = document.getElementById("rp-status");
+    var bannerEl = document.getElementById("rp-banner");
+    var bannerCopy = document.getElementById("rp-banner-copy");
+    var bannerClear = document.getElementById("rp-banner-clear");
 
-    if (!panel) return;
-
-    // Common: toggle the panel open/closed (works in both states).
-    document.getElementById("rp-toggle").addEventListener("click", function () {
-      var hidden = body.style.display === "none";
-      body.style.display = hidden ? "" : "none";
-      caret.textContent = hidden ? "▾" : "▸";
-    });
+    if (!section) return;
 
     function flash(msg) {
       if (!statusEl) return;
@@ -392,12 +545,52 @@ const next =
       flash._t = setTimeout(function () { statusEl.textContent = ""; }, 4000);
     }
 
-    // Approved state: only wire the "Re-open for changes" button.
+    function renderBanner() {
+      if (!bannerEl) return;
+      try {
+        var raw = localStorage.getItem(BANNER_KEY);
+        if (!raw) { bannerEl.style.display = "none"; return; }
+        var meta = {};
+        try { meta = JSON.parse(raw); } catch (e) { meta = { decision: "request-changes" }; }
+        bannerEl.style.display = "";
+        if (meta.decision === "approve-for-batch") {
+          bannerEl.className = "mt-4 rounded border border-sage bg-sage/10 px-3 py-2 text-xs text-sage";
+          bannerCopy.innerHTML = "✓ Approved — <strong>queued to publish</strong>. Final publish is still your gate (flip <code>draft: false</code>).";
+        } else {
+          bannerEl.className = "mt-4 rounded border border-rust bg-rust/10 px-3 py-2 text-xs text-rust-deep";
+          bannerCopy.innerHTML = "✓ Submitted — <strong>rewrite pending</strong>. The Writer agent picks this up on its next run.";
+        }
+      } catch (e) {}
+    }
+    renderBanner();
+
+    if (bannerClear) {
+      bannerClear.addEventListener("click", function () {
+        try { localStorage.removeItem(BANNER_KEY); } catch (e) {}
+        renderBanner();
+      });
+    }
+
+    (function autoClearIfConsumed() {
+      try { if (!localStorage.getItem(BANNER_KEY)) return; } catch (e) { return; }
+      fetch("/__feedback?slug=" + encodeURIComponent(slug))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (res) {
+          if (res && res.ok && res.status === "consumed") {
+            try { localStorage.removeItem(BANNER_KEY); } catch (e) {}
+            renderBanner();
+            flash("Rewrite applied — banner cleared.");
+          }
+        })
+        .catch(function () {});
+    })();
+
+    // Approved-state path: only wire the "Re-open" button.
     if (isApproved) {
       var unapproveBtn = document.getElementById("rp-unapprove");
       if (unapproveBtn) {
         unapproveBtn.addEventListener("click", function () {
-          if (!confirm("Re-open this post for changes? It will go back into the review queue.")) return;
+          if (!confirm("Re-open this post for changes? It goes back into the review queue.")) return;
           unapproveBtn.disabled = true;
           flash("Re-opening…");
           fetch("/__feedback/approve", {
@@ -422,18 +615,15 @@ const next =
             });
         });
       }
-      return; // Skip the rest of the wiring (no chip / popover / form in approved mode).
+      return;
     }
 
-    // Review (non-approved) state from here down.
-    var countEl = document.getElementById("rp-count");
+    // ---- Review-state wiring (selection chip + popover + list + submit) ----
+
     var listEl = document.getElementById("rp-list");
     var emptyEl = document.getElementById("rp-empty");
     var freeNoteEl = document.getElementById("rp-freenote");
     var submitBtn = document.getElementById("rp-submit");
-    var bannerEl = document.getElementById("rp-banner");
-    var bannerCopy = document.getElementById("rp-banner-copy");
-    var bannerClear = document.getElementById("rp-banner-clear");
     var chip = document.getElementById("rp-chip");
     var pop = document.getElementById("rp-popover");
     var popTitle = document.getElementById("rp-popover-title");
@@ -448,12 +638,6 @@ const next =
 
     if (!postBody) return;
 
-    // ---- State -----------------------------------------------------------
-
-    /**
-     * edits[] entry shape:
-     *   { id, kind: "suggest"|"comment"|"rewrite", anchor, replacement, note, at }
-     */
     var session = { edits: [] };
     try {
       var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
@@ -475,48 +659,6 @@ const next =
       } catch (e) {}
     }
 
-    // ---- Banner ----------------------------------------------------------
-
-    function renderBanner() {
-      try {
-        var raw = localStorage.getItem(BANNER_KEY);
-        if (!raw) { bannerEl.style.display = "none"; return; }
-        var meta = {};
-        try { meta = JSON.parse(raw); } catch (e) { meta = { decision: "request-changes" }; }
-        bannerEl.style.display = "";
-        if (meta.decision === "approve-for-batch") {
-          bannerEl.className = "m-4 rounded border border-sage bg-sage/10 px-3 py-2 text-xs text-sage";
-          bannerCopy.innerHTML = "✓ Approved — <strong>ready to publish</strong>. Final publish is still your gate (flip <code>draft: false</code>).";
-        } else {
-          bannerEl.className = "m-4 rounded border border-rust bg-rust/10 px-3 py-2 text-xs text-rust-deep";
-          bannerCopy.innerHTML = "✓ Submitted — <strong>rewrite pending</strong>. The Writer agent picks this up on its next run.";
-        }
-      } catch (e) {}
-    }
-    renderBanner();
-
-    bannerClear.addEventListener("click", function () {
-      try { localStorage.removeItem(BANNER_KEY); } catch (e) {}
-      renderBanner();
-    });
-
-    // Auto-clear the banner if the feedback file has been consumed.
-    (function autoClearIfConsumed() {
-      try { if (!localStorage.getItem(BANNER_KEY)) return; } catch (e) { return; }
-      fetch("/__feedback?slug=" + encodeURIComponent(slug))
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (res) {
-          if (res && res.ok && res.status === "consumed") {
-            try { localStorage.removeItem(BANNER_KEY); } catch (e) {}
-            renderBanner();
-            flash("Rewrite applied — banner cleared.");
-          }
-        })
-        .catch(function () {});
-    })();
-
-    // ---- Selection chip --------------------------------------------------
-
     var currentSelectionText = "";
     var currentSelectionRange = null;
 
@@ -526,7 +668,7 @@ const next =
       if (!rect || (rect.width === 0 && rect.height === 0)) return hideChip();
       chip.style.display = "inline-flex";
       var top = rect.top - chip.offsetHeight - 8;
-      if (top < 8) top = rect.bottom + 8; // flip below if no room above
+      if (top < 8) top = rect.bottom + 8;
       chip.style.top = top + "px";
       chip.style.left = (rect.left + rect.width / 2) + "px";
     }
@@ -536,12 +678,11 @@ const next =
       if (!sel || sel.isCollapsed || sel.rangeCount === 0) return hideChip();
       var range = sel.getRangeAt(0);
       var anchorEl = range.commonAncestorContainer;
-      // Only react to selections inside the post body
       var inBody = false;
       var node = anchorEl.nodeType === 1 ? anchorEl : anchorEl.parentNode;
       while (node) {
         if (node === postBody) { inBody = true; break; }
-        if (node === panel || node === pop) return hideChip(); // ignore selections inside the panel itself
+        if (node === section || node === pop) return hideChip();
         node = node.parentNode;
       }
       if (!inBody) return hideChip();
@@ -551,8 +692,6 @@ const next =
       currentSelectionRange = range.cloneRange();
       showChipAtRange(range);
     });
-
-    // ---- Popover ---------------------------------------------------------
 
     var popKind = "suggest";
 
@@ -577,7 +716,6 @@ const next =
       popReplacement.value = "";
       popNote.value = "";
       pop.style.display = "block";
-      // Position popover next to the selection
       var rect = currentSelectionRange.getBoundingClientRect();
       var top = rect.bottom + 10;
       var left = Math.max(16, Math.min(window.innerWidth - 16 - 420, rect.left));
@@ -624,16 +762,11 @@ const next =
       flash("Suggestion added.");
     });
 
-    // ---- Anchor highlights in the post body ------------------------------
-
     function escapeHtml(s) { return s.replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     }); }
 
     function markAnchorInBody(entry) {
-      // Best-effort: walk text nodes inside post body, find the anchor
-      // substring, wrap it. Anchor by exact text — same approach the
-      // writer agent uses on the MDX side.
       var walker = document.createTreeWalker(postBody, NodeFilter.SHOW_TEXT, null);
       var node;
       while ((node = walker.nextNode())) {
@@ -653,35 +786,25 @@ const next =
     }
 
     function rehydrateAnchors() {
-      // Re-apply on page load if there are stored edits.
       session.edits.forEach(markAnchorInBody);
     }
     rehydrateAnchors();
-
-    // ---- List rendering --------------------------------------------------
 
     function renderList() {
       listEl.innerHTML = "";
       if (session.edits.length === 0) {
         listEl.appendChild(emptyEl);
-        countEl.style.display = "none";
         return;
       }
-      countEl.style.display = "";
-      countEl.textContent = session.edits.length;
       session.edits.forEach(function (entry) {
         var li = document.createElement("li");
         li.className = "rp-card";
         li.setAttribute("data-kind", entry.kind);
         var kindLabel = entry.kind === "suggest" ? "Edit" : entry.kind === "comment" ? "Comment" : "Rewrite";
         var payload = "";
-        if (entry.kind === "suggest") {
-          payload = "→ " + escapeHtml(entry.replacement);
-        } else if (entry.kind === "rewrite") {
-          payload = "↻ " + escapeHtml(entry.replacement);
-        } else {
-          payload = escapeHtml(entry.note);
-        }
+        if (entry.kind === "suggest") payload = "→ " + escapeHtml(entry.replacement);
+        else if (entry.kind === "rewrite") payload = "↻ " + escapeHtml(entry.replacement);
+        else payload = escapeHtml(entry.note);
         li.innerHTML =
           '<button type="button" class="rp-card-remove" data-remove="' + entry.id + '">remove</button>' +
           '<div class="rp-card-anchor">' + escapeHtml('"' + entry.anchor + '"') + '</div>' +
@@ -695,7 +818,6 @@ const next =
         btn.addEventListener("click", function () {
           var id = btn.getAttribute("data-remove");
           session.edits = session.edits.filter(function (e) { return e.id !== id; });
-          // Strip any anchored mark from the body
           var marks = postBody.querySelectorAll('mark.rp-anchored[data-edit-id="' + id + '"]');
           Array.prototype.forEach.call(marks, function (m) {
             var parent = m.parentNode;
@@ -709,8 +831,6 @@ const next =
     }
     renderList();
 
-    // ---- Submit ----------------------------------------------------------
-
     function payload() {
       var decision = (document.querySelector('input[name="rp-decision"]:checked') || {}).value || "request-changes";
       return {
@@ -720,12 +840,10 @@ const next =
         decision: decision,
         edits: session.edits,
         freeNote: freeNoteEl.value.trim(),
-        // Keep the old free-text key populated for backward compatibility
-        // with the voice-feedback-log and any agent that still expects it.
         feedback: buildLegacyFeedback(),
         reviewer: "Will Phillips",
         at: new Date().toISOString(),
-        note: "Captured via ReviewPanel (artifact-style). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated.",
+        note: "Captured via ReviewPanel (inline). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated.",
       };
     }
 
@@ -769,14 +887,13 @@ const next =
             freeNoteEl.value = "";
             renderList();
             renderBanner();
-            // Clear anchored marks
             Array.prototype.forEach.call(postBody.querySelectorAll("mark.rp-anchored"), function (m) {
               var parent = m.parentNode;
               while (m.firstChild) parent.insertBefore(m.firstChild, m);
               parent.removeChild(m);
             });
             if (res.j.approvedAt) {
-              flash("Approved — moving to approved state…");
+              flash("Approved — reloading to show queued-to-publish state…");
               setTimeout(function () { window.location.reload(); }, 700);
             } else {
               flash("Submitted → " + res.j.path);
@@ -797,7 +914,6 @@ const next =
 
     document.addEventListener("keydown", function (e) {
       if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-        // Only if the popover is closed and we're not focused in the textarea
         if (pop.style.display === "block") return;
         e.preventDefault();
         doSubmit();
@@ -822,11 +938,9 @@ const next =
       URL.revokeObjectURL(a.href);
     }
 
-    // Hide chip when clicking elsewhere
     document.addEventListener("mousedown", function (e) {
       if (chip.contains(e.target)) return;
       if (pop.contains(e.target)) return;
-      // Only hide if the click isn't going to create a new selection
       setTimeout(function () {
         var sel = window.getSelection();
         if (!sel || sel.isCollapsed) hideChip();
