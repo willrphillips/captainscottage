@@ -96,54 +96,67 @@ const pathname = `/journal/${slug}`;
   />
 
   <article class="section-pad">
-    <div class="container-narrow">
-      <header class="reveal max-w-[44rem]">
-        {
-          isDraft && previewMode && (
-            <p class="mb-6 inline-block rounded-full border border-rust bg-rust/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.18em] text-rust-deep">
-              Draft preview — not live · review only
+    <div class:list={[previewMode ? "mx-auto max-w-[1400px] px-6 md:px-10" : "container-narrow"]}>
+      <div class:list={[previewMode ? "lg:grid lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-12" : ""]}>
+        {/* Article column (everything that ships to production) */}
+        <div>
+          <header class="reveal max-w-[44rem]">
+            {
+              isDraft && previewMode && (
+                <p class="mb-6 inline-block rounded-full border border-rust bg-rust/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.18em] text-rust-deep">
+                  Draft preview — not live · review only
+                </p>
+              )
+            }
+            <p class="eyebrow">{category}</p>
+            <h1 class="mt-6 font-display display-lg leading-[1.05]">{title}</h1>
+            <p class="lede mt-8">{description}</p>
+            <p class="mt-8 text-sm text-ink-soft">
+              By {author} ·{" "}
+              <time datetime={isoDate}>{dateLabel}</time> ·{" "}
+              {readingMinutes} min read
             </p>
-          )
-        }
-        <p class="eyebrow">{category}</p>
-        <h1 class="mt-6 font-display display-lg leading-[1.05]">{title}</h1>
-        <p class="lede mt-8">{description}</p>
-        <p class="mt-8 text-sm text-ink-soft">
-          By {author} ·{" "}
-          <time datetime={isoDate}>{dateLabel}</time> ·{" "}
-          {readingMinutes} min read
-        </p>
-        {
-          audience.length > 0 && (
-            <ul class="mt-5 flex flex-wrap gap-2">
-              {audience.map((tag) => (
-                <li class="rounded-full border border-rule px-3 py-1 text-xs uppercase tracking-[0.14em] text-ink-soft">
-                  {AUDIENCE_LABELS[tag]}
-                </li>
-              ))}
-            </ul>
-          )
-        }
-      </header>
+            {
+              audience.length > 0 && (
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  {audience.map((tag) => (
+                    <li class="rounded-full border border-rule px-3 py-1 text-xs uppercase tracking-[0.14em] text-ink-soft">
+                      {AUDIENCE_LABELS[tag]}
+                    </li>
+                  ))}
+                </ul>
+              )
+            }
+          </header>
 
-      <div class="reveal mt-16 h-px bg-rule"></div>
+          <div class="reveal mt-16 h-px bg-rule max-w-[44rem]"></div>
 
-      <div class="body-prose post-body reveal mx-auto mt-16 max-w-[44rem]">
-        <slot />
+          <div class:list={["body-prose post-body reveal mt-16 max-w-[44rem]", previewMode ? "" : "mx-auto"]}>
+            <slot />
+          </div>
+
+          {/* The per-post body now carries its own closing CTA (Writer
+              directive). The old "Stay with us / The water is waiting" CTA
+              block lived here with a top border bar — removed at Will's
+              request so the post reads as one continuous voice. */}
+
+          {/* Author bio — E-E-A-T signal. Lives below the body, above related. */}
+          <aside class:list={["reveal mt-20 max-w-[44rem] text-sm text-ink-soft", previewMode ? "" : "mx-auto"]}>
+            <p class="eyebrow">Written by</p>
+            <p class="mt-3">
+              <strong class="text-ink">{author}</strong> — host of Captain's Cottage on Hull Creek, Virginia's Northern Neck. Notes are first-hand from a property owned and operated since 2022. Questions <a href="https://www.airbnb.com/h/captainscottageva" rel="noopener" target="_blank" class="text-rust">message us through Airbnb</a>.
+            </p>
+          </aside>
+        </div>
+
+        {/* Review column — sticky pane that scrolls independently. Only
+            in previewMode; never rendered in the production build. */}
+        {previewMode && (
+          <div class="mt-12 lg:mt-0">
+            <ReviewPanel slug={slug} title={title} isDraft={isDraft} approvedAt={approvedAt} />
+          </div>
+        )}
       </div>
-
-      {/* The per-post body now carries its own closing CTA (Writer
-          directive). The old "Stay with us / The water is waiting" CTA
-          block lived here with a top border bar — removed at Will's
-          request so the post reads as one continuous voice. */}
-
-      {/* Author bio — E-E-A-T signal. Lives below the body, above related. */}
-      <aside class="reveal mx-auto mt-20 max-w-[44rem] text-sm text-ink-soft">
-        <p class="eyebrow">Written by</p>
-        <p class="mt-3">
-          <strong class="text-ink">{author}</strong> — host of Captain's Cottage on Hull Creek, Virginia's Northern Neck. Notes are first-hand from a property owned and operated since 2022. Questions <a href="https://www.airbnb.com/h/captainscottageva" rel="noopener" target="_blank" class="text-rust">message us through Airbnb</a>.
-        </p>
-      </aside>
     </div>
 
     {
@@ -168,7 +181,7 @@ const pathname = `/journal/${slug}`;
     }
   </article>
 
-  {previewMode && <ReviewPanel slug={slug} title={title} isDraft={isDraft} approvedAt={approvedAt} />}
+  {/* ReviewPanel is now rendered inside the article grid above (previewMode only). */}
 </BaseLayout>
 
 <style>
