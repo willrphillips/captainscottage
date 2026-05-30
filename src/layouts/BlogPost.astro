@@ -2,7 +2,7 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import SchemaBlogPosting from "~/components/SchemaBlogPosting.astro";
 import BlogCard from "~/components/BlogCard.astro";
-import AdminOverlay from "~/components/AdminOverlay.astro";
+import ReviewPanel from "~/components/ReviewPanel.astro";
 import { withBase } from "~/lib/site";
 
 interface RelatedPost {
@@ -166,7 +166,7 @@ const pathname = `/journal/${slug}`;
     }
   </article>
 
-  {previewMode && <AdminOverlay slug={slug} title={title} isDraft={isDraft} />}
+  {previewMode && <ReviewPanel slug={slug} title={title} isDraft={isDraft} />}
 </BaseLayout>
 
 <style>

@@ -1,0 +1,728 @@
+---
+/**
+ * ReviewPanel — Artifact-style review surface for draft journal posts.
+ *
+ * Replaces the older AdminOverlay (which kept a single free-text feedback
+ * box). New flow:
+ *
+ *   1. Reader selects any text inside `.post-body`.
+ *   2. A floating action chip appears next to the selection with three
+ *      verbs: Suggest edit, Comment, Rewrite.
+ *   3. Picking a verb opens a small inline popover anchored to the
+ *      selection. Submit pushes a structured entry into the in-memory
+ *      `edits[]` array and renders a card in the side panel.
+ *   4. Per-paragraph suggestion underlines stay on the page so the reader
+ *      can see what they've already flagged.
+ *   5. A right-side panel collects every suggestion this session, lets
+ *      the reader add a free-form note, pick a decision, and submit.
+ *      Submit POSTs to the dev-only `/__feedback` endpoint (defined in
+ *      astro.config.mjs). The writer agent reads `content/feedback/
+ *      <slug>.json` on its next run.
+ *
+ * Render gate: this component is only mounted when `previewMode` is true
+ * (npm run dev, or a build with INCLUDE_DRAFTS=true). It is NEVER emitted
+ * in the production GitHub Pages build — see `src/pages/journal/
+ * [...slug].astro`.
+ */
+import { getCollection } from "astro:content";
+import { withBase } from "~/lib/site";
+
+interface Props {
+  slug: string;
+  title: string;
+  isDraft?: boolean;
+}
+const { slug, title, isDraft = false } = Astro.props;
+
+// Pending-review queue: every draft post is awaiting Will's approval.
+let pending: { slug: string; title: string }[] = [];
+try {
+  const drafts = await getCollection("blog", ({ data }) => data.draft === true);
+  drafts.sort((a, b) => +a.data.publishedAt - +b.data.publishedAt);
+  pending = drafts.map((p) => ({ slug: p.id, title: p.data.title }));
+} catch {
+  pending = [];
+}
+
+const currentIndex = pending.findIndex((p) => p.slug === slug);
+const total = pending.length;
+const position = currentIndex >= 0 ? currentIndex + 1 : 0;
+const prev =
+  currentIndex > 0
+    ? pending[currentIndex - 1]
+    : currentIndex === 0 && total > 1
+      ? pending[total - 1]
+      : null;
+const next =
+  currentIndex >= 0 && currentIndex < total - 1
+    ? pending[currentIndex + 1]
+    : currentIndex === total - 1 && total > 1
+      ? pending[0]
+      : null;
+---
+
+{/* Floating selection chip — JS positions it just above the selection. */}
+<div
+  id="rp-chip"
+  role="toolbar"
+  aria-label="Review actions for selected text"
+  class="pointer-events-auto fixed z-[80] hidden -translate-x-1/2 items-center gap-1 rounded-full border border-rule bg-bone shadow-lg"
+  style="padding: 4px 6px"
+>
+  <button type="button" data-rp-action="suggest" class="rp-chip-btn" title="Suggest edit">
+    <span aria-hidden="true">✎</span><span class="rp-chip-label">Suggest</span>
+  </button>
+  <button type="button" data-rp-action="comment" class="rp-chip-btn" title="Comment">
+    <span aria-hidden="true">💬</span><span class="rp-chip-label">Comment</span>
+  </button>
+  <button type="button" data-rp-action="rewrite" class="rp-chip-btn" title="Ask writer to rewrite">
+    <span aria-hidden="true">⚡</span><span class="rp-chip-label">Rewrite</span>
+  </button>
+</div>
+
+{/* Popover that opens when a chip action is picked. */}
+<div
+  id="rp-popover"
+  class="pointer-events-auto fixed z-[80] hidden w-[min(92vw,420px)] rounded-md border border-rule bg-bone shadow-xl"
+>
+  <header class="flex items-center justify-between gap-3 border-b border-rule px-4 py-3">
+    <span id="rp-popover-title" class="text-xs font-medium uppercase tracking-[0.18em] text-ink"></span>
+    <button type="button" id="rp-popover-close" class="text-ink-soft hover:text-ink" aria-label="Close">×</button>
+  </header>
+  <div class="space-y-3 p-4">
+    <blockquote
+      id="rp-popover-anchor"
+      class="rounded border-l-2 border-rust bg-rust/5 px-3 py-2 text-sm italic text-ink-soft"
+    ></blockquote>
+    <label class="block">
+      <span class="mb-1 block text-[11px] uppercase tracking-[0.16em] text-ink-soft" id="rp-popover-replacement-label">
+        Replacement
+      </span>
+      <textarea
+        id="rp-popover-replacement"
+        rows="3"
+        class="w-full resize-y rounded border border-rule bg-white p-2 text-sm text-ink outline-none focus:border-ink"
+      ></textarea>
+    </label>
+    <label class="block">
+      <span class="mb-1 block text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+        Note (optional)
+      </span>
+      <textarea
+        id="rp-popover-note"
+        rows="2"
+        placeholder="Anything the writer should know about this change"
+        class="w-full resize-y rounded border border-rule bg-white p-2 text-sm text-ink outline-none focus:border-ink"
+      ></textarea>
+    </label>
+    <div class="flex items-center justify-end gap-2">
+      <button type="button" id="rp-popover-cancel" class="text-xs text-ink-soft underline hover:no-underline">
+        Cancel
+      </button>
+      <button type="button" id="rp-popover-save" class="btn btn-rust !px-4 !py-2 text-sm">
+        Add to suggestions
+      </button>
+    </div>
+  </div>
+</div>
+
+{/* Side panel — toggleable. */}
+<aside
+  id="rp-panel"
+  data-slug={slug}
+  data-title={title}
+  data-draft={String(isDraft)}
+  class="fixed right-4 top-24 z-[70] w-[min(92vw,360px)] max-h-[calc(100vh-8rem)] overflow-hidden rounded-md border border-rule bg-bone shadow-lg flex flex-col"
+>
+  <button
+    type="button"
+    id="rp-toggle"
+    class="flex w-full items-center justify-between gap-3 rounded-t-md bg-ink px-4 py-3 text-left text-bone"
+  >
+    <span class="text-xs font-medium uppercase tracking-[0.18em]">
+      Review · suggestions
+    </span>
+    <span class="flex items-center gap-3 text-bone/70">
+      {
+        total > 0 && currentIndex >= 0 && (
+          <span class="text-[11px] uppercase tracking-[0.18em]">
+            {position} / {total}
+          </span>
+        )
+      }
+      <span id="rp-count" class="rounded-full bg-rust px-2 py-[2px] text-[10px] font-semibold text-bone" style="display:none">0</span>
+      <span id="rp-caret">▾</span>
+    </span>
+  </button>
+
+  <div id="rp-body" class="flex-1 overflow-auto">
+    {
+      total > 1 && (
+        <div class="flex items-center justify-between border-b border-rule px-4 py-2 text-xs text-ink-soft">
+          {prev ? (
+            <a href={withBase("/journal/" + prev.slug)} class="hover:text-ink" title={prev.title}>← Prev</a>
+          ) : (
+            <span class="text-ink-soft/40">← Prev</span>
+          )}
+          <span class="text-ink-soft/70">
+            {position > 0 ? `${position} of ${total}` : `${total} drafts`}
+          </span>
+          {next ? (
+            <a href={withBase("/journal/" + next.slug)} class="hover:text-ink" title={next.title}>Next →</a>
+          ) : (
+            <span class="text-ink-soft/40">Next →</span>
+          )}
+        </div>
+      )
+    }
+
+    {/* Submitted-state banner. JS toggles + sets copy based on stored decision. */}
+    <div id="rp-banner" style="display:none" class="m-4 rounded border px-3 py-2 text-xs">
+      <div class="flex items-start justify-between gap-3">
+        <span id="rp-banner-copy"></span>
+        <button type="button" id="rp-banner-clear" class="shrink-0 underline hover:no-underline">clear</button>
+      </div>
+    </div>
+
+    {/* The growing list of suggestions for this session. */}
+    <div class="px-4 pt-4">
+      <p class="text-[11px] uppercase tracking-[0.16em] text-ink-soft">Suggestions</p>
+      <ul id="rp-list" class="mt-2 space-y-2">
+        <li id="rp-empty" class="rounded border border-dashed border-rule px-3 py-3 text-xs text-ink-soft/70">
+          Highlight any text in the post. A small toolbar appears with <em>Suggest</em>, <em>Comment</em>, and <em>Rewrite</em>.
+        </li>
+      </ul>
+    </div>
+
+    {/* Free-form note + decision + submit. */}
+    <div class="space-y-3 border-t border-rule p-4 mt-4">
+      <label class="block">
+        <span class="mb-1 block text-[11px] uppercase tracking-[0.16em] text-ink-soft">Overall note (optional)</span>
+        <textarea
+          id="rp-freenote"
+          rows="3"
+          placeholder="Anything that doesn't anchor to a specific selection."
+          class="w-full resize-y rounded border border-rule bg-white p-2 text-sm text-ink outline-none focus:border-ink"
+        ></textarea>
+      </label>
+
+      <div class="flex gap-2">
+        <label class="flex-1">
+          <input type="radio" name="rp-decision" value="request-changes" checked class="peer sr-only" />
+          <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-rust peer-checked:bg-rust/10 peer-checked:text-rust-deep">
+            Request changes
+          </span>
+        </label>
+        <label class="flex-1">
+          <input type="radio" name="rp-decision" value="approve-for-batch" class="peer sr-only" />
+          <span class="block cursor-pointer rounded border border-rule px-3 py-2 text-center text-sm peer-checked:border-sage peer-checked:bg-sage/10 peer-checked:text-sage">
+            Approve
+          </span>
+        </label>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button type="button" id="rp-submit" class="btn btn-rust !px-4 !py-2 text-sm">Submit</button>
+        <span class="text-[11px] text-ink-soft/60">⌘/Ctrl+↵</span>
+        <span id="rp-status" class="ml-auto text-xs text-sage"></span>
+      </div>
+      <p class="text-xs text-ink-soft/70">
+        Saves to <code>content/feedback/{slug}.json</code>. Dev review only — never bundled into the production site.
+      </p>
+    </div>
+  </div>
+</aside>
+
+<style is:global>
+  /* Chip / popover button styling — match the design system. */
+  .rp-chip-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--color-ink);
+    background: transparent;
+    cursor: pointer;
+    transition: background 120ms ease;
+  }
+  .rp-chip-btn:hover { background: rgba(184, 85, 46, 0.1); color: var(--color-rust-deep); }
+  .rp-chip-label { font-weight: 500; }
+
+  /* Suggestion underlines inside the post body. */
+  .post-body mark.rp-anchored {
+    background: rgba(184, 85, 46, 0.16);
+    color: inherit;
+    padding: 0 2px;
+    border-bottom: 1px dashed var(--color-rust);
+    cursor: help;
+  }
+  .post-body mark.rp-anchored[data-kind="comment"] {
+    background: rgba(90, 106, 82, 0.16);
+    border-bottom-color: var(--color-sage);
+  }
+  .post-body mark.rp-anchored[data-kind="rewrite"] {
+    background: rgba(22, 40, 61, 0.12);
+    border-bottom-color: var(--color-navy);
+  }
+
+  /* Suggestion cards in the side panel. */
+  .rp-card {
+    border: 1px solid var(--color-rule);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 13px;
+    background: white;
+  }
+  .rp-card[data-kind="suggest"] { border-left: 3px solid var(--color-rust); }
+  .rp-card[data-kind="comment"] { border-left: 3px solid var(--color-sage); }
+  .rp-card[data-kind="rewrite"] { border-left: 3px solid var(--color-navy); }
+  .rp-card .rp-card-anchor {
+    color: var(--color-ink-soft);
+    font-style: italic;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .rp-card .rp-card-payload { color: var(--color-ink); }
+  .rp-card .rp-card-note { font-size: 11px; color: var(--color-ink-soft); margin-top: 4px; }
+  .rp-card .rp-card-remove {
+    float: right;
+    font-size: 11px;
+    color: var(--color-ink-soft);
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .rp-card .rp-card-remove:hover { color: var(--color-rust); }
+</style>
+
+<script is:inline define:vars={{ slug, title, isDraft }}>
+  (function () {
+    var STORE_KEY = "rp-session:" + slug;
+    var BANNER_KEY = "rp-banner:" + slug;
+
+    var panel = document.getElementById("rp-panel");
+    var body = document.getElementById("rp-body");
+    var caret = document.getElementById("rp-caret");
+    var countEl = document.getElementById("rp-count");
+    var listEl = document.getElementById("rp-list");
+    var emptyEl = document.getElementById("rp-empty");
+    var statusEl = document.getElementById("rp-status");
+    var freeNoteEl = document.getElementById("rp-freenote");
+    var submitBtn = document.getElementById("rp-submit");
+    var bannerEl = document.getElementById("rp-banner");
+    var bannerCopy = document.getElementById("rp-banner-copy");
+    var bannerClear = document.getElementById("rp-banner-clear");
+    var chip = document.getElementById("rp-chip");
+    var pop = document.getElementById("rp-popover");
+    var popTitle = document.getElementById("rp-popover-title");
+    var popAnchor = document.getElementById("rp-popover-anchor");
+    var popReplacement = document.getElementById("rp-popover-replacement");
+    var popReplacementLabel = document.getElementById("rp-popover-replacement-label");
+    var popNote = document.getElementById("rp-popover-note");
+    var popSave = document.getElementById("rp-popover-save");
+    var popCancel = document.getElementById("rp-popover-cancel");
+    var popClose = document.getElementById("rp-popover-close");
+    var postBody = document.querySelector(".post-body");
+
+    if (!panel || !postBody) return;
+
+    // ---- State -----------------------------------------------------------
+
+    /**
+     * edits[] entry shape:
+     *   { id, kind: "suggest"|"comment"|"rewrite", anchor, replacement, note, at }
+     */
+    var session = { edits: [] };
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+      if (saved && Array.isArray(saved.edits)) session.edits = saved.edits;
+      if (saved && typeof saved.freeNote === "string") freeNoteEl.value = saved.freeNote;
+      if (saved && saved.decision) {
+        var r = document.querySelector('input[name="rp-decision"][value="' + saved.decision + '"]');
+        if (r) r.checked = true;
+      }
+    } catch (e) {}
+
+    function persist() {
+      try {
+        localStorage.setItem(STORE_KEY, JSON.stringify({
+          edits: session.edits,
+          freeNote: freeNoteEl.value,
+          decision: (document.querySelector('input[name="rp-decision"]:checked') || {}).value || "request-changes",
+        }));
+      } catch (e) {}
+    }
+
+    // ---- Banner ----------------------------------------------------------
+
+    function renderBanner() {
+      try {
+        var raw = localStorage.getItem(BANNER_KEY);
+        if (!raw) { bannerEl.style.display = "none"; return; }
+        var meta = {};
+        try { meta = JSON.parse(raw); } catch (e) { meta = { decision: "request-changes" }; }
+        bannerEl.style.display = "";
+        if (meta.decision === "approve-for-batch") {
+          bannerEl.className = "m-4 rounded border border-sage bg-sage/10 px-3 py-2 text-xs text-sage";
+          bannerCopy.innerHTML = "✓ Approved — <strong>ready to publish</strong>. Final publish is still your gate (flip <code>draft: false</code>).";
+        } else {
+          bannerEl.className = "m-4 rounded border border-rust bg-rust/10 px-3 py-2 text-xs text-rust-deep";
+          bannerCopy.innerHTML = "✓ Submitted — <strong>rewrite pending</strong>. The Writer agent picks this up on its next run.";
+        }
+      } catch (e) {}
+    }
+    renderBanner();
+
+    bannerClear.addEventListener("click", function () {
+      try { localStorage.removeItem(BANNER_KEY); } catch (e) {}
+      renderBanner();
+    });
+
+    // Auto-clear the banner if the feedback file has been consumed.
+    (function autoClearIfConsumed() {
+      try { if (!localStorage.getItem(BANNER_KEY)) return; } catch (e) { return; }
+      fetch("/__feedback?slug=" + encodeURIComponent(slug))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (res) {
+          if (res && res.ok && res.status === "consumed") {
+            try { localStorage.removeItem(BANNER_KEY); } catch (e) {}
+            renderBanner();
+            flash("Rewrite applied — banner cleared.");
+          }
+        })
+        .catch(function () {});
+    })();
+
+    // ---- Toggle ----------------------------------------------------------
+
+    document.getElementById("rp-toggle").addEventListener("click", function () {
+      var hidden = body.style.display === "none";
+      body.style.display = hidden ? "" : "none";
+      caret.textContent = hidden ? "▾" : "▸";
+    });
+
+    // ---- Selection chip --------------------------------------------------
+
+    var currentSelectionText = "";
+    var currentSelectionRange = null;
+
+    function hideChip() { chip.style.display = "none"; }
+    function showChipAtRange(range) {
+      var rect = range.getBoundingClientRect();
+      if (!rect || (rect.width === 0 && rect.height === 0)) return hideChip();
+      chip.style.display = "inline-flex";
+      var top = rect.top - chip.offsetHeight - 8;
+      if (top < 8) top = rect.bottom + 8; // flip below if no room above
+      chip.style.top = top + "px";
+      chip.style.left = (rect.left + rect.width / 2) + "px";
+    }
+
+    document.addEventListener("selectionchange", function () {
+      var sel = window.getSelection();
+      if (!sel || sel.isCollapsed || sel.rangeCount === 0) return hideChip();
+      var range = sel.getRangeAt(0);
+      var anchorEl = range.commonAncestorContainer;
+      // Only react to selections inside the post body
+      var inBody = false;
+      var node = anchorEl.nodeType === 1 ? anchorEl : anchorEl.parentNode;
+      while (node) {
+        if (node === postBody) { inBody = true; break; }
+        if (node === panel || node === pop) return hideChip(); // ignore selections inside the panel itself
+        node = node.parentNode;
+      }
+      if (!inBody) return hideChip();
+      var text = sel.toString().trim();
+      if (text.length < 2) return hideChip();
+      currentSelectionText = text;
+      currentSelectionRange = range.cloneRange();
+      showChipAtRange(range);
+    });
+
+    // ---- Popover ---------------------------------------------------------
+
+    var popKind = "suggest";
+
+    function openPopover(kind) {
+      popKind = kind;
+      if (!currentSelectionText) return;
+      if (kind === "suggest") {
+        popTitle.textContent = "Suggest edit";
+        popReplacementLabel.textContent = "Replacement";
+        popReplacement.style.display = "";
+        popReplacement.placeholder = "What should it say instead?";
+      } else if (kind === "comment") {
+        popTitle.textContent = "Comment";
+        popReplacement.style.display = "none";
+      } else if (kind === "rewrite") {
+        popTitle.textContent = "Ask writer to rewrite";
+        popReplacementLabel.textContent = "Rewrite instructions";
+        popReplacement.style.display = "";
+        popReplacement.placeholder = "How should the writer approach this rewrite?";
+      }
+      popAnchor.textContent = '"' + currentSelectionText + '"';
+      popReplacement.value = "";
+      popNote.value = "";
+      pop.style.display = "block";
+      // Position popover next to the selection
+      var rect = currentSelectionRange.getBoundingClientRect();
+      var top = rect.bottom + 10;
+      var left = Math.max(16, Math.min(window.innerWidth - 16 - 420, rect.left));
+      pop.style.top = top + "px";
+      pop.style.left = left + "px";
+      hideChip();
+      setTimeout(function () {
+        (kind === "comment" ? popNote : popReplacement).focus();
+      }, 50);
+    }
+
+    function closePopover() { pop.style.display = "none"; }
+
+    Array.prototype.forEach.call(
+      document.querySelectorAll('[data-rp-action]'),
+      function (btn) {
+        btn.addEventListener("click", function () {
+          openPopover(btn.getAttribute("data-rp-action"));
+        });
+      }
+    );
+    popCancel.addEventListener("click", closePopover);
+    popClose.addEventListener("click", closePopover);
+
+    popSave.addEventListener("click", function () {
+      var replacement = popReplacement.value.trim();
+      var note = popNote.value.trim();
+      if (popKind === "suggest" && !replacement) { popReplacement.focus(); return; }
+      if (popKind === "rewrite" && !replacement) { popReplacement.focus(); return; }
+      if (popKind === "comment" && !note) { popNote.focus(); return; }
+      var entry = {
+        id: "e" + Math.random().toString(36).slice(2, 10),
+        kind: popKind,
+        anchor: currentSelectionText,
+        replacement: popKind === "comment" ? "" : replacement,
+        note: note,
+        at: new Date().toISOString(),
+      };
+      session.edits.push(entry);
+      persist();
+      markAnchorInBody(entry);
+      renderList();
+      closePopover();
+      flash("Suggestion added.");
+    });
+
+    // ---- Anchor highlights in the post body ------------------------------
+
+    function escapeHtml(s) { return s.replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    }); }
+
+    function markAnchorInBody(entry) {
+      // Best-effort: walk text nodes inside post body, find the anchor
+      // substring, wrap it. Anchor by exact text — same approach the
+      // writer agent uses on the MDX side.
+      var walker = document.createTreeWalker(postBody, NodeFilter.SHOW_TEXT, null);
+      var node;
+      while ((node = walker.nextNode())) {
+        var idx = node.nodeValue.indexOf(entry.anchor);
+        if (idx === -1) continue;
+        var range = document.createRange();
+        range.setStart(node, idx);
+        range.setEnd(node, idx + entry.anchor.length);
+        var mark = document.createElement("mark");
+        mark.className = "rp-anchored";
+        mark.setAttribute("data-kind", entry.kind);
+        mark.setAttribute("data-edit-id", entry.id);
+        mark.setAttribute("title", entry.kind === "comment" ? entry.note : (entry.replacement || entry.note));
+        try { range.surroundContents(mark); } catch (e) {}
+        return;
+      }
+    }
+
+    function rehydrateAnchors() {
+      // Re-apply on page load if there are stored edits.
+      session.edits.forEach(markAnchorInBody);
+    }
+    rehydrateAnchors();
+
+    // ---- List rendering --------------------------------------------------
+
+    function renderList() {
+      listEl.innerHTML = "";
+      if (session.edits.length === 0) {
+        listEl.appendChild(emptyEl);
+        countEl.style.display = "none";
+        return;
+      }
+      countEl.style.display = "";
+      countEl.textContent = session.edits.length;
+      session.edits.forEach(function (entry) {
+        var li = document.createElement("li");
+        li.className = "rp-card";
+        li.setAttribute("data-kind", entry.kind);
+        var kindLabel = entry.kind === "suggest" ? "Edit" : entry.kind === "comment" ? "Comment" : "Rewrite";
+        var payload = "";
+        if (entry.kind === "suggest") {
+          payload = "→ " + escapeHtml(entry.replacement);
+        } else if (entry.kind === "rewrite") {
+          payload = "↻ " + escapeHtml(entry.replacement);
+        } else {
+          payload = escapeHtml(entry.note);
+        }
+        li.innerHTML =
+          '<button type="button" class="rp-card-remove" data-remove="' + entry.id + '">remove</button>' +
+          '<div class="rp-card-anchor">' + escapeHtml('"' + entry.anchor + '"') + '</div>' +
+          '<div class="rp-card-payload"><strong>' + kindLabel + ':</strong> ' + payload + '</div>' +
+          (entry.note && entry.kind !== "comment"
+            ? '<div class="rp-card-note">' + escapeHtml(entry.note) + '</div>'
+            : "");
+        listEl.appendChild(li);
+      });
+      Array.prototype.forEach.call(listEl.querySelectorAll("[data-remove]"), function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.getAttribute("data-remove");
+          session.edits = session.edits.filter(function (e) { return e.id !== id; });
+          // Strip any anchored mark from the body
+          var marks = postBody.querySelectorAll('mark.rp-anchored[data-edit-id="' + id + '"]');
+          Array.prototype.forEach.call(marks, function (m) {
+            var parent = m.parentNode;
+            while (m.firstChild) parent.insertBefore(m.firstChild, m);
+            parent.removeChild(m);
+          });
+          persist();
+          renderList();
+        });
+      });
+    }
+    renderList();
+
+    // ---- Submit ----------------------------------------------------------
+
+    function flash(msg) {
+      statusEl.textContent = msg;
+      clearTimeout(flash._t);
+      flash._t = setTimeout(function () { statusEl.textContent = ""; }, 4000);
+    }
+
+    function payload() {
+      var decision = (document.querySelector('input[name="rp-decision"]:checked') || {}).value || "request-changes";
+      return {
+        slug: slug,
+        title: title,
+        isDraft: !!isDraft,
+        decision: decision,
+        edits: session.edits,
+        freeNote: freeNoteEl.value.trim(),
+        // Keep the old free-text key populated for backward compatibility
+        // with the voice-feedback-log and any agent that still expects it.
+        feedback: buildLegacyFeedback(),
+        reviewer: "Will Phillips",
+        at: new Date().toISOString(),
+        note: "Captured via ReviewPanel (artifact-style). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated.",
+      };
+    }
+
+    function buildLegacyFeedback() {
+      var parts = [];
+      session.edits.forEach(function (e) {
+        if (e.kind === "suggest") {
+          parts.push('Replace "' + e.anchor + '" with "' + e.replacement + '".' + (e.note ? " (" + e.note + ")" : ""));
+        } else if (e.kind === "comment") {
+          parts.push('On "' + e.anchor + '": ' + e.note);
+        } else if (e.kind === "rewrite") {
+          parts.push('Rewrite "' + e.anchor + '" — ' + e.replacement + (e.note ? " (" + e.note + ")" : ""));
+        }
+      });
+      if (freeNoteEl.value.trim()) parts.push(freeNoteEl.value.trim());
+      return parts.join("\n\n");
+    }
+
+    function doSubmit() {
+      var data = payload();
+      if (data.decision === "request-changes" && data.edits.length === 0 && !data.freeNote) {
+        flash("Add a suggestion or a note first.");
+        return;
+      }
+      submitBtn.disabled = true;
+      flash("Submitting…");
+      fetch("/__feedback", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          submitBtn.disabled = false;
+          if (res.ok && res.j && res.j.ok) {
+            try {
+              localStorage.removeItem(STORE_KEY);
+              localStorage.setItem(BANNER_KEY, JSON.stringify({ decision: data.decision, at: data.at }));
+            } catch (e) {}
+            session.edits = [];
+            freeNoteEl.value = "";
+            renderList();
+            renderBanner();
+            // Clear anchored marks
+            Array.prototype.forEach.call(postBody.querySelectorAll("mark.rp-anchored"), function (m) {
+              var parent = m.parentNode;
+              while (m.firstChild) parent.insertBefore(m.firstChild, m);
+              parent.removeChild(m);
+            });
+            flash("Submitted → " + res.j.path);
+          } else {
+            flash("Failed: " + ((res.j && res.j.error) || "server") + ". Downloading instead.");
+            downloadFallback(data);
+          }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          flash("No dev server. Downloading instead.");
+          downloadFallback(data);
+        });
+    }
+
+    submitBtn.addEventListener("click", doSubmit);
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+        // Only if the popover is closed and we're not focused in the textarea
+        if (pop.style.display === "block") return;
+        e.preventDefault();
+        doSubmit();
+      }
+      if (e.key === "Escape" && pop.style.display === "block") {
+        closePopover();
+      }
+    });
+
+    freeNoteEl.addEventListener("input", persist);
+    Array.prototype.forEach.call(
+      document.querySelectorAll('input[name="rp-decision"]'),
+      function (el) { el.addEventListener("change", persist); }
+    );
+
+    function downloadFallback(data) {
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "feedback-" + slug + ".json";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    // Hide chip when clicking elsewhere
+    document.addEventListener("mousedown", function (e) {
+      if (chip.contains(e.target)) return;
+      if (pop.contains(e.target)) return;
+      // Only hide if the click isn't going to create a new selection
+      setTimeout(function () {
+        var sel = window.getSelection();
+        if (!sel || sel.isCollapsed) hideChip();
+      }, 0);
+    });
+  })();
+</script>

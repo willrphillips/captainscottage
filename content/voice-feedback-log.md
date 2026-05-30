@@ -78,3 +78,91 @@ The friction section is goofy.  It's a good idea, but rewrite the whole thing. N
 Remove references to people emailing me. NO need to make that up. ANd the last paragraph is also too ethereal and poetic. It just reads silly
 
 ---
+
+## 2026-05-29T19:39:30.492Z · crabbers-morning-on-hull-creek
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+Remove the line about rubber gloves. Say you bring down the long tongs from the house to grab the crabs, with a pot from the kitchen to drop them into. We also keep the crab pot and line next to the back porch.
+
+---
+
+## 2026-05-29T19:44:28.240Z · mornings-with-the-ospreys-hull-creek
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+change "it is" to "it's" wherever it is in this one.
+
+change "that is" to "that's" as well
+
+Change the "do not" to "don't"
+
+Swans were spotted by the sandbar in the afternoon, not the morning. But we do still talk about it :)
+
+---
+
+## 2026-05-29T19:49:58.488Z · cottage-sauna-culture
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+the line should say the The gold that comes every clear evening. It's not just may onward.
+
+Change the "that is" lines to "that's". Contract it's, don't, that's, etc. when available. Just to read more casually.
+
+Looks great otherwise
+
+---
+
+## 2026-05-30T10:21:09.483Z · waterfront-kitchen-family-recipes
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+change to a 30-minute grocery run. The store is about 15min away
+
+There are not a lot of places to eat out. Change the contention that most people arrive planning to eat out every night. Rewrite the first paragraph accordingly. A different intro entirely.
+
+The kitchen is not open to the rest of the house. But it does have a water view out the window. Let's rewrite the kitchen paragraph too. Our kitchen is modest, but has everything you need and nothing you don't. There is good counter space too. Try thta again.
+
+The dining porch does not sit over the water, but the sitting porch with the breakfast table in the corner does. Big enough for 2. Rewrite this whole thing. More of a casual writing, less ethereal and reaching. More just actual simple meal recommendations / our favorites.
+
+Country low boil, homemade bacon burgers, caprese on the porch, a breakfast option, and something creative or interesting. And of course crabs if the pot fills.
+
+---
+
+## 2026-05-30T10:31:26.385Z · the-art-of-the-slow-weekend
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+remove "learned from a few hundred families who figured it out and a few who never quite did" and change to something like "learned through some trial and error (and error and error)."
+
+In the Decide the trip is already good section, add a line about how you need to decide before you leave home that the travel is part of the vacation. Don't see the drive as the work before the fun, but that it's all part of it. Make it fun, stop too many times, play the music loud, ask one good question and answer for an hour. Something like that.
+
+There is not more about the ritual on the amenities page. Remove that line.
+
+Change "the [full cottage] is here" to "[stay with us] here on Hull Creek"
+
+---
+
+## 2026-05-30T10:45:05.035Z · crabbers-morning-on-hull-creek
+**Decision:** approve-for-batch  
+**Reviewer:** Will Phillips
+
+_(no notes — decision only)_
+
+---
+
+## 2026-05-30T10:45:39.083Z · mornings-with-the-ospreys-hull-creek
+**Decision:** approve-for-batch  
+**Reviewer:** Will Phillips
+
+_(no notes — decision only)_
+
+---
+
+## 2026-05-30T10:48:14.468Z · cottage-sauna-culture
+**Decision:** approve-for-batch  
+**Reviewer:** Will Phillips
+
+_(no notes — decision only)_
+
+---
