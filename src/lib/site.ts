@@ -92,7 +92,6 @@ export const SITE = {
   origin: "https://captainscottageva.com",
   base: "/",
   defaultOgImage: "/images/og-default.jpg",
-  plausibleDomain: "captainscottageva.com",
 } as const;
 
 // Build absolute URLs that account for the GH Pages base path.
