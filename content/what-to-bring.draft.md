@@ -14,6 +14,8 @@ A thin stinger suit, if you're here in jellyfish season. Nettles drift in for fo
 
 Water shoes, if you mean to wade out. Shallows are soft and a little oystery underfoot.
 
+Your own life jackets, if a proper fit matters. We keep a range of life jackets on hand and you're welcome to them, but for the best fit, especially for kids, it's worth bringing your own.
+
 Binoculars. Osprey, eagles, and herons keep us occupied all day. You never know when you might spot something remarkable.
 
 Slip-on shoes for the sauna walk. You'll make the walk more than once. You won't want laces.

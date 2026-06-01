@@ -20,3 +20,9 @@ yarn-error.log*
 Thumbs.db
 .vscode/
 .idea/
+
+# Local photo source library (large originals; not served — only processed
+# outputs in public/images/ are committed). Re-run scripts/process-photos.mjs
+# locally against these.
+additional images/
+photos/
