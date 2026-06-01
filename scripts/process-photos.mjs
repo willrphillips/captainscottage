@@ -13,16 +13,25 @@ import { fileURLToPath } from "node:url";
 const root = dirname(fileURLToPath(import.meta.url)) + "/..";
 const outDir = join(root, "public", "images");
 
-// Resolve a source filename by trying the three places photos landed.
+// Resolve a source filename by trying the places originals may live.
+// `photos/originals` is the tidy archive; the legacy glob-ish names and
+// root are kept for back-compat with earlier uploads.
 async function locate(filename) {
-  for (const dir of ["_inbox**", "photos**", "."]) {
+  // Allow a slot `src` to be a full path relative to the repo root
+  // (e.g. "additional images/sunroom/_07A1855.jpg") — try that first.
+  try {
+    const direct = join(root, filename);
+    await access(direct, constants.R_OK);
+    return direct;
+  } catch {}
+  for (const dir of ["photos/originals", "photos", "_inbox**", "photos**", "."]) {
     const path = join(root, dir, filename);
     try {
       await access(path, constants.R_OK);
       return path;
     } catch {}
   }
-  throw new Error(`Could not find ${filename} in _inbox**/, photos**/, or root`);
+  throw new Error(`Could not find ${filename} (tried direct path, photos/originals, photos, root)`);
 }
 
 // Slot list — mirrors public/images/README.md exactly.
@@ -32,7 +41,7 @@ const slots = [
     dest: "hero-porch-creek.jpg",
     maxLong: 2400,
     quality: 78,
-    desc: "Hero — rattan lounge porch with creek view",
+    desc: "Hero — WEST/water-side wraparound back porch (lounge, creek view)",
   },
   {
     src: "_07A1961.jpeg",
@@ -69,7 +78,7 @@ const slots = [
     dest: "screened-porch-dining.jpg",
     maxLong: 2400,
     quality: 76,
-    desc: "Wooden dining table on the screened porch",
+    desc: "EAST/front/driveway screened porch — long dining table (faces driveway, NOT creek)",
   },
   {
     src: "_07A1929.jpeg",
@@ -136,13 +145,41 @@ const slots = [
     quality: 76,
     desc: "Cottage front from gravel driveway (extra)",
   },
+
+  // Added 2026-05-30 from the room-organized "additional images/" set.
+  {
+    src: "additional images/sunroom/_07A1855.jpg",
+    dest: "sleeping-porch-sunroom.jpg",
+    maxLong: 2400,
+    quality: 76,
+    desc: "Sleeping porch / sunroom (3rd bedroom) — brass daybed + trundle, windows on three sides",
+  },
+  {
+    src: "additional images/indoordiningroom/_07A1938.jpg",
+    dest: "dining-nook.jpg",
+    maxLong: 2400,
+    quality: 76,
+    desc: "Indoor dining nook off the kitchen — round table, banquette bench, pendant",
+  },
 ];
 
 await mkdir(outDir, { recursive: true });
 await mkdir(join(outDir, "extras"), { recursive: true });
 
+let wrote = 0;
+let skipped = 0;
 for (const slot of slots) {
-  const srcPath = await locate(slot.src);
+  let srcPath;
+  try {
+    srcPath = await locate(slot.src);
+  } catch {
+    // Many first-run originals were cleaned up after processing; their
+    // outputs already live in public/images/. Skip rather than abort so
+    // newly-added slots still process.
+    console.log(`  – ${slot.dest.padEnd(42)}  (source ${slot.src} not present — skipped)`);
+    skipped++;
+    continue;
+  }
   const buf = await readFile(srcPath);
   let pipeline = sharp(buf).rotate();
 
@@ -176,9 +213,10 @@ for (const slot of slots) {
   const outPath = join(outDir, slot.dest);
   await mkdir(dirname(outPath), { recursive: true });
   await writeFile(outPath, out);
+  wrote++;
   console.log(
     `  ✓ ${slot.dest.padEnd(42)} ${(out.length / 1024).toFixed(0).padStart(5)} KB   ${slot.desc}`
   );
 }
 
-console.log(`\nWrote ${slots.length} optimized JPEGs to public/images/.`);
+console.log(`\nWrote ${wrote} optimized JPEGs to public/images/ (${skipped} skipped — sources already consumed).`);

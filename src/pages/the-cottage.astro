@@ -4,7 +4,7 @@ import { PROPERTY, withBase } from "~/lib/site";
 
 const title = "The Cottage — Waterfront 3-Bedroom on Hull Creek, Virginia";
 const description =
-  "A long-form tour of Captain's Cottage on Hull Creek: three bedrooms, two screened porches, a cedar sauna, a hot tub by the water, and a dock that catches every evening's last gold.";
+  "A room-by-room tour of Captain's Cottage on Hull Creek: three bedrooms, two screened porches, a cedar sauna, a hot tub, and a dock that catches every evening's last gold.";
 ---
 
 <BaseLayout
@@ -25,7 +25,7 @@ const description =
           </h1>
         </header>
         <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
-          Three bedrooms, two screened porches, a cedar sauna, a hot tub on the dock, and a stretch of Hull Creek that does most of the work. The walkthrough, in the order it would happen.
+          Three bedrooms, two screened porches, a cedar sauna, a hot tub beside the house, and a stretch of Hull Creek that does most of the work. Come have a look around.
         </p>
       </div>
     </div>
@@ -36,7 +36,7 @@ const description =
       <figure class="overflow-hidden bg-bone-deep">
         <img
           src={withBase("/images/hero-porch-creek.jpg")}
-          alt="The rattan-furnished screened porch at Captain's Cottage looking out over Hull Creek — cedar-framed screens, ceiling fans, water beyond."
+          alt="The screened back porch at Captain's Cottage on the water side, with a rattan sofa and coffee table looking west over Hull Creek."
           class="h-auto w-full"
           loading="eager"
           decoding="async"
@@ -50,11 +50,11 @@ const description =
       <div class="grid gap-12 md:grid-cols-12 md:items-start">
         <header class="md:col-span-5 reveal">
           <p class="eyebrow">Arriving</p>
-          <h2 class="mt-6 font-display display-lg">A quiet driveway and a creek you can hear before you see it.</h2>
+          <h2 class="mt-6 font-display display-lg">A gravel drive on the east side, the creek waiting on the west.</h2>
         </header>
         <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
-          <p>You'll turn off the country two-lane onto a gravel drive lined with trees. The cottage sits low and white against the water, with the dock running out past the lawn. On a still afternoon you can hear the creek before you've finished unpacking — small things on the surface, an osprey calling from somewhere upstream, the soft slap of a paddle if someone's already out there.</p>
-          <p>It's about <a href={withBase("/area")}>two hours from Richmond and two and three-quarters from Washington, DC</a>, which makes it short enough for a weekend and far enough that the noise drops by the time you reach the bridge.</p>
+          <p>You'll turn off the country two-lane onto a gravel drive lined with trees, and the water opens up in front of you as you come down it, wide and bright where the Potomac runs toward the Chesapeake. The cottage sits low and white, the driveway behind you and the water ahead, so the creek is the thing you walk toward, not away from. On a still afternoon there's an osprey somewhere upstream and the soft slap of a paddle if someone's already out.</p>
+          <p>It's <a href={withBase("/area")}>under two hours from Richmond and about two and three-quarters from Washington, DC</a>, which makes it short enough for a weekend and far enough that the noise drops off by the time you reach the bridge.</p>
         </div>
       </div>
     </div>
@@ -62,14 +62,9 @@ const description =
 
   <section class="section-pad pt-0">
     <div class="container-wide">
-      <div class="grid gap-4 md:grid-cols-12 md:auto-rows-[clamp(220px,22vw,340px)]">
-        <figure class="md:col-span-7 overflow-hidden bg-bone-deep">
-          <img src={withBase("/images/living-room-rattan.jpg")} alt="The living room at Captain's Cottage — rattan chairs, a vintage red rug, and the dining nook beyond." class="h-full w-full object-cover" loading="lazy" decoding="async" />
-        </figure>
-        <figure class="md:col-span-5 overflow-hidden bg-bone-deep">
-          <img src={withBase("/images/kitchen-green-cabinets.jpg")} alt="The kitchen at Captain's Cottage — deep-green cabinets, open shelving, brass faucet, the counter that wants a slow Saturday meal." class="h-full w-full object-cover" loading="lazy" decoding="async" />
-        </figure>
-      </div>
+      <figure class="overflow-hidden bg-bone-deep aspect-[3/2] md:aspect-[16/9]">
+        <img src={withBase("/images/extras/cottage-front-driveway.jpg")} alt="The front of Captain's Cottage seen from the gravel driveway on the east side, white siding under trees." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+      </figure>
     </div>
   </section>
 
@@ -81,8 +76,30 @@ const description =
           <h2 class="mt-6 font-display display-lg">A living room that doesn't ask you to do anything.</h2>
         </header>
         <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
-          <p>The living room has rattan chairs, a vintage red rug, a sectional that has survived a thousand barefoot kids and a few wet swimsuits, and a dining nook that flows out to the screened porch. Everything points toward the water in the end. The lamps are soft, not bright; you light them in the evening and the room shifts.</p>
-          <p>The kitchen has deep-green cabinets, open shelving, a brass faucet, and counter space that wants a slow Saturday meal. It is set up for actual cooking — pans that have been seasoned, a coffee setup that doesn't require explanation, knives that are sharp enough to chop without arguing with you. See the <a href={withBase("/amenities")}>amenities page</a> for the specifics, or just look around when you arrive — most of it is right where you'd guess.</p>
+          <p>The living room is the big one, rattan chairs and a vintage red rug and a deep sectional you can sink into after a day on the water. The lamps are soft, not bright; you light them in the evening and the room settles. It's the gathering room, the one everyone drifts back to after the water.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <figure class="overflow-hidden bg-bone-deep aspect-[3/2] md:aspect-[16/9]">
+        <img src={withBase("/images/living-room-rattan.jpg")} alt="The living room at Captain's Cottage: rattan chairs, a vintage red rug, and soft lamplight." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-12 md:grid-cols-12 md:items-start">
+        <header class="md:col-span-5 reveal">
+          <p class="eyebrow">The kitchen</p>
+          <h2 class="mt-6 font-display display-lg">Modest, complete, and looking at the water while you cook.</h2>
+        </header>
+        <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
+          <p>The kitchen is its own room, green cabinets and open shelving and a brass faucet, with everything you need and nothing you don't. There's good counter space, a coffee setup that doesn't require explanation, pans that have been seasoned, and knives sharp enough to chop without arguing with you. Stand at the sink and you're looking out at the creek.</p>
+          <p>Just off it is the breakfast nook, a round table and a banquette bench tucked into the corner under a pendant light, with a window onto the screened porch. It's where the first coffee of the day ends up. See the <a href={withBase("/amenities")}>amenities page</a> for the specifics, or just look around when you arrive; most of it is right where you'd guess.</p>
         </div>
       </div>
     </div>
@@ -92,10 +109,10 @@ const description =
     <div class="container-wide">
       <div class="grid gap-4 md:grid-cols-12 md:auto-rows-[clamp(220px,22vw,340px)]">
         <figure class="md:col-span-6 overflow-hidden bg-bone-deep">
-          <img src={withBase("/images/screened-porch-dining.jpg")} alt="The wooden dining table on the screened porch at Captain's Cottage, with pendant lights and white siding." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+          <img src={withBase("/images/kitchen-green-cabinets.jpg")} alt="The kitchen at Captain's Cottage: deep-green cabinets, open shelving, brass faucet, and a window over the sink." class="h-full w-full object-cover" loading="lazy" decoding="async" />
         </figure>
         <figure class="md:col-span-6 overflow-hidden bg-bone-deep">
-          <img src={withBase("/images/extras/screened-porch-creek-view.jpg")} alt="View from the screened porch at Captain's Cottage looking out across Hull Creek — cedar framing, the dock just below." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+          <img src={withBase("/images/dining-nook.jpg")} alt="The breakfast nook off the kitchen at Captain's Cottage: a round wooden table, a banquette bench with pillows, and a pendant light." class="h-full w-full object-cover" loading="lazy" decoding="async" />
         </figure>
       </div>
     </div>
@@ -106,10 +123,11 @@ const description =
       <div class="grid gap-12 md:grid-cols-12 md:items-start">
         <header class="md:col-span-5 reveal">
           <p class="eyebrow">The porches</p>
-          <h2 class="mt-6 font-display display-lg">Two screened porches — one to eat on, one to sleep on.</h2>
+          <h2 class="mt-6 font-display display-lg">Two screened porches: one to eat on, one to sink into.</h2>
         </header>
         <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
-          <p>The dining porch is the one with the long table and the pendants — most meals end up here once you've been a day or two. The other porch, off the back, has a daybed; it's the porch you end up reading on at three in the afternoon and not getting up from. Both face the creek. Both are screened, which matters: this is mosquito country in midsummer, and the screens are why you'll still want to be outside at dusk.</p>
+          <p>The east porch, off the driveway side, is the big screened one with the long table and the pendants. It's where dinner ends up once you've been here a day or two, especially when there are enough of you that the meal needs room.</p>
+          <p>The other is the wraparound porch on the water side, the one with the sofa and the coffee table that you sink into and don't get up from. It looks straight west over the creek, so it catches the afternoon and the evening light both. Both porches are screened, which is the whole point: you stay out there at dusk without a second thought.</p>
         </div>
       </div>
     </div>
@@ -118,11 +136,11 @@ const description =
   <section class="section-pad pt-0">
     <div class="container-wide">
       <div class="grid gap-4 md:grid-cols-12 md:auto-rows-[clamp(220px,22vw,340px)]">
-        <figure class="md:col-span-7 overflow-hidden bg-bone-deep">
-          <img src={withBase("/images/master-bedroom.jpg")} alt="Master bedroom at Captain's Cottage with a mahogany four-poster bed and a wicker trunk at the foot." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        <figure class="md:col-span-6 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/screened-porch-dining.jpg")} alt="The east screened porch at Captain's Cottage with a long wooden dining table and pendant lights, on the driveway side of the house." class="h-full w-full object-cover" loading="lazy" decoding="async" />
         </figure>
-        <figure class="md:col-span-5 overflow-hidden bg-bone-deep">
-          <img src={withBase("/images/extras/second-bedroom.jpg")} alt="Second bedroom at Captain's Cottage — bright, soft, set up for kids or a quiet guest." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        <figure class="md:col-span-6 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/extras/screened-porch-creek-view.jpg")} alt="The wraparound screened porch on the water side of Captain's Cottage, looking west across Hull Creek through cedar-framed screens." class="h-full w-full object-cover" loading="lazy" decoding="async" />
         </figure>
       </div>
     </div>
@@ -136,7 +154,8 @@ const description =
           <h2 class="mt-6 font-display display-lg">Three bedrooms, four beds, room for six.</h2>
         </header>
         <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
-          <p>The master has a mahogany four-poster and a wicker trunk at the foot of the bed; it gets the morning light first. The second bedroom is the kid room — soft, bright, with a removable bed guard if you've got a small sleeper. A third room rounds it out. Four beds total, up to six guests, {PROPERTY.bathrooms} baths. Linens are real linens, not the kind that crinkle.</p>
+          <p>The master is on the water side, a mahogany four-poster with a wicker trunk at the foot of the bed and the creek out the window; you wake up looking at it. The second bedroom is bright and soft, set up for kids or a quiet guest, with a removable bed guard if you've got a small sleeper.</p>
+          <p>The third is what we call the sleeping porch: a sunroom lined with windows on three sides, a brass daybed with a pull-out trundle underneath. It's the room the light finds first in the morning and the one nobody minds being assigned. Four beds in all, up to {PROPERTY.maxGuests} guests, {PROPERTY.bathrooms} baths. Linens are real linens, not the kind that crinkle.</p>
         </div>
       </div>
     </div>
@@ -146,12 +165,20 @@ const description =
     <div class="container-wide">
       <div class="grid gap-4 md:grid-cols-12 md:auto-rows-[clamp(220px,22vw,340px)]">
         <figure class="md:col-span-7 overflow-hidden bg-bone-deep">
-          <img src={withBase("/images/cedar-sauna-creek-sunset.jpg")} alt="The cedar barrel sauna at Captain's Cottage on Hull Creek, lit by late-afternoon sun with the creek and treeline behind." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+          <img src={withBase("/images/master-bedroom.jpg")} alt="The master bedroom at Captain's Cottage: a mahogany four-poster bed and a wicker trunk, on the water side of the house." class="h-full w-full object-cover" loading="lazy" decoding="async" />
         </figure>
         <figure class="md:col-span-5 overflow-hidden bg-bone-deep">
-          <img src={withBase("/images/hot-tub-hull-creek.jpg")} alt="The hot tub on the back deck at Captain's Cottage, bubbling water in the foreground, Hull Creek beyond." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+          <img src={withBase("/images/extras/second-bedroom.jpg")} alt="The second bedroom at Captain's Cottage, bright and soft, set up for kids or a quiet guest." class="h-full w-full object-cover" loading="lazy" decoding="async" />
         </figure>
       </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <figure class="overflow-hidden bg-bone-deep aspect-[3/2] md:aspect-[16/9]">
+        <img src={withBase("/images/sleeping-porch-sunroom.jpg")} alt="The sleeping porch at Captain's Cottage: a sunroom with a brass daybed and trundle, windows on three sides letting in morning light." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+      </figure>
     </div>
   </section>
 
@@ -163,11 +190,32 @@ const description =
           <h2 class="mt-6 font-display display-lg">The dock, the sauna, and the hot tub do most of the work.</h2>
         </header>
         <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
-          <p>The dock runs out past a stretch of brackish, shallow creek — wadeable at the edge, kid-friendly, the kind of water you can stand in for an hour without getting bored. There's a crab pot on the dock and a kayak and paddleboard tucked under it.</p>
-          <p>The cedar barrel sauna sits a few steps from the back door with a west-facing window onto the creek; heat until you mean it, then walk out to the dock and into the water. The hot tub is on the deck, lit by the last of the sun, and runs year-round — even in February. Most guests end up using it more in winter than they expected.</p>
+          <p>The dock runs out past a stretch of brackish, shallow creek, wadeable at the edge and kid-friendly, the kind of water you can stand in for an hour without getting bored. There's a crab pot off the back porch and two kayaks and a paddleboard for when you want to be on the water instead of beside it.</p>
+          <p>The cedar barrel sauna sits on the north side with a window angled toward the creek, so it fills with gold every clear evening; heat until you mean it, then walk out to the dock and into the water. The hot tub sits on a patio beside the house on the south side, lit by the last of the sun, and runs year-round, even in February. Most guests end up using it more in winter than they expected.</p>
           <p>The rest of <a href={withBase("/activities")}>what you can do from the dock</a> sits on the activities page; the <a href={withBase("/area")}>broader Northern Neck</a> is its own guide.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <div class="grid gap-4 md:grid-cols-12 md:auto-rows-[clamp(220px,22vw,340px)]">
+        <figure class="md:col-span-7 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/cedar-sauna-creek-sunset.jpg")} alt="The cedar barrel sauna at Captain's Cottage on the north side of the house, lit by late-afternoon sun with the creek and treeline behind." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="md:col-span-5 overflow-hidden bg-bone-deep">
+          <img src={withBase("/images/hot-tub-hull-creek.jpg")} alt="The hot tub on the south-side patio at Captain's Cottage, bubbling water in the foreground, Hull Creek beyond." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0">
+    <div class="container-wide">
+      <figure class="overflow-hidden bg-bone-deep aspect-[3/2] md:aspect-[16/9]">
+        <img src={withBase("/images/dock-hull-creek.jpg")} alt="The dock at Captain's Cottage extending into Hull Creek, with a sandbar mid-creek and the far tree line beyond." class="h-full w-full object-cover" loading="lazy" decoding="async" />
+      </figure>
     </div>
   </section>
 
