@@ -14,7 +14,7 @@ interface Props {
 const { title, excerpt, category, href, publishedAt, imageSrc, imageAlt } = Astro.props;
 
 const dateLabel = publishedAt
-  ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(publishedAt)
+  ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(publishedAt)
   : "";
 ---
 

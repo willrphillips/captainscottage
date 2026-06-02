@@ -80,7 +80,7 @@ export const HEADLINE_REVIEWS: { quote: string; author: string }[] = [
 ];
 
 export const NAV_LINKS: { label: string; href: string }[] = [
-  { label: "The cottage", href: "/the-cottage" },
+  { label: "The Cottage", href: "/the-cottage" },
   { label: "Amenities", href: "/amenities" },
   { label: "Area", href: "/area" },
   { label: "Activities", href: "/activities" },
