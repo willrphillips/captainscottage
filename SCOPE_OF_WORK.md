@@ -35,6 +35,7 @@ Notes: Pipeline 100% — both batches drafted, SEO-looped, gated. Review/publish
 
 | Decision | Choice |
 |---|---|
+| **Owning entity** | **Buffalo Rentals LLC** — Captain's Cottage is owned and operated under Buffalo Rentals LLC (corrected 2026-06-02; supersedes the earlier "Good Old Boys LLC", which was wrong and has been purged repo-wide). `PROPERTY.owner` in `src/lib/site.ts` is the single source — footer copyright + all schema (Organization, VacationRental brand, BlogPosting publisher) read from it. |
 | Automation level | **Hybrid** — agents auto-draft on a schedule; nothing publishes without approval. |
 | Review surface | **Git-based CMS at `/admin`** (Decap or Sveltia), scoped to the blog (`src/content/blog/`). Open from any browser/phone, GitHub-account login, editorial draft→review→publish workflow, commits to the repo. Supersedes the earlier "GitHub PR + preview" choice (owner decision, 2026-05-15). |
 | Scheduled publish mechanism | Each post carries a `publishedAt` date and stays draft until then; a **weekly GitHub Actions cron** rebuilds the site so date-due posts go live (static sites don't self-release without a rebuild trigger). Batch-approve N posts, each releases on its own date (e.g. successive Wednesdays). |
