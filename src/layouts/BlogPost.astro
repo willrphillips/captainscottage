@@ -68,6 +68,11 @@ const dateLabel = new Intl.DateTimeFormat("en-US", {
   month: "long",
   day: "numeric",
   year: "numeric",
+  // publishedAt is a date-only value stored at midnight UTC. Format in UTC
+  // so the authored calendar date shows exactly, regardless of the viewer's
+  // (or build server's) timezone — otherwise an Eastern viewer sees the
+  // date slip back a day.
+  timeZone: "UTC",
 }).format(publishedAt);
 
 const isoDate = publishedAt.toISOString();
