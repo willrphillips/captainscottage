@@ -21,7 +21,7 @@ The reader is a DC or Richmond professional who has been quietly running the num
 - Waterway: Hull Creek, off the Potomac River near where it meets the Chesapeake Bay (approx. 37.95° N, 76.45° W)
 - Bedrooms: 3 / Bathrooms: 1.5 / Max guests: 6
 - Cottage acquired: fall 2022 (per `site.ts` `cottageAcquiredYear`)
-- Owner entity: Good Old Boys LLC
+- Owner entity: Buffalo Rentals LLC
 - Source: `src/lib/site.ts`
 
 ### Property tax — Northumberland County

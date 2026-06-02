@@ -36,7 +36,7 @@ export const PROPERTY = {
   top5Percent: true, // "Top 5% of homes" — Airbnb-side; flip if it ever falls off
   airbnbUrl: "https://www.airbnb.com/h/captainscottageva",
   // email intentionally removed — site directs all contact to the Airbnb listing
-  owner: "Good Old Boys LLC",
+  owner: "Buffalo Rentals LLC",
 } as const;
 
 export const DRIVE_TIMES: { place: string; minutes: number }[] = [
