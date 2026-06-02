@@ -1,16 +1,20 @@
 # Post-launch SEO / AEO / GEO playbook
 
-> **Live progress (updated 2026-05-30):**
+> **Live progress (updated 2026-06-02):**
 > - ✅ Domain live: https://captainscottageva.com (HTTPS, cert, www→apex)
 > - ✅ Analytics: Cloudflare Web Analytics (free) — replaced Plausible
 > - ✅ Google Search Console: verified, sitemap submitted, home indexed,
 >   VacationRental schema all-green / rich-result eligible
-> - ✅ Auto-publish cron live (5 posts ship weekly 06-03 → 07-01;
->   5 more drafted for 07-08 → 08-05)
-> - ⬜ Bing Webmaster + IndexNow key + IndexNow Action (next)
-> - ⬜ PageSpeed Insights spot check
-> - ⬜ Airbnb listing description → add the new URL (top backlink)
-> - ⬜ Per-town deep guides, guest-reply bootstrap run
+> - ✅ Auto-publish cron live (5 approved posts ship weekly 06-03 → 07-01;
+>   5 more drafted for 07-08 → 08-05 but NOT yet approved, so gated)
+> - ✅ `/the-cottage` rewritten to match the floorplan (live)
+> - ✅ Owning entity corrected to Buffalo Rentals LLC site-wide
+> - ⬜ **Bing Webmaster** (import from GSC) — in progress
+> - ⬜ **IndexNow** key (from Bing) → `public/<key>.txt` → ping-on-deploy Action
+> - ⬜ **PageSpeed Insights** spot check (home + a journal page)
+> - ⬜ **Airbnb listing description** → add the new URL (top backlink)
+> - ⬜ Approve batch-2 (5 drafts); answer cost-to-own/wildlife/DC/Irvington TODOs
+> - ⬜ Guest-reply bootstrap run; per-town deep guides (later)
 
 
 A staged proliferation plan for **Captain's Cottage** once the production
