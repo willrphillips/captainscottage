@@ -2,8 +2,15 @@ name: Auto-publish approved drafts
 
 # Daily check: any approved draft post whose publishedAt date has
 # arrived gets flipped from `draft: true` to `draft: false`. The flip
-# is committed to main; the existing Deploy workflow listens on push
-# to main and rebuilds the site automatically.
+# is committed to main, then this workflow explicitly dispatches the
+# Deploy workflow to rebuild the site.
+#
+# Why the explicit dispatch: pushes made with the default GITHUB_TOKEN
+# do NOT trigger other workflows (GitHub's anti-recursion rule), so the
+# Deploy workflow's `push: main` trigger never fires for the commit we
+# make here. workflow_dispatch is exempt from that rule, so we kick the
+# deploy ourselves after pushing. Without this step the draft flips on
+# main but the live site never rebuilds — published posts stay invisible.
 #
 # Eligibility rules (enforced by .github/scripts/auto-publish.mjs):
 #   - draft: true
@@ -21,6 +28,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   flip:
@@ -49,3 +57,11 @@ jobs:
           Triggered by .github/workflows/auto-publish.yml on the daily cron.
           See .github/scripts/auto-publish.mjs for eligibility rules."
           git push
+
+      - name: Trigger deploy
+        # A GITHUB_TOKEN push does not fire Deploy's `push: main` trigger,
+        # so dispatch it explicitly against main (now carrying the flip).
+        if: steps.flip.outputs.flipped != '0' && steps.flip.outputs.flipped != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref main
