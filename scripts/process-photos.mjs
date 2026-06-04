@@ -52,6 +52,41 @@ const slots = [
     quality: 80,
     desc: "OpenGraph / Twitter card",
   },
+  // Responsive WebP variants of the full-bleed hero — served via <picture>
+  // srcset in Hero.astro so phones pull a small image instead of the 2400px
+  // JPEG (fixes the LCP/Performance score). JPEG above stays as the fallback.
+  {
+    src: "_07A1961.jpeg",
+    dest: "hero-porch-creek-768.webp",
+    maxLong: 768,
+    quality: 72,
+    format: "webp",
+    desc: "Hero WebP — mobile (768w)",
+  },
+  {
+    src: "_07A1961.jpeg",
+    dest: "hero-porch-creek-1280.webp",
+    maxLong: 1280,
+    quality: 72,
+    format: "webp",
+    desc: "Hero WebP — tablet (1280w)",
+  },
+  {
+    src: "_07A1961.jpeg",
+    dest: "hero-porch-creek-1920.webp",
+    maxLong: 1920,
+    quality: 72,
+    format: "webp",
+    desc: "Hero WebP — desktop (1920w)",
+  },
+  {
+    src: "_07A1961.jpeg",
+    dest: "hero-porch-creek-2400.webp",
+    maxLong: 2400,
+    quality: 72,
+    format: "webp",
+    desc: "Hero WebP — large/retina (2400w)",
+  },
   {
     src: "_MG_2050.jpeg",
     dest: "dock-hull-creek.jpg",
@@ -201,14 +236,17 @@ for (const slot of slots) {
     });
   }
 
-  const out = await pipeline
-    .jpeg({
-      quality: slot.quality,
-      mozjpeg: true,
-      progressive: true,
-      chromaSubsampling: "4:2:0",
-    })
-    .toBuffer();
+  const out =
+    slot.format === "webp"
+      ? await pipeline.webp({ quality: slot.quality }).toBuffer()
+      : await pipeline
+          .jpeg({
+            quality: slot.quality,
+            mozjpeg: true,
+            progressive: true,
+            chromaSubsampling: "4:2:0",
+          })
+          .toBuffer();
 
   const outPath = join(outDir, slot.dest);
   await mkdir(dirname(outPath), { recursive: true });
