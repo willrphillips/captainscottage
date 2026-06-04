@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import { DRIVE_TIMES, withBase } from "~/lib/site";
+import { withBase } from "~/lib/site";
 
 const title = "Northern Neck Getaway Guide — From Hull Creek, Virginia";
 const description =
-  "A host-written Northern Neck getaway guide: how to get here from DC, Richmond, and Norfolk, the towns worth a stop, the best activities near Hull Creek, and what each season feels like on the water.";
+  "A host-written Northern Neck getaway guide: how to get here from DC, Richmond, and Norfolk, the towns worth a stop, the best activities near Hull Creek, where to stay, and what each season feels like on the water.";
 
 const toc = [
   { id: "from-dc", label: "From Washington, DC" },
@@ -15,7 +15,7 @@ const toc = [
   { id: "family", label: "Family-friendly ideas" },
   { id: "romantic", label: "Quiet romantic getaway ideas" },
   { id: "seasons", label: "Seasonal notes" },
-  { id: "fit", label: "Where Captain's Cottage fits in" },
+  { id: "fit", label: "Where to stay on the water" },
 ];
 ---
 
@@ -175,11 +175,11 @@ const toc = [
     <div class="container-wide">
       <div class="grid gap-12 md:grid-cols-12 md:items-start">
         <header class="md:col-span-5 reveal">
-          <p class="eyebrow">Where we fit</p>
-          <h2 class="mt-6 font-display display-lg">Why people use Captain's Cottage as the base.</h2>
+          <p class="eyebrow">Where to stay</p>
+          <h2 class="mt-6 font-display display-lg">The waterfront rental we'd put you in.</h2>
         </header>
         <div class="md:col-span-7 reveal body-prose" style="transition-delay: 80ms;">
-          <p>The Northern Neck has plenty of options, including bigger resorts at the Tides Inn and a handful of inns scattered through Kilmarnock and Irvington. We're the quieter option — a three-bedroom waterfront cottage with a real dock, a sauna, a hot tub, and a kitchen set up for actual cooking. Up to {DRIVE_TIMES[0]?.minutes ? "six" : "six"} guests, two screened porches, and a stretch of Hull Creek that takes care of the rest. Take the <a href={withBase("/the-cottage")}>full tour</a> if you want a closer look.</p>
+          <p>The Northern Neck has plenty of places to stay, including bigger resorts at the Tides Inn and a handful of inns scattered through Kilmarnock and Irvington. We're the quieter option: Captain's Cottage is a three-bedroom waterfront vacation rental on Hull Creek with its own dock, a cedar sauna, a hot tub, and a kitchen set up for actual cooking. Up to six guests, two screened porches, and a stretch of creek that takes care of the rest. It's an Airbnb listing, so dates and booking run there. Take the <a href={withBase("/the-cottage")}>full tour</a> if you want a closer look, or just tap Stay with us.</p>
         </div>
       </div>
     </div>
