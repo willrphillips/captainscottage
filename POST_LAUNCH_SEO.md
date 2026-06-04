@@ -1,20 +1,28 @@
 # Post-launch SEO / AEO / GEO playbook
 
-> **Live progress (updated 2026-06-02):**
+> **Live progress (updated 2026-06-04):**
 > - ✅ Domain live: https://captainscottageva.com (HTTPS, cert, www→apex)
 > - ✅ Analytics: Cloudflare Web Analytics (free) — replaced Plausible
 > - ✅ Google Search Console: verified, sitemap submitted, home indexed,
 >   VacationRental schema all-green / rich-result eligible
-> - ✅ Auto-publish cron live (5 approved posts ship weekly 06-03 → 07-01;
->   5 more drafted for 07-08 → 08-05 but NOT yet approved, so gated)
-> - ✅ `/the-cottage` rewritten to match the floorplan (live)
-> - ✅ Owning entity corrected to Buffalo Rentals LLC site-wide
-> - ⬜ **Bing Webmaster** (import from GSC) — in progress
-> - ⬜ **IndexNow** key (from Bing) → `public/<key>.txt` → ping-on-deploy Action
-> - ⬜ **PageSpeed Insights** spot check (home + a journal page)
-> - ⬜ **Airbnb listing description** → add the new URL (top backlink)
-> - ⬜ Approve batch-2 (5 drafts); answer cost-to-own/wildlife/DC/Irvington TODOs
-> - ⬜ Guest-reply bootstrap run; per-town deep guides (later)
+> - ✅ Bing Webmaster: imported from GSC (verification + sitemap)
+> - ✅ IndexNow: key hosted + GitHub Action auto-pings published URLs on deploy
+> - ✅ Auto-publish cron PROVEN — first post (Crabbing) auto-published 06-03;
+>   batch 1 ships weekly 06-03 → 07-01; batch 2 (07-08 → 08-05) drafted but
+>   NOT approved, so gated (cron needs `approvedAt`)
+> - ✅ PageSpeed: mobile Performance 95 / A11y 96 / BP 100 / SEO 100; LCP 2.4s
+>   (responsive WebP hero fix)
+> - ✅ Accommodation-intent SEO on existing pages (home meta + FAQ +
+>   getaway-guide "where to stay") — no directory page; honest, → Airbnb
+> - ✅ `/the-cottage` floorplan-accurate; owner = Buffalo Rentals LLC site-wide
+>
+> **Flagged / remaining:**
+> - ⬜ **`llms.txt`** — add a `/llms.txt` AI-summary file (GEO; flagged for next session)
+> - ⬜ Optional polish: rust-button contrast (A11y 96→100); font preconnect/preload; per-post OG images
+> - ⬜ Will (gated): approve batch-2; answer cost-to-own/wildlife/DC/Irvington TODOs; guest-reply bootstrap
+> - ⬜ Ongoing (owner): backlink outreach; AEO citation checks (~few weeks); GSC query mining (~1 month)
+> - ✖ Airbnb listing URL — Will can't edit the dashboard; dropped
+> - ✖ Custom cache/security headers (HSTS/CSP) — not possible on GitHub Pages without a Cloudflare proxy; not pursued
 
 
 A staged proliferation plan for **Captain's Cottage** once the production
