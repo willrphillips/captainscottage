@@ -1,0 +1,34 @@
+name: IndexNow ping
+
+# When published content changes on main, tell IndexNow (Bing, Copilot, and
+# other participants) to recrawl — so newly auto-published journal posts get
+# picked up promptly instead of waiting for a scheduled crawl.
+#
+# Fires on main when blog content or pages change. That covers both human
+# edits and the daily auto-publish cron (which commits a draft:false flip to
+# main). The key is a public ownership token hosted at
+# public/a9f4c7e21b8d40539c6e1f0a7b3d5e82.txt — no secret needed.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/content/blog/**"
+      - "src/pages/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Submit URLs to IndexNow
+        run: node .github/scripts/indexnow-submit.mjs
