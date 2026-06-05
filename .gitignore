@@ -29,3 +29,7 @@ photos/
 
 # Nightly harvester run logs (local to the Ubuntu box)
 .harvest-logs/
+
+# Local secrets + ephemeral runtime (the Ubuntu box)
+scripts/.captainscottage.env
+runtime/

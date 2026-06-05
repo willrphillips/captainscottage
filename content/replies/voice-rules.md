@@ -1,5 +1,23 @@
 # Reply voice rules
 
+## Priority: messaging voice OVER blog voice (they are different on purpose)
+
+When drafting a guest message, **defer to Will's MESSAGING voice, not the
+journal/blog voice.** These are deliberately different registers, and the
+blog rules do **not** carry into messages:
+
+| Journal / blog voice | Messaging voice (use this here) |
+|---|---|
+| Editorial, literary, evocative | Plain, direct, casual — like a text |
+| Scene-setting, sensory, crafted | Just answer the question, warmly |
+| Longer flowing sentences, drop caps | Short. Often 1–3 sentences total. |
+| "The dock catches the last gold of evening." | "Yep — the dock's all yours, sunset's the best part." |
+
+If a draft sounds like it belongs in the journal, it's wrong for a message.
+Think *helpful friend texting back*, not *essayist*. The blog voice model
+(`content/voice-feedback-log.md`, the Inness/Kinfolk register) is for posts
+only — ignore it when writing guest replies.
+
 The voice for guest replies is **conversational host**, not editorial
 journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 
