@@ -5,6 +5,12 @@ on:
     branches:
       - main
       - claude/add-claude-documentation-nqyPq
+    # The nightly guest-reply harvester commits only content/replies/ (a
+    # private knowledge base that isn't built into the site). Skip the
+    # rebuild for pushes that touch nothing else.
+    paths-ignore:
+      - "content/replies/**"
+      - ".harvest-logs/**"
   workflow_dispatch:
 
 permissions:
