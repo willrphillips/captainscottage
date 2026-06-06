@@ -144,18 +144,21 @@ Output nothing else.`;
 
 // ---- Telegram ---------------------------------------------------------------
 
-async function telegram(text) {
+async function telegram(text, button) {
+  const payload = {
+    chat_id: process.env.TELEGRAM_CHAT_ID,
+    text,
+    disable_web_page_preview: true,
+  };
+  // An inline button renders as a clean, reliably-tappable button on mobile
+  // and desktop (avoids Telegram's flaky auto-linking of long URLs). Button
+  // URLs must be http/https — so we use the Gmail compose URL, not mailto.
+  if (button?.url) {
+    payload.reply_markup = { inline_keyboard: [[{ text: button.text, url: button.url }]] };
+  }
   const res = await fetch(
     `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
-    {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        chat_id: process.env.TELEGRAM_CHAT_ID,
-        text,
-        disable_web_page_preview: true,
-      }),
-    },
+    { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) },
   );
   if (!res.ok) console.error("telegram send failed:", res.status, await res.text().catch(() => ""));
 }
@@ -206,14 +209,13 @@ if (process.env.TEST_MODE === "true") {
     );
   } else {
     const gmail = buildGmailCompose("willrphillips@gmail.com", "Test guest message", reply);
-    const mailto = buildMailto("willrphillips@gmail.com", "Test guest message", reply);
     await telegram(
       `✉️ TEST — full draft (Gmail read skipped)\n\n` +
         `Simulated question: ${q}\n\n` +
         `Agent's proposed reply:\n${reply}\n\n` +
-        `Open in Gmail (prefilled), then Send:\n${gmail}\n\n` +
-        `Other mail app: ${mailto}\n\n` +
+        `Tap the button below → opens prefilled in Gmail → Send.\n` +
         `(Test only — addressed to you, so Send just emails yourself.)`,
+      { text: "✉️ Open in Gmail & send", url: gmail },
     );
   }
   console.log("test mode: done.");
@@ -266,13 +268,12 @@ for (const { id } of list) {
   } else {
     drafted++;
     const gmail = buildGmailCompose(replyTo, subject, reply);
-    const mailto = buildMailto(replyTo, subject, reply);
     await telegram(
       `✉️ New guest message — DRAFT ready\n\n` +
         `Proposed reply:\n${reply}\n\n` +
-        `Open in Gmail (prefilled), then Send:\n${gmail}\n\n` +
-        `Other mail app: ${mailto}\n\n` +
+        `Tap the button below → opens prefilled in Gmail → Send.\n` +
         `(Sends from your Gmail → relays to the guest. Nothing was sent automatically.)`,
+      { text: "✉️ Open in Gmail & send", url: gmail },
     );
   }
 
