@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Opening Gmail…</title>
+  <style>
+    body { font-family: -apple-system, system-ui, sans-serif; padding: 2rem; text-align: center; color: #1a2734; background: #f4eee3; }
+    a.btn { display: inline-block; margin-top: 1rem; padding: 0.8rem 1.4rem; background: #b8552e; color: #fff; border-radius: 9999px; text-decoration: none; font-weight: 600; }
+    p { line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <p>Opening Gmail…</p>
+  <p id="fallback" style="display:none">If Gmail didn't open automatically:</p>
+  <a id="weblink" class="btn" style="display:none" href="#">Open Gmail compose</a>
+
+  <script>
+    // This page turns an https tap (from the Telegram button) into the Gmail
+    // iOS/Android APP compose screen, prefilled. Falls back to Gmail web.
+    (function () {
+      var p = new URLSearchParams(location.search);
+      var to = p.get("to") || "";
+      var su = p.get("su") || "";
+      var body = p.get("body") || "";
+
+      var appUrl =
+        "googlegmail:///co?to=" + encodeURIComponent(to) +
+        "&subject=" + encodeURIComponent(su) +
+        "&body=" + encodeURIComponent(body);
+      var webUrl =
+        "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(to) +
+        "&su=" + encodeURIComponent(su) +
+        "&body=" + encodeURIComponent(body);
+
+      // Prep the visible fallback (works everywhere: opens Gmail web compose).
+      var link = document.getElementById("weblink");
+      link.href = webUrl;
+
+      // Try the Gmail app first.
+      try { window.location.href = appUrl; } catch (e) {}
+
+      // If the app didn't take over within ~1.2s, reveal the web fallback.
+      setTimeout(function () {
+        document.getElementById("fallback").style.display = "";
+        link.style.display = "inline-block";
+      }, 1200);
+    })();
+  </script>
+</body>
+</html>

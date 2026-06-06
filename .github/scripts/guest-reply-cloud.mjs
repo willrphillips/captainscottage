@@ -167,13 +167,12 @@ function reSubject(subject) {
   return /^re:/i.test(subject) ? subject : `Re: ${subject}`;
 }
 
-// Gmail web/app compose URL — opens a prefilled compose (to + subject + body).
-// A clean https link, so Telegram always renders it tappable, and on a phone
-// it opens the Gmail app's compose. This is the primary "open & send" link.
-function buildGmailCompose(to, subject, body) {
+// The Telegram button points here (https, so it's button-legal). On iOS this
+// page bounces to the Gmail APP compose (googlegmail://), prefilled; on
+// desktop/other it falls back to Gmail web compose. See public/compose.html.
+function buildComposeLink(to, subject, body) {
   return (
-    "https://mail.google.com/mail/?view=cm&fs=1" +
-    "&to=" + encodeURIComponent(to) +
+    "https://captainscottageva.com/compose.html?to=" + encodeURIComponent(to) +
     "&su=" + encodeURIComponent(reSubject(subject)) +
     "&body=" + encodeURIComponent(body)
   );
@@ -208,7 +207,7 @@ if (process.env.TEST_MODE === "true") {
         `(Test only. Escalations are expected while the knowledge base is still thin.)`,
     );
   } else {
-    const gmail = buildGmailCompose("willrphillips@gmail.com", "Test guest message", reply);
+    const gmail = buildComposeLink("willrphillips@gmail.com", "Test guest message", reply);
     await telegram(
       `✉️ TEST — full draft (Gmail read skipped)\n\n` +
         `Simulated question: ${q}\n\n` +
@@ -269,7 +268,7 @@ for (const { id } of list) {
     );
   } else {
     drafted++;
-    const gmail = buildGmailCompose(replyTo, subject, reply);
+    const gmail = buildComposeLink(replyTo, subject, reply);
     await telegram(
       `✉️ New guest message — DRAFT ready\n\n` +
         `Proposed reply:\n${reply}\n\n` +
