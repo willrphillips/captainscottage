@@ -174,22 +174,34 @@ function buildMailto(replyTo, subject, body) {
 
 // ---- Main -------------------------------------------------------------------
 
-// Test mode: send one sample draft to Telegram (addressed to yourself) so you
-// can confirm the Telegram message + mailto → Gmail-compose → Send flow works,
-// without needing a real Airbnb message. Triggered via workflow_dispatch.
+// Test mode: run the REAL drafting brain on a simulated guest question, then
+// Telegram the result (draft + prefilled mailto to yourself, or escalation).
+// Exercises the whole chain except the Gmail read (already proven). Triggered
+// via workflow_dispatch; an optional test_question input overrides the sample.
 if (process.env.TEST_MODE === "true") {
-  const sample =
-    "Hi! Yes, check-in is 4 PM and the door code is in your arrival message. " +
-    "The dock and kayaks are all yours, and the sauna's ready whenever you want it. " +
-    "Let us know if anything comes up. — Will";
-  const mailto = buildMailto("willrphillips@gmail.com", "Test message", sample);
-  await telegram(
-    `✉️ TEST — this is what a draft will look like\n\n` +
-      `Proposed reply:\n${sample}\n\n` +
-      `Tap to open a prefilled Gmail reply, then Send:\n${mailto}\n\n` +
-      `(Test only — addressed to you, so sending just emails yourself. Confirms the tap-to-send flow.)`,
-  );
-  console.log("test mode: sent sample Telegram message.");
+  const q =
+    process.env.TEST_QUESTION ||
+    "Hi! Is the dock safe for young kids, and do you have life jackets? Also what time is check-in?";
+  console.log("test mode: drafting a reply to a simulated question…");
+  const reply = draftReply({ guestText: q, subject: "Test guest message", fromName: "Test Guest" });
+  if (reply.startsWith("ESCALATE:")) {
+    await telegram(
+      `🔴 TEST — the agent ESCALATED this one\n\n` +
+        `Simulated question: ${q}\n\n` +
+        `Reason: ${reply.replace(/^ESCALATE:\s*/, "")}\n\n` +
+        `(Test only. Escalations are expected while the knowledge base is still thin.)`,
+    );
+  } else {
+    const mailto = buildMailto("willrphillips@gmail.com", "Test guest message", reply);
+    await telegram(
+      `✉️ TEST — full draft (Gmail read skipped)\n\n` +
+        `Simulated question: ${q}\n\n` +
+        `Agent's proposed reply:\n${reply}\n\n` +
+        `Tap to open a prefilled Gmail reply, then Send:\n${mailto}\n\n` +
+        `(Test only — addressed to you, so Send just emails yourself.)`,
+    );
+  }
+  console.log("test mode: done.");
   process.exit(0);
 }
 
