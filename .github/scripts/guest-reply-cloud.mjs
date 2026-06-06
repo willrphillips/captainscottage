@@ -246,7 +246,7 @@ for (const { id } of list) {
   // SAFE diagnostic (no names/subjects/tokens/body — log is public):
   const fromEmail = (from.match(/<([^>]+)>/)?.[1] || from).trim().toLowerCase();
   const replyToDomain = replyTo.match(/@([^>\s]+)/)?.[1] || "(none)";
-  const isGuestMsg = /reply.*@.*airbnb\.com/i.test(replyTo);
+  const isGuestMsg = /reply\.airbnb\.com/i.test(replyTo);
   console.log(`candidate from=${fromEmail} replyToDomain=${replyToDomain} guest=${isGuestMsg}`);
 
   if (!isGuestMsg) {
