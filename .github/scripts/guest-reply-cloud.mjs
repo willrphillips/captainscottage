@@ -116,7 +116,7 @@ function draftReply({ guestText, subject, fromName }) {
 Read these for voice + facts (use the Read tool):
 - content/replies/voice-rules.md  (CRITICAL: use Will's MESSAGING voice, short/plain/texting register — NOT the journal/blog voice)
 - content/replies/ topic files (the canonical Q&A knowledge base)
-- src/lib/site.ts (PROPERTY facts), src/lib/guidebook.ts, src/pages/faq.astro
+- src/lib/site.ts (PROPERTY facts), src/lib/guidebook.ts, src/pages/faq.astro, src/pages/amenities.astro, src/pages/what-to-bring.astro, src/pages/the-cottage.astro
 
 The guest message (from ${fromName || "a guest"}, subject "${subject}"):
 """
