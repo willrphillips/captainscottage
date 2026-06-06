@@ -1,0 +1,48 @@
+name: Guest-reply voice tuner
+
+# Daily: fold Will's logged Telegram feedback (content/replies/feedback-log.md)
+# into the voice rules + the messages knowledge base, so guest-reply drafts
+# keep getting better and more in his voice over time. Runs Claude on the
+# subscription OAuth token (no API billing). Also dispatchable on demand.
+
+on:
+  schedule:
+    - cron: "0 13 * * *" # daily 13:00 UTC (~09:00 ET)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: guest-reply-tune
+  cancel-in-progress: false
+
+jobs:
+  tune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+      - name: Apply feedback to voice + KB
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          claude -p "You are the voice tuner for the Captain's Cottage guest-reply system. Read content/replies/feedback-log.md and content/replies/.feedback-applied.json (if present; it holds {\"lastAppliedAt\": ISO-timestamp}). Process every feedback entry whose timestamp is AFTER lastAppliedAt (or ALL entries if the marker file is missing). For each: fold it in surgically. (a) Voice/tone/style notes -> update content/replies/voice-rules.md, keeping it concise and non-contradictory, recency wins. (b) Factual corrections or new canonical answers -> update or create the relevant content/replies/<topic>.md file following content/replies/_template.md; anonymize (no guest names/dates); set lastConfirmed to the feedback date. Invent nothing not present in the feedback. When done, write content/replies/.feedback-applied.json with lastAppliedAt set to the newest feedback timestamp you processed, and append a one-line summary to content/replies/feedback-log.md under an '## Applied' note. If there are no new entries, change nothing. Keep all edits minimal." --permission-mode bypassPermissions --allowedTools "Read,Write,Edit,Glob,Grep"
+      - name: Commit voice/KB updates (only when changed)
+        run: |
+          if [[ -n "$(git status --porcelain content/replies/)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add content/replies/
+            git commit -m "voice-tuner: apply guest-reply feedback to voice + KB"
+            git pull --rebase origin main
+            git push
+          else
+            echo "No new feedback to apply."
+          fi
