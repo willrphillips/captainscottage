@@ -226,11 +226,10 @@ const state = loadState();
 const seen = new Set(state.processedIds);
 const token = await gmailAccessToken();
 
-// Airbnb guest-message notifications; the reply-enabled ones carry a
-// reply.airbnb.com Reply-To. Look back a couple days; dedupe by message id.
-const query =
-  'from:(automated@airbnb.com OR express@airbnb.com OR @airbnb.com) newer_than:3d';
+// Any Airbnb mail in the window; we classify per-message below by Reply-To.
+const query = "from:airbnb.com newer_than:3d";
 const list = await gmailList(token, query);
+console.log(`gmail list: ${list.length} message(s) from airbnb.com in the last 3 days`);
 
 let newCount = 0;
 let drafted = 0;
@@ -244,9 +243,12 @@ for (const { id } of list) {
   const subject = header(msg, "Subject");
   const from = header(msg, "From");
 
-  // Only treat as a repliable guest message if the Reply-To routes back
-  // through Airbnb's relay. Booking/payout/system mail won't.
+  // SAFE diagnostic (no names/subjects/tokens/body — log is public):
+  const fromEmail = (from.match(/<([^>]+)>/)?.[1] || from).trim().toLowerCase();
+  const replyToDomain = replyTo.match(/@([^>\s]+)/)?.[1] || "(none)";
   const isGuestMsg = /reply.*@.*airbnb\.com/i.test(replyTo);
+  console.log(`candidate from=${fromEmail} replyToDomain=${replyToDomain} guest=${isGuestMsg}`);
+
   if (!isGuestMsg) {
     seen.add(id); // mark non-guest mail seen so we don't re-fetch it
     continue;
