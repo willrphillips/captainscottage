@@ -174,6 +174,25 @@ function buildMailto(replyTo, subject, body) {
 
 // ---- Main -------------------------------------------------------------------
 
+// Test mode: send one sample draft to Telegram (addressed to yourself) so you
+// can confirm the Telegram message + mailto → Gmail-compose → Send flow works,
+// without needing a real Airbnb message. Triggered via workflow_dispatch.
+if (process.env.TEST_MODE === "true") {
+  const sample =
+    "Hi! Yes, check-in is 4 PM and the door code is in your arrival message. " +
+    "The dock and kayaks are all yours, and the sauna's ready whenever you want it. " +
+    "Let us know if anything comes up. — Will";
+  const mailto = buildMailto("willrphillips@gmail.com", "Test message", sample);
+  await telegram(
+    `✉️ TEST — this is what a draft will look like\n\n` +
+      `Proposed reply:\n${sample}\n\n` +
+      `Tap to open a prefilled Gmail reply, then Send:\n${mailto}\n\n` +
+      `(Test only — addressed to you, so sending just emails yourself. Confirms the tap-to-send flow.)`,
+  );
+  console.log("test mode: sent sample Telegram message.");
+  process.exit(0);
+}
+
 const state = loadState();
 const seen = new Set(state.processedIds);
 const token = await gmailAccessToken();
