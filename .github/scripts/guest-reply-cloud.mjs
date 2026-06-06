@@ -22,12 +22,13 @@
  *   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
  *   CLAUDE_CODE_OAUTH_TOKEN  (consumed by the `claude` CLI, not read here)
  */
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, appendFileSync, existsSync, mkdirSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { execFileSync } from "node:child_process";
 
 const ROOT = process.cwd();
 const STATE_PATH = resolve(ROOT, "content/replies/.watch-state.json");
+const FEEDBACK_PATH = resolve(ROOT, "content/replies/feedback-log.md");
 const MAX_PER_RUN = 8; // safety cap per run
 
 // ---- Gmail REST helpers (read-only) ----------------------------------------
@@ -143,6 +144,56 @@ Output nothing else.`;
 }
 
 // ---- Telegram ---------------------------------------------------------------
+
+// Capture Will's replies to the bot as voice/KB feedback. Reads new updates via
+// getUpdates (offset tracked in state.tgOffset), appends each to the feedback
+// log. If he swipe-replied to a draft, the draft text is kept as context. A
+// separate daily pass folds this log into voice-rules.md + content/replies/.
+async function captureFeedback(state) {
+  const offset = state.tgOffset || 0;
+  let res;
+  try {
+    res = await fetch(
+      `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/getUpdates?` +
+        new URLSearchParams({ offset: String(offset), timeout: "0", allowed_updates: '["message"]' }),
+    );
+  } catch (e) {
+    console.error("getUpdates failed:", e.message);
+    return 0;
+  }
+  const j = await res.json();
+  const updates = j.result || [];
+  let lines = "";
+  let logged = 0;
+  for (const u of updates) {
+    state.tgOffset = u.update_id + 1; // advance offset for every update
+    const m = u.message;
+    if (!m?.text) continue;
+    if (String(m.chat?.id) !== String(process.env.TELEGRAM_CHAT_ID)) continue; // only Will's chat
+    if (/^\/(start|help)\b/i.test(m.text)) continue; // ignore bot commands
+    const ts = new Date(m.date * 1000).toISOString();
+    const quoted = m.reply_to_message?.text
+      ? `\n  ↳ re draft: "${m.reply_to_message.text.replace(/\s+/g, " ").slice(0, 220)}"`
+      : "";
+    lines += `- ${ts} — ${m.text}${quoted}\n`;
+    logged++;
+  }
+  if (lines) {
+    if (!existsSync(FEEDBACK_PATH)) {
+      mkdirSync(dirname(FEEDBACK_PATH), { recursive: true });
+      writeFileSync(
+        FEEDBACK_PATH,
+        "# Guest-reply feedback log\n\n" +
+          "Will's feedback on drafts, captured from his Telegram replies to the bot.\n" +
+          "A daily pass folds these into `voice-rules.md` and the `content/replies/` KB.\n" +
+          "Append-only; recency wins on conflicts.\n\n",
+        "utf8",
+      );
+    }
+    appendFileSync(FEEDBACK_PATH, lines, "utf8");
+  }
+  return logged;
+}
 
 async function telegram(text, button) {
   const payload = {
@@ -285,12 +336,18 @@ for (const { id } of list) {
   }
 }
 
-// Only persist (→ a commit) when a guest message was actually handled, so we
-// don't churn a commit every 10 minutes on empty runs.
-if (newCount > 0) {
-  state.processedIds = [...seen];
+// Capture any feedback Will sent the bot (his Telegram replies).
+const offsetBefore = state.tgOffset || 0;
+const feedbackLogged = await captureFeedback(state);
+
+// Persist (→ a commit) when a guest message was handled OR feedback advanced
+// the Telegram offset. Empty runs change nothing → no commit churn.
+if (newCount > 0 || (state.tgOffset || 0) !== offsetBefore) {
+  if (newCount > 0) state.processedIds = [...seen];
   state.lastRunAt = new Date().toISOString();
   saveState(state);
 }
 
-console.log(`watch: ${newCount} new guest message(s), ${drafted} drafted, ${escalated} escalated.`);
+console.log(
+  `watch: ${newCount} new guest message(s), ${drafted} drafted, ${escalated} escalated; ${feedbackLogged} feedback message(s) logged.`,
+);

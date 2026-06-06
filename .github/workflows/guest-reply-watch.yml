@@ -56,14 +56,15 @@ jobs:
           TEST_QUESTION: ${{ inputs.test_question }}
         run: node .github/scripts/guest-reply-cloud.mjs
 
-      - name: Persist dedup state (only when it changed)
+      - name: Persist state + feedback log (only when changed)
         run: |
-          if [[ -n "$(git status --porcelain content/replies/.watch-state.json)" ]]; then
+          if [[ -n "$(git status --porcelain content/replies/)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add content/replies/.watch-state.json
-            git commit -m "watch: update guest-reply dedup state"
+            git add content/replies/
+            git commit -m "watch: update guest-reply state / feedback log"
+            git pull --rebase origin main
             git push
           else
-            echo "No new guest messages; state unchanged."
+            echo "Nothing new; content/replies unchanged."
           fi
