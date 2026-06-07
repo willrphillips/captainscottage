@@ -29,11 +29,27 @@ jobs:
           node-version: "22"
       - name: Install Claude Code
         run: npm install -g @anthropic-ai/claude-code
-      - name: Apply feedback to voice + KB
+      - name: Fetch Will's real sent replies (throwaway, not committed)
+        env:
+          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          SENT_CORPUS: ${{ runner.temp }}/sent-corpus.md
+        run: node .github/scripts/fetch-sent-replies.mjs
+      - name: Apply feedback + real-voice mining to voice + KB
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          SENT_CORPUS: ${{ runner.temp }}/sent-corpus.md
         run: |
-          claude -p "You are the voice tuner for the Captain's Cottage guest-reply system. Read content/replies/feedback-log.md and content/replies/.feedback-applied.json (if present; it holds {\"lastAppliedAt\": ISO-timestamp}). Process every feedback entry whose timestamp is AFTER lastAppliedAt (or ALL entries if the marker file is missing). For each: fold it in surgically. (a) Voice/tone/style notes -> update content/replies/voice-rules.md, keeping it concise and non-contradictory, recency wins. (b) Factual corrections or new canonical answers -> update or create the relevant content/replies/<topic>.md file following content/replies/_template.md; anonymize (no guest names/dates); set lastConfirmed to the feedback date. Invent nothing not present in the feedback. When done, write content/replies/.feedback-applied.json with lastAppliedAt set to the newest feedback timestamp you processed, and append a one-line summary to content/replies/feedback-log.md under an '## Applied' note. If there are no new entries, change nothing. Keep all edits minimal." --permission-mode bypassPermissions --allowedTools "Read,Write,Edit,Glob,Grep"
+          claude -p "You are the voice tuner for the Captain's Cottage guest-reply system.
+
+          PART 1 — feedback. Read content/replies/feedback-log.md and content/replies/.feedback-applied.json (if present; it holds {\"lastAppliedAt\": ISO-timestamp}). Process every feedback entry whose timestamp is AFTER lastAppliedAt (or ALL entries if the marker is missing). Voice/tone/style notes -> update content/replies/voice-rules.md (concise, non-contradictory, recency wins). Factual corrections or new canonical answers -> update or create content/replies/<topic>.md following content/replies/_template.md (anonymized; set lastConfirmed to the feedback date). Invent nothing. When done, write content/replies/.feedback-applied.json with lastAppliedAt = the newest feedback timestamp processed, and append a one-line note to content/replies/feedback-log.md under an '## Applied' heading.
+
+          PART 2 — real-voice mining. Read the file at $SENT_CORPUS (Will's actual sent replies, throwaway). Study ONLY his phrasing, rhythm, sign-offs, warmth, length. If you spot consistent voice patterns not yet captured, add them to voice-rules.md.
+
+          ABSOLUTE RULE (this is a PUBLIC repo): NEVER copy door/gate/lockbox codes, WiFi passwords/SSIDs, the full street address, phone numbers, email addresses, guest names, or any secret/PII from $SENT_CORPUS into any committed file. Distill style only, never specifics. The $SENT_CORPUS file itself must never be added to the repo.
+
+          If nothing new from either part, change nothing. Keep all edits minimal." --permission-mode bypassPermissions --allowedTools "Read,Write,Edit,Glob,Grep"
       - name: Commit voice/KB updates (only when changed)
         run: |
           if [[ -n "$(git status --porcelain content/replies/)" ]]; then
