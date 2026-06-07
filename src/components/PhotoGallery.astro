@@ -3,54 +3,78 @@ import { withBase } from "~/lib/site";
 
 // Asymmetric 7-tile grid. Each tile maps to one image slot in /public/images/.
 // When real photos arrive, drop them at these paths (or update the manifest).
+// 14 tiles. Spans are paired so every 12-col row fills exactly (7+5, 5+7,
+// 6+6, …) — no empty grid cells. Order alternates wide/narrow for rhythm.
 const photos = [
   {
     src: "/images/cedar-sauna-creek-sunset.jpg",
     alt: "The cedar barrel sauna at Captain's Cottage on Hull Creek, lit by late-afternoon sun with the creek and treeline behind.",
     span: "md:col-span-7",
-    aspect: "aspect-[3/2]",
   },
   {
     src: "/images/stairs-to-dock.jpg",
     alt: "Wooden stairs descending from the cottage down to the private dock and Hull Creek at golden hour.",
     span: "md:col-span-5",
-    aspect: "aspect-[4/5]",
   },
   {
     src: "/images/living-room-rattan.jpg",
     alt: "Living room at Captain's Cottage — a grey sofa flanked by rattan armchairs on a vintage rug, soft lamplight, a framed landscape above.",
     span: "md:col-span-5",
-    aspect: "aspect-[3/2]",
   },
   {
     src: "/images/screened-porch-dining.jpg",
-    alt: "Wooden dining table on the screened porch at Captain's Cottage, with pendant lights and white siding.",
-    span: "md:col-span-6",
-    aspect: "aspect-[3/2]",
+    alt: "A long wooden dining table and benches on the east screened porch at Captain's Cottage.",
+    span: "md:col-span-7",
   },
   {
     src: "/images/kitchen-green-cabinets.jpg",
     alt: "Kitchen at Captain's Cottage — deep-green cabinets, open shelving, a brass faucet, and a window over the sink.",
     span: "md:col-span-6",
-    aspect: "aspect-[3/2]",
+  },
+  {
+    src: "/images/cedar-sauna-window.jpg",
+    alt: "Inside the cedar barrel sauna at Captain's Cottage, looking out the round window across Hull Creek at sunset.",
+    span: "md:col-span-6",
   },
   {
     src: "/images/master-bedroom.jpg",
     alt: "Master bedroom at Captain's Cottage with a mahogany four-poster bed, a wicker trunk at its foot, and the ensuite bath just beyond.",
     span: "md:col-span-7",
-    aspect: "aspect-[3/2]",
   },
   {
     src: "/images/dock-hull-creek.jpg",
     alt: "Private dock at Captain's Cottage reaching out into Hull Creek, the far tree line on the opposite shore beyond.",
     span: "md:col-span-5",
-    aspect: "aspect-[3/2]",
+  },
+  {
+    src: "/images/dining-nook.jpg",
+    alt: "The breakfast nook off the kitchen at Captain's Cottage — a round table and banquette bench beneath a pendant light.",
+    span: "md:col-span-5",
+  },
+  {
+    src: "/images/sleeping-porch-sunroom.jpg",
+    alt: "The sleeping porch at Captain's Cottage — a sunroom third bedroom with a brass daybed and trundle, windows on three sides.",
+    span: "md:col-span-7",
+  },
+  {
+    src: "/images/extras/second-bedroom.jpg",
+    alt: "The second bedroom at Captain's Cottage — an upholstered headboard between wall sconces, soft natural light.",
+    span: "md:col-span-6",
   },
   {
     src: "/images/hot-tub-hull-creek.jpg",
     alt: "Hot tub and a paver fire-pit circle on the patio at Captain's Cottage, Hull Creek beyond in golden evening light.",
+    span: "md:col-span-6",
+  },
+  {
+    src: "/images/extras/creek-sunset.jpg",
+    alt: "Sunset over Hull Creek at Captain's Cottage, a lone oak silhouetted against an orange sky above calm water.",
     span: "md:col-span-7",
-    aspect: "aspect-[3/2]",
+  },
+  {
+    src: "/images/extras/aerial-cottage-dusk.jpg",
+    alt: "Aerial view of Captain's Cottage at dusk, the lit cedar sauna glowing beside the cottage with Hull Creek beyond.",
+    span: "md:col-span-5",
   },
 ];
 ---
