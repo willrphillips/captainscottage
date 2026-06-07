@@ -38,37 +38,51 @@ On that plan, **east is up**. Orientation facts that the copy must respect:
 
 ## Home page slots
 
-| Filename | Original | Slot on `/` | Subject |
+**Full refresh 2026-06-07:** all slugs below are regenerated from the
+professional shoot `_inbox/20260619LDPhillipsRiverHome-*.jpg` (frame # in the
+Original column). Originals live in `_inbox/` (gitignored — not committed; full
+-res copies stay in Will's Dropbox for the Airbnb listing). Earlier shoot frames
+(`_07A*`, `_MG_*`) are retired.
+
+| Filename | Frame | Slot on `/` | Subject |
 |---|---|---|---|
-| `hero-porch-creek.jpg` | `_07A1961.jpeg` | Hero, full-bleed | **West/water-side wraparound back porch** — rattan sofa + coffee table, ceiling fans, Hull Creek through cedar screens. The lounge porch. |
-| `og-default.jpg` | `_07A1961.jpeg` | OpenGraph + Twitter (1200×630) | Same shot, cropped for social. |
-| `cottage-exterior-creek.jpg` | `_07A1967.jpeg` | Gallery, large left tile | Cottage exterior with the deck Adirondack and Hull Creek beyond. |
-| `stairs-to-dock.jpg` | `_07A2014.jpeg` | Gallery, right portrait | Wooden stairs descending from the bank to the dock. |
-| `living-room-rattan.jpg` | `_MG_1803.jpeg` | Gallery | Living room — rattan chairs, red rug. (Will: "the living room.") |
-| `screened-porch-dining.jpg` | `_mg_1995.jpeg` | Gallery | **East/front/driveway screened porch** with the long dining table. Faces the driveway, NOT the creek. |
-| `kitchen-green-cabinets.jpg` | `_07A1929.jpeg` | Gallery | Kitchen (enclosed room) — green cabinets, open shelving, house manual on the counter. |
-| `master-bedroom.jpg` | `_07A1727.jpeg` | Gallery | Master (water-facing) — mahogany four-poster, wicker trunk, beach painting. |
-| `dock-hull-creek.jpg` | `_MG_2050.jpeg` | Gallery + VacationRental schema | Private dock into Hull Creek, sandbar mid-creek. |
+| `hero-porch-creek.jpg` (+ `-768/-1280/-1920/-2400.webp`) | `#111` | Hero, full-bleed | **Water-side screened porch** looking out to Hull Creek through the screens. |
+| `og-default.jpg` | `#111` | OpenGraph + Twitter (1200×630) | Hero, cropped for social. |
+| `cottage-exterior-creek.jpg` | `#87` | Gallery / the-cottage | Cottage exterior with Hull Creek opening up beside it. |
+| `stairs-to-dock.jpg` | `#90` | Gallery, right portrait | Wooden stairs descending to the dock at golden hour. |
+| `living-room-rattan.jpg` | `#155` | Gallery / the-cottage | Living room — grey sofa, rattan armchairs, vintage rug, framed landscape. |
+| `screened-porch-dining.jpg` | `#70` | Gallery / the-cottage | **East/driveway screened porch** with the long dining table + benches. |
+| `kitchen-green-cabinets.jpg` | `#3` | Gallery / the-cottage | Kitchen — green cabinets, open shelving, brass faucet, window over sink. |
+| `master-bedroom.jpg` | `#54` | Gallery / the-cottage | Master (water-facing) — four-poster, wicker trunk, ensuite beyond. |
+| `dock-hull-creek.jpg` | `#95` | Gallery + VacationRental schema | Private dock reaching into Hull Creek, far shore beyond. |
+| `cedar-sauna-creek-sunset.jpg` | `#79` | Gallery / the-cottage / blog | Cedar barrel sauna outside, door open, creek + treeline behind. |
+| `cedar-sauna-window.jpg` | `#159` | the-cottage | ★ Inside the sauna, round window onto the creek at sunset. |
+| `hot-tub-hull-creek.jpg` | `#73` | Gallery / the-cottage | Hot tub + paver fire-pit circle, Hull Creek beyond, golden hour. |
+| `dining-nook.jpg` | `#160` | the-cottage | Breakfast nook off the kitchen — round table, banquette, pendant. |
+| `sleeping-porch-sunroom.jpg` | `#add-5` | the-cottage | Sleeping porch / sunroom (3rd bedroom) — brass daybed + trundle. |
 
 ## Extras (for `/the-cottage`, `/amenities`, blog heroes)
 
 In `public/images/extras/`:
 
-- `screened-porch-creek-view.jpg` — `_07A1956.jpeg` — the **west/water wraparound back porch**, shot standing in the carved-out SW corner (the unlabeled box bottom-right of the floorplan). Same porch as the hero, different angle.
-- `second-bedroom.jpg` — `_07A1703.jpeg` — second/guest bedroom.
-- `living-room-sectional.jpg` — `_07A1769.jpeg` — wider living room with sectional + sage pillows.
-- `sitting-nook.jpg` — `_MG_1819.jpeg` — living-room corner / sitting nook, grey tufted chair + bird prints. (Will: "also the living room.")
-- `yoga-mats.jpg` — `_MG_1998.jpeg` — yoga mats in wicker basket (amenity detail).
-- `cottage-front-driveway.jpg` — `_07a2054.jpeg` — cottage front from the gravel driveway (good for the "Arriving" section).
+- `second-bedroom.jpg` — `#22` — second/guest bedroom, upholstered headboard + sconces.
+- `screened-porch-creek-view.jpg` — `#112` — **water-side wraparound porch**, creek view (hero porch, different angle).
+- `back-patio-hot-tub-fire-pit.jpg` — `#100` — back patio: hot tub + fire-pit circle + Adirondacks, cottage behind.
+- `fire-pit-creek.jpg` — `#74` — fire-pit circle with Adirondacks and a kayak on the lawn.
+- `creek-sunset.jpg` — `#206` — ★ sunset over Hull Creek, oak silhouette (seasonal/blog hero).
+- `aerial-cottage-dusk.jpg` — `#dji` — aerial of the cottage + lit sauna at dusk (establishing/blog).
+- `osprey-hull-creek.jpg` — `#167` — osprey in a creekside tree (wildlife blog hero).
+- `sunset-rose-dock.jpg` — `#168` — two glasses of rosé on the dock at sunset (lifestyle/blog).
+- `cottage-front-driveway.jpg` — *(retained from earlier shoot)* — cottage front from the gravel driveway.
 
-### Pending uploads (Will, 2026-05-30)
-- **Sunroom / sleeping porch (3rd bedroom)** — no photo yet; Will to upload 1–2.
-  Destination slug when it lands: `extras/sleeping-porch-sunroom.jpg`.
+Retired (earlier shoot, still on disk, unreferenced): `living-room-sectional.jpg`,
+`sitting-nook.jpg`, `yoga-mats.jpg`.
 
 ## Adding new photos
 
-1. Drop the original (JPEG/PNG, ~2400px on the long edge is plenty) in the repo root, `_inbox*/`, or `photos*/`.
-2. Add a slot to `scripts/process-photos.mjs` (source filename → output slug + `desc`).
+1. Drop the original (JPEG/PNG) in `_inbox/` (gitignored) or `photos/`.
+2. Add a slot to `scripts/process-photos.mjs` (source path → output slug + `desc`).
+   A slot `src` may be a full repo-relative path, e.g. `_inbox/<file>.jpg`.
 3. Run `node scripts/process-photos.mjs`.
 
 To replace a slot, overwrite the source filename in the script and re-run.

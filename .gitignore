@@ -26,6 +26,7 @@ Thumbs.db
 # locally against these.
 additional images/
 photos/
+_inbox/
 
 # Nightly harvester run logs (local to the Ubuntu box)
 .harvest-logs/
