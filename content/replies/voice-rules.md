@@ -47,6 +47,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   feature, not a flaw.
 - Reservation-management language ("per our policy," "as stated in
   the listing"). Sounds corporate.
+- Mid-stay language ("enjoy the rest of your stay," "hope you're
+  settled in," "glad you're there") unless the message context
+  clearly confirms the guest is currently in-residence. When in
+  doubt, don't assume.
 
 ## Property facts
 
@@ -70,6 +74,9 @@ Flag for Will, do not draft, when the message contains:
 - Refund or cancellation request
 - Complaint about the stay or property condition
 - Calendar/availability negotiation (date changes, extending a stay)
+- Any message where the guest's booking status is unclear or where
+  a dates/reservation problem is mentioned — even if the message
+  tone seems casual. Flag; don't draft through it.
 - Anything ambiguous, sensitive, or where getting it wrong has cost
 - A question that has no entry in this knowledge base AND can't be
   answered from `src/lib/site.ts` / `src/lib/guidebook.ts` / the FAQ

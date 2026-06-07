@@ -7,3 +7,7 @@ Append-only; recency wins on conflicts.
 - 2026-06-06T13:12:07.000Z — hi
 - 2026-06-07T09:39:05.000Z — Good feedback, guest isn’t staying yet. Dates issue. Working to resolve now
   ↳ re draft: "✉️ New guest message — DRAFT ready Proposed reply: Great, enjoy the rest of your stay! Let me know if anything comes up. — Will Tap the button below → opens prefilled in Gmail → Send. (Sends from your Gmail → relays to t"
+
+## Applied
+
+- 2026-06-07 — voice-rules.md: added rule against mid-stay language when booking status is unclear; expanded "When NOT to draft" to flag any message with a dates/reservation complication.
