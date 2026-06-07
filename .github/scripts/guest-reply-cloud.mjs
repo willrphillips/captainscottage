@@ -281,6 +281,20 @@ const query = "from:airbnb.com newer_than:3d";
 const list = await gmailList(token, query);
 console.log(`gmail list: ${list.length} message(s) from airbnb.com in the last 3 days`);
 
+// Mark-seen mode: dismiss the current backlog. Marks every Airbnb message in
+// the window as processed (no drafts, no Telegram), so only genuinely NEW
+// messages notify going forward. Still captures any feedback Will sent the bot
+// in the same run. Triggered via workflow_dispatch (mark_seen input).
+if (process.env.MARK_SEEN === "true") {
+  for (const { id } of list) seen.add(id);
+  state.processedIds = [...seen];
+  state.lastRunAt = new Date().toISOString();
+  const logged = await captureFeedback(state);
+  saveState(state);
+  console.log(`mark-seen: ${list.length} message(s) marked processed; ${logged} feedback message(s) logged.`);
+  process.exit(0);
+}
+
 let newCount = 0;
 let drafted = 0;
 let escalated = 0;

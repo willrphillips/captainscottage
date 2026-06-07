@@ -21,6 +21,10 @@ on:
         description: "Optional: the simulated guest question to draft (blank = sample)"
         type: string
         default: ""
+      mark_seen:
+        description: "Mark the current Airbnb backlog as seen (no drafts/pings); only new messages notify after"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -54,6 +58,7 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           TEST_MODE: ${{ inputs.test_mode }}
           TEST_QUESTION: ${{ inputs.test_question }}
+          MARK_SEEN: ${{ inputs.mark_seen }}
         run: node .github/scripts/guest-reply-cloud.mjs
 
       - name: Persist state + feedback log (only when changed)
