@@ -165,14 +165,16 @@
   }
 
   .btn-rust {
+    /* #fff (not bone) on rust = 4.80:1, clears WCAG AA for the button label;
+       bone was 4.16:1 and failed. Hover deepens to rust-deep (6.4:1). */
     background: var(--color-rust);
-    color: var(--color-bone);
+    color: #fff;
     border-color: var(--color-rust);
   }
 
   .btn-rust:hover {
     background: var(--color-rust-deep);
-    color: var(--color-bone);
+    color: #fff;
     border-color: var(--color-rust-deep);
   }
 

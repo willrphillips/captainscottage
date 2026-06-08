@@ -36,6 +36,8 @@ interface Props {
   previewMode?: boolean;
   audience?: AudienceTag[];
   approvedAt?: Date | null;
+  hero?: string;
+  heroAlt?: string;
 }
 
 const {
@@ -53,6 +55,8 @@ const {
   previewMode = false,
   audience = [],
   approvedAt = null,
+  hero,
+  heroAlt = "",
 } = Astro.props;
 
 const AUDIENCE_LABELS: Record<AudienceTag, string> = {
@@ -83,6 +87,7 @@ const pathname = `/journal/${slug}`;
   title={title}
   description={description}
   pathname={pathname}
+  ogImage={hero}
   breadcrumbs={[
     { name: "Home", href: "/" },
     { name: "Journal", href: "/journal" },
@@ -97,6 +102,7 @@ const pathname = `/journal/${slug}`;
     publishedAt={publishedAt}
     updatedAt={updatedAt}
     author={author}
+    image={hero}
     keywords={keywords}
   />
 
@@ -133,6 +139,21 @@ const pathname = `/journal/${slug}`;
               )
             }
           </header>
+
+          {
+            hero && (
+              <figure class="reveal mt-12 overflow-hidden bg-bone-deep">
+                <img
+                  src={withBase(hero)}
+                  alt={heroAlt}
+                  class="h-auto w-full"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </figure>
+            )
+          }
 
           <div class="reveal mt-16 h-px bg-rule max-w-[44rem]"></div>
 

@@ -3,7 +3,7 @@ import { glob } from "astro/loaders";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
-  schema: ({ image }) =>
+  schema:
     z.object({
       title: z.string(),
       description: z.string(),
@@ -11,7 +11,10 @@ const blog = defineCollection({
       publishedAt: z.coerce.date(),
       updatedAt: z.coerce.date().optional(),
       author: z.string().default("Will Phillips"),
-      hero: image().optional(),
+      // Public image path under /images (already optimized by
+      // scripts/process-photos.mjs). Rendered as the post hero AND used as the
+      // per-post OpenGraph/Twitter card + BlogPosting schema image.
+      hero: z.string().optional(),
       heroAlt: z.string().optional(),
       keywords: z.array(z.string()).default([]),
       // Audience tags per brief: family / romantic / outdoor / food / seasonal / remote-work.

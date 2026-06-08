@@ -55,6 +55,11 @@ const ogImageUrl = ogImage.startsWith("http") ? ogImage : absoluteUrl(ogImage);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
+    {/* The only cross-origin asset on every page is the Cloudflare beacon —
+        preconnect so it doesn't pay DNS+TLS on first contact. Fonts are
+        self-hosted/bundled (same-origin), so they need no preconnect. */}
+    <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin />
+
     <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={`${PROPERTY.name} Journal`} href={absoluteUrl("/rss.xml")} />
     <link rel="sitemap" type="application/xml" href={absoluteUrl("/sitemap-index.xml")} />
