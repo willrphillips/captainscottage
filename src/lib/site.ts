@@ -97,7 +97,7 @@ export const SITE = {
   // "https://buttondown.com/api/emails/embed-subscribe/<username>"
   // once Will's Buttondown account exists. List-building precedes the
   // Phase 6 direct-booking engine by design (see content/AIRBNB_OPTIMIZATION.md).
-  newsletterAction: "",
+  newsletterAction: "https://buttondown.com/api/emails/embed-subscribe/captainscottage",
 } as const;
 
 // Build absolute URLs that account for the GH Pages base path.
