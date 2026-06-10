@@ -92,6 +92,12 @@ export const SITE = {
   origin: "https://captainscottageva.com",
   base: "/",
   defaultOgImage: "/images/og-default.jpg",
+  // Email capture (Buttondown embed endpoint). Empty string = the signup
+  // form is hidden site-wide. Flip it on by setting:
+  // "https://buttondown.com/api/emails/embed-subscribe/<username>"
+  // once Will's Buttondown account exists. List-building precedes the
+  // Phase 6 direct-booking engine by design (see content/AIRBNB_OPTIMIZATION.md).
+  newsletterAction: "",
 } as const;
 
 // Build absolute URLs that account for the GH Pages base path.

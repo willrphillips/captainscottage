@@ -1,5 +1,5 @@
 ---
-import { NAV_LINKS, PROPERTY, withBase } from "~/lib/site";
+import { NAV_LINKS, PROPERTY, SITE, withBase } from "~/lib/site";
 const year = new Date().getFullYear();
 ---
 
@@ -47,6 +47,41 @@ const year = new Date().getFullYear();
         </p>
       </div>
     </div>
+
+    {/* Email capture — hidden until SITE.newsletterAction is set (Buttondown).
+        Quiet by design: the footer's bold element is the "Stay with us" display
+        above; this is a low-key standing invitation, not a pop-up. */}
+    {SITE.newsletterAction && (
+      <div class="mt-16 border-t border-bone/15 pt-10">
+        <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="eyebrow text-sand">Seasonal notes from Hull Creek</p>
+            <p class="mt-3 max-w-[36rem] text-sm text-bone/80">
+              A short letter when the creek changes — osprey arrivals, oyster
+              season, quiet weekends worth grabbing. No noise, easy to leave.
+            </p>
+          </div>
+          <form
+            action={SITE.newsletterAction}
+            method="post"
+            target="_blank"
+            class="flex w-full max-w-md gap-2"
+          >
+            <label for="newsletter-email" class="sr-only">Email address</label>
+            <input
+              id="newsletter-email"
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="you@example.com"
+              class="min-w-0 flex-1 rounded-full border border-bone/25 bg-transparent px-5 py-2.5 text-sm text-bone placeholder:text-bone/40 focus:border-bone/60 focus:outline-none"
+            />
+            <button type="submit" class="btn btn-rust shrink-0">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    )}
 
     <div class="mt-16 flex flex-col gap-2 border-t border-bone/15 pt-8 text-xs text-bone/55 md:flex-row md:items-center md:justify-between">
       <p>© {year} {PROPERTY.owner}. All rights reserved.</p>
