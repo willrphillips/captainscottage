@@ -69,3 +69,14 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh workflow run deploy.yml --ref main
+
+      - name: Email new posts to the newsletter (Buttondown)
+        # Teaser email (hero + description + read-on link) per flipped post.
+        # Best-effort: a missing BUTTONDOWN_API_KEY or API hiccup never
+        # blocks publishing. Set NEWSLETTER_MODE=draft to park emails for
+        # manual review in Buttondown instead of sending.
+        if: steps.flip.outputs.flipped != '0' && steps.flip.outputs.flipped != ''
+        env:
+          FLIPPED_SLUGS: ${{ steps.flip.outputs.slugs }}
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+        run: node .github/scripts/newsletter-send.mjs

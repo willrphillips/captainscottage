@@ -21,6 +21,7 @@ const blogDir = resolve(process.cwd(), "src/content/blog");
 // is stable regardless of where the runner happens to live.
 const today = new Date().toISOString().slice(0, 10);
 let flippedCount = 0;
+const flippedSlugs = [];
 const log = [];
 
 for (const f of readdirSync(blogDir).filter((f) => f.endsWith(".mdx"))) {
@@ -43,6 +44,7 @@ for (const f of readdirSync(blogDir).filter((f) => f.endsWith(".mdx"))) {
   const newFmBlock = fmBlock.replace(/^draft:\s*true\s*$/m, "draft: false");
   writeFileSync(path, `---\n${newFmBlock}\n---${after}`, "utf8");
   flippedCount++;
+  flippedSlugs.push(f.replace(/\.mdx$/, ""));
   log.push(`${f}  draft:true → draft:false  (publishedAt ${publishedAt})`);
 }
 
@@ -54,8 +56,11 @@ if (flippedCount === 0) {
 }
 
 // Emit GITHUB_OUTPUT so the workflow can branch on whether anything changed.
+// `slugs` feeds the newsletter step (space-separated, no .mdx extension).
 if (process.env.GITHUB_OUTPUT) {
-  writeFileSync(process.env.GITHUB_OUTPUT, `flipped=${flippedCount}\n`, {
-    flag: "a",
-  });
+  writeFileSync(
+    process.env.GITHUB_OUTPUT,
+    `flipped=${flippedCount}\nslugs=${flippedSlugs.join(" ")}\n`,
+    { flag: "a" },
+  );
 }
