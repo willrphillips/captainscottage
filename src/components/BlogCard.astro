@@ -1,5 +1,5 @@
 ---
-import { withBase } from "~/lib/site";
+import { formatDateUTC, withBase } from "~/lib/site";
 
 interface Props {
   title: string;
@@ -13,9 +13,7 @@ interface Props {
 
 const { title, excerpt, category, href, publishedAt, imageSrc, imageAlt } = Astro.props;
 
-const dateLabel = publishedAt
-  ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(publishedAt)
-  : "";
+const dateLabel = publishedAt ? formatDateUTC(publishedAt) : "";
 ---
 
 <article class="group flex flex-col">

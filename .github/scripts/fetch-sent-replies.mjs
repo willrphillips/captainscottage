@@ -13,56 +13,7 @@
  * Env: GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN, SENT_CORPUS
  */
 import { writeFileSync } from "node:fs";
-
-async function gmailAccessToken() {
-  const res = await fetch("https://oauth2.googleapis.com/token", {
-    method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      client_id: process.env.GMAIL_CLIENT_ID,
-      client_secret: process.env.GMAIL_CLIENT_SECRET,
-      refresh_token: process.env.GMAIL_REFRESH_TOKEN,
-      grant_type: "refresh_token",
-    }),
-  });
-  const j = await res.json();
-  if (!j.access_token) throw new Error("Gmail token refresh failed: " + JSON.stringify(j));
-  return j.access_token;
-}
-
-async function gmailList(token, query) {
-  const url =
-    "https://gmail.googleapis.com/gmail/v1/users/me/messages?" +
-    new URLSearchParams({ q: query, maxResults: "25" });
-  const res = await fetch(url, { headers: { authorization: `Bearer ${token}` } });
-  const j = await res.json();
-  return j.messages || [];
-}
-
-async function gmailGet(token, id) {
-  const res = await fetch(
-    `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=full`,
-    { headers: { authorization: `Bearer ${token}` } },
-  );
-  return res.json();
-}
-
-function decodeB64Url(data) {
-  return Buffer.from(data.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString("utf8");
-}
-
-function plainBody(msg) {
-  const walk = (part) => {
-    if (!part) return "";
-    if (part.mimeType === "text/plain" && part.body?.data) return decodeB64Url(part.body.data);
-    for (const p of part.parts || []) {
-      const t = walk(p);
-      if (t) return t;
-    }
-    return "";
-  };
-  return walk(msg.payload) || msg.snippet || "";
-}
+import { gmailAccessToken, gmailList, gmailGet, plainBody } from "../lib/gmail.mjs";
 
 // Keep only what Will wrote — cut at the first quoted/original-message marker.
 function justMyReply(text) {
@@ -89,7 +40,7 @@ try {
   let kept = 0;
   for (const { id } of list) {
     const msg = await gmailGet(token, id);
-    const mine = justMyReply(plainBody(msg)).slice(0, 2000);
+    const mine = justMyReply(plainBody(msg, Infinity)).slice(0, 2000);
     if (!mine) continue;
     corpus += `\n---\n${mine}\n`;
     kept++;

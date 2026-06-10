@@ -107,6 +107,19 @@ export function withBase(pathname: string): string {
   return `${base}${clean === "/" ? "/" : clean}`;
 }
 
+// Format a date-only value (stored at midnight UTC) as "June 3, 2026".
+// Always formats in UTC so the authored calendar date renders exactly,
+// regardless of the viewer's or build server's timezone — otherwise an
+// Eastern viewer sees the date slip back a day.
+export function formatDateUTC(date: Date): string {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
 // Astro.url.pathname includes the configured base for static builds.
 // stripBase reverses that so a path can be re-composed via absoluteUrl/withBase.
 export function stripBase(astroPathname: string): string {

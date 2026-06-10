@@ -3,7 +3,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 import SchemaBlogPosting from "~/components/SchemaBlogPosting.astro";
 import BlogCard from "~/components/BlogCard.astro";
 import ReviewPanel from "~/components/ReviewPanel.astro";
-import { withBase } from "~/lib/site";
+import { formatDateUTC, withBase } from "~/lib/site";
 
 interface RelatedPost {
   title: string;
@@ -68,16 +68,7 @@ const AUDIENCE_LABELS: Record<AudienceTag, string> = {
   "remote-work": "Remote work",
 };
 
-const dateLabel = new Intl.DateTimeFormat("en-US", {
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-  // publishedAt is a date-only value stored at midnight UTC. Format in UTC
-  // so the authored calendar date shows exactly, regardless of the viewer's
-  // (or build server's) timezone — otherwise an Eastern viewer sees the
-  // date slip back a day.
-  timeZone: "UTC",
-}).format(publishedAt);
+const dateLabel = formatDateUTC(publishedAt);
 
 const isoDate = publishedAt.toISOString();
 const pathname = `/journal/${slug}`;

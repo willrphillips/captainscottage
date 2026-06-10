@@ -30,6 +30,10 @@ permissions:
   contents: write
   actions: write
 
+concurrency:
+  group: auto-publish
+  cancel-in-progress: false
+
 jobs:
   flip:
     runs-on: ubuntu-latest

@@ -163,7 +163,6 @@ try {
       if (entrySlug !== slug) continue;
       if (seenAt.has(at)) continue;
       const decision = (block.match(/\*\*Decision:\*\*\s+([^\n]+?)(?:\s*\(consumed[^)]*\))?\s*\n/) || [, "(unknown)"])[1].trim();
-      const reviewer = (block.match(/\*\*Reviewer:\*\*\s+([^\n]+)/) || [, ""])[1].trim();
       const bodyStart = block.indexOf("**Reviewer:**");
       const afterReviewer = bodyStart >= 0 ? block.slice(bodyStart).replace(/^[^\n]+\n/, "") : block;
       const feedback = afterReviewer.replace(/^\s*\n+/, "").replace(/_\(no notes[^)]*\)_/, "").trim();
@@ -457,7 +456,7 @@ function fmtDate(iso: string): string {
             </p>
           ) : (
             <ol class="mt-3 space-y-3">
-              {archive.map((round, i) => (
+              {archive.map((round) => (
                 <li class="rounded border border-rule bg-white p-3 text-xs">
                   <div class="flex items-center justify-between gap-2">
                     <span class="font-medium text-ink">{fmtDate(round.at)}</span>

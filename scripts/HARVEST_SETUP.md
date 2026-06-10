@@ -1,3 +1,5 @@
+> **DEPRECATED (2026-06):** the Ubuntu-box approach described here was never deployed (the box can't run Claude). The LIVE system is GitHub Actions: `.github/workflows/guest-reply-watch.yml` (watcher → Telegram) and `guest-reply-tune.yml` (daily voice tuner). Kept only for the Gmail-OAuth / Telegram-bot setup steps, which still apply when rotating secrets (see also `mint-gmail-token.mjs`).
+
 # Nightly Airbnb-message harvester — Ubuntu box setup
 
 Goal: every night, your always-on Ubuntu box (Tailscale) reads **new** Airbnb
