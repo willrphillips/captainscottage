@@ -1,6 +1,6 @@
 # Scope of Work — Captain's Cottage
 
-**Living document.** Last updated: 2026-05-15. Owner: Will Phillips.
+**Living document.** Last updated: 2026-06-11. Owner: Will Phillips.
 
 **Status:** This SOW is committed on branch `docs/scope-of-work` and open as PR #2 (doc-only, awaiting merge). No workstream code started yet. Resume point: **Workstream A — blog system**.
 
@@ -11,9 +11,9 @@ This tracks the marketing site **and** the AI content-agent pipeline layered on 
 
 ## 1. Overall completion
 
-**~90% built — and LIVE at https://captainscottageva.com (launched 2026-05-26).**
+**~93% built — and LIVE at https://captainscottageva.com (launched 2026-05-26).**
 
-Reasoning: the site is shipped on its production apex domain (HTTPS enforced, Let's Encrypt cert). 10 journal posts exist (5 publishing weekly 06-03 → 07-01, 5 more 07-08 → 08-05), all gated `draft:true` and auto-released by a daily cron on their `publishedAt` date. The agent pipeline (editor → researcher → writer → SEO) has produced two full batches end-to-end. Review tooling rebuilt as an inline, side-by-side artifact-style ReviewPanel with structured edits + full feedback history. Remaining ~15% = post-launch SEO distribution (Bing/IndexNow in progress, GSC done), `/the-cottage` room-by-room accuracy pass (queued, needs floorplan), the guest-reply agent first run, and the deferred brief Phases (per-town deep guides, direct booking).
+Reasoning: the site is shipped on its production apex domain with 10 journal posts (5 live, 5 auto-publishing weekly through 08-05), a full AI content-agent pipeline proven end-to-end (two batches), a working guest-reply system on GitHub Actions, email capture live (Buttondown), journal→newsletter automation built (pending API key secret), professional photo set deployed (101-frame 2026 shoot), and full post-launch SEO (GSC+schema green, IndexNow, `/llms.txt` for GEO, Cloudflare Analytics). Remaining ~7% = newsletter flow + Telegram fix, batch-2 approvals, backlink outreach, and the deferred brief Phases (per-town deep guides, direct booking).
 
 | Workstream | Weight | Done | Contribution |
 |---|---:|---:|---:|
@@ -206,3 +206,8 @@ Build Workstream A (blog system). Everything else depends on a post being able t
 - **RESOLVED 2026-05-19 (was: draft preview):** drafts now render in `npm run dev` and `INCLUDE_DRAFTS` builds (gate in `journal/[...slug].astro` + index); production plain build still excludes them. Admin overlay + submit-to-`content/feedback/` route working. Reviewing a draft no longer means reading raw `.mdx`.
 - **SUPERSEDED 2026-05-30 (was: CMS-at-`/admin` decision):** the Decap/Sveltia Git CMS was never built and is no longer planned. The in-page ReviewPanel (dev-preview only) replaced it — Will reviews drafts directly on the rendered page with inline structured editing. The FLOWSTATUS `pr-preview` node note is moot; review happens in-page now.
 - **OPEN ITEM:** FLOWSTATUS node `pr-preview` still describes "open a PR with a preview link," which conflicts with the locked CMS-at-`/admin` decision. The chart **structure** is owned by `living-flowcharts/data/projects/captainscottage.json` in the Codex root (outside this repo). That node needs renaming to a CMS-review node; requires editing the Codex-root structure file, not this repo.
+- **2026-06-10 (b)** — **Footer newsletter copy updated (commit `fa2bf6a`).** Eyebrow changed to "Notes from the Northern Neck" (matches Buttondown newsletter name); body changed to "An occasional letter about life out here — the water, the seasons, the small things worth a weekend. No noise, easy to leave." Removes all "when the creek changes" language per Will's request.
+- **2026-06-11** — **Session closed. Two items flagged for next session (do NOT auto-start):**
+  1. **Finish the newsletter flow** — the mechanics are built and deployed (`newsletter-send.mjs` + `auto-publish.yml` step), but emails will not send until Will adds the `BUTTONDOWN_API_KEY` GitHub repo secret (Settings → Secrets → Actions → new secret). First live test will be the sauna post on its scheduled date. If Buttondown returns a payment-required error on send, upgrade to the $9/mo Basic plan (its native RSS-to-email also becomes available). Optionally add `NEWSLETTER_MODE=draft` secret to park emails for review before sending.
+  2. **Fix the Telegram messaging** — the guest-reply watcher pushes notifications via the Telegram bot + `captainscottageva.com/compose.html` → Gmail app prefill flow. Will reported this needs attention (specific failure not yet diagnosed). Start by pulling the latest Actions run log for `guest-reply-watch.yml` to see the current error, then check the compose.html routing and the Telegram bot getUpdates loop.
+- **RESUME POINTER (start here next session):** (1) Add `BUTTONDOWN_API_KEY` GitHub secret (Will's action, ~2 min). (2) Diagnose Telegram messaging failure — check `guest-reply-watch.yml` run logs. (3) Approve batch-2's 5 drafts (`reedville`, `irvington`, `dc-getaways`, `cost-to-own`, `wildlife`) — fill `cost-to-own` financials and remaining TODOs first. (4) Backlink outreach per `content/backlink-log.md`. Everything else (FLOWSTATUS node rename, Phase 3–6) is deferred.
