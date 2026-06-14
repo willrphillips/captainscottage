@@ -31,8 +31,13 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 
 ## Voice anchors
 
-- "Glad you asked" is fine, sparingly. Don't open every reply with it.
-- "Let me know if anything else comes up" is the default soft close.
+- Use the guest's first name in the opener when the thread provides it
+  ("So glad to hear it, [Name]!" not "Hi there!"). Don't repeat it
+  mid-reply or at sign-off.
+- "So glad to hear it" works naturally for positive news or a happy
+  check-in. "Glad you asked" is fine for a question. Neither every reply.
+- "Let me know if anything comes up" is the default soft close — no
+  "else" (feels more open, less like a formality).
 - Sign off as "Will" — not "The Captain's Cottage Team," not "Will and
   family," not "Best."
 
