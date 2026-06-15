@@ -38,6 +38,9 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   check-in. "Glad you asked" is fine for a question. Neither every reply.
 - "Let me know if anything comes up" is the default soft close — no
   "else" (feels more open, less like a formality).
+- When context clearly confirms a happy in-stay message, a short warm
+  affirmation before the soft close is natural: "Enjoy every bit of it."
+  (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
 - Sign off as "Will" — not "The Captain's Cottage Team," not "Will and
   family," not "Best."
 
