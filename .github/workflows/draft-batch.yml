@@ -1,13 +1,13 @@
 name: Batch draft articles (keep the review buffer full)
 
-# Buffer-keeper. The rule (Will): whenever fewer than TARGET (5) posts are
-# "queued to publish" (approved, awaiting their date), keep TARGET posts drafted
-# and waiting "in-review". Each run computes the buffer and drafts only the
-# shortfall — the next calendar `idea` slots, end-to-end (editor -> researcher ->
-# writer <-> seo-editor), each left draft:true / in-review. Commits to main
-# (drafts are GATED — never published) and pings Discord so Will can review at any
-# cadence (weekly, monthly, whatever). No-op (silent) when the buffer is already
-# full or there are no idea slots left to draft.
+# Buffer-keeper. The rule (Will): whenever fewer than QUEUE_FLOOR (10) posts are
+# "queued to publish" (approved, awaiting their date), keep BUFFER (5) posts
+# drafted and waiting "in-review". Each run drafts only the shortfall — the next
+# calendar `idea` slots, end-to-end (editor -> researcher -> writer <-> seo-editor),
+# each left draft:true / in-review. Commits to main (drafts are GATED — never
+# published) and pings the blog-draft Discord channel so Will can review at any
+# cadence (weekly, monthly, whatever). No-op (silent) when the queue is >= 10, the
+# in-review buffer is already full, or there are no idea slots left to draft.
 #
 # Runs weekly; the buffer math means it never overproduces. Cron is UTC and does
 # not shift for DST: 09:00 UTC ~= 5am EDT / 4am EST. Test first via "Run workflow".
@@ -17,8 +17,12 @@ on:
     - cron: "0 9 * * 6" # Saturday 09:00 UTC
   workflow_dispatch:
     inputs:
-      target:
-        description: "Desired in-review buffer size"
+      queue_floor:
+        description: "Draft when approved+queued-to-publish is below this"
+        type: string
+        default: "10"
+      buffer:
+        description: "How many drafts to keep waiting in-review"
         type: string
         default: "5"
 
@@ -45,7 +49,8 @@ jobs:
       - name: Compute buffer + decide how many to draft
         id: plan
         run: |
-          TARGET="${{ inputs.target || '5' }}"
+          QUEUE_FLOOR="${{ inputs.queue_floor || '10' }}"
+          BUFFER="${{ inputs.buffer || '5' }}"
           queued=0; in_review=0
           shopt -s nullglob
           for f in src/content/blog/*.mdx; do
@@ -58,7 +63,7 @@ jobs:
           done
           idea=$(grep -c '"status": "idea"' content/content-calendar.json || true)
           need=0
-          if [ "$queued" -lt "$TARGET" ]; then need=$((TARGET - in_review)); fi
+          if [ "$queued" -lt "$QUEUE_FLOOR" ]; then need=$((BUFFER - in_review)); fi
           [ "$need" -lt 0 ] && need=0
           if [ "$need" -gt "$idea" ]; then draft_n=$idea; else draft_n=$need; fi
           {
@@ -68,7 +73,7 @@ jobs:
             echo "need=$need"
             echo "draft_n=$draft_n"
           } >> "$GITHUB_OUTPUT"
-          echo "Buffer: ${in_review} in-review, ${queued} queued-to-publish, ${idea} idea slots. Shortfall ${need}; drafting ${draft_n}."
+          echo "queued-to-publish=${queued} (floor ${QUEUE_FLOOR}) | in-review=${in_review} (buffer ${BUFFER}) | idea-slots=${idea} | drafting ${draft_n}."
 
       - name: Draft to refill the buffer (gated at in-review)
         if: steps.plan.outputs.draft_n != '0'
