@@ -1,0 +1,29 @@
+{
+  "slug": "weekend-getaways-from-washington-dc",
+  "title": "Weekend Getaways from Washington DC: Northern Neck",
+  "isDraft": true,
+  "decision": "request-changes",
+  "edits": [
+    {
+      "id": "etd53izmc",
+      "kind": "comment",
+      "anchor": "It doesn’t have a bridge at all.",
+      "replacement": "",
+      "note": "Confirm this or qualify it properly. It looks like the Harry w Nice bridge would need to be used by some. \"If you come from X, there's no bridge at all\" or something",
+      "at": "2026-06-21T11:22:50.092Z"
+    },
+    {
+      "id": "el2ipgtvf",
+      "kind": "rewrite",
+      "anchor": "we keep a crab pot at the dock",
+      "replacement": "We mention that crab pot too often. Find another closer.",
+      "note": "",
+      "at": "2026-06-21T11:28:06.347Z"
+    }
+  ],
+  "freeNote": "After I made my mention of not saying \"hull creek\", i realize you did a good job explaining what it is. Ignore",
+  "feedback": "On \"It doesn’t have a bridge at all.\": Confirm this or qualify it properly. It looks like the Harry w Nice bridge would need to be used by some. \"If you come from X, there's no bridge at all\" or something\n\nRewrite \"we keep a crab pot at the dock\" — We mention that crab pot too often. Find another closer.\n\nAfter I made my mention of not saying \"hull creek\", i realize you did a good job explaining what it is. Ignore",
+  "reviewer": "Will Phillips",
+  "at": "2026-06-21T11:28:11.135Z",
+  "note": "Captured via ReviewPanel (inline). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated."
+}

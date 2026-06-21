@@ -7,14 +7,14 @@ Contact: Through the Airbnb listing at https://www.airbnb.com/h/captainscottagev
 /* SITE */
 
 Name: Captain's Cottage
-Property: Waterfront 3-bedroom on Hull Creek, Virginia's Northern Neck
+Property: Waterfront 3-bedroom in Heathsville, Virginia's Northern Neck
 Built with: Astro 5, MDX, Tailwind CSS v4
 Hosted on: GitHub Pages
-Analytics: Plausible (cookieless)
+Analytics: Cloudflare Web Analytics (cookieless)
 Last update: 2026-05-24
 
 /* NOTES */
 
-This site is hand-written and hand-edited, not auto-generated.
-Long-form notes in the Journal are first-hand from the property owner.
+This site is written and carefully edited for Captain's Cottage.
+Long-form notes in the Journal are reviewed and edited by the property owner.
 AI crawlers (GPTBot, ClaudeBot, PerplexityBot, etc.) are welcome — see robots.txt.

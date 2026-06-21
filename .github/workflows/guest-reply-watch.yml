@@ -1,9 +1,9 @@
 name: Guest-reply watcher
 
 # Every ~10 min: read NEW Airbnb guest messages from Gmail (read-only), draft a
-# reply with Claude (subscription OAuth token — no API billing), and push it to
-# Will's Telegram with a prefilled mailto. Will taps → Gmail compose → Send →
-# relays to the guest. Nothing is ever sent automatically.
+# reply with Claude (subscription OAuth token — no API billing), and post it to
+# Will's Discord with a prefilled compose link. Will taps → Gmail compose →
+# Send → relays to the guest. Nothing is ever sent automatically.
 #
 # Public repo → Actions minutes are free/unlimited, so 10-min polling is fine.
 # GitHub's scheduler is best-effort (runs can be a few min late) — acceptable.
@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       test_mode:
-        description: "Run a top-to-bottom test: draft a simulated question → Telegram (skips Gmail)"
+        description: "Run a top-to-bottom test: draft a simulated question → Discord (skips Gmail)"
         type: boolean
         default: false
       test_question:
@@ -53,8 +53,7 @@ jobs:
           GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
           GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
           GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           TEST_MODE: ${{ inputs.test_mode }}
           TEST_QUESTION: ${{ inputs.test_question }}

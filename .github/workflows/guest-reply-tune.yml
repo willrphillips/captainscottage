@@ -1,6 +1,6 @@
 name: Guest-reply voice tuner
 
-# Daily: fold Will's logged Telegram feedback (content/replies/feedback-log.md)
+# Daily: fold Will's guest-reply feedback (content/replies/feedback-log.md)
 # into the voice rules + the messages knowledge base, so guest-reply drafts
 # keep getting better and more in his voice over time. Runs Claude on the
 # subscription OAuth token (no API billing). Also dispatchable on demand.
@@ -36,10 +36,19 @@ jobs:
           GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
           SENT_CORPUS: ${{ runner.temp }}/sent-corpus.md
         run: node .github/scripts/fetch-sent-replies.mjs
+      - name: Build sent-vs-draft diff corpus (throwaway, not committed)
+        env:
+          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          VOICE_DIFF: ${{ runner.temp }}/voice-diff.md
+        run: node .github/scripts/build-voice-diff.mjs
       - name: Apply feedback + real-voice mining to voice + KB
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           SENT_CORPUS: ${{ runner.temp }}/sent-corpus.md
+          VOICE_DIFF: ${{ runner.temp }}/voice-diff.md
         run: |
           claude -p "You are the voice tuner for the Captain's Cottage guest-reply system.
 
@@ -47,9 +56,11 @@ jobs:
 
           PART 2 — real-voice mining. Read the file at $SENT_CORPUS (Will's actual sent replies, throwaway). Study ONLY his phrasing, rhythm, sign-offs, warmth, length. If you spot consistent voice patterns not yet captured, add them to voice-rules.md.
 
+          PART 3 — correction mining. Read the file at $VOICE_DIFF if it exists. Each entry has the guest question, what the agent WOULD have drafted, and what Will ACTUALLY sent. For every entry where his sent reply differs from the draft, infer WHAT he changed and WHY (tone, length, a fact, a phrasing he prefers or avoids, a sign-off) and fold the generalizable pattern into voice-rules.md (recency wins; concise and non-contradictory). These are his direct corrections, the highest-value signal. Ignore trivial or whitespace-only differences.
+
           ABSOLUTE RULE (this is a PUBLIC repo): NEVER copy door/gate/lockbox codes, WiFi passwords/SSIDs, the full street address, phone numbers, email addresses, guest names, or any secret/PII from $SENT_CORPUS into any committed file. Distill style only, never specifics. The $SENT_CORPUS file itself must never be added to the repo.
 
-          If nothing new from either part, change nothing. Keep all edits minimal." --permission-mode bypassPermissions --allowedTools "Read,Write,Edit,Glob,Grep"
+          If nothing new from any part, change nothing. Keep all edits minimal." --permission-mode bypassPermissions --allowedTools "Read,Write,Edit,Glob,Grep"
       - name: Commit voice/KB updates (only when changed)
         run: |
           if [[ -n "$(git status --porcelain content/replies/)" ]]; then

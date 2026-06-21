@@ -1,0 +1,120 @@
+name: Batch draft articles (keep the review buffer full)
+
+# Buffer-keeper. The rule (Will): whenever fewer than QUEUE_FLOOR (10) posts are
+# "queued to publish" (approved, awaiting their date), keep BUFFER (5) posts
+# drafted and waiting "in-review". Each run drafts only the shortfall — the next
+# calendar `idea` slots, end-to-end (editor -> researcher -> writer <-> seo-editor),
+# each left draft:true / in-review. Commits to main (drafts are GATED — never
+# published) and pings the blog-draft Discord channel so Will can review at any
+# cadence (weekly, monthly, whatever). No-op (silent) when the queue is >= 10, the
+# in-review buffer is already full, or there are no idea slots left to draft.
+#
+# Runs weekly; the buffer math means it never overproduces. Cron is UTC and does
+# not shift for DST: 09:00 UTC ~= 5am EDT / 4am EST. Test first via "Run workflow".
+
+on:
+  schedule:
+    - cron: "0 9 * * 6" # Saturday 09:00 UTC
+  workflow_dispatch:
+    inputs:
+      queue_floor:
+        description: "Draft when approved+queued-to-publish is below this"
+        type: string
+        default: "10"
+      buffer:
+        description: "How many drafts to keep waiting in-review"
+        type: string
+        default: "5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: draft-batch
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install deps + Claude Code
+        run: |
+          npm ci || npm install
+          npm install -g @anthropic-ai/claude-code
+
+      - name: Compute buffer + decide how many to draft
+        id: plan
+        run: |
+          QUEUE_FLOOR="${{ inputs.queue_floor || '10' }}"
+          BUFFER="${{ inputs.buffer || '5' }}"
+          queued=0; in_review=0
+          shopt -s nullglob
+          for f in src/content/blog/*.mdx; do
+            grep -q '^draft: true' "$f" || continue            # skip published
+            if grep -q '^approvedAt:' "$f"; then
+              queued=$((queued+1))                              # approved, awaiting its date
+            else
+              in_review=$((in_review+1))                        # drafted, awaiting Will's review
+            fi
+          done
+          idea=$(grep -c '"status": "idea"' content/content-calendar.json || true)
+          need=0
+          if [ "$queued" -lt "$QUEUE_FLOOR" ]; then need=$((BUFFER - in_review)); fi
+          [ "$need" -lt 0 ] && need=0
+          if [ "$need" -gt "$idea" ]; then draft_n=$idea; else draft_n=$need; fi
+          {
+            echo "queued=$queued"
+            echo "in_review=$in_review"
+            echo "idea=$idea"
+            echo "need=$need"
+            echo "draft_n=$draft_n"
+          } >> "$GITHUB_OUTPUT"
+          echo "queued-to-publish=${queued} (floor ${QUEUE_FLOOR}) | in-review=${in_review} (buffer ${BUFFER}) | idea-slots=${idea} | drafting ${draft_n}."
+
+      - name: Draft to refill the buffer (gated at in-review)
+        if: steps.plan.outputs.draft_n != '0'
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          DRAFT_N: ${{ steps.plan.outputs.draft_n }}
+        run: |
+          claude -p "You are running the Captain's Cottage blog pipeline headless to refill the review buffer. Draft exactly $DRAFT_N posts, each end-to-end and GATED.
+
+          Read and FOLLOW these role instructions in turn (your playbook): .claude/agents/blog-editor.md, .claude/agents/blog-researcher.md, .claude/agents/blog-writer.md, .claude/agents/blog-seo-editor.md. Also read content/voice-feedback-log.md and CLAUDE.md — honor the locked LOCATION rule: lead with Virginia's Northern Neck / where the Potomac meets the Chesapeake Bay / Heathsville; 'Hull Creek' is body texture only, never a headline, title, or keyword.
+
+          Loop $DRAFT_N times. Each iteration, take the next content-calendar.json post whose status is 'idea' and:
+          1. EDITOR: advance that one slot per the editor rules (topic screen, seasonal offset); update its calendar entry.
+          2. RESEARCHER: write content/research/<slug>.md (verify facts, invent nothing, mark UNVERIFIED).
+          3. WRITER: write src/content/blog/<slug>.mdx with draft:true, brand voice, >=2 internal links incl /the-cottage and exactly one /book CTA; leave honest {/* TODO: Will to confirm ... */} MDX comments where a fact needs Will.
+          4. SEO EDITOR: run 'npm run build' plus the CLAUDE.md SEO checklist; if it fails, revise as the writer and re-check, up to 3 rounds; when it passes, set the calendar entry status to 'in-review'.
+          If no 'idea' slots remain before you reach $DRAFT_N, stop early.
+
+          HARD RULES: never set status 'approved' or 'published', never set approvedBy or approvedAt, never flip draft:false, never send anything. Every post stops at 'in-review'. Do NOT run git — the workflow commits. Finish by printing each drafted slug on its own line prefixed 'DRAFTED: '." --permission-mode bypassPermissions --allowedTools "Read,Write,Edit,Glob,Grep,Bash,WebSearch,WebFetch"
+
+      - name: Commit + notify Discord (only if drafts were produced)
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_DRAFTS_WEBHOOK_URL }}
+          QUEUED: ${{ steps.plan.outputs.queued }}
+          NEED: ${{ steps.plan.outputs.need }}
+          IDEA: ${{ steps.plan.outputs.idea }}
+        run: |
+          if [[ -z "$(git status --porcelain src/content/blog content/content-calendar.json content/research)" ]]; then
+            echo "No new drafts produced; nothing to commit."
+            exit 0
+          fi
+          NEW=$(git status --porcelain src/content/blog | sed -n 's/^?? src\/content\/blog\/\(.*\)\.mdx$/\1/p' | paste -sd ', ' -)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/blog content/content-calendar.json content/research content/rewrites .flowstatus.json
+          git commit -m "draft-batch: refill review buffer (${NEW})"
+          git pull --rebase origin main
+          git push
+          if [[ -n "$DISCORD_WEBHOOK_URL" ]]; then
+            COUNT=$(printf '%s' "$NEW" | awk -F', ' '{print NF}')
+            SHORT=""
+            if [ "${NEED:-0}" -gt "${IDEA:-0}" ]; then SHORT="\n\n:warning: Calendar is low on idea slots — drafted what was available. Add topics (or have the editor propose) to hold the buffer at 5."; fi
+            curl -s -o /dev/null -X POST "$DISCORD_WEBHOOK_URL" -H "Content-Type: application/json" --data "{\"username\":\"Captain's Cottage\",\"embeds\":[{\"title\":\"${COUNT} new draft(s) ready to review\",\"description\":\"${NEW}\\n\\nDrafted to keep your review buffer topped up (${QUEUED} queued to publish). All draft:true and gated — review in npm run dev and approve when ready.${SHORT}\",\"color\":1452349}]}"
+          fi

@@ -1,0 +1,21 @@
+{
+  "slug": "wildlife-sightings-hull-creek",
+  "title": "Wildlife on Hull Creek: What Shows Up When You Stay",
+  "isDraft": true,
+  "decision": "request-changes",
+  "edits": [
+    {
+      "id": "ehq7rc5xb",
+      "kind": "comment",
+      "anchor": "the ruby-throated the only species you’ll find breeding anywhere in the eastern",
+      "replacement": "",
+      "note": "Awkward sentence",
+      "at": "2026-06-21T11:13:27.052Z"
+    }
+  ],
+  "freeNote": "",
+  "feedback": "On \"the ruby-throated the only species you’ll find breeding anywhere in the eastern\": Awkward sentence",
+  "reviewer": "Will Phillips",
+  "at": "2026-06-21T11:15:21.036Z",
+  "note": "Captured via ReviewPanel (inline). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated."
+}

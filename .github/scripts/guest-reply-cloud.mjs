@@ -9,27 +9,33 @@
  *      subscription OAuth token — no API billing), grounded in
  *      content/replies/ + voice-rules + src/lib/site.ts, in Will's MESSAGING
  *      voice.
- *   3. Builds a prefilled `mailto:` (To = the email's Reply-To relay address,
- *      Subject = Re:…, Body = the draft) and pushes it to Telegram with the
- *      draft text, so Will taps → Gmail compose opens → Send → relays to guest.
+ *   3. Builds a prefilled compose link (To = the email's Reply-To relay address,
+ *      Subject = Re:…, Body = the draft) and posts it to Will's Discord with the
+ *      draft text + an "Open in Gmail" link, so Will taps → Gmail compose opens,
+ *      prefilled → Send → relays to the guest.
  *
  * Never sends or modifies mail (Gmail scope is readonly; we don't even create
  * drafts). Will is the only thing that sends. Escalations (refund/complaint/
  * calendar/ambiguous) get a "handle it yourself" ping instead of a draft.
  *
+ * Notifications go through a Discord webhook (the only notification channel).
+ * Discord delivers to Will's phone/desktop but does NOT capture replies back,
+ * so voice-tuning instead learns from Will's real *sent* Gmail replies (the
+ * daily tuner diffs what he sent vs what the agent would have drafted).
+ *
  * Env (from GitHub secrets):
  *   GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN
- *   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
- *   CLAUDE_CODE_OAUTH_TOKEN  (consumed by the `claude` CLI, not read here)
+ *   DISCORD_WEBHOOK_URL        (the Discord channel incoming-webhook URL — kept
+ *                               in a secret; it embeds a token)
+ *   CLAUDE_CODE_OAUTH_TOKEN    (consumed by the `claude` CLI, not read here)
  */
-import { readFileSync, writeFileSync, appendFileSync, existsSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { execFileSync } from "node:child_process";
 import { gmailAccessToken, gmailList, gmailGet, header, plainBody } from "../lib/gmail.mjs";
 
 const ROOT = process.cwd();
 const STATE_PATH = resolve(ROOT, "content/replies/.watch-state.json");
-const FEEDBACK_PATH = resolve(ROOT, "content/replies/feedback-log.md");
 const MAX_PER_RUN = 8; // safety cap per run
 
 // ---- State ------------------------------------------------------------------
@@ -83,84 +89,50 @@ Output nothing else.`;
   }
 }
 
-// ---- Telegram ---------------------------------------------------------------
+// ---- Discord push -----------------------------------------------------------
 
-// Capture Will's replies to the bot as voice/KB feedback. Reads new updates via
-// getUpdates (offset tracked in state.tgOffset), appends each to the feedback
-// log. If he swipe-replied to a draft, the draft text is kept as context. A
-// separate daily pass folds this log into voice-rules.md + content/replies/.
-async function captureFeedback(state) {
-  const offset = state.tgOffset || 0;
-  let res;
-  try {
-    res = await fetch(
-      `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/getUpdates?` +
-        new URLSearchParams({ offset: String(offset), timeout: "0", allowed_updates: '["message"]' }),
-    );
-  } catch (e) {
-    console.error("getUpdates failed:", e.message);
-    return 0;
-  }
-  const j = await res.json();
-  const updates = j.result || [];
-  let lines = "";
-  let logged = 0;
-  for (const u of updates) {
-    state.tgOffset = u.update_id + 1; // advance offset for every update
-    const m = u.message;
-    if (!m?.text) continue;
-    if (String(m.chat?.id) !== String(process.env.TELEGRAM_CHAT_ID)) continue; // only Will's chat
-    if (/^\/(start|help)\b/i.test(m.text)) continue; // ignore bot commands
-    const ts = new Date(m.date * 1000).toISOString();
-    const quoted = m.reply_to_message?.text
-      ? `\n  ↳ re draft: "${m.reply_to_message.text.replace(/\s+/g, " ").slice(0, 220)}"`
-      : "";
-    lines += `- ${ts} — ${m.text}${quoted}\n`;
-    logged++;
-  }
-  if (lines) {
-    if (!existsSync(FEEDBACK_PATH)) {
-      mkdirSync(dirname(FEEDBACK_PATH), { recursive: true });
-      writeFileSync(
-        FEEDBACK_PATH,
-        "# Guest-reply feedback log\n\n" +
-          "Will's feedback on drafts, captured from his Telegram replies to the bot.\n" +
-          "A daily pass folds these into `voice-rules.md` and the `content/replies/` KB.\n" +
-          "Append-only; recency wins on conflicts.\n\n",
-        "utf8",
-      );
-    }
-    appendFileSync(FEEDBACK_PATH, lines, "utf8");
-  }
-  return logged;
-}
+// Posts to a Discord channel via an incoming webhook (URL kept in a secret — it
+// embeds a token). Plain webhooks can't render interactive buttons (that needs a
+// bot application), so the "Open in Gmail" action is a markdown link inside the
+// embed instead — same tap-through flow.
+const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK_URL || "";
 
-async function telegram(text, button) {
-  const payload = {
-    chat_id: process.env.TELEGRAM_CHAT_ID,
-    text,
-    disable_web_page_preview: true,
+async function notify({ title, message, clickUrl, action, priority }) {
+  if (!DISCORD_WEBHOOK) {
+    console.error("DISCORD_WEBHOOK_URL not set — skipping notification (add it as a GitHub secret).");
+    return;
+  }
+  // priority >= 5 (escalation/urgent) → rust-red; otherwise cottage navy.
+  const color = priority && priority >= 5 ? 0xb8552e : 0x16283d;
+  let description = message || "";
+  if (action?.url) description += `\n\n**[${action.label}](${action.url})**`;
+  const embed = {
+    title: (title || "Captain's Cottage").slice(0, 256),
+    description: description.slice(0, 4000), // Discord embed description cap is 4096
+    color,
   };
-  // An inline button renders as a clean, reliably-tappable button on mobile
-  // and desktop (avoids Telegram's flaky auto-linking of long URLs). Button
-  // URLs must be http/https — so we use the Gmail compose URL, not mailto.
-  if (button?.url) {
-    payload.reply_markup = { inline_keyboard: [[{ text: button.text, url: button.url }]] };
+  if (clickUrl) embed.url = clickUrl; // makes the embed title clickable too
+  const payload = { username: "Captain's Cottage", embeds: [embed] };
+  try {
+    const res = await fetch(DISCORD_WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    // Discord returns 204 No Content on success.
+    if (!res.ok) console.error("discord send failed:", res.status, await res.text().catch(() => ""));
+  } catch (e) {
+    console.error("discord send failed:", e.message);
   }
-  const res = await fetch(
-    `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
-    { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) },
-  );
-  if (!res.ok) console.error("telegram send failed:", res.status, await res.text().catch(() => ""));
 }
 
 function reSubject(subject) {
   return /^re:/i.test(subject) ? subject : `Re: ${subject}`;
 }
 
-// The Telegram button points here (https, so it's button-legal). On iOS this
-// page bounces to the Gmail APP compose (googlegmail://), prefilled; on
-// desktop/other it falls back to Gmail web compose. See public/compose.html.
+// The Discord "Open in Gmail" link points here (https). On iOS this page bounces
+// to the Gmail APP compose (googlegmail://), prefilled; on desktop/other it
+// falls back to Gmail web compose. See public/compose.html.
 function buildComposeLink(to, subject, body) {
   return (
     "https://captainscottageva.com/compose.html?to=" + encodeURIComponent(to) +
@@ -172,9 +144,9 @@ function buildComposeLink(to, subject, body) {
 // ---- Main -------------------------------------------------------------------
 
 // Test mode: run the REAL drafting brain on a simulated guest question, then
-// Telegram the result (draft + prefilled mailto to yourself, or escalation).
-// Exercises the whole chain except the Gmail read (already proven). Triggered
-// via workflow_dispatch; an optional test_question input overrides the sample.
+// post the result (draft + prefilled compose link to yourself, or escalation)
+// to Discord. Exercises the whole chain except the Gmail read (already proven).
+// Triggered via workflow_dispatch; an optional test_question input overrides.
 if (process.env.TEST_MODE === "true") {
   const q =
     process.env.TEST_QUESTION ||
@@ -182,22 +154,25 @@ if (process.env.TEST_MODE === "true") {
   console.log("test mode: drafting a reply to a simulated question…");
   const reply = draftReply({ guestText: q, subject: "Test guest message", fromName: "Test Guest" });
   if (reply.startsWith("ESCALATE:")) {
-    await telegram(
-      `🔴 TEST — the agent ESCALATED this one\n\n` +
+    await notify({
+      title: "TEST — agent escalated this one",
+      message:
         `Simulated question: ${q}\n\n` +
         `Reason: ${reply.replace(/^ESCALATE:\s*/, "")}\n\n` +
         `(Test only. Escalations are expected while the knowledge base is still thin.)`,
-    );
+      priority: 5,
+    });
   } else {
     const gmail = buildComposeLink("willrphillips@gmail.com", "Test guest message", reply);
-    await telegram(
-      `✉️ TEST — full draft (Gmail read skipped)\n\n` +
+    await notify({
+      title: "TEST — full draft (Gmail read skipped)",
+      message:
         `Simulated question: ${q}\n\n` +
         `Agent's proposed reply:\n${reply}\n\n` +
-        `Tap the button below → opens prefilled in Gmail → Send.\n` +
-        `(Test only — addressed to you, so Send just emails yourself.)`,
-      { text: "✉️ Open in Gmail & send", url: gmail },
-    );
+        `Tap → opens prefilled in Gmail → Send. (Test only — addressed to you, so Send just emails yourself.)`,
+      clickUrl: gmail,
+      action: { label: "Open in Gmail & send", url: gmail },
+    });
   }
   console.log("test mode: done.");
   process.exit(0);
@@ -213,16 +188,14 @@ const list = await gmailList(token, query);
 console.log(`gmail list: ${list.length} message(s) from airbnb.com in the last 3 days`);
 
 // Mark-seen mode: dismiss the current backlog. Marks every Airbnb message in
-// the window as processed (no drafts, no Telegram), so only genuinely NEW
-// messages notify going forward. Still captures any feedback Will sent the bot
-// in the same run. Triggered via workflow_dispatch (mark_seen input).
+// the window as processed (no drafts, no pings), so only genuinely NEW messages
+// notify going forward. Triggered via workflow_dispatch (mark_seen input).
 if (process.env.MARK_SEEN === "true") {
   for (const { id } of list) seen.add(id);
   state.processedIds = [...seen];
   state.lastRunAt = new Date().toISOString();
-  const logged = await captureFeedback(state);
   saveState(state);
-  console.log(`mark-seen: ${list.length} message(s) marked processed; ${logged} feedback message(s) logged.`);
+  console.log(`mark-seen: ${list.length} message(s) marked processed.`);
   process.exit(0);
 }
 
@@ -257,21 +230,22 @@ for (const { id } of list) {
 
   if (reply.startsWith("ESCALATE:")) {
     escalated++;
-    await telegram(
-      `🔴 New guest message — NEEDS YOU\n\n` +
-        `${reply.replace(/^ESCALATE:\s*/, "")}\n\n` +
-        `Handle this one directly in Airbnb.`,
-    );
+    await notify({
+      title: "New guest message — needs you",
+      message: `${reply.replace(/^ESCALATE:\s*/, "")}\n\nHandle this one directly in Airbnb.`,
+      priority: 5,
+    });
   } else {
     drafted++;
     const gmail = buildComposeLink(replyTo, subject, reply);
-    await telegram(
-      `✉️ New guest message — DRAFT ready\n\n` +
-        `Proposed reply:\n${reply}\n\n` +
-        `Tap the button below → opens prefilled in Gmail → Send.\n` +
-        `(Sends from your Gmail → relays to the guest. Nothing was sent automatically.)`,
-      { text: "✉️ Open in Gmail & send", url: gmail },
-    );
+    await notify({
+      title: "New guest message — draft ready",
+      message:
+        `${reply}\n\n` +
+        `Tap → opens prefilled in Gmail → Send. (Sends from your Gmail → relays to the guest. Nothing was sent automatically.)`,
+      clickUrl: gmail,
+      action: { label: "Open in Gmail & send", url: gmail },
+    });
   }
 
   seen.add(id);
@@ -281,18 +255,12 @@ for (const { id } of list) {
   }
 }
 
-// Capture any feedback Will sent the bot (his Telegram replies).
-const offsetBefore = state.tgOffset || 0;
-const feedbackLogged = await captureFeedback(state);
-
-// Persist (→ a commit) when a guest message was handled OR feedback advanced
-// the Telegram offset. Empty runs change nothing → no commit churn.
-if (newCount > 0 || (state.tgOffset || 0) !== offsetBefore) {
-  if (newCount > 0) state.processedIds = [...seen];
+// Persist (→ a commit) only when a guest message was handled. Empty runs change
+// nothing → no commit churn.
+if (newCount > 0) {
+  state.processedIds = [...seen];
   state.lastRunAt = new Date().toISOString();
   saveState(state);
 }
 
-console.log(
-  `watch: ${newCount} new guest message(s), ${drafted} drafted, ${escalated} escalated; ${feedbackLogged} feedback message(s) logged.`,
-);
+console.log(`watch: ${newCount} new guest message(s), ${drafted} drafted, ${escalated} escalated.`);

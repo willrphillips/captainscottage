@@ -1,6 +1,6 @@
-﻿{
+{
     "projectId":  "captainscottage",
-    "updatedAt":  "2026-05-30T00:00:00.000Z",
+    "updatedAt":  "2026-06-21T00:00:00.000Z",
     "nodes":  {
                   "site-foundation":  {
                                           "status":  "active",
@@ -25,32 +25,32 @@
                   "sample-post":  {
                                       "status":  "active",
                                       "lastRun":  "2026-05-15",
-                                      "note":  "Built: \u0027The Art of the Slow Weekend\u0027 â€” builds clean, in RSS + sitemap, SEO checklist met. Workstream A done."
+                                      "note":  "Built: 'The Art of the Slow Weekend' -- builds clean, in RSS + sitemap, SEO checklist met. Workstream A done."
                                   },
                   "calendar":  {
                                    "status":  "idle",
                                    "lastRun":  "2026-05-15",
-                                   "note":  "Built: content/content-calendar.json seeded with brief\u0027s 12 posts + 2 amenity-health/culture entries; human gate encoded. Not yet driving an automated run."
+                                   "note":  "Built: content/content-calendar.json seeded with brief's 12 posts + 2 amenity-health/culture entries; human gate encoded. Not yet driving an automated run."
                                },
                   "editor":  {
                                  "status":  "idle",
-                                 "lastRun":  "2026-05-30",
-                                 "note":  "Batch 2 scheduled: 5 posts advanced idea-\u003edrafting for 2026-07-08 through 2026-08-05. Slugs: complete-guide-to-reedville-virginia (07-08), 24-hours-in-irvington-virginia (07-15), weekend-getaways-from-washington-dc (07-22), cost-to-own-waterfront-cottage-northern-neck (07-29), wildlife-sightings-hull-creek (08-05). Downstream idea posts cascaded forward to clear date collisions."
+                                 "lastRun":  "2026-06-21",
+                                 "note":  "northern-neck-long-weekend-from-dc: owner rejected cost-to-own-waterfront-cottage-northern-neck (07-29 slot, Real Estate). That entry set to idea with rejection note. Slot replaced with Travel itinerary post northern-neck-long-weekend-from-dc at 2026-07-29 targeting DC drive market / Labor Day shoulder season (targetExperienceDate 2026-09-05). Status: researched, ready for Researcher."
                              },
                   "researcher":  {
                                      "status":  "idle",
-                                     "lastRun":  "2026-05-30",
-                                     "note":  "cost-to-own-waterfront-cottage-northern-neck brief complete â€” content/research/cost-to-own-waterfront-cottage-northern-neck.md"
+                                     "lastRun":  "2026-06-21",
+                                     "note":  "northern-neck-long-weekend-from-dc brief complete -- content/research/northern-neck-long-weekend-from-dc.md"
                                  },
                   "writer":  {
                                  "status":  "idle",
-                                 "lastRun":  "2026-05-30",
-                                 "note":  "cost-to-own-waterfront-cottage-northern-neck: drafted and set to in-review. 10 TODO markers for Will (tax bill, flood premium, homeowners premium, dock details, HVAC, septic, well, revenue offset, HOA confirmation, purchase price)."
+                                 "lastRun":  "2026-06-21",
+                                 "note":  "northern-neck-long-weekend-from-dc drafted -- src/content/blog/northern-neck-long-weekend-from-dc.mdx; passing to SEO editor"
                              },
                   "seo-editor":  {
                                      "status":  "idle",
-                                     "lastRun":  "2026-05-30",
-                                     "note":  "cost-to-own-waterfront-cottage-northern-neck: PASS. Round-2 re-audit cleared. Calendar confirmed in-review."
+                                     "lastRun":  "2026-06-21",
+                                     "note":  "northern-neck-long-weekend-from-dc: FAIL — description 161 chars (1 over ceiling). All other checks pass. Awaiting writer fix."
                                  },
                   "approve":  {
                                   "status":  "planned",

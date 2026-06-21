@@ -4,7 +4,7 @@
 export const PROPERTY = {
   name: "Captain's Cottage",
   shortName: "Captain's Cottage",
-  tagline: "A waterfront retreat on Hull Creek where the Potomac meets the Bay.",
+  tagline: "A waterfront cottage on Virginia's Northern Neck, where the Potomac River meets the Chesapeake Bay.",
   city: "Heathsville",
   region: "VA",
   regionFull: "Virginia",

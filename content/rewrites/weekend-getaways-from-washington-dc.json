@@ -1,0 +1,27 @@
+{
+  "slug": "weekend-getaways-from-washington-dc",
+  "round": 2,
+  "appliedAt": "2026-06-21T11:35:00.000Z",
+  "edits": [
+    {
+      "editId": "etd53izmc",
+      "kind": "comment",
+      "anchor": "It doesn't have a bridge at all.",
+      "before": "The Northern Neck doesn't have that problem. It doesn't have a bridge at all.",
+      "after": "The Northern Neck doesn't have that problem. If you take 301 through Newburg, there's the Harry W. Nice Bridge — a quick Potomac crossing with no backup — and if you come straight down 95 and Route 3, there's no bridge at all. Either way, you're never watching a two-lane toll span stretch to the horizon at 5 p.m. on a Friday.",
+      "status": "applied",
+      "note": "Factual correction: the US-301 route DOES cross the Potomac on the Harry W. Nice Memorial Bridge (Newburg, MD → Dahlgren, VA). Rewrote to be route-dependent — 301 users get the Nice Bridge (quick, no backup); I-95/Route-3 users have no bridge at all. Either path contrasts against the Bay Bridge chokepoint. Accurate and in voice."
+    },
+    {
+      "editId": "el2ipgtvf",
+      "kind": "rewrite",
+      "anchor": "we keep a crab pot at the dock",
+      "before": "and we keep a crab pot at the dock.",
+      "after": "and the dock at evening, when the light goes gold over the creek, is hard to explain to someone who hasn't stood on it.",
+      "status": "applied",
+      "note": "Replaced crab-pot closer (voice-feedback-log pattern: crab pot referenced too often across the blog). Chose the dock-at-sunset image — fits the closing rhythm, ties back to the 'water is calmer' claim just before it, and adds a sensory note not used elsewhere in this post."
+    }
+  ],
+  "writerChanges": [],
+  "freeNoteAddressed": true
+}
