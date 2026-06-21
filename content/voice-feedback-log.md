@@ -308,3 +308,11 @@ ALso you have this built as a 3-day weekend that goes from Thursday, to ? day, t
 check in and first sunset is thursday. Day 2 is friday, day 3 satyrda, leave sunday (day 4)
 
 ---
+
+## 2026-06-21T19:03:05.687Z · northern-neck-long-weekend-from-dc
+**Decision:** approve-for-batch  
+**Reviewer:** Will Phillips
+
+_(no notes — decision only)_
+
+---

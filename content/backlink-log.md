@@ -7,13 +7,16 @@ templates live in `content/outreach-kit.md`.
 
 Status key: ⬜ to do · 📨 submitted/sent · 🔁 follow-up due · ✅ live (linked) · ✖ declined/dead
 
-## Tier 1 — Authoritative tourism listings (free; do first)
-| Target | URL | Status | Date | Notes |
+## Tier 1 — Tourism listings (VERIFIED 2026-06-21)
+Only one self-serve listing portal exists; the rest are email-outreach or content-pitch, not forms.
+| Target | How to get listed | Status | Date | Notes |
 |---|---|---|---|---|
-| Virginia Tourism — Virginia.org listing | virginia.org (Partner/"Add a Listing") | ⬜ | | Highest authority + on-brand. May route through vatc.org partner portal. |
-| Northern Neck Tourism Commission | northernneck.org / visitnorthernneck.org | ⬜ | | Regional DMO; list as waterfront vacation rental. |
-| Northumberland County / Reedville–Heathsville | (county tourism + Reedville Fishermen's Museum visit page) | ⬜ | | Local; tie to Reedville (15 min). |
-| Chesapeake Bay travel | FindYourChesapeake / Chesapeake Bay Mag stays | ⬜ | | Bay-region audience. |
+| **Virginia Tourism — virginia.org** | Free VTC extranet: register at https://www.vatc.org/marketing/digital-marketing/webmarketing/ → add an **Accommodation** listing | 📨 | 2026-06-21 | Extranet account REQUESTED 2026-06-21; awaiting approval email → then log in (virginia.extranet.simpleviewcrm.com) + add the Accommodation listing (1600×800 horizontal photos). ✅ The one real self-serve portal; Simpleview-run, can propagate to the Northern Neck pages. Follow up ~1–2 wks if silent (Robin Mamunes, rmamunes@virginia.org). |
+| Northern Neck Tourism Commission (DMO) | **Email** nntc@northernneck.org · 804-333-1919 | ⬜ | | No self-serve listing form. Ask directly about listing a waterfront rental, or rely on virginia.org propagation. |
+| northernneck.org | — (no listing) | ✖ | | = Northern Neck **National Heritage Area**: driving tours / itineraries / history, NOT a business directory. No "add a listing" (Will confirmed 2026-06-21). At most, pitch to be featured in an itinerary. |
+| Northumberland County tourism | county tourism page (co.northumberland.va.us) — contact-based | ⬜ | | Real but small; low priority. Tie to Reedville (15 min). |
+| FindYourChesapeake | — (not applicable) | ✖ | | NPS + Chesapeake Conservancy: public parks/trails/"special places," not private vacation rentals. Dropped as a listing target. |
+| Chesapeake Bay Magazine | editorial pitch (see Tier 3) | — | | A magazine, not a directory. Moved to editorial outreach. |
 
 ## Tier 2 — Reciprocal links (places we already feature in the guidebook)
 | Target | URL | Status | Date | Notes |
