@@ -91,7 +91,7 @@ jobs:
 
       - name: Commit + notify Discord (only if drafts were produced)
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_DRAFTS_WEBHOOK_URL }}
           QUEUED: ${{ steps.plan.outputs.queued }}
           NEED: ${{ steps.plan.outputs.need }}
           IDEA: ${{ steps.plan.outputs.idea }}
