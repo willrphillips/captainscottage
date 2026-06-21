@@ -208,3 +208,103 @@ Replace "not on the way to anything" with "remove this". (remove this)
 _(no notes — decision only)_
 
 ---
+
+## 2026-06-21T11:09:10.003Z · complete-guide-to-reedville-virginia
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+On "We send every guest.": We don't send every guest. That sounds silly for such a small-stakes tourist attraction, that isn't really even a tourist attraction. Rewrite
+
+Changes made. Great article otherwise. I had no idea about all of this
+
+---
+
+## 2026-06-21T11:15:21.036Z · wildlife-sightings-hull-creek
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+On "the ruby-throated the only species you’ll find breeding anywhere in the eastern": Awkward sentence
+
+---
+
+## 2026-06-21T11:16:36.122Z · cost-to-own-waterfront-cottage-northern-neck
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+This is not my lane for guests to read. Delete this and rewrite a new article
+
+---
+
+## 2026-06-21T11:28:11.135Z · weekend-getaways-from-washington-dc
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+On "It doesn’t have a bridge at all.": Confirm this or qualify it properly. It looks like the Harry w Nice bridge would need to be used by some. "If you come from X, there's no bridge at all" or something
+
+Rewrite "we keep a crab pot at the dock" — We mention that crab pot too often. Find another closer.
+
+After I made my mention of not saying "hull creek", i realize you did a good job explaining what it is. Ignore
+
+---
+
+## 2026-06-21T11:33:48.251Z · 24-hours-in-irvington-virginia
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+too many dashes in writing. Change to more standard punctuation.
+
+---
+
+## 2026-06-21T12:30:22.874Z · complete-guide-to-reedville-virginia
+**Decision:** approve-for-batch  
+**Reviewer:** Will Phillips
+
+_(no notes — decision only)_
+
+---
+
+## 2026-06-21T12:31:27.826Z · weekend-getaways-from-washington-dc
+**Decision:** approve-for-batch  
+**Reviewer:** Will Phillips
+
+_(no notes — decision only)_
+
+---
+
+## 2026-06-21T12:32:18.311Z · wildlife-sightings-hull-creek
+**Decision:** approve-for-batch  
+**Reviewer:** Will Phillips
+
+_(no notes — decision only)_
+
+---
+
+## 2026-06-21T12:33:29.148Z · 24-hours-in-irvington-virginia
+**Decision:** approve-for-batch  
+**Reviewer:** Will Phillips
+
+_(no notes — decision only)_
+
+---
+
+## 2026-06-21T12:59:11.889Z · northern-neck-long-weekend-from-dc
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+On "We keep a crab pot at the dock. It’s a small thing with big payback": crab pot is next to the back porch. We've clarified that before. This line is a repeat from elsewhere. Don't repeat
+
+On "Some mornings it’s a full house. Either way, you’re standing on the dock at first light, doing what watermen on this part of the Northern Neck have done for generations.": This is a repeate from elsewhere too
+
+"3 days from dc" sounds like it takes 3 days to get there. Reword that.
+
+ALso you have this built as a 3-day weekend that goes from Thursday, to ? day, to Sunday. That's 3 days but arriving thursday and leaving sunday? Fix the day structure
+
+---
+
+## 2026-06-21T14:03:48.046Z · northern-neck-long-weekend-from-dc
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+check in and first sunset is thursday. Day 2 is friday, day 3 satyrda, leave sunday (day 4)
+
+---

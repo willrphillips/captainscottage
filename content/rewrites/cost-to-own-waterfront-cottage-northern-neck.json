@@ -1,0 +1,54 @@
+{
+  "slug": "cost-to-own-waterfront-cottage-northern-neck",
+  "round": 1,
+  "appliedAt": "2026-06-21T00:00:00Z",
+  "edits": [],
+  "writerChanges": [
+    {
+      "before": "Hull Creek is brackish, which is gentler than full saltwater but still harder on wood and hardware than a freshwater lake. Treated wood pilings that once lasted 30-plus years may run only 10 to 15 years in saltwater environments; brackish water like Hull Creek is gentler, but it still accelerates wear compared to fresh water, and Will's direct experience with these pilings is the more useful data point than any national average. We have the crab pot, the kayaks, guests in the water off the dock end.",
+      "after": "Hull Creek is brackish — gentler than full saltwater but harder on wood and hardware than a fresh lake. We've got the crab pot, the kayaks, guests in the water off the dock end through the summer. It earns its keep.",
+      "why": "Fix #1: removed leaked self-note 'Will's direct experience with these pilings is the more useful data point than any national average' (third-person instruction-to-self). Repaired sentence flow. Also removed national-average anchor ($3,376) per Fix #2."
+    },
+    {
+      "before": "NFIP premiums in Virginia under Risk Rating 2.0 run $250 to $1,973 a year for Zone AE, with the state median around $664. Properties at or near base flood elevation (which describes most waterfront lots with dock access) tend toward the upper half of that range. Figure $900 to $1,600 as a realistic planning number for a property like this one if you don't yet have your own Elevation Certificate.\n\nTwo things buyers miss: first, flood coverage is not in your standard homeowners policy. It's a completely separate policy. You will write two checks. Second, new NFIP policies have a 30-day waiting period before they take effect, so you can't buy coverage the week before a named storm and expect it to stick.",
+      "after": "The key fact most buyers miss: flood coverage isn't in your standard homeowners policy. It's a separate policy, a separate check. Under FEMA's Risk Rating 2.0, individual premiums are driven by elevation, foundation type, and distance to water — the flood zone tells you roughly where you sit but doesn't tell you what you'll pay. Get a quote before you make an offer, not after.",
+      "why": "Fix #2: compressed flood insurance section. Removed NFIP range ($250–$1,973), state median ($664), planning-range filler ($900–$1,600), and the 30-day waiting-period logistics paragraph. Kept the most actionable buyer insight. Also contracted 'is not' → 'isn't', 'You will write' → removed, per Fix #4."
+    },
+    {
+      "before": "Standard homeowners premiums for coastal Virginia properties run meaningfully higher than inland: regional data shows coastal VA can run $1,900 to $2,400 a year depending on exposure. The Northern Neck sits inland enough from the ocean that full coastal exposure isn't the whole story, but it's still waterfront, and insurers price it that way.",
+      "after": "(section removed)",
+      "why": "Fix #2: removed national-average homeowners premium filler paragraph. The hurricane-deductible mechanic is the useful insight; the premium range adds length without adding Will's perspective."
+    },
+    {
+      "before": "A moderate repair incident (replacing boards, fixing a cleat, repairing a section of decking) averages around $3,376 nationally.",
+      "after": "(removed)",
+      "why": "Fix #2: national average dock repair stat removed. Will's TODO is the useful data point."
+    },
+    {
+      "before": "**HVAC:** A full system replacement in Virginia runs $7,500 on average, with heat pump systems ranging from $6,800 to $21,000 for the full install.",
+      "after": "HVAC: coastal air — even brackish — is harder on outdoor condenser coils than inland air, worth factoring into your maintenance schedule and expected system lifespan.",
+      "why": "Fix #2: removed $7,500 national average and heat pump range. Kept the brackish-air maintenance note (the genuinely waterfront-specific insight)."
+    },
+    {
+      "before": "The median listing price for Northumberland County waterfront homes sits around $440,000 based on current Redfin data: that's list price, not sale price, and the distinction matters in a market where days on market runs to 96 on average. Buyers here are not in a rush, and neither are sellers. That patience is part of the character of the place.",
+      "after": "Waterfront listings in Northumberland County have a median ask price around $440,000 <!-- TODO: confirm source → Redfin active listing data, July 2025; list price, not sale price --> and tend to move slowly — buyers here aren't in a rush, and neither are sellers. That patience is part of the character of the place.",
+      "why": "Fix #5: $440,000 and 96-days-on-market are sourced in the brief (Redfin), but the days-on-market figure is for all Northumberland County homes, not waterfront specifically. Kept the list-price stat with inline source marker; removed the 96-day assertion as the brief notes it's county-wide, not waterfront-specific. Fix #4: contracted 'are not' → 'aren't'."
+    },
+    {
+      "before": "These three tend to get lumped together in \"other\" on a pro forma and then surprise you individually.\n\n**HVAC:** ... **Septic:** ... **Well:** ...",
+      "after": "HVAC, septic, and well each get their own plain paragraph without bold sub-headers, keeping the register conversational rather than checklist-like.",
+      "why": "Fix #3: reduced guide/explainer register in the systems section. Compressed each to one practical note pointing toward Will's TODO rather than leading with national averages."
+    },
+    {
+      "before": "It is \"It is\", \"You will\", \"that is\" formal constructions throughout stat paragraphs.",
+      "after": "Contracted throughout: 'It's', 'isn't', 'aren't', 'don't', 'that's', 'we've' applied wherever they appeared.",
+      "why": "Fix #4: voice-feedback-log 2026-05-29 directive to contract throughout."
+    },
+    {
+      "before": "Post structured as: intro → six sequential cost-section headers each leading with a national-average stat → market → honest answer.",
+      "after": "Post restructured as: intro (what I wish I'd known) → 'What I'd tell a friend running the numbers' (one integrated section covering all cost buckets without leading with stats) → market context (compressed) → honest answer CTA.",
+      "why": "Fix #3: rebuilt spine around the host's advisory register rather than cost-then-caveat. The cost buckets remain but they're now inside Will's first-person narrative rather than standing alone as explainer headers."
+    }
+  ],
+  "freeNoteAddressed": true
+}

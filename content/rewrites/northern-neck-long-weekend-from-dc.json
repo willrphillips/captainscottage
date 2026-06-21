@@ -1,0 +1,39 @@
+{
+  "slug": "northern-neck-long-weekend-from-dc",
+  "round": 2,
+  "appliedAt": "2026-06-21T14:30:00.000Z",
+  "edits": [],
+  "writerChanges": [
+    {
+      "before": "Prologue (unnamed, Thursday drive) + ## Day One: Friday + ## Day Two: Saturday + ## Day Three: Sunday",
+      "after": "## Day One: Thursday + ## Day Two: Friday + ## Day Three: Saturday + ## Day Four: Sunday",
+      "why": "Will confirmed: check-in is Thursday. Folded the Thursday drive prologue into Day One: Thursday. Allocated the Friday beats (crab pull, kayaks, low boil) to Day Two: Friday. Moved Reedville afternoon to Day Three: Saturday (museum still open Thu–Sat 11–4, Saturday valid). Slow morning / departure moved to Day Four: Sunday."
+    },
+    {
+      "before": "{/* TODO: Will to confirm — what is the minimum-night stay at the cottage for Labor Day weekend? If 3 nights minimum, Thursday–Sunday works. If 2 nights, Friday–Sunday. This framing assumes a Thursday evening arrival; please confirm before publishing. */}",
+      "after": "(removed)",
+      "why": "Will confirmed Thursday check-in / Sunday departure = 3 nights. TODO no longer needed."
+    },
+    {
+      "before": "Check-in is four o'clock, and on a clear late-summer evening that gives you nearly four hours of light before sunset.",
+      "after": "Check-in is four o'clock. On a clear late-summer evening that gives you nearly four hours of light before dark.",
+      "why": "'before sunset' was redundant given the following sunset-description sentences. Minor tightening."
+    },
+    {
+      "before": "Day Two Saturday: crab pull paragraph opened with 'By five-thirty...' as Saturday beat",
+      "after": "Same paragraph moved to Day Two: Friday",
+      "why": "Restructure: crab pull / kayaks / low boil are now the Friday full-day beats."
+    },
+    {
+      "before": "Day Two Saturday: Reedville beat as afternoon of the crab-pull day",
+      "after": "Reedville beat moved to Day Three: Saturday as a standalone afternoon",
+      "why": "Restructure: Saturday is now its own day, dedicated to Reedville + return to cottage evening."
+    },
+    {
+      "before": "Day Three: Sunday (was final section)",
+      "after": "Day Four: Sunday",
+      "why": "Renumbered to match 4-day structure (Thu arrive, Fri, Sat, Sun depart)."
+    }
+  ],
+  "freeNoteAddressed": true
+}

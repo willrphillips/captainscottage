@@ -1,0 +1,70 @@
+{
+  "slug": "24-hours-in-irvington-virginia",
+  "round": 2,
+  "appliedAt": "2026-06-21T12:00:00.000Z",
+  "edits": [],
+  "writerChanges": [
+    {
+      "before": "Not because it's undiscovered — it isn't — but because it earns the drive in a way most towns this small have no right to.",
+      "after": "Not because it's undiscovered (it isn't), but because it earns the drive in a way most towns this small have no right to.",
+      "why": "Replaced paired em-dash parenthetical with parentheses. Voice rule: no em-dashes in body prose."
+    },
+    {
+      "before": "Start at **The Local** on Irvington Road — coffee, baked goods, a longtime Virginia Living \"Best of\" pick.",
+      "after": "Start at **The Local** on Irvington Road: coffee, baked goods, a longtime Virginia Living \"Best of\" pick.",
+      "why": "Replaced em-dash introducing a list with a colon, the standard punctuation for that construction."
+    },
+    {
+      "before": "It's an easy hour if you let it be — the kind of morning where you buy more than you planned and don't mind at all.",
+      "after": "It's an easy hour if you let it be, the kind of morning where you buy more than you planned and don't mind at all.",
+      "why": "Replaced em-dash sentence break with a comma."
+    },
+    {
+      "before": "Irvington was once one of the Chesapeake's principal steamboat ports — the kind of place where passengers and cargo moved in and out daily before the roads came through.",
+      "after": "Irvington was once one of the Chesapeake's principal steamboat ports, the kind of place where passengers and cargo moved in and out daily before the roads came through.",
+      "why": "Replaced em-dash sentence break with a comma."
+    },
+    {
+      "before": "A quirky, fun spot — exactly the kind of thing you find when a small town has been left alone long enough to develop its own personality.",
+      "after": "A quirky, fun spot, exactly the kind of thing you find when a small town has been left alone long enough to develop its own personality.",
+      "why": "Replaced em-dash sentence break with a comma."
+    },
+    {
+      "before": "The light on the water in the late afternoon — Carter's Creek is narrow here, tree-lined, the boats at anchor — is the kind of thing you take a photo of and it doesn't quite come out right.",
+      "after": "The light on the water in the late afternoon (Carter's Creek is narrow here, tree-lined, the boats at anchor) is the kind of thing you take a photo of and it doesn't quite come out right.",
+      "why": "Replaced paired em-dash parenthetical with parentheses."
+    },
+    {
+      "before": "pairs estate wine with fresh local oysters — a combination that makes a certain kind of sense when you think about where you are.",
+      "after": "pairs estate wine with fresh local oysters, a combination that makes a certain kind of sense when you think about where you are.",
+      "why": "Replaced em-dash sentence break with a comma."
+    },
+    {
+      "before": "You don't have to be a resort guest to go — the Fish Hawk welcomes walk-ins, and that's the move.",
+      "after": "You don't have to be a resort guest to go. The Fish Hawk welcomes walk-ins, and that's the move.",
+      "why": "Replaced em-dash sentence break with a period; two clean sentences read stronger here."
+    },
+    {
+      "before": "**Dredge** opened in early 2025 at 4357 Irvington Road — chef-owned by Bryan Byrd, Virginia oysters, steamed crabs and shrimp...",
+      "after": "**Dredge** opened in early 2025 at 4357 Irvington Road. Chef-owned by Bryan Byrd, it runs Virginia oysters, steamed crabs and shrimp...",
+      "why": "Replaced em-dash with a period and rewrote the fragment into a proper clause to preserve clarity."
+    },
+    {
+      "before": "Chef Meseret Crockett runs a prix fixe dinner Thursday through Sunday — the room is exactly what it should be, and the cooking matches it.",
+      "after": "Chef Meseret Crockett runs a prix fixe dinner Thursday through Sunday. The room is exactly what it should be, and the cooking matches it.",
+      "why": "Replaced em-dash sentence break with a period."
+    },
+    {
+      "before": "has a version of the Virginia waterfront that most people haven't found yet — and Irvington is one of its best rooms.",
+      "after": "has a version of the Virginia waterfront that most people haven't found yet, and Irvington is one of its best rooms.",
+      "why": "Replaced em-dash before coordinating conjunction with a comma."
+    },
+    {
+      "before": "Stay at Captain's Cottage — 45 minutes from Irvington",
+      "after": "Stay at Captain's Cottage, 45 minutes from Irvington",
+      "why": "Replaced em-dash in CTA button copy with a comma per Will's note covering all writing in the post."
+    }
+  ],
+  "freeNoteAddressed": true,
+  "note": "Round 2: replaced all 12 em-dash sentence-breaks in body prose and CTA with standard punctuation (commas, periods, colons, parentheses). One em-dash inside the MDX TODO comment ({/* TODO: Will to confirm... */}) was left untouched per the standing rule to not alter TODO markers."
+}

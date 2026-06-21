@@ -1,0 +1,18 @@
+{
+  "slug": "wildlife-sightings-hull-creek",
+  "round": 2,
+  "appliedAt": "2026-06-21T11:20:00Z",
+  "edits": [
+    {
+      "editId": "ehq7rc5xb",
+      "kind": "comment",
+      "anchor": "the ruby-throated the only species you'll find breeding anywhere in the eastern",
+      "before": "the ruby-throated the only species you'll find breeding\nanyywhere in the eastern US.",
+      "after": "the ruby-throated is the only hummingbird that breeds anywhere in the eastern US.",
+      "status": "applied",
+      "note": "Fixed grammatical fragment ('the ruby-throated the only species') by inserting 'is' and 'hummingbird' for clarity; swapped 'you'll find breeding' for 'that breeds' to tighten the clause. Fact unchanged."
+    }
+  ],
+  "writerChanges": [],
+  "freeNoteAddressed": true
+}

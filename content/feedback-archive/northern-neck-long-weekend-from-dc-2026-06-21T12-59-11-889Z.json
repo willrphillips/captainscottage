@@ -1,0 +1,29 @@
+{
+  "slug": "northern-neck-long-weekend-from-dc",
+  "title": "A Long Weekend on Virginia's Northern Neck: 3 Days from DC",
+  "isDraft": true,
+  "decision": "request-changes",
+  "edits": [
+    {
+      "id": "ewbqn3mcm",
+      "kind": "comment",
+      "anchor": "We keep a crab pot at the dock. It’s a small thing with big payback",
+      "replacement": "",
+      "note": "crab pot is next to the back porch. We've clarified that before. This line is a repeat from elsewhere. Don't repeat",
+      "at": "2026-06-21T12:56:53.693Z"
+    },
+    {
+      "id": "elds88l4j",
+      "kind": "comment",
+      "anchor": "Some mornings it’s a full house. Either way, you’re standing on the dock at first light, doing what watermen on this part of the Northern Neck have done for generations.",
+      "replacement": "",
+      "note": "This is a repeate from elsewhere too",
+      "at": "2026-06-21T12:57:10.128Z"
+    }
+  ],
+  "freeNote": "\"3 days from dc\" sounds like it takes 3 days to get there. Reword that.\n\nALso you have this built as a 3-day weekend that goes from Thursday, to ? day, to Sunday. That's 3 days but arriving thursday and leaving sunday? Fix the day structure",
+  "feedback": "On \"We keep a crab pot at the dock. It’s a small thing with big payback\": crab pot is next to the back porch. We've clarified that before. This line is a repeat from elsewhere. Don't repeat\n\nOn \"Some mornings it’s a full house. Either way, you’re standing on the dock at first light, doing what watermen on this part of the Northern Neck have done for generations.\": This is a repeate from elsewhere too\n\n\"3 days from dc\" sounds like it takes 3 days to get there. Reword that.\n\nALso you have this built as a 3-day weekend that goes from Thursday, to ? day, to Sunday. That's 3 days but arriving thursday and leaving sunday? Fix the day structure",
+  "reviewer": "Will Phillips",
+  "at": "2026-06-21T12:59:11.889Z",
+  "note": "Captured via ReviewPanel (inline). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated."
+}

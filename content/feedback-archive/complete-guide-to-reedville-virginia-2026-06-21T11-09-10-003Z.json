@@ -1,0 +1,21 @@
+{
+  "slug": "complete-guide-to-reedville-virginia",
+  "title": "Reedville, Virginia: Complete Guide to the Fishing Village",
+  "isDraft": true,
+  "decision": "request-changes",
+  "edits": [
+    {
+      "id": "esp2dteoz",
+      "kind": "comment",
+      "anchor": "We send every guest.",
+      "replacement": "",
+      "note": "We don't send every guest. That sounds silly for such a small-stakes tourist attraction, that isn't really even a tourist attraction. Rewrite",
+      "at": "2026-06-21T11:00:30.569Z"
+    }
+  ],
+  "freeNote": "Changes made. Great article otherwise. I had no idea about all of this",
+  "feedback": "On \"We send every guest.\": We don't send every guest. That sounds silly for such a small-stakes tourist attraction, that isn't really even a tourist attraction. Rewrite\n\nChanges made. Great article otherwise. I had no idea about all of this",
+  "reviewer": "Will Phillips",
+  "at": "2026-06-21T11:09:10.003Z",
+  "note": "Captured via ReviewPanel (inline). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated."
+}

@@ -25,6 +25,7 @@ export const GUIDEBOOK: GuidebookPlace[] = [
   {
     name: "The Office Bistro",
     category: "Food & drink",
+    town: "Irvington",
     locals: 43,
     note: "We enjoyed this with our two little girls. The decor evokes the dentist office it used to be. The girls liked the pizza; we liked the pasta and burger. A quirky, fun spot.",
   },
@@ -120,6 +121,60 @@ export const GUIDEBOOK: GuidebookPlace[] = [
     town: "Kinsale",
     locals: 13,
     note: "Kayak rentals and other watercraft. Primarily a summer operation, but give them a call — they also offer kayak deliveries if it's the right time of year.",
+  },
+  {
+    name: "The Local",
+    category: "Food & drink",
+    town: "Irvington",
+    note: "Coffee and baked goods in the middle of Irvington, a longtime local favorite. A good first stop before a walk down to the water.",
+  },
+  {
+    name: "The Vine",
+    category: "Food & drink",
+    town: "Irvington",
+    note: "Wine, craft beer, and small plates a short walk from the Irvington waterfront. Our pick for an easy pre-dinner hour.",
+  },
+  {
+    name: "Fish Hawk Oyster Bar",
+    category: "Food & drink",
+    town: "Irvington",
+    note: "A casual oyster bar at the Tides Inn, steps from Carter's Creek. You don't have to be a resort guest. Cold oysters and a drink by the water is the move; call ahead about walk-in availability. The Tides Inn's main dining room, Salt and Meadow, is here too.",
+  },
+  {
+    name: "The Dog and Oyster Vineyard",
+    category: "Food & drink",
+    town: "Irvington",
+    note: "On the Hope and Glory Inn grounds: estate wine paired with local oysters. A very Northern Neck way to spend an afternoon.",
+  },
+  {
+    name: "The Colonnade at Hope and Glory",
+    category: "Food & drink",
+    town: "Irvington",
+    note: "The most elevated dinner in Irvington, a prix fixe in a historic inn. Reserve ahead.",
+  },
+  {
+    name: "Dredge",
+    category: "Food & drink",
+    town: "Irvington",
+    note: "A newer Irvington spot for Virginia oysters, steamed crabs and shrimp, and a good burger. Fills up on weekends, so go early or reserve.",
+  },
+  {
+    name: "Steamboat Era Museum",
+    category: "Sightseeing",
+    town: "Irvington",
+    note: "Irvington was once a busy Chesapeake steamboat port. The museum tells that story and has a restored pilothouse you can operate yourself. About an hour, right on the main street.",
+  },
+  {
+    name: "Hope and Glory Inn",
+    category: "Sightseeing",
+    town: "Irvington",
+    note: "A former boarding school turned inn, worth a slow look even if you're not staying. The Dog and Oyster Vineyard is on the grounds.",
+  },
+  {
+    name: "Irvington Farmers Market",
+    category: "Shopping",
+    town: "Irvington",
+    note: "First Saturday of the month, May through November, at Irvington Commons: local produce, prepared food, art, and live music. An easy hour if you let it be.",
   },
 ];
 

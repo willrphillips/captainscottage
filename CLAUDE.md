@@ -16,6 +16,16 @@ Phase 1 (foundation + home page) is in. Phases 2–6 (blog content, full propert
 
 **Owner override (2026-05-19):** `/what-to-bring` — a real, indexed seasonal "what to pack" utility page (`src/pages/what-to-bring.astro`, content of record `content/what-to-bring.draft.md`) — was built ahead of phase order at Will's direction. Same one-time-exception status. It is currently orphaned (no nav/footer link in yet); placement is a pending chrome decision.
 
+## Locked conventions added since launch (read these — newer than the stack/code sections below)
+
+The stack/code sections further down predate launch and have drifted in spots; **`SCOPE_OF_WORK.md` is authoritative on current state.** Key conventions locked in mid-2026:
+
+- **Live on a custom domain.** Site is live at https://captainscottageva.com. `BASE` is now `/` (not `/captainscottage`), and analytics is **Cloudflare Web Analytics**, not Plausible (those mentions below are stale). Most pages (`/the-cottage`, `/amenities`, `/area`, `/activities`, `/faq`, `/photos`, `/getaway-guide`, `/what-to-bring`) are real and indexed, not `ComingSoon` stubs.
+- **Location wording (geo-SEO) — locked 2026-06-21.** Lead all titles/metas/H1s/hero/schema/`llms.txt` with recognizable geography: **Virginia's Northern Neck**, **where the Potomac meets the Chesapeake Bay**, near **Heathsville** / Northumberland County, ~2¾ hrs from DC. Use **"Hull Creek" as body texture only — never a headline, page title, or search keyword** (too hyperlocal to rank). Canonical tagline lives in `site.ts → PROPERTY.tagline`.
+- **Agents (`.claude/agents/`, `.claude/workflows/`).** Blog pipeline `blog-editor → blog-researcher → blog-writer ⇄ blog-seo-editor`, plus `blog-reviewer` (read-only, citation-backed voice review) and `cottage-overseer` (read-only "state of the cottage" briefing). `cottage-pipeline` is a **workflow** (deterministic driver running the chain for the next N idea slots) — a workflow, not an agent, because subagents can't spawn subagents. Guest replies: `guest-reply`, `guest-reply-harvest` + the GitHub Actions watcher/tuner. Every agent stops at the human gate (never approves/publishes/sends).
+- **Notifications → Discord.** Guest-reply alerts post to **Discord** via the `DISCORD_WEBHOOK_URL` secret. The earlier **Telegram** and **ntfy** paths are retired. Voice tuning learns from Will's **sent** Gmail replies (sent-vs-draft diff in `build-voice-diff.mjs`), not from reply-capture.
+- **Human gate unchanged.** Posts stay `draft:true` at `in-review` until Will approves; approved posts auto-publish on their `publishedAt` date.
+
 ## Live flowchart status (when building the agent pipeline)
 
 `FLOWSTATUS.md` is the integration contract for the Living Flowcharts app in the
@@ -108,3 +118,8 @@ Work happens in the phases defined in section 10 of the brief (Foundation+Home �
 ## Property facts to reuse verbatim
 
 Section 7 of the brief is the canonical source for property data (address, bedrooms/beds/baths, max guests 6, 4.92★/137 reviews, Wi-Fi 103 Mbps, drive times, Hull Creek coordinates ~37.95° N, 76.45° W). Pull from there rather than restating — mismatches across pages hurt both trust and schema validation.
+
+
+## File location rule
+
+Save all files inside this project folder (this directory or its subfolders). Do NOT save to Downloads, `C:\Users\willr\`, or any location outside this project. If saving elsewhere is truly required, STOP and confirm with Will first that it is the best choice for the job.
