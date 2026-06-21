@@ -18,7 +18,7 @@
  * drafts). Will is the only thing that sends. Escalations (refund/complaint/
  * calendar/ambiguous) get a "handle it yourself" ping instead of a draft.
  *
- * Notifications go through a Discord webhook (replaced Telegram, then ntfy).
+ * Notifications go through a Discord webhook (the only notification channel).
  * Discord delivers to Will's phone/desktop but does NOT capture replies back,
  * so voice-tuning instead learns from Will's real *sent* Gmail replies (the
  * daily tuner diffs what he sent vs what the agent would have drafted).
