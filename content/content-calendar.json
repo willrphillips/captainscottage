@@ -110,19 +110,6 @@
       "note": "Replaces 'northern-neck-travel-guide-tides-jellyfish' — that post was killed (its core was a caveat; violates the positive-journal tone rule). Jellyfish/tides/mosquito/what-to-pack content RELOCATES to a planned seasonal 'Before You Go / Good Things to Pack' utilities section (Summer/Fall/Winter/Spring), NOT the journal; research preserved at content/research/northern-neck-travel-guide-tides-jellyfish.md. | THIS post: first-person host, a single bird-rich morning on the dock — ospreys working the creek, herons, eagles. One idea, sensory, the slow-weekend benchmark. Internal links /area + /activities. SPECIES CONFIRMED BY WILL (firsthand from the dock): osprey, bald eagle, great blue heron, egret, kingfisher; swans seen ONCE (treat as rare/occasional — do not overstate). Researcher still verifies any behavior/seasonality claims; the sighting list itself is owner firsthand. Birds pillar = recurring positive posts + eventual 'Birds of Hull Creek' guide + positioning angle. | Drafted 2026-05-19. ~623 words. 1 TODO marker (Will's single memorable bird moment — the heart of the post). 2 internal links (/area Northern Neck context, /activities waterfront). 1 CTA to /book. | Revised 2026-05-30 per Will's 2026-05-29 feedback: contractions applied throughout (it is, that is, do not, does not); swans corrected to afternoon by the sandbar (not early morning)."
     },
     {
-      "slug": "cost-to-own-waterfront-cottage-northern-neck",
-      "title": "What It Costs to Own a Waterfront Cottage on Virginia's Northern Neck",
-      "description": "The real numbers behind waterfront cottage ownership on Virginia's Northern Neck — property taxes, flood insurance, maintenance, and what Will actually spent. No glossing over it.",
-      "category": "Real Estate",
-      "keywords": ["Northern Neck real estate costs", "Virginia waterfront property", "waterfront cottage costs Virginia", "Northern Neck property taxes", "flood insurance Virginia waterfront"],
-      "audience": ["prospective waterfront property buyers", "vacation rental investors", "DC/Richmond professionals considering a second home"],
-      "status": "idea",
-      "publishDate": null,
-      "targetExperienceDate": null,
-      "approvedBy": null,
-      "note": "REJECTED BY OWNER 2026-06-21. Will's exact words: 'This is not my lane for guests to read... I'm not the real-estate-coach kind of blog and I don't want that angle.' Do not advance. Slot (formerly 2026-07-29) repurposed to hull-creek-long-weekend-from-dc (Travel). If this post is ever reconsidered, the angle must be fundamentally guest-focused, not investor-coaching. Previous draft exists in src/content/blog/cost-to-own-waterfront-cottage-northern-neck.mdx and research at content/research/cost-to-own-waterfront-cottage-northern-neck.md -- do not delete those files, they are preserved for reference. | Previous note: Brief calendar #9. ~920 words drafted. 10 TODO markers for Will. SEO PASS."
-    },
-    {
       "slug": "northern-neck-long-weekend-from-dc",
       "title": "Virginia's Northern Neck: A Weekend Getaway from DC",
       "category": "Travel",
