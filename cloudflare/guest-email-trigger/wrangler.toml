@@ -1,0 +1,19 @@
+# Cloudflare Email Worker that triggers the guest-reply watcher.
+# Deploy:  cd cloudflare/guest-email-trigger && npx wrangler deploy
+# Secret:  npx wrangler secret put GH_DISPATCH_TOKEN
+# See scripts/EMAIL_TRIGGER_SETUP.md for the full wiring (routing + Gmail filter).
+
+name = "guest-email-trigger"
+main = "src/index.mjs"
+compatibility_date = "2026-06-22"
+
+[vars]
+GH_OWNER = "willrphillips"
+GH_REPO = "captainscottage"
+GH_EVENT_TYPE = "guest-email"
+# Optional: a real mailbox to keep a copy of forwarded mail (also used to
+# complete Gmail's forwarding-address verification). Leave blank to drop copies.
+# FORWARD_TO = "willrphillips@gmail.com"
+
+# GH_DISPATCH_TOKEN is a SECRET — never put it here. Set it with:
+#   npx wrangler secret put GH_DISPATCH_TOKEN
