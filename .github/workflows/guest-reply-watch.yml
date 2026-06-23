@@ -5,10 +5,20 @@ name: Guest-reply watcher
 # Will's Discord with a prefilled compose link. Will taps → Gmail compose →
 # Send → relays to the guest. Nothing is ever sent automatically.
 #
-# Public repo → Actions minutes are free/unlimited, so 10-min polling is fine.
-# GitHub's scheduler is best-effort (runs can be a few min late) — acceptable.
+# Public repo → Actions minutes are free/unlimited.
+#
+# Two trigger paths:
+#   1. repository_dispatch (type: guest-email) — the FAST path. A Cloudflare
+#      Email Worker fires this the instant a guest email auto-forwarded from
+#      Gmail lands, so Discord pings arrive in seconds. See
+#      scripts/EMAIL_TRIGGER_SETUP.md + cloudflare/guest-email-trigger/.
+#   2. schedule (*/10) — a safety net only. GitHub throttles scheduled cron
+#      hard (observed: every few HOURS, not 10 min), so it must NOT be the
+#      primary path — it just catches anything a dropped webhook missed.
 
 on:
+  repository_dispatch:
+    types: [guest-email]
   schedule:
     - cron: "*/10 * * * *"
   workflow_dispatch:
