@@ -1,5 +1,22 @@
 # Real-time guest-reply trigger (Gmail forward → Cloudflare → GitHub)
 
+> **STATUS — paused 2026-06-22 (resume here).**
+> **Done:** GitHub fine-grained PAT (Contents: read+write) created; Worker deployed
+> (`wrangler deploy`) + `GH_DISPATCH_TOKEN` secret set — i.e. §1–§2 below.
+> **In progress:** moving `captainscottageva.com` DNS Namecheap → Cloudflare (the
+> prerequisite for §3, since Email Routing needs the zone on Cloudflare). Domain
+> is entered in Cloudflare "Add a site" but **not yet Continued — records not
+> imported, nameservers NOT changed.**
+> **Next:** Continue (import ON, do NOT block AI crawlers) → verify records [4 apex
+> `A` 185.199.108–111.153, `CNAME www`→willrphillips.github.io, 2 `TXT` (GSC
+> `google-site-verification` + SPF), `MX eforward1-5` = Namecheap email forwarding]
+> → **grey-cloud (DNS only) the web A/www records** (keeps GitHub Pages serving
+> unchanged; SEO-neutral) → **recreate the Namecheap email-forwarding rule(s) in
+> Cloudflare Email Routing** so `@captainscottageva.com` mail keeps working →
+> switch nameservers at Namecheap to Cloudflare's two NS → then resume at §3
+> (routing rule) and §4 (Gmail filter). **Don't lose:** the GSC TXT, the email
+> forwarding. Tracked in `SCOPE_OF_WORK.md` log entry 2026-06-22 (f).
+
 **Why this exists.** The watcher (`.github/workflows/guest-reply-watch.yml`)
 used to rely only on a `*/10` cron. GitHub throttles scheduled cron hard — in
 practice it ran every **3–5 hours**, not every 10 minutes — so guest messages
