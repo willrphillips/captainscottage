@@ -41,8 +41,15 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 - When context clearly confirms a happy in-stay message, a short warm
   affirmation before the soft close is natural: "Enjoy every bit of it."
   (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
-- Sign off as "Will" — not "The Captain's Cottage Team," not "Will and
-  family," not "Best."
+- For checkout/departure messages, open with "So glad you had a great
+  time, [Name]!" (not "So glad to hear it"). Follow with "We're so glad
+  to have been able to host you, and hope to have you back [out on the
+  water] sometime." Close with "Travel safe! Take care!" — not the
+  standard soft close.
+- No explicit sign-off needed — Airbnb displays the sender's name
+  automatically. Don't close with "Will," "Best," "The Captain's Cottage
+  Team," or similar. The warm close (soft close or departure close) ends
+  the message.
 
 ## Avoid
 
@@ -59,6 +66,9 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   settled in," "glad you're there") unless the message context
   clearly confirms the guest is currently in-residence. When in
   doubt, don't assume.
+- Prompting for reviews ("Looking forward to reading your review") — feels
+  self-serving. Will omits this even when guests explicitly mention they'll
+  leave one.
 
 ## Property facts
 
