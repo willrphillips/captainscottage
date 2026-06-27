@@ -1,6 +1,6 @@
 {
     "projectId":  "captainscottage",
-    "updatedAt":  "2026-06-21T00:00:00.000Z",
+    "updatedAt":  "2026-06-27T00:00:00.000Z",
     "nodes":  {
                   "site-foundation":  {
                                           "status":  "active",
@@ -29,28 +29,28 @@
                                   },
                   "calendar":  {
                                    "status":  "idle",
-                                   "lastRun":  "2026-05-15",
-                                   "note":  "Built: content/content-calendar.json seeded with brief's 12 posts + 2 amenity-health/culture entries; human gate encoded. Not yet driving an automated run."
+                                   "lastRun":  "2026-06-27",
+                                   "note":  "Batch-3 complete: 5 idea slots advanced to in-review on 2026-06-27. Calendar updatedAt: 2026-06-27. Next idea slots depleted — all 15 posts are now in-review or published (draft:false)."
                                },
                   "editor":  {
                                  "status":  "idle",
-                                 "lastRun":  "2026-06-21",
-                                 "note":  "Three idea-slot edits per owner no-investor-coaching rule. (1) buy-or-rent-on-the-water (2026-08-12) killed and slot repurposed to northern-neck-in-fall-from-dc (Travel, seasonal demand-capture, targetExperienceDate ~2026-09-19). (2) northern-neck-vs-outer-banks reframed Real Estate → Travel; title/keywords/note rewritten for traveler comparison (DC drive market, which shore for your getaway). (3) renovating-a-1950s-waterfront-cottage kept; note retuned from reno how-to to cottage character/place-story angle. All three remain idea. No posts advanced past idea. Category mix now 2 Real Estate (brief called 4) — flagged for Will."
+                                 "lastRun":  "2026-06-27",
+                                 "note":  "Batch-3: advanced 5 idea slots to in-review — northern-neck-in-fall-from-dc (Aug 12), northern-neck-vs-outer-banks (Aug 19), renovating-a-1950s-waterfront-cottage (Aug 26), health-case-for-hot-tub-and-cold-creek (Sep 2), northern-neck-watermen-culture (Sep 9). All topic-screened, seasonal offsets verified. No more idea slots remain in the current calendar."
                              },
                   "researcher":  {
                                      "status":  "idle",
-                                     "lastRun":  "2026-06-21",
-                                     "note":  "northern-neck-long-weekend-from-dc brief complete -- content/research/northern-neck-long-weekend-from-dc.md"
+                                     "lastRun":  "2026-06-27",
+                                     "note":  "Batch-3 complete: briefs written for all 5 — content/research/northern-neck-in-fall-from-dc.md, northern-neck-vs-outer-banks.md, renovating-a-1950s-waterfront-cottage.md, health-case-for-hot-tub-and-cold-creek.md, northern-neck-watermen-culture.md"
                                  },
                   "writer":  {
                                  "status":  "idle",
-                                 "lastRun":  "2026-06-21",
-                                 "note":  "northern-neck-long-weekend-from-dc drafted -- src/content/blog/northern-neck-long-weekend-from-dc.mdx; passing to SEO editor"
+                                 "lastRun":  "2026-06-27",
+                                 "note":  "Batch-3 complete: 5 MDX drafts written with draft:true — src/content/blog/northern-neck-in-fall-from-dc.mdx, northern-neck-vs-outer-banks.mdx, renovating-a-1950s-waterfront-cottage.mdx, health-case-for-hot-tub-and-cold-creek.mdx, northern-neck-watermen-culture.mdx. All ≥2 internal links, 1 CTA, UNVERIFIED items as TODO markers."
                              },
                   "seo-editor":  {
                                      "status":  "idle",
-                                     "lastRun":  "2026-06-21",
-                                     "note":  "northern-neck-long-weekend-from-dc: FAIL — description 161 chars (1 over ceiling). All other checks pass. Awaiting writer fix."
+                                     "lastRun":  "2026-06-27",
+                                     "note":  "Batch-3: all 5 posts PASS. Titles 50–60 chars, descriptions 140–160 chars, primary keywords front-loaded, ≥2 internal links, 1 CTA each, keyword-natural images with alt text, health claims hedged, UNVERIFIED items marked, build clean (0 errors 0 warnings). All 5 set to in-review."
                                  },
                   "approve":  {
                                   "status":  "planned",
