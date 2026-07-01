@@ -46,6 +46,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   to have been able to host you, and hope to have you back [out on the
   water] sometime." Close with "Travel safe! Take care!" — not the
   standard soft close.
+- Detect departure context from the reservation dates, not just from
+  the message content. A brief thank-you or reaction to something
+  minor (e.g. a restaurant tip) sent after the stay's dates have
+  passed is still a departure message — use the full checkout close
+  above, not a short generic "You're so welcome!" Check the dates
+  before defaulting to a quick reply.
 - No explicit sign-off needed — Airbnb displays the sender's name
   automatically. Don't close with "Will," "Best," "The Captain's Cottage
   Team," or similar. The warm close (soft close or departure close) ends
