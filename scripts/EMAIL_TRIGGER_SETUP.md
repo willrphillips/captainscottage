@@ -1,21 +1,28 @@
 # Real-time guest-reply trigger (Gmail forward → Cloudflare → GitHub)
 
-> **STATUS — paused 2026-06-22 (resume here).**
-> **Done:** GitHub fine-grained PAT (Contents: read+write) created; Worker deployed
-> (`wrangler deploy`) + `GH_DISPATCH_TOKEN` secret set — i.e. §1–§2 below.
-> **In progress:** moving `captainscottageva.com` DNS Namecheap → Cloudflare (the
-> prerequisite for §3, since Email Routing needs the zone on Cloudflare). Domain
-> is entered in Cloudflare "Add a site" but **not yet Continued — records not
-> imported, nameservers NOT changed.**
-> **Next:** Continue (import ON, do NOT block AI crawlers) → verify records [4 apex
-> `A` 185.199.108–111.153, `CNAME www`→willrphillips.github.io, 2 `TXT` (GSC
-> `google-site-verification` + SPF), `MX eforward1-5` = Namecheap email forwarding]
-> → **grey-cloud (DNS only) the web A/www records** (keeps GitHub Pages serving
-> unchanged; SEO-neutral) → **recreate the Namecheap email-forwarding rule(s) in
-> Cloudflare Email Routing** so `@captainscottageva.com` mail keeps working →
-> switch nameservers at Namecheap to Cloudflare's two NS → then resume at §3
-> (routing rule) and §4 (Gmail filter). **Don't lose:** the GSC TXT, the email
-> forwarding. Tracked in `SCOPE_OF_WORK.md` log entry 2026-06-22 (f).
+> **STATUS — wiring complete, awaiting live test (updated 2026-07-01).**
+> **Done:** §1–§4 are all wired. GitHub PAT created + Worker deployed with
+> `GH_DISPATCH_TOKEN` set. DNS moved Namecheap → Cloudflare — nameservers are now
+> Cloudflare (`alec`/`indie.ns.cloudflare.com`) and MX is Cloudflare Email Routing
+> (`route1/2/3.mx.cloudflare.net`). The Email Routing rule (`guest-watch@` → the
+> Worker), the Gmail forwarding-address confirmation, and the Gmail filter
+> (`from:express@airbnb.com` → forward to `guest-watch@`) are all confirmed by Will.
+> **Code fix (2026-07-01):** the Worker previously trusted only the SMTP envelope
+> sender — but Gmail rewrites that to a gmail.com address when it forwards, so
+> forwarded Airbnb mail was seen as non-Airbnb and silently dropped. `src/index.mjs`
+> now also checks the original `From:`/`Reply-To:` headers (which survive the
+> forward). `FORWARD_TO` is temporarily ON in `wrangler.toml` so Gmail's
+> confirmation email reached the inbox during setup.
+> **Remaining — 2 steps:**
+>   1. **Live end-to-end test.** A real `express@airbnb.com` guest email must
+>      produce a `repository_dispatch` run. Watch `npx wrangler tail` for
+>      `dispatched guest-email`; confirm a watcher run triggered by
+>      `repository_dispatch` + a Discord ping. **Zero dispatch runs have fired yet**
+>      — the `*/10` cron is still the only live delivery path until this passes.
+>   2. **Turn `FORWARD_TO` off** — comment it out in `wrangler.toml` and
+>      `npx wrangler deploy`, or every guest email keeps getting duplicated to the
+>      inbox. Do this only after step 1 passes.
+> Tracked in `SCOPE_OF_WORK.md` log entry 2026-07-01.
 
 **Why this exists.** The watcher (`.github/workflows/guest-reply-watch.yml`)
 used to rely only on a `*/10` cron. GitHub throttles scheduled cron hard — in

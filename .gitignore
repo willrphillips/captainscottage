@@ -34,3 +34,23 @@ _inbox/
 # Local secrets + ephemeral runtime (the Ubuntu box)
 scripts/.captainscottage.env
 runtime/
+
+# Interrupted atomic-write temp artifacts (e.g. foo.mjs.tmp.1234.abcd)
+*.tmp.*
+
+# Local Claude Code machine config / runtime — NOT for this public repo
+# (agents/ and workflows/ under .claude/ stay tracked; these do not)
+.claude/settings.json
+.claude/settings.local.json
+.claude/skills/
+.claude/scheduled_tasks.lock
+
+# Private source documents — keep out of the public repo (originals live in
+# the Dropbox-synced workspace). The Airbnb guidebook PDF is transcribed into
+# src/lib/guidebook.ts; that transcription is the public artifact, not the PDF.
+/*.pdf
+airbnb-photo-update-cowork-prompt.md
+
+# Raw mined Airbnb guest Q&A source — may contain guest-identifying detail.
+# The anonymized, publishable derivatives live in content/replies/.
+content/airbnb-archive/
