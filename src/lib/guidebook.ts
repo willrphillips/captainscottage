@@ -44,6 +44,12 @@ export const GUIDEBOOK: GuidebookPlace[] = [
     note: "Solid waterfront dining in Reedville — decent food and a relaxed spot to settle in by the water for an evening.",
   },
   {
+    name: "Horn Harbor House",
+    category: "Food & drink",
+    town: "Burgess",
+    note: "Waterfront dining we happily go back for — settle in by the water and start with the crab dip, which is a real standout. The rest of the menu delivers too.",
+  },
+  {
     name: "Chitterchats",
     category: "Food & drink",
     locals: 50,
