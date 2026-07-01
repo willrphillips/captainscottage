@@ -50,12 +50,14 @@ b. Compose the reply:
    - Lead with the answer. One short paragraph is usually right.
    - Use the canonical-answer text as the base. Adapt to the guest's exact wording lightly — don't paraphrase wholesale.
    - If the question has multiple parts, answer each in order. One paragraph per part max.
-   - Apply voice-rules.md: contractions ok, no em-dashes, no "unfortunately," no corporate language, sign off as "Will."
+   - Apply voice-rules.md: contractions ok, no em-dashes, no "unfortunately," no corporate language, and **do NOT sign off** — Will doesn't sign Airbnb messages (no "Will," no name, no "Best"). End on the last warm line.
    - If the answer depends on a property fact, pull from `PROPERTY` in `site.ts` rather than restating from memory.
 
 c. Create a Gmail draft on the thread:
    - Use `mcp__claude_ai_Gmail__create_draft` with `thread_id` set to the inbound thread, recipient = the thread's reply-to.
-   - The draft body is the reply text. Nothing else. No subject prefix.
+   - The draft body is **only** the message the guest will read: it must start with the greeting or first line of the actual reply and end on the last warm line. No sign-off (Will doesn't sign Airbnb messages). Nothing before it, nothing after it.
+   - **Never put your routing rationale, summary, or any note-to-Will inside the draft body.** Lines like "This is a simple post-checkout thank-you..." or "No questions, just a happy sign-off" are *meta-commentary about the message* — they belong in the run report (step 7), never in the draft the guest would receive. If you find yourself describing what kind of message it is, that text goes in the report, not the draft.
+   - No subject prefix.
 
 d. Label the thread `cottage-reply-draft` (create the label if it doesn't exist) so you don't double-draft it next run.
 

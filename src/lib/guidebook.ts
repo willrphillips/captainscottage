@@ -52,12 +52,14 @@ export const GUIDEBOOK: GuidebookPlace[] = [
   {
     name: "Chitterchats",
     category: "Food & drink",
+    town: "Reedville",
     locals: 50,
     note: "The best ice cream stop around. They serve Richmond's Gelati Celeste, our personal favorite in all of Virginia.",
   },
   {
     name: "Food Lion",
     category: "Food & drink",
+    town: "Heathsville",
     locals: 39,
     note: "Not fancy, but this is the nearest grocery store. Friendly, helpful staff.",
   },
@@ -71,17 +73,20 @@ export const GUIDEBOOK: GuidebookPlace[] = [
   {
     name: "Kellum Farms",
     category: "Food & drink",
+    town: "Lancaster",
     locals: 16,
     note: "Great local produce — fruits and lovely flowers in season. Call ahead to confirm hours and offerings; contact info is on their social media page.",
   },
   {
     name: "Kellum Farms Produce & Seafood",
     category: "Food & drink",
+    town: "Irvington",
     note: "A second Kellum location. For hours and offerings, contact their Irvington store.",
   },
   {
     name: "Rivah Vineyards at The Grove",
     category: "Food & drink",
+    town: "Kinsale",
     locals: 23,
     note: "A delightful afternoon adventure nearby. Typically open weekends only — check their website. They host events from time to time, so see if anything lines up with your stay.",
   },
@@ -102,22 +107,26 @@ export const GUIDEBOOK: GuidebookPlace[] = [
   {
     name: "Friends of the Northumberland County Animal Shelter Thrift Shop",
     category: "Shopping",
+    town: "Burgess",
     note: "We like to stop here for antiques. Call to confirm hours before going — plenty of treasures to be found.",
   },
   {
     name: "Rivah Consignments",
     category: "Shopping",
+    town: "Kilmarnock",
     locals: 6,
     note: "Another antique and thrift shop if you enjoy treasure hunting like we do.",
   },
   {
     name: "Jeff's Country Market",
     category: "Shopping",
+    town: "Heathsville",
     note: "A nice little local country market. They partner with local farmers, fishermen, and butchers for great local eats and odds and ends.",
   },
   {
     name: "Compass Entertainment Complex",
     category: "Entertainment",
+    town: "Irvington",
     locals: 134,
     note: "Loads of fun for the whole family — a huge fun zone with movies, go-karts, mini golf, and lots more. Our kids love it.",
   },

@@ -11,9 +11,11 @@ compatibility_date = "2026-06-22"
 GH_OWNER = "willrphillips"
 GH_REPO = "captainscottage"
 GH_EVENT_TYPE = "guest-email"
-# Optional: a real mailbox to keep a copy of forwarded mail (also used to
-# complete Gmail's forwarding-address verification). Leave blank to drop copies.
-# FORWARD_TO = "willrphillips@gmail.com"
+# Temporarily ON so Gmail's forwarding-confirmation email reaches your inbox
+# during setup (the Worker forwards every message here before the airbnb check).
+# Once the Gmail forward is confirmed and the filter is live, COMMENT THIS OUT
+# and redeploy — otherwise every guest email gets copied to your inbox as noise.
+FORWARD_TO = "willrphillips@gmail.com"
 
 # GH_DISPATCH_TOKEN is a SECRET — never put it here. Set it with:
 #   npx wrangler secret put GH_DISPATCH_TOKEN

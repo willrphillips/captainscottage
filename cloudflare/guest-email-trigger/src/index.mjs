@@ -24,14 +24,25 @@
 
 const AIRBNB_RE = /(^|[@.])airbnb\.com$/i;
 
-function senderDomain(message) {
-  // Envelope from is most reliable; fall back to the From header.
-  const addr =
-    message.from ||
-    (message.headers.get("from") || "").match(/<([^>]+)>/)?.[1] ||
-    message.headers.get("from") ||
-    "";
-  return (addr.split("@")[1] || "").trim().toLowerCase();
+function domainOf(addr) {
+  return (addr.split("@")[1] || "").trim().toLowerCase().replace(/[>\s]+$/, "");
+}
+
+// Collect every sender-ish domain on the message. CRITICAL for the Gmail path:
+// when Gmail auto-forwards an Airbnb email, the SMTP envelope (message.from) is
+// rewritten to a gmail.com address, so trusting the envelope alone makes every
+// forwarded guest message look like gmail.com and get dropped. The original
+// "From:" and "Reply-To:" headers survive the forward and still carry
+// express@airbnb.com / reply.airbnb.com — so we check those too.
+function senderDomains(message) {
+  const out = [];
+  if (message.from) out.push(domainOf(message.from));
+  for (const h of ["from", "reply-to"]) {
+    const raw = message.headers.get(h) || "";
+    const angle = raw.match(/<([^>]+)>/);
+    out.push(domainOf(angle ? angle[1] : raw));
+  }
+  return out.filter(Boolean);
 }
 
 async function fireDispatch(env, payload) {
@@ -60,8 +71,8 @@ async function fireDispatch(env, payload) {
 
 export default {
   async email(message, env, ctx) {
-    const domain = senderDomain(message);
-    const isAirbnb = AIRBNB_RE.test(domain);
+    const domains = senderDomains(message);
+    const isAirbnb = domains.some((d) => AIRBNB_RE.test(d));
 
     // Best-effort: keep a copy flowing to a real inbox if one is configured.
     // (Also how you complete Gmail's forward-address verification — see setup.)
@@ -75,7 +86,7 @@ export default {
 
     if (!isAirbnb) {
       // Not guest mail — do nothing (no dispatch, no wasted Actions run).
-      console.log(`skip: sender domain ${domain || "(unknown)"} is not airbnb.com`);
+      console.log(`skip: no airbnb sender domain (saw: ${domains.join(", ") || "none"})`);
       return;
     }
 
@@ -83,7 +94,7 @@ export default {
     ctx.waitUntil(
       fireDispatch(env, {
         source: "cloudflare-email-worker",
-        from_domain: domain,
+        from_domain: domains.find((d) => AIRBNB_RE.test(d)) || domains[0] || "",
         subject: message.headers.get("subject") || "",
         received_at: new Date().toISOString(),
       })

@@ -45,17 +45,22 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   time, [Name]!" (not "So glad to hear it"). Follow with "We're so glad
   to have been able to host you, and hope to have you back [out on the
   water] sometime." Close with "Travel safe! Take care!" — not the
-  standard soft close.
+  standard soft close. Exclamation points are natural here. (Confirmed
+  2026-06-25 from a sent reply: *"So glad you had a great time, Amanda!
+  We're so glad to have been able to host you, and hope to have you back
+  out on the water sometime. Travel safe! Take care!"*)
 - Detect departure context from the reservation dates, not just from
   the message content. A brief thank-you or reaction to something
   minor (e.g. a restaurant tip) sent after the stay's dates have
   passed is still a departure message — use the full checkout close
   above, not a short generic "You're so welcome!" Check the dates
   before defaulting to a quick reply.
-- No explicit sign-off needed — Airbnb displays the sender's name
-  automatically. Don't close with "Will," "Best," "The Captain's Cottage
-  Team," or similar. The warm close (soft close or departure close) ends
-  the message.
+- **No sign-off. Will does not sign Airbnb messages** — no "Will," no
+  "— Will," no "The Captain's Cottage Team," no "Best." Airbnb displays
+  the sender's name automatically; the message just ends on its last
+  warm line.
+- Don't fish for reviews. Will does not say "looking forward to your
+  review" or similar — let the review come on its own.
 
 ## Avoid
 

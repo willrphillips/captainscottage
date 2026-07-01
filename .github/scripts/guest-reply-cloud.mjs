@@ -71,7 +71,7 @@ ${guestText}
 """
 
 Decide:
-- If this is answerable from the knowledge base / property facts, output ONLY the drafted reply text — no preamble, no quotes, no signature beyond how Will signs in voice-rules. Short and warm, his messaging voice.
+- If this is answerable from the knowledge base / property facts, output ONLY the drafted reply text — no preamble, no quotes, and NO sign-off/signature (Will does not sign Airbnb messages — no "Will," no name; end on the last warm line). Short and warm, his messaging voice. Do NOT describe the message before the reply: lines like "This is a simple post-checkout thank-you" or "No questions, just a happy sign-off" must never appear — start directly with the greeting or first line the guest will read.
 - If it is a refund, complaint, cancellation, calendar/date negotiation, or anything sensitive/ambiguous where a wrong answer has cost, output exactly: ESCALATE: <one short reason>
 
 Output nothing else.`;
