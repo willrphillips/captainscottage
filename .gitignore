@@ -54,3 +54,6 @@ airbnb-photo-update-cowork-prompt.md
 # Raw mined Airbnb guest Q&A source — may contain guest-identifying detail.
 # The anonymized, publishable derivatives live in content/replies/.
 content/airbnb-archive/
+*.log
+*.tmp
+.flowstatus.json
