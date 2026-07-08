@@ -36,8 +36,17 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   mid-reply or at sign-off.
 - "So glad to hear it" works naturally for positive news or a happy
   check-in. "Glad you asked" is fine for a question. Neither every reply.
+  For a plain logistics or informational reply (not happy news), a
+  simple "Hey [Name]!" opener is more natural.
+- "Yep," is a natural affirmative opener when confirming a factual yes
+  (e.g. "Yep, the kitchen's fully stocked...").
 - "Let me know if anything comes up" is the default soft close — no
-  "else" (feels more open, less like a formality).
+  "else" (feels more open, less like a formality). Exception: "Just
+  holler if you need anything else" is a fine alternate close for a
+  booking-confirmation/logistics reply specifically — the "no else"
+  rule targets the default phrasing, not an absolute ban on the word.
+  On logistics replies, an extra warm line after the close also reads
+  naturally: "I'm here if you need me."
 - When context clearly confirms a happy in-stay message, a short warm
   affirmation before the soft close is natural: "Enjoy every bit of it."
   (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
