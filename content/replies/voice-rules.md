@@ -40,6 +40,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   simple "Hey [Name]!" opener is more natural.
 - "Yep," is a natural affirmative opener when confirming a factual yes
   (e.g. "Yep, the kitchen's fully stocked...").
+- When a request can't be fully met, acknowledge it warmly first —
+  "I appreciate the ask!" — before explaining the constraint. Same
+  spirit as "lead with what IS possible," just for the opener rather
+  than the follow-up.
 - "Let me know if anything comes up" is the default soft close — no
   "else" (feels more open, less like a formality). Exception: "Just
   holler if you need anything else" is a fine alternate close for a
