@@ -51,6 +51,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   rule targets the default phrasing, not an absolute ban on the word.
   On logistics replies, an extra warm line after the close also reads
   naturally: "I'm here if you need me."
+- When a reply lays out options for the guest to choose between (not
+  just answering a question), the natural close is the shorter "Just
+  let me know" rather than "Let me know if anything comes up" — it
+  reads as prompting a decision, not just an open invitation.
 - When context clearly confirms a happy in-stay message, a short warm
   affirmation before the soft close is natural: "Enjoy every bit of it."
   (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
