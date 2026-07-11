@@ -55,6 +55,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   just answering a question), the natural close is the shorter "Just
   let me know" rather than "Let me know if anything comes up" — it
   reads as prompting a decision, not just an open invitation.
+- For a pre-arrival message (guest not yet checked in), "Let me know
+  if anything comes up" can take an added second line: "We're looking
+  forward to hosting you!" Anticipatory warmth, distinct from the
+  departure close.
 - When context clearly confirms a happy in-stay message, a short warm
   affirmation before the soft close is natural: "Enjoy every bit of it."
   (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
@@ -78,6 +82,20 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   warm line.
 - Don't fish for reviews. Will does not say "looking forward to your
   review" or similar — let the review come on its own.
+- Equipment/gear and amenity questions get the full specific answer
+  (what's included, quantities, any caveat) — never shorten to a
+  generic "Sounds good, see you soon!" even if the guest's message
+  arrives buried in a reaction/quote digest. Read past the quoted
+  text for the real question before drafting.
+- A brief "Sorry that didn't come across yet" (owning a gap in a
+  *prior* reply) is fine and distinct from the "Unfortunately" ban —
+  that rule targets leading with the negative on a new answer, not
+  acknowledging an earlier message was unclear.
+- For a question about a third-party service the cottage doesn't run
+  directly (e.g. a marina/outfitter's own delivery or logistics),
+  say plainly that it isn't something managed directly and point the
+  guest to contact that vendor themselves — don't guess at their
+  process.
 
 ## Avoid
 
