@@ -39,7 +39,15 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   For a plain logistics or informational reply (not happy news), a
   simple "Hey [Name]!" opener is more natural.
 - "Yep," is a natural affirmative opener when confirming a factual yes
-  (e.g. "Yep, the kitchen's fully stocked...").
+  (e.g. "Yep, the kitchen's fully stocked..."). "Yes we do!" is an
+  equally natural variant when confirming an amenity/equipment is
+  available (e.g. answering "do you have kayaks?").
+- In an ongoing thread where the guest's name has already been used,
+  a follow-up that relays a just-resolved logistics detail can skip
+  the name opener entirely and start straight on the resolution
+  ("Ok, we'd love to have you through Friday..."). This is distinct
+  from opening a fresh thread, where the name/greeting opener rules
+  above still apply.
 - When a request can't be fully met, acknowledge it warmly first —
   "I appreciate the ask!" — before explaining the constraint. Same
   spirit as "lead with what IS possible," just for the opener rather
@@ -58,7 +66,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 - For a pre-arrival message (guest not yet checked in), "Let me know
   if anything comes up" can take an added second line: "We're looking
   forward to hosting you!" Anticipatory warmth, distinct from the
-  departure close.
+  departure close. When the reply itself is already a full, detailed
+  answer (e.g. a thorough equipment/gear rundown), a simpler "We'll
+  see you soon!" close is also natural in place of the two-line
+  version — the detailed answer already carries the warmth.
 - When context clearly confirms a happy in-stay message, a short warm
   affirmation before the soft close is natural: "Enjoy every bit of it."
   (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
