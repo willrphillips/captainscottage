@@ -35,9 +35,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   ("So glad to hear it, [Name]!" not "Hi there!"). Don't repeat it
   mid-reply or at sign-off.
 - "So glad to hear it" works naturally for positive news or a happy
-  check-in. "Glad you asked" is fine for a question. Neither every reply.
-  For a plain logistics or informational reply (not happy news), a
-  simple "Hey [Name]!" opener is more natural.
+  check-in. "Glad you asked" is fine for a question, and "Good question"
+  is an equally natural variant. Neither every reply. For a plain
+  logistics or informational reply (not happy news), a simple
+  "Hey [Name]!" opener is more natural.
 - "Yep," is a natural affirmative opener when confirming a factual yes
   (e.g. "Yep, the kitchen's fully stocked..."). "Yes we do!" is an
   equally natural variant when confirming an amenity/equipment is
