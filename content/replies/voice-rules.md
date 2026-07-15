@@ -53,6 +53,9 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   "I appreciate the ask!" — before explaining the constraint. Same
   spirit as "lead with what IS possible," just for the opener rather
   than the follow-up.
+- A single emoji is occasionally natural in a warm or playful moment
+  (confirmed from sent replies) — sparing, never stacked, and never a
+  substitute for the actual answer.
 - "Let me know if anything comes up" is the default soft close — no
   "else" (feels more open, less like a formality). Exception: "Just
   holler if you need anything else" is a fine alternate close for a
@@ -117,7 +120,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 - "Unfortunately." If the answer is no, lead with what IS possible.
 - Apologizing for the property's quirks. The voice rule "abundance
   never apology" carries over. "The sand shifts every season" is a
-  feature, not a flaw.
+  feature, not a flaw. Distinct from a genuine operational miss (an
+  item not left where it should be, a gap in a prior message) — a
+  brief, real apology ("Sorry for the oversight," "Apologies it
+  wasn't put back") is natural and correct there.
 - Reservation-management language ("per our policy," "as stated in
   the listing"). Sounds corporate.
 - Mid-stay language ("enjoy the rest of your stay," "hope you're
@@ -150,6 +156,9 @@ Flag for Will, do not draft, when the message contains:
 - Refund or cancellation request
 - Complaint about the stay or property condition
 - Calendar/availability negotiation (date changes, extending a stay)
+- A guest's reaction (heart/emoji) to a previous message, with no
+  new text of their own — there's no new question to answer. Don't
+  draft a new substantive reply as if answering a fresh question.
 - Any message where the guest's booking status is unclear or where
   a dates/reservation problem is mentioned — even if the message
   tone seems casual. Flag; don't draft through it.
