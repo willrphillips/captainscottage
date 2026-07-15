@@ -316,3 +316,11 @@ check in and first sunset is thursday. Day 2 is friday, day 3 satyrda, leave sun
 _(no notes — decision only)_
 
 ---
+
+## 2026-07-13T22:34:16.375Z · renovating-a-1950s-waterfront-cottage
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+The house was built in 1940. I don't like this article. Reject it and write a different one. Tell the editor I don't like real estate-centric posts.
+
+---

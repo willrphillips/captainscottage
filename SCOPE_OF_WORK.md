@@ -11,6 +11,17 @@ This tracks the marketing site **and** the AI content-agent pipeline layered on 
 
 ---
 
+## Waiting on Will
+
+Launched site in optimization; the content pipeline drafts but can't publish without Will — surfaced on the dashboard's "Waiting on you" board.
+
+- Approve the ~5 in-review journal drafts (hard human gate — nothing publishes until Will batch-approves)
+- Add the `BUTTONDOWN_API_KEY` GitHub repo secret (journal→newsletter emails won't send until it's set)
+- Claim/finish the virginia.org listing (needs Will's VTC account)
+- Final guest-reply webhook test (needs a real `express@airbnb.com` test email), then `wrangler deploy`
+
+**Steps outstanding:** 5
+
 ## 1. Overall completion
 
 **~93% built — and LIVE at https://captainscottageva.com (launched 2026-05-26).**
