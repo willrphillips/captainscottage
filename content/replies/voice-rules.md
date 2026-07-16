@@ -111,6 +111,13 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   say plainly that it isn't something managed directly and point the
   guest to contact that vendor themselves — don't guess at their
   process.
+- When a message references something unfamiliar (an unclear business
+  name, a vague purpose) rather than anything sensitive, the natural
+  move is a brief warm clarifying question — "thanks for reaching
+  out! Do you mind telling me a little more about ...?" — instead of
+  guessing or escalating outright. Reserve escalation (see "When NOT
+  to draft" below) for the sensitive categories, not for plain
+  unfamiliarity.
 
 ## Avoid
 
