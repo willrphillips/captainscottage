@@ -1,6 +1,14 @@
 # Scope of Work — Captain's Cottage
 
-**Living document.** Last updated: 2026-06-21. Owner: Will Phillips.
+**Living document.** Last updated: 2026-07-16. Owner: Will Phillips.
+
+> **2026-07-16 — Folded into Buffalo Rentals + moved off Dropbox.** The repo now lives at
+> `C:\Code\buffalo-rentals\captainscottage` — nested inside the Buffalo Rentals, LLC umbrella
+> folder alongside the LLC docs and the 1304 Apperson St (MTR) docs. It remains its **own
+> public GitHub repo** (remote, GH Pages deploy, and Actions unchanged); the private
+> buffalo-rentals repo gitignores it. The old Dropbox location is a `MOVED.md` breadcrumb.
+> `captainscottage.worktrees` was removed (its branch was fully merged). Locked rule carried
+> over from the fold: **no LLC financial data in this repo — it is public.**
 
 > **2026-06-21 — Post-launch optimization phase.** Site is launched and live; the project is now in **ongoing optimization** (SEO distribution, newsletter/Discord flow, batch-2 approvals, backlink outreach, `/the-cottage` accuracy pass). Codex dashboard stage = live, progress 95. **Unpinned as the dashboard big-picture** — focus shifts to the QuickBooks helper (next big-picture build).
 
