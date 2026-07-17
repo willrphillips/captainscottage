@@ -2,6 +2,19 @@
 
 **Living document.** Last updated: 2026-07-16. Owner: Will Phillips.
 
+> **2026-07-17 — Migration checkpoint / resume point.** The C:\Code relocation is ALREADY
+> DONE for this repo (see the 2026-07-16 fold note below) — do not move it again. Both
+> repos (this one and the parent `C:\Code\buffalo-rentals`) are clean, committed, and
+> pushed; nothing is in flight. Session left off after: Buffalo Rentals fold complete +
+> verified (build green, GH Pages deploy green, flowcharts repointed via `FLOWCHARTS_ROOTS`),
+> Apperson first-guest docs written in the parent repo (`apperson/first-guest-punchlist.md`,
+> `apperson/directions.md` — five-route Airbnb version pushed). **Exact next steps (Apperson,
+> in the parent repo):** Will fills the `[PARKING SPOT DETAIL]` line and pastes the
+> directions into the Airbnb arrival guide; then work the punchlist blocker tier (State Farm
+> furnished-MTR confirmation, smart-lock install + code test, lease-vs-Airbnb decision).
+> Gotchas: open new sessions at `C:\Code\buffalo-rentals` (old Dropbox paths are MOVED.md
+> breadcrumbs); Apperson St is one-way westbound — arrival is via Waverly Ave.
+
 > **2026-07-16 — Folded into Buffalo Rentals + moved off Dropbox.** The repo now lives at
 > `C:\Code\buffalo-rentals\captainscottage` — nested inside the Buffalo Rentals, LLC umbrella
 > folder alongside the LLC docs and the 1304 Apperson St (MTR) docs. It remains its **own
