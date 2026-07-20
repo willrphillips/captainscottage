@@ -18,8 +18,12 @@ import { resolve, join } from "node:path";
 
 const blogDir = resolve(process.cwd(), "src/content/blog");
 // `today` is UTC date-only so the comparison with `publishedAt: YYYY-MM-DD`
-// is stable regardless of where the runner happens to live.
-const today = new Date().toISOString().slice(0, 10);
+// is stable regardless of where the runner happens to live. `nowTime` is
+// UTC "HH:MM" for the optional per-post `publishTime` gate — the Editor
+// picks a time-of-day slot per post; the cron runs several times a day.
+const now = new Date().toISOString();
+const today = now.slice(0, 10);
+const nowTime = now.slice(11, 16);
 let flippedCount = 0;
 const flippedSlugs = [];
 const log = [];
@@ -40,6 +44,11 @@ for (const f of readdirSync(blogDir).filter((f) => f.endsWith(".mdx"))) {
   const publishedAt = publishedMatch[1];
   // String compare is fine for ISO-prefixed dates.
   if (publishedAt > today) continue;
+  // Optional time-of-day gate: `publishTime: "HH:MM"` (UTC). Only applies
+  // on the publish date itself — an overdue post flips on the next run
+  // regardless. Absent publishTime keeps the old date-only behavior.
+  const timeMatch = fmBlock.match(/^publishTime:\s*"?(\d{2}:\d{2})"?/m);
+  if (publishedAt === today && timeMatch && timeMatch[1] > nowTime) continue;
 
   const newFmBlock = fmBlock.replace(/^draft:\s*true\s*$/m, "draft: false");
   writeFileSync(path, `---\n${newFmBlock}\n---${after}`, "utf8");

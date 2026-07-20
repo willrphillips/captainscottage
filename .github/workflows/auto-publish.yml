@@ -1,9 +1,9 @@
 name: Auto-publish approved drafts
 
-# Daily check: any approved draft post whose publishedAt date has
-# arrived gets flipped from `draft: true` to `draft: false`. The flip
-# is committed to main, then this workflow explicitly dispatches the
-# Deploy workflow to rebuild the site.
+# Scheduled check: any approved draft post whose publishedAt date (and
+# optional publishTime, UTC) has arrived gets flipped from `draft: true`
+# to `draft: false`. The flip is committed to main, then this workflow
+# explicitly dispatches the Deploy workflow to rebuild the site.
 #
 # Why the explicit dispatch: pushes made with the default GITHUB_TOKEN
 # do NOT trigger other workflows (GitHub's anti-recursion rule), so the
@@ -15,15 +15,19 @@ name: Auto-publish approved drafts
 # Eligibility rules (enforced by .github/scripts/auto-publish.mjs):
 #   - draft: true
 #   - approvedAt: present (Will hit "Approve" in the ReviewPanel)
-#   - publishedAt <= today (UTC)
+#   - publishedAt <= today (UTC); if publishTime ("HH:MM" UTC) is set,
+#     it must also have passed on the publish date itself
 #
 # Manual trigger also available via the Actions tab.
 
 on:
   schedule:
-    # 12:00 UTC daily = 08:00 ET (during EDT). Posts go live in the
-    # morning ET on their publishedAt date.
+    # Three slots daily (UTC) so the Editor's per-post publishTime choices
+    # take effect: 12:00 = 8am ET, 16:00 = noon ET, 21:00 = 5pm ET (EDT).
+    # A post with no publishTime flips on the first run of its date.
     - cron: "0 12 * * *"
+    - cron: "0 16 * * *"
+    - cron: "0 21 * * *"
   workflow_dispatch:
 
 permissions:

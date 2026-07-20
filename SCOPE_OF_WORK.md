@@ -1,6 +1,18 @@
 # Scope of Work — Captain's Cottage
 
-**Living document.** Last updated: 2026-07-16. Owner: Will Phillips.
+**Living document.** Last updated: 2026-07-20. Owner: Will Phillips.
+
+> **2026-07-20 — Publishing cadence switched to biweekly; per-post day/time slots (LOCKED).**
+> At Will's direction: (1) `content-calendar.json` synced to frontmatter truth — statuses
+> had gone stale at "in-review" for all 15 posts (real state: 7 published, 3 scheduled,
+> 5 in-review awaiting Will's batch-3 approval). (2) Cadence changed from "weekly,
+> Wednesdays" to **biweekly (~14 days), with the Editor choosing the best day-of-week and
+> time-of-day per post** — trip-planning posts Thu 8am ET, evergreen midweek, long-read
+> essays weekend morning. Queue re-spaced 2026-07-23 → 2026-10-29. (3) New optional
+> `publishTime: "HH:MM"` (UTC) frontmatter field (schema + auto-publish.mjs); auto-publish
+> cron now runs 12:00/16:00/21:00 UTC so time slots take effect. Human gate unchanged —
+> the 5 batch-3 posts still need Will's approval (first slot 2026-09-03; approve by
+> ~2026-08-27). Build verified clean after all changes.
 
 > **2026-07-17 — Migration checkpoint / resume point.** The C:\Code relocation is ALREADY
 > DONE for this repo (see the 2026-07-16 fold note below) — do not move it again. Both

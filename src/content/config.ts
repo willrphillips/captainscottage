@@ -9,6 +9,11 @@ const blog = defineCollection({
       description: z.string(),
       category: z.enum(["Lifestyle", "Travel", "Real Estate"]),
       publishedAt: z.coerce.date(),
+      // Optional go-live time of day (UTC, "HH:MM"). Chosen per post by the
+      // Editor agent (trip-planning posts Thu morning ET, long-reads weekend
+      // morning, etc.). Honored by .github/scripts/auto-publish.mjs; absent
+      // means the post flips on the first cron run of its publishedAt date.
+      publishTime: z.string().regex(/^\d{2}:\d{2}$/).optional(),
       updatedAt: z.coerce.date().optional(),
       author: z.string().default("Will Phillips"),
       // Public image path under /images (already optimized by
