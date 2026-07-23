@@ -77,6 +77,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 - When context clearly confirms a happy in-stay message, a short warm
   affirmation before the soft close is natural: "Enjoy every bit of it."
   (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
+- For an in-stay guest who got a substantive/informational answer (not
+  just a happy check-in), a trailing warm line after the soft close can
+  be "I hope you're enjoying yourselves!" instead of "Enjoy every bit
+  of it" — same trailing-warmth slot as the logistics-reply "I'm here
+  if you need me," just recast for mid-stay context (confirmed from a
+  sent reply).
 - For checkout/departure messages, open with "So glad you had a great
   time, [Name]!" (not "So glad to hear it"). Follow with "We're so glad
   to have been able to host you, and hope to have you back [out on the
