@@ -232,7 +232,9 @@ for (const { id } of list) {
     escalated++;
     await notify({
       title: "New guest message — needs you",
-      message: `${reply.replace(/^ESCALATE:\s*/, "")}\n\nHandle this one directly in Airbnb.`,
+      message:
+        `Guest asked:\n${guestText}\n\n` +
+        `${reply.replace(/^ESCALATE:\s*/, "")}\n\nHandle this one directly in Airbnb.`,
       priority: 5,
     });
   } else {
@@ -241,6 +243,7 @@ for (const { id } of list) {
     await notify({
       title: "New guest message — draft ready",
       message:
+        `Guest asked:\n${guestText}\n\n` +
         `${reply}\n\n` +
         `Tap → opens prefilled in Gmail → Send. (Sends from your Gmail → relays to the guest. Nothing was sent automatically.)`,
       clickUrl: gmail,
