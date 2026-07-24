@@ -97,6 +97,19 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   passed is still a departure message — use the full checkout close
   above, not a short generic "You're so welcome!" Check the dates
   before defaulting to a quick reply.
+- When "hope to have you back out on the water sometime" doesn't fit
+  the context, "Hope you come back and see us sometime" is a natural
+  alternate mid-checkout-close line. A trailing smiley (":)") is
+  occasionally natural in a checkout close alongside the exclamation
+  points already noted — same sparing-emoji rule as elsewhere.
+- A minor item a guest mentions in passing while thanking you (e.g.
+  flagging something small that needs fixing, not asking for
+  compensation or venting) can get a brief warm acknowledgment plus
+  thanks for flagging it — "No worries at all, we'll take a look at
+  that. Really appreciate you flagging it." This is distinct from the
+  "complaint about the stay or property condition" case in "When NOT
+  to draft" below: that's for a guest who is unhappy or wants
+  something done about it, not a passing, good-natured heads-up.
 - **No sign-off. Will does not sign Airbnb messages** — no "Will," no
   "— Will," no "The Captain's Cottage Team," no "Best." Airbnb displays
   the sender's name automatically; the message just ends on its last
