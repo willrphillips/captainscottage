@@ -70,11 +70,17 @@ The guest message (from ${fromName || "a guest"}, subject "${subject}"):
 ${guestText}
 """
 
-Decide:
-- If this is answerable from the knowledge base / property facts, output ONLY the drafted reply text — no preamble, no quotes, and NO sign-off/signature (Will does not sign Airbnb messages — no "Will," no name; end on the last warm line). Short and warm, his messaging voice. Do NOT describe the message before the reply: lines like "This is a simple post-checkout thank-you" or "No questions, just a happy sign-off" must never appear — start directly with the greeting or first line the guest will read.
-- If it is a refund, complaint, cancellation, calendar/date negotiation, or anything sensitive/ambiguous where a wrong answer has cost, output exactly: ESCALATE: <one short reason>
+Decide, and output in EXACTLY one of these two formats (nothing before, nothing after):
 
-Output nothing else.`;
+1. Answerable from the knowledge base / property facts:
+REASONING: <one short sentence, for Will only — never appears in the email>
+REPLY:
+<the drafted reply text — no preamble, no quotes, and NO sign-off/signature (Will does not sign Airbnb messages — no "Will," no name; end on the last warm line). Short and warm, his messaging voice. Start directly with the greeting or first line the guest will read — never a description of the message like "This is a simple post-checkout thank-you.">
+
+2. Refund, complaint, cancellation, calendar/date negotiation, or anything sensitive/ambiguous where a wrong answer has cost:
+ESCALATE: <one short reason>
+
+The text after "REPLY:" is pasted verbatim into an email sent to the guest — it must never contain your reasoning, notes to Will, or any meta-commentary about the message.`;
 
   try {
     const out = execFileSync(
@@ -82,11 +88,28 @@ Output nothing else.`;
       ["-p", prompt, "--permission-mode", "bypassPermissions", "--allowedTools", "Read,Glob,Grep"],
       { cwd: ROOT, encoding: "utf8", timeout: 180000, maxBuffer: 10 * 1024 * 1024 },
     );
-    return out.trim();
+    return parseDraft(out.trim());
   } catch (e) {
     console.error("claude draft failed:", e.message);
-    return "ESCALATE: drafting failed (see Actions log)";
+    return { escalate: "drafting failed (see Actions log)" };
   }
+}
+
+// Structurally separates the guest-facing reply from Will-only reasoning so a
+// model slip (adding meta-commentary) can never leak into the sent email — if
+// the output doesn't parse cleanly into the expected shape, we escalate rather
+// than guess which part is safe to send.
+function parseDraft(out) {
+  if (out.startsWith("ESCALATE:")) {
+    return { escalate: out.replace(/^ESCALATE:\s*/, "") };
+  }
+  const m = out.match(/^REASONING:\s*(.*?)\s*\nREPLY:\s*\n([\s\S]+)$/);
+  if (!m) {
+    console.error("draft did not match expected format:", out.slice(0, 200));
+    return { escalate: "drafting format error (see Actions log)" };
+  }
+  const [, reasoning, reply] = m;
+  return { reasoning: reasoning.trim(), reply: reply.trim() };
 }
 
 // ---- Discord push -----------------------------------------------------------
@@ -152,23 +175,23 @@ if (process.env.TEST_MODE === "true") {
     process.env.TEST_QUESTION ||
     "Hi! Is the dock safe for young kids, and do you have life jackets? Also what time is check-in?";
   console.log("test mode: drafting a reply to a simulated question…");
-  const reply = draftReply({ guestText: q, subject: "Test guest message", fromName: "Test Guest" });
-  if (reply.startsWith("ESCALATE:")) {
+  const draft = draftReply({ guestText: q, subject: "Test guest message", fromName: "Test Guest" });
+  if (draft.escalate) {
     await notify({
       title: "TEST — agent escalated this one",
       message:
         `Simulated question: ${q}\n\n` +
-        `Reason: ${reply.replace(/^ESCALATE:\s*/, "")}\n\n` +
+        `Reason: ${draft.escalate}\n\n` +
         `(Test only. Escalations are expected while the knowledge base is still thin.)`,
       priority: 5,
     });
   } else {
-    const gmail = buildComposeLink("willrphillips@gmail.com", "Test guest message", reply);
+    const gmail = buildComposeLink("willrphillips@gmail.com", "Test guest message", draft.reply);
     await notify({
       title: "TEST — full draft (Gmail read skipped)",
       message:
         `Simulated question: ${q}\n\n` +
-        `Agent's proposed reply:\n${reply}\n\n` +
+        `Agent's proposed reply:\n${draft.reply}\n\n` +
         `Tap → opens prefilled in Gmail → Send. (Test only — addressed to you, so Send just emails yourself.)`,
       clickUrl: gmail,
       action: { label: "Open in Gmail & send", url: gmail },
@@ -226,25 +249,26 @@ for (const { id } of list) {
   const fromName = (from.match(/^"?([^"<]+?)"?\s*</) || [, from])[1].trim();
   const guestText = plainBody(msg);
 
-  const reply = draftReply({ guestText, subject, fromName });
+  const draft = draftReply({ guestText, subject, fromName });
 
-  if (reply.startsWith("ESCALATE:")) {
+  if (draft.escalate) {
     escalated++;
     await notify({
       title: "New guest message — needs you",
       message:
         `Guest asked:\n${guestText}\n\n` +
-        `${reply.replace(/^ESCALATE:\s*/, "")}\n\nHandle this one directly in Airbnb.`,
+        `${draft.escalate}\n\nHandle this one directly in Airbnb.`,
       priority: 5,
     });
   } else {
     drafted++;
-    const gmail = buildComposeLink(replyTo, subject, reply);
+    const gmail = buildComposeLink(replyTo, subject, draft.reply);
     await notify({
       title: "New guest message — draft ready",
       message:
         `Guest asked:\n${guestText}\n\n` +
-        `${reply}\n\n` +
+        `${draft.reasoning ? `(${draft.reasoning})\n\n` : ""}` +
+        `${draft.reply}\n\n` +
         `Tap → opens prefilled in Gmail → Send. (Sends from your Gmail → relays to the guest. Nothing was sent automatically.)`,
       clickUrl: gmail,
       action: { label: "Open in Gmail & send", url: gmail },
