@@ -153,6 +153,41 @@ function reSubject(subject) {
   return /^re:/i.test(subject) ? subject : `Re: ${subject}`;
 }
 
+// Airbnb's "new message" digest is dozens of lines of boilerplate (reservation
+// card, unsubscribe links, app-download links) wrapped around the actual guest
+// text. Discord notifications only need the guest's words, so pull just that
+// out of the full plain-text body pulled by plainBody().
+function extractGuestMessage(rawBody) {
+  let section = rawBody;
+  const afterIntro = section.split(/communicate through Airbnb[\s\S]*?\]\s*\.?\s*/i);
+  if (afterIntro.length > 1) section = afterIntro.slice(1).join("");
+  section = section.split(/\n\s*Reply\s*\n\s*\[/i)[0];
+
+  const paragraphs = section
+    .split(/\n\s*\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+
+  // Each message renders as a bare NAME line, then a "Guest" role line, then
+  // the text itself — drop those two header lines and keep the rest.
+  const isHeaderLine = (p) =>
+    /^guest$/i.test(p) || (/^[A-Z][A-Z\s.'-]*$/.test(p) && p.split(/\s+/).length <= 4);
+
+  const lines = paragraphs
+    .filter((p) => !isHeaderLine(p))
+    .map((p) => p.replace(/\s*\n\s*/g, " ")); // un-wrap Gmail's hard line-wraps
+  if (!lines.length) return rawBody.slice(0, 500);
+
+  // Collapse runs of identical lines (e.g. ten back-to-back "Image sent") into one.
+  const collapsed = [];
+  for (const line of lines) {
+    const prev = collapsed[collapsed.length - 1];
+    if (prev && prev.text === line) prev.count++;
+    else collapsed.push({ text: line, count: 1 });
+  }
+  return collapsed.map((c) => (c.count > 1 ? `${c.text} (×${c.count})` : c.text)).join("\n\n");
+}
+
 // The Discord "Open in Gmail" link points here (https). On iOS this page bounces
 // to the Gmail APP compose (googlegmail://), prefilled; on desktop/other it
 // falls back to Gmail web compose. See public/compose.html.
@@ -250,13 +285,14 @@ for (const { id } of list) {
   const guestText = plainBody(msg);
 
   const draft = draftReply({ guestText, subject, fromName });
+  const guestMessage = extractGuestMessage(guestText);
 
   if (draft.escalate) {
     escalated++;
     await notify({
       title: "New guest message — needs you",
       message:
-        `Guest asked:\n${guestText}\n\n` +
+        `Guest asked:\n${guestMessage}\n\n` +
         `${draft.escalate}\n\nHandle this one directly in Airbnb.`,
       priority: 5,
     });
@@ -266,7 +302,7 @@ for (const { id } of list) {
     await notify({
       title: "New guest message — draft ready",
       message:
-        `Guest asked:\n${guestText}\n\n` +
+        `Guest asked:\n${guestMessage}\n\n` +
         `${draft.reasoning ? `(${draft.reasoning})\n\n` : ""}` +
         `${draft.reply}\n\n` +
         `Tap → opens prefilled in Gmail → Send. (Sends from your Gmail → relays to the guest. Nothing was sent automatically.)`,
