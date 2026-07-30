@@ -88,7 +88,7 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   to have been able to host you, and hope to have you back [out on the
   water] sometime." Close with "Travel safe! Take care!" — not the
   standard soft close. Exclamation points are natural here. (Confirmed
-  2026-06-25 from a sent reply: *"So glad you had a great time, Amanda!
+  2026-06-25 from a sent reply: *"So glad you had a great time, [Name]!
   We're so glad to have been able to host you, and hope to have you back
   out on the water sometime. Travel safe! Take care!"*)
 - Detect departure context from the reservation dates, not just from
@@ -110,6 +110,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   "complaint about the stay or property condition" case in "When NOT
   to draft" below: that's for a guest who is unhappy or wants
   something done about it, not a passing, good-natured heads-up.
+  When this comes up inside a checkout/departure message, this
+  acknowledgment leads the reply (e.g. "Thank you so much for letting
+  us know, [Name]!") instead of the standard "So glad you had a great
+  time" checkout opener — the full checkout close ("Hope you come back
+  and see us sometime," "Travel safe! Take care!") still applies at
+  the end (confirmed from a sent reply).
 - **No sign-off. Will does not sign Airbnb messages** — no "Will," no
   "— Will," no "The Captain's Cottage Team," no "Best." Airbnb displays
   the sender's name automatically; the message just ends on its last
