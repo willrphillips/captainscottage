@@ -148,7 +148,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 
 - Em-dashes in body prose (carry-over from blog rule). Use commas or
   colons. The drop-cap concern doesn't apply here but the rhythm rule
-  does.
+  does. Observed exception (confirmed from a sent reply): a single
+  em-dash right after a "Good question —" opener, before launching into
+  the answer, is natural — don't extend this to em-dashes elsewhere in
+  the body.
 - "Unfortunately." If the answer is no, lead with what IS possible.
 - Apologizing for the property's quirks. The voice rule "abundance
   never apology" carries over. "The sand shifts every season" is a
