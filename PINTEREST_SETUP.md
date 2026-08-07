@@ -4,11 +4,43 @@ Everything here needs a human in the Pinterest UI, so it is Will's, not an
 agent's. Roughly 30 minutes, once. Confirmed 2026-08-07: **starting from zero,
 no existing Captain's Cottage Pinterest account.**
 
-Nothing posts until steps 1 to 4 are done. Steps 5 and 6 are only needed to
+Nothing posts until steps 0 to 4 are done. Steps 5 and 6 are only needed to
 automate posting; skip them if you want to post manually first, which is the
 recommended Stage A in `PINTEREST_PLAN.md`.
 
 Work top to bottom. Each step says what "done" looks like.
+
+---
+
+## 0. Create hello@captainscottageva.com
+
+Cloudflare dashboard, **captainscottageva.com**, then **Email**, then **Email
+Routing**. Email Routing is already enabled on this domain (it is what carries
+`guest-watch@` into the guest-reply Worker), so this is adding one rule, not
+setting up mail.
+
+1. **Destination addresses** tab. If `willrphillips@gmail.com` is not already
+   listed as verified, add it. Cloudflare sends a confirmation link to that
+   inbox; click it. A destination has to be verified before any rule can use it.
+2. **Routing rules** tab, **Create address**:
+   - Custom address: `hello`
+   - Action: **Send to an email**
+   - Destination: `willrphillips@gmail.com`
+3. Save. Send a test message to `hello@captainscottageva.com` and confirm it
+   lands in Gmail.
+
+**What this is and is not.** It receives and forwards. It is not a mailbox you
+log into, and Cloudflare Email Routing cannot send outbound, so a reply from
+Gmail goes out as your Gmail address, not as `hello@`. That is fine for
+Pinterest, which only needs to reach you for verification, password resets, and
+notifications. Real outbound sending as `@captainscottageva.com` needs a relay
+or Google Workspace, and that decision belongs with the newsletter or Phase 6
+direct booking, not here.
+
+Optional: a Gmail filter on `to:hello@captainscottageva.com` labelled
+`captainscottage` keeps property mail out of the main stream.
+
+**Done when:** a test email to `hello@captainscottageva.com` arrives in Gmail.
 
 ---
 
@@ -19,15 +51,10 @@ Go to **pinterest.com/business/create**.
 - Sign up as a **business account**, not personal. A personal account gets no
   analytics and no scheduler, and converting later loses nothing but is an extra
   step.
-- **Email: use Will's Gmail** (decided 2026-08-07). There is no Captain's
-  Cottage mailbox. The only address on the domain is
-  `guest-watch@captainscottageva.com`, which is a Cloudflare Email Routing rule
-  feeding the guest-reply Worker, not an inbox. Optional: sign up with
-  `willrphillips+pinterest@gmail.com` so Pinterest mail filters cleanly. It
-  still lands in the same inbox, and Pinterest accepts plus-addressing.
-  If the property is ever handed off, the account email can be changed then;
-  a routing alias like `hello@captainscottageva.com` is a two-minute add
-  whenever that matters.
+- **Email: `hello@captainscottageva.com`** (decided 2026-08-07). Create it
+  first, in step 0 below. Signing up under the property's own domain means the
+  account survives a handoff and never has to be migrated off a personal
+  address.
 - **Display name:** `Captain's Cottage` (Pinterest shows this everywhere).
 - **Username:** `captainscottageva` if free. It becomes pinterest.com/<username>.
 - **Website:** `https://captainscottageva.com`
@@ -118,7 +145,7 @@ Add a cover image to each once pins exist. Not urgent.
 
 ### Stop here if you are posting manually
 
-Steps 1 to 4 are everything you need for Stage A: I queue pins, you approve
+Steps 0 to 4 are everything you need for Stage A: I queue pins, you approve
 them, you add them to Pinterest's own scheduler (10 pins, 30 days out) yourself.
 
 Steps 5 and 6 exist to remove that manual step. Do them when the manual pace
@@ -189,7 +216,7 @@ publisher posts nothing else, and there is no override flag.
 
 ## Report back
 
-Tell me when steps 1 to 4 are done, and specifically:
+Tell me when steps 0 to 4 are done, and specifically:
 
 1. The exact board names you ended up with, if you changed any. The keyword bank
    and every queued pin reference boards by name, so a rename has to propagate.
