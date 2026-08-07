@@ -194,12 +194,12 @@
         "Chesapeake Bay fall getaway DC"
       ],
       "status": "in-review",
-      "publishDate": "2026-09-03",
-      "targetExperienceDate": "2026-09-19",
+      "publishDate": "2026-08-18",
+      "targetExperienceDate": "2026-09-25",
       "approvedBy": null,
       "note": "Drafted 2026-06-27. ~570 words. Seasonal demand-capture — fall is the best-kept secret on the Northern Neck. Sections: water warm longer than expected (sauna contrast beat), light changes (ospreys migrating south, marsh amber), fall means the place is yours (crabbing still going, crowd gone). Internal links: /area + /the-cottage. 1 CTA to /book. 2 TODO markers for Will: (1) creek water temp range in September/October; (2) crabbing productivity in fall. SEO PASS: title 52 chars, description 149 chars, primary keyword front-loaded. | PREVIOUS NOTE — REPLACES buy-or-rent-on-the-water (killed 2026-06-21 — investor-coaching topic, not guest-facing; same screen that killed cost-to-own). SEASONAL OFFSET: publishDate 2026-08-12 + 38.5d = approx 2026-09-19 = peak Northern Neck fall shoulder season (crabbing still strong into September, foliage building late September, water warm enough to swim through early October, crowds gone). Reader is a DC couple who missed summer and is deciding whether fall on the water is worth the drive — this post answers yes, with specifics. ANGLE: seasonal demand-capture framed as the insider reveal — fall is when the regulars come back, the creek calms, the light turns golden, and you can actually get a reservation. Positive, evocative, not a caveats list. PROVEN FORMAT: seasonal demand-capture published 8-12 weeks before the season (this hits 5.5 weeks before the sept-20 fall cusp — within the 'publish earlier, not later' floor). TARGET READER: DC-area traveler (primary drive market, ~2h45 with no Bay Bridge), 30s–40s, couple or family, has been thinking about a fall waterfront weekend but hasn't pulled the trigger. Searches 'Northern Neck in fall' or 'fall weekend trip from DC waterfront'. WHAT TO RESEARCH: (1) Hull Creek in fall — water temperature range Sept–Oct (still swimmable? Creek depth/character changes?); crabbing season late dates on the Potomac (VMRC regs); osprey departure timing (they migrate south Oct–Nov — could frame as 'the last osprey mornings'). (2) Fall foliage context for the Northern Neck — it's subtle (mostly hardwoods fringing the waterfront, not mountains), so frame honestly as golden-hour light and amber marsh grass, not peak-leaf drama. (3) Shoulder-season advantages: fewer boats on the creek, cooler sauna weather (the heat/cold contrast is better in fall — the cold creek pull is more compelling at 65°F air temp than 95°F), local restaurants less crowded. (4) Any fall-specific local events on the Northern Neck (oyster season opens in Sept — watermen culture tie-in; any local festivals near Heathsville or Reedville in Sept–Oct). (5) Drive from DC in fall — are there foliage stops en route on US-17 / VA-360 worth a mention? INTERNAL LINKS (>=2): /the-cottage (anchor early — the dock in fall light, the sauna in cooler weather; direct booking path) + /area (Northern Neck geography and character in the fall context). Optional third: /journal/northern-neck-watermen-culture once live (oyster season opens in fall — natural companion link). VOICE: second person or first-person host; evocative and specific, not listicle. 'By September the creek belongs to the herons again.' Drop cap on opening paragraph. ~600–650 words per voice model.",
       "publishTimeUTC": "12:00",
-      "slotRationale": "Thu 8am ET - +38.5d lead lands ~Oct 11, peak VA fall color"
+      "slotRationale": "Tue 8am ET - moved from Thu 2026-09-03 to Tue 2026-08-18 (Will, 2026-08-07). At the old date the +38.5d lead landed Oct 11, well past the reader's trip; from 08-18 it lands ~Sep 25, early fall."
     },
     {
       "slug": "northern-neck-vs-outer-banks",
@@ -275,12 +275,12 @@
         "repeat guests and slow-travel seekers"
       ],
       "status": "scheduled",
-      "publishDate": "2026-08-18",
-      "targetExperienceDate": "2026-09-12",
+      "publishDate": "2026-09-03",
+      "targetExperienceDate": "2026-10-11",
       "approvedBy": null,
       "note": "Drafted 2026-05-30. Cownose rays as seasonal spine (early May arrival, mid-June birthing, pods in the thousands). List-in-prose structure: rays open, then seahorse (crab pot, extraordinary rarity at this latitude), sea turtle (loggerhead or Kemp's ridley, species unasserted per brief), river otter (winter shore sighting), fox (cornfield edge), hummingbirds/swans as texture. 'Why this place holds what it holds' closing paragraph frames the ecology. 6 TODO markers left for Will: cownose ray visual from dock, seahorse year, sea turtle size/appearance/condition, otter sighting detail/ID confidence, fox species (red vs. gray), swan species/season. 'Sea otter' corrected to 'river otter' (Lontra canadensis) throughout. No em-dashes in body prose. Contractions throughout. Internal links: /area + /activities. One CTA to /book. SEO PASS. | SCHEDULING NOTE: moved forward from 2026-09-02 to 2026-08-05 to fill slot 5 of this batch and break a Real Estate back-to-back.",
       "publishTimeUTC": "12:00",
-      "slotRationale": "Tue 8am ET - evergreen family/outdoor, midweek engagement"
+      "slotRationale": "Thu 8am ET - evergreen family/outdoor; swapped into the 2026-09-03 slot 2026-08-07 so the fall post could move up. Season-neutral, so the later date costs it nothing."
     },
     {
       "slug": "northern-neck-watermen-culture",
