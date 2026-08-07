@@ -1,68 +1,83 @@
 {
-    "projectId":  "captainscottage",
-    "updatedAt":  "2026-06-27T00:00:00.000Z",
-    "nodes":  {
-                  "site-foundation":  {
-                                          "status":  "active",
-                                          "lastRun":  "2026-05-15",
-                                          "note":  "Phase 1 shipped; auto-deploys to GitHub Pages on push to main"
-                                      },
-                  "blogpost-layout":  {
-                                          "status":  "active",
-                                          "lastRun":  "2026-05-15",
-                                          "note":  "Built: BlogPost.astro + SchemaBlogPosting (BlogPosting JSON-LD)"
-                                      },
-                  "post-route":  {
-                                     "status":  "active",
-                                     "lastRun":  "2026-05-15",
-                                     "note":  "Built: /journal/[...slug] with BlogPosting + BreadcrumbList schema"
-                                 },
-                  "journal-index":  {
-                                        "status":  "active",
-                                        "lastRun":  "2026-05-15",
-                                        "note":  "Built: category-filterable reverse-chrono list (ComingSoon stub replaced)"
-                                    },
-                  "sample-post":  {
-                                      "status":  "active",
-                                      "lastRun":  "2026-05-15",
-                                      "note":  "Built: 'The Art of the Slow Weekend' -- builds clean, in RSS + sitemap, SEO checklist met. Workstream A done."
-                                  },
-                  "calendar":  {
-                                   "status":  "idle",
-                                   "lastRun":  "2026-06-27",
-                                   "note":  "Batch-3 complete: 5 idea slots advanced to in-review on 2026-06-27. Calendar updatedAt: 2026-06-27. Next idea slots depleted — all 15 posts are now in-review or published (draft:false)."
-                               },
-                  "editor":  {
-                                 "status":  "idle",
-                                 "lastRun":  "2026-06-27",
-                                 "note":  "Batch-3: advanced 5 idea slots to in-review — northern-neck-in-fall-from-dc (Aug 12), northern-neck-vs-outer-banks (Aug 19), renovating-a-1950s-waterfront-cottage (Aug 26), health-case-for-hot-tub-and-cold-creek (Sep 2), northern-neck-watermen-culture (Sep 9). All topic-screened, seasonal offsets verified. No more idea slots remain in the current calendar."
-                             },
-                  "researcher":  {
-                                     "status":  "idle",
-                                     "lastRun":  "2026-06-27",
-                                     "note":  "Batch-3 complete: briefs written for all 5 — content/research/northern-neck-in-fall-from-dc.md, northern-neck-vs-outer-banks.md, renovating-a-1950s-waterfront-cottage.md, health-case-for-hot-tub-and-cold-creek.md, northern-neck-watermen-culture.md"
-                                 },
-                  "writer":  {
-                                 "status":  "idle",
-                                 "lastRun":  "2026-06-27",
-                                 "note":  "Batch-3 complete: 5 MDX drafts written with draft:true — src/content/blog/northern-neck-in-fall-from-dc.mdx, northern-neck-vs-outer-banks.mdx, renovating-a-1950s-waterfront-cottage.mdx, health-case-for-hot-tub-and-cold-creek.mdx, northern-neck-watermen-culture.mdx. All ≥2 internal links, 1 CTA, UNVERIFIED items as TODO markers."
-                             },
-                  "seo-editor":  {
-                                     "status":  "idle",
-                                     "lastRun":  "2026-06-27",
-                                     "note":  "Batch-3: all 5 posts PASS. Titles 50–60 chars, descriptions 140–160 chars, primary keywords front-loaded, ≥2 internal links, 1 CTA each, keyword-natural images with alt text, health claims hedged, UNVERIFIED items marked, build clean (0 errors 0 warnings). All 5 set to in-review."
-                                 },
-                  "approve":  {
-                                  "status":  "planned",
-                                  "note":  "Human gate. Will batch-approves in the /admin CMS (Workstream C). Not built."
-                              },
-                  "pr-preview":  {
-                                     "status":  "planned",
-                                     "note":  "DIVERGENCE: locked decision changed review surface to a Git CMS at /admin (not PR previews). This node id needs renaming in the Codex-root structure file (living-flowcharts/data/projects/captainscottage.json). Tracked as an OPEN ITEM in SCOPE_OF_WORK.md."
-                                 },
-                  "scheduled-publish":  {
-                                            "status":  "planned",
-                                            "note":  "Weekly GitHub Actions cron rebuild + publishDate gate. Not built (Workstream C)."
-                                        }
-              }
+  "projectId": "captainscottage",
+  "updatedAt": "2026-08-07T00:00:00.000Z",
+  "nodes": {
+    "site-foundation": {
+      "status": "active",
+      "lastRun": "2026-05-15",
+      "note": "Phase 1 shipped; auto-deploys to GitHub Pages on push to main"
+    },
+    "blogpost-layout": {
+      "status": "active",
+      "lastRun": "2026-05-15",
+      "note": "Built: BlogPost.astro + SchemaBlogPosting (BlogPosting JSON-LD)"
+    },
+    "post-route": {
+      "status": "active",
+      "lastRun": "2026-05-15",
+      "note": "Built: /journal/[...slug] with BlogPosting + BreadcrumbList schema"
+    },
+    "journal-index": {
+      "status": "active",
+      "lastRun": "2026-05-15",
+      "note": "Built: category-filterable reverse-chrono list (ComingSoon stub replaced)"
+    },
+    "sample-post": {
+      "status": "active",
+      "lastRun": "2026-05-15",
+      "note": "Built: 'The Art of the Slow Weekend' -- builds clean, in RSS + sitemap, SEO checklist met. Workstream A done."
+    },
+    "calendar": {
+      "status": "idle",
+      "lastRun": "2026-06-27",
+      "note": "Batch-3 complete: 5 idea slots advanced to in-review on 2026-06-27. Calendar updatedAt: 2026-06-27. Next idea slots depleted \u2014 all 15 posts are now in-review or published (draft:false)."
+    },
+    "editor": {
+      "status": "idle",
+      "lastRun": "2026-06-27",
+      "note": "Batch-3: advanced 5 idea slots to in-review \u2014 northern-neck-in-fall-from-dc (Aug 12), northern-neck-vs-outer-banks (Aug 19), renovating-a-1950s-waterfront-cottage (Aug 26), health-case-for-hot-tub-and-cold-creek (Sep 2), northern-neck-watermen-culture (Sep 9). All topic-screened, seasonal offsets verified. No more idea slots remain in the current calendar."
+    },
+    "researcher": {
+      "status": "idle",
+      "lastRun": "2026-06-27",
+      "note": "Batch-3 complete: briefs written for all 5 \u2014 content/research/northern-neck-in-fall-from-dc.md, northern-neck-vs-outer-banks.md, renovating-a-1950s-waterfront-cottage.md, health-case-for-hot-tub-and-cold-creek.md, northern-neck-watermen-culture.md"
+    },
+    "writer": {
+      "status": "idle",
+      "lastRun": "2026-06-27",
+      "note": "Batch-3 complete: 5 MDX drafts written with draft:true \u2014 src/content/blog/northern-neck-in-fall-from-dc.mdx, northern-neck-vs-outer-banks.mdx, renovating-a-1950s-waterfront-cottage.mdx, health-case-for-hot-tub-and-cold-creek.mdx, northern-neck-watermen-culture.mdx. All \u22652 internal links, 1 CTA, UNVERIFIED items as TODO markers."
+    },
+    "seo-editor": {
+      "status": "idle",
+      "lastRun": "2026-06-27",
+      "note": "Batch-3: all 5 posts PASS. Titles 50\u201360 chars, descriptions 140\u2013160 chars, primary keywords front-loaded, \u22652 internal links, 1 CTA each, keyword-natural images with alt text, health claims hedged, UNVERIFIED items marked, build clean (0 errors 0 warnings). All 5 set to in-review."
+    },
+    "approve": {
+      "status": "planned",
+      "note": "Human gate. Will batch-approves in the /admin CMS (Workstream C). Not built."
+    },
+    "pr-preview": {
+      "status": "planned",
+      "note": "DIVERGENCE: locked decision changed review surface to a Git CMS at /admin (not PR previews). This node id needs renaming in the Codex-root structure file (living-flowcharts/data/projects/captainscottage.json). Tracked as an OPEN ITEM in SCOPE_OF_WORK.md."
+    },
+    "scheduled-publish": {
+      "status": "planned",
+      "note": "Weekly GitHub Actions cron rebuild + publishDate gate. Not built (Workstream C)."
+    },
+    "pinterest-research": {
+      "status": "planned",
+      "lastRun": "2026-08-07",
+      "note": "Agent + monthly cron built 2026-08-07; first run pending"
+    },
+    "pin-writer": {
+      "status": "planned",
+      "lastRun": "2026-08-07",
+      "note": "Agent + weekly cron built 2026-08-07; renders via scripts/build-pins.mjs"
+    },
+    "pinterest-publish": {
+      "status": "planned",
+      "lastRun": "2026-08-07",
+      "note": "Daily cron built 2026-08-07; dry-run until PINTEREST_ACCESS_TOKEN exists"
+    }
+  }
 }

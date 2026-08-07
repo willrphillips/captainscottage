@@ -1,0 +1,75 @@
+name: Pinterest publish (drip approved pins)
+
+# Daily. Posts pins that are BOTH status "approved" AND past their scheduledFor
+# date. Nothing else is ever posted. Agents can only write "draft"; "approved"
+# is Will's word alone, so this job cannot post anything he has not seen.
+#
+# No PINTEREST_ACCESS_TOKEN secret means a dry run that logs what it would have
+# posted and exits clean, so this is safe to merge before the Pinterest app
+# exists. That is the intended state until Phase 0 is done.
+#
+# 14:00 UTC ~= 10am EDT, inside the US late-morning window and clear of the
+# auto-publish crons (12:00/16:00/21:00) and guest-reply-tune (13:00).
+
+on:
+  schedule:
+    - cron: "0 14 * * *" # daily 14:00 UTC
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Most pins to post in one run"
+        type: string
+        default: "3"
+      dry_run:
+        description: "Log only, post nothing"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pinterest-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Post what is due
+        id: post
+        env:
+          PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+          PINTEREST_BOARD_MAP: ${{ secrets.PINTEREST_BOARD_MAP }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+        run: |
+          node scripts/pinterest-publish.mjs --limit "${{ inputs.limit || '3' }}" | tee /tmp/pin-out.txt
+          echo "summary=$(tail -1 /tmp/pin-out.txt)" >> "$GITHUB_OUTPUT"
+
+      - name: Commit status changes
+        run: |
+          if [[ -z "$(git status --porcelain content/pins)" ]]; then
+            echo "No queue changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/pins
+          git commit -m "pinterest-publish: mark posted pins"
+          git pull --rebase origin main
+          git push
+
+      - name: Notify on failures only
+        if: contains(steps.post.outputs.summary, 'failed') && !contains(steps.post.outputs.summary, '0 failed')
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_DRAFTS_WEBHOOK_URL }}
+        run: |
+          if [[ -n "$DISCORD_WEBHOOK_URL" ]]; then
+            curl -s -o /dev/null -X POST "$DISCORD_WEBHOOK_URL" -H "Content-Type: application/json" \
+              --data "{\"username\":\"Captain's Cottage\",\"embeds\":[{\"title\":\"Pinterest publish had failures\",\"description\":\"${{ steps.post.outputs.summary }}\\n\\nThe error is recorded on each pin in content/pins/*.json and will retry tomorrow.\",\"color\":15158332}]}"
+          fi

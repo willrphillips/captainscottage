@@ -1,0 +1,59 @@
+name: Edwin briefing (Pinterest state of play)
+
+# Weekly. Edwin reads the queue, the metrics, the playbook, and the flowstatus
+# nodes, then posts one briefing to Discord: what is waiting on Will, whether
+# the channel is working, and the day-90 verdict when it comes due.
+#
+# Read-only by construction. Edwin has no write tools, and this job commits
+# nothing. If it ever wants to commit, something is wrong with the agent file.
+#
+# Friday 12:00 UTC ~= 8am EDT, so the week's decisions land before the weekend
+# and ahead of Sunday's queue run.
+
+on:
+  schedule:
+    - cron: "0 12 * * 5" # Friday 12:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pinterest-briefing
+  cancel-in-progress: false
+
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run Edwin
+        id: brief
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          claude -p "You are Edwin, overseeing the Captain's Cottage Pinterest operation, running headless on the weekly cron.
+
+          Read and FOLLOW .claude/agents/edwin.md as your role instructions. Read every file that agent file lists. Report only what the files actually say; if one is missing or stale, that is the finding.
+
+          Produce the briefing described in that agent file, but formatted for Discord: under 1800 characters, no markdown tables (use short lines), lead with what is waiting on Will. If the day-90 window has arrived, give the verdict per PINTEREST_PLAN.md, including recommending a stop if the numbers say stop.
+
+          HARD RULES: read-only. Never approve, post, edit, or run another agent. Never run git. No em dashes and never use 'honest'/'honestly'/'candidly' to vouch for a statement.
+
+          Print ONLY the briefing text. No preamble." --permission-mode bypassPermissions --allowedTools "Read,Glob,Grep,WebFetch" > /tmp/briefing.txt
+          echo "Briefing written ($(wc -c < /tmp/briefing.txt) bytes)"
+
+      - name: Post to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_DRAFTS_WEBHOOK_URL }}
+        run: |
+          if [[ -z "$DISCORD_WEBHOOK_URL" ]]; then echo "No webhook configured; briefing:"; cat /tmp/briefing.txt; exit 0; fi
+          BODY=$(node -e "const fs=require('fs');process.stdout.write(JSON.stringify(fs.readFileSync('/tmp/briefing.txt','utf8').slice(0,1800)))")
+          curl -s -o /dev/null -X POST "$DISCORD_WEBHOOK_URL" -H "Content-Type: application/json" \
+            --data "{\"username\":\"Edwin\",\"embeds\":[{\"title\":\"Pinterest: state of play\",\"description\":${BODY},\"color\":5793266}]}"

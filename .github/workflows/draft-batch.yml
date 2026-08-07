@@ -88,7 +88,7 @@ jobs:
           Loop $DRAFT_N times. Each iteration, take the next content-calendar.json post whose status is 'idea' and:
           1. EDITOR: advance that one slot per the editor rules (topic screen, seasonal offset); update its calendar entry.
           2. RESEARCHER: write content/research/<slug>.md (verify facts, invent nothing, mark UNVERIFIED).
-          3. WRITER: write src/content/blog/<slug>.mdx with draft:true, brand voice, >=2 internal links incl /the-cottage and exactly one /book CTA; leave honest {/* TODO: Will to confirm ... */} MDX comments where a fact needs Will.
+          3. WRITER: write src/content/blog/<slug>.mdx with draft:true, brand voice, >=2 internal links incl /the-cottage and exactly one /book CTA; leave {/* TODO: Will to confirm ... */} MDX comments where a fact needs Will.
           4. SEO EDITOR: run 'npm run build' plus the CLAUDE.md SEO checklist; if it fails, revise as the writer and re-check, up to 3 rounds; when it passes, set the calendar entry status to 'in-review'.
           If no 'idea' slots remain before you reach $DRAFT_N, stop early.
 

@@ -1,0 +1,66 @@
+name: Pinterest research (refresh the playbook)
+
+# Monthly. Pinterest changes its specs, limits, and ranking behavior often enough
+# that a playbook older than a quarter is a liability, and the pin-writer follows
+# the playbook over its own instructions. This run re-verifies against live
+# sources and rewrites content/pinterest/playbook.md + keywords.json.
+#
+# Writes nothing that reaches Pinterest. Research only.
+# Cron is UTC and does not shift for DST. 08:00 UTC ~= 4am EDT, ahead of the
+# Saturday 09:00 draft-batch run so the two never overlap.
+
+on:
+  schedule:
+    - cron: "0 8 1 * *" # 1st of the month, 08:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pinterest-research
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Refresh the playbook
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          claude -p "You are the Captain's Cottage Pinterest Researcher running headless on the monthly cron.
+
+          Read and FOLLOW .claude/agents/pinterest-researcher.md as your role instructions. Also read PINTEREST_PLAN.md, CLAUDE.md (the locked location wording is binding), and your own previous content/pinterest/playbook.md.
+
+          Do a full research pass and rewrite content/pinterest/playbook.md and content/pinterest/keywords.json per that agent file. Verify every spec and number against live sources with WebSearch/WebFetch. Never state a number without a source URL and retrieval date. Where sources disagree, give the count and say so.
+
+          HARD RULES: never post, schedule, or approve anything. Never touch content/pins/, src/content/blog/, or content-calendar.json. Do NOT run git; the workflow commits. No em dashes and never use 'honest'/'honestly'/'candidly' to vouch for a statement, in any file you write.
+
+          Finish by printing 'CHANGED:' followed by the three most consequential things that changed since the last playbook, one per line. If nothing material changed, print 'CHANGED: nothing material'." --permission-mode bypassPermissions --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch"
+
+      - name: Commit + notify
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_DRAFTS_WEBHOOK_URL }}
+        run: |
+          if [[ -z "$(git status --porcelain content/pinterest .flowstatus.json)" ]]; then
+            echo "Playbook unchanged; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/pinterest .flowstatus.json
+          git commit -m "pinterest-research: refresh playbook + keyword bank"
+          git pull --rebase origin main
+          git push
+          if [[ -n "$DISCORD_WEBHOOK_URL" ]]; then
+            curl -s -o /dev/null -X POST "$DISCORD_WEBHOOK_URL" -H "Content-Type: application/json" \
+              --data "{\"username\":\"Captain's Cottage\",\"embeds\":[{\"title\":\"Pinterest playbook refreshed\",\"description\":\"content/pinterest/playbook.md and keywords.json updated. The pin-writer follows the playbook over its own defaults, so read the 'What changed' section before the next queue run.\",\"color\":14776621}]}"
+          fi

@@ -190,3 +190,67 @@ works out, since the same 2:3 renders serve Instagram and the Airbnb listing.
 3. Is 1 to 3 pins a day of his time acceptable for the first month, or should
    Stage B be built up front and Stage A skipped? Skipping Stage A means
    building an integration before knowing the channel works.
+
+---
+
+## Built 2026-08-07: agents and schedule
+
+Will's direction: three agents (research, write/schedule, oversee) with the
+overseer named Edwin, and a schedule built around them.
+
+### The agents
+
+| Agent | Role | Writes | Can it post? |
+|---|---|---|---|
+| `pinterest-researcher` | Verifies what works on Pinterest in this niche against live sources. Maintains the playbook and the keyword bank. | `content/pinterest/playbook.md`, `content/pinterest/keywords.json` | No. No Bash tool. |
+| `pin-writer` | Renders pins, writes copy, assigns board and date, queues at `draft`. | `content/pins/*.json`, `public/pins/*.jpg` | No. Writes `draft` only. |
+| `edwin` | Overseer. Reads queue, metrics, playbook, flowstatus. One briefing. Holds Will to the day-90 criteria. | Nothing. Read-only by construction. | No. No write tools. |
+
+**The playbook outranks the pin-writer's own defaults.** When the researcher
+finds that a spec or a cadence has changed, the pin-writer follows the playbook
+and says so in its report. That is what keeps this from going stale.
+
+### The schedule
+
+| Workflow | Cron (UTC) | What it does |
+|---|---|---|
+| `pinterest-research.yml` | 1st of month, 08:00 | Re-verify specs and behavior, rewrite playbook + keywords, Discord ping |
+| `pinterest-queue.yml` | Sunday, 11:00 | If approved pins < 14, render and queue more at `draft`. Skips entirely if 12+ already await approval |
+| `pinterest-publish.yml` | Daily, 14:00 | Post pins that are `approved` AND past `scheduledFor`, max 3/day |
+| `pinterest-briefing.yml` | Friday, 12:00 | Edwin posts the state of play to Discord |
+
+Times are clear of the existing crons: draft-batch Sat 09:00, auto-publish
+12:00/16:00/21:00, guest-reply-tune 13:00.
+
+### The gate, stated once
+
+Agents write `status: "draft"`. Only Will writes `status: "approved"`. The
+publisher posts nothing that is not `approved` and past its date. There is no
+override flag, and adding one would defeat the design.
+
+`pinterest-publish.yml` is safe to merge before the Pinterest app exists: with
+no `PINTEREST_ACCESS_TOKEN` secret it runs as a dry run, logs what it would have
+posted, and exits clean.
+
+### Render pipeline
+
+`scripts/build-pins.mjs`, run as `npm run build:pins -- <slug>`. Crops 3:2
+photos to 1000x1500 using sharp's attention strategy, composites a title in the
+site's own type over a scrim, and writes a manifest. Three variants per post:
+title overlay, clean photo, two-image split. Because most posts reference only
+their hero, a fallback pool of the strongest site photos fills v2 and v3 so each
+pin is distinct inventory rather than the same photo three times.
+
+Verified on `the-art-of-the-slow-weekend` and `weekend-getaways-from-washington-dc`:
+1000x1500, 52 to 188 KB.
+
+**Known limitation:** the title pin renders through fontconfig, which is present
+on the CI runner but not on Will's Windows box, so a local preview falls back
+from Fraunces to a system serif. CI output is the one that ships. The clean-photo
+variant is identical everywhere.
+
+### Still blocked on Will
+
+Phase 0 in full, and specifically: does a Captain's Cottage Pinterest account
+already exist? Nothing posts until the account is claimed, the boards exist, and
+`PINTEREST_ACCESS_TOKEN` plus `PINTEREST_BOARD_MAP` are in repo secrets.

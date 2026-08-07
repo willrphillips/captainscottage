@@ -1,0 +1,107 @@
+name: Pinterest queue (keep pins ready to approve)
+
+# Weekly buffer-keeper, same shape as draft-batch.yml. The rule: keep at least
+# QUEUE_FLOOR (14) pins sitting APPROVED-and-scheduled, which is about two weeks
+# of runway at 1/day. When the approved queue is below that, render and write
+# pins for published posts that have none, so Will always has something to
+# approve. Every pin lands at status "draft" and GOES NOWHERE until he approves.
+#
+# Never posts. Posting is pinterest-publish.yml, approved pins only.
+# Sunday 11:00 UTC ~= 7am EDT. Clear of draft-batch (Sat 09:00) and the
+# auto-publish crons (12:00/16:00/21:00).
+
+on:
+  schedule:
+    - cron: "0 11 * * 0" # Sunday 11:00 UTC
+  workflow_dispatch:
+    inputs:
+      queue_floor:
+        description: "Render more pins when approved+scheduled is below this"
+        type: string
+        default: "14"
+      max_posts:
+        description: "Most posts to work in one run"
+        type: string
+        default: "3"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pinterest-queue
+  cancel-in-progress: false
+
+jobs:
+  queue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install deps + Claude Code
+        run: |
+          npm ci || npm install
+          npm install -g @anthropic-ai/claude-code
+
+      - name: Count the queue
+        id: plan
+        run: |
+          FLOOR="${{ inputs.queue_floor || '14' }}"
+          approved=0; drafts=0
+          shopt -s nullglob
+          for f in content/pins/*.json; do
+            approved=$((approved + $(grep -c '"status": *"approved"' "$f" || true)))
+            drafts=$((drafts + $(grep -c '"status": *"draft"' "$f" || true)))
+          done
+          # Published posts (draft:false) with no pins file yet.
+          uncovered=0
+          for f in src/content/blog/*.mdx; do
+            grep -q '^draft: false' "$f" || continue
+            slug=$(basename "$f" .mdx)
+            [ -f "content/pins/$slug.json" ] || uncovered=$((uncovered+1))
+          done
+          need=0
+          if [ "$approved" -lt "$FLOOR" ]; then need=1; fi
+          { echo "approved=$approved"; echo "drafts=$drafts"; echo "uncovered=$uncovered"; echo "need=$need"; } >> "$GITHUB_OUTPUT"
+          echo "approved=$approved (floor $FLOOR) | awaiting-approval=$drafts | published-posts-with-no-pins=$uncovered | run=$need"
+
+      - name: Render + write pins (gated at draft)
+        if: steps.plan.outputs.need == '1'
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          MAX_POSTS: ${{ inputs.max_posts || '3' }}
+          DRAFTS_WAITING: ${{ steps.plan.outputs.drafts }}
+        run: |
+          claude -p "You are the Captain's Cottage Pin Writer running headless on the weekly cron.
+
+          Read and FOLLOW .claude/agents/pin-writer.md as your role instructions. Read content/pinterest/playbook.md first and follow its specs over your own defaults. Read content/pinterest/keywords.json, CLAUDE.md (locked location wording), and content/voice-feedback-log.md.
+
+          There are $DRAFTS_WAITING pins already waiting on Will's approval. Do not pile on: if that number is 12 or higher, write nothing, print 'SKIPPED: queue already full' and stop.
+
+          Otherwise pick up to $MAX_POSTS PUBLISHED posts (frontmatter draft:false) that have the fewest pins, preferring any with none at all, and for each: run 'npm run build:pins -- <slug>', check the renders are sensible, then write the pin copy into content/pins/<slug>.json per the agent file. Each pin tests a DIFFERENT keyword variant from keywords.json and gets its own utm_content. Space one post's variants at least 5 days apart, never more than 3 pins on any one date across the whole queue, and never a date less than 2 days out.
+
+          HARD RULES: every pin status is 'draft'. Never write 'approved'. Never post or call any API. Never pin a post whose frontmatter says draft:true. No 'Hull Creek' in any title or keyword. No em dashes and no 'honest' anywhere. Do NOT run git; the workflow commits.
+
+          Finish by printing 'QUEUED: <slug> <n> pins' per post." --permission-mode bypassPermissions --allowedTools "Read,Write,Edit,Glob,Grep,Bash"
+
+      - name: Commit + notify
+        if: steps.plan.outputs.need == '1'
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_DRAFTS_WEBHOOK_URL }}
+        run: |
+          if [[ -z "$(git status --porcelain content/pins public/pins .flowstatus.json)" ]]; then
+            echo "No new pins produced; nothing to commit."
+            exit 0
+          fi
+          NEW=$(grep -ho '"id": *"[^"]*"' content/pins/*.json | sed 's/.*"id": *"//;s/"//' | tail -12 | paste -sd ', ' -)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/pins public/pins .flowstatus.json
+          git commit -m "pinterest-queue: render + queue pins (awaiting approval)"
+          git pull --rebase origin main
+          git push
+          if [[ -n "$DISCORD_WEBHOOK_URL" ]]; then
+            curl -s -o /dev/null -X POST "$DISCORD_WEBHOOK_URL" -H "Content-Type: application/json" \
+              --data "{\"username\":\"Captain's Cottage\",\"embeds\":[{\"title\":\"New pins ready to approve\",\"description\":\"${NEW}\\n\\nAll at status draft and gated. Nothing posts until you flip them to approved in content/pins/*.json.\",\"color\":12079150}]}"
+          fi
