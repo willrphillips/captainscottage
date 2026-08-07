@@ -1,31 +1,29 @@
 # Pinterest setup: Phase 0 runbook
 
-**Status as of 2026-08-07, 2:00pm ET.** Steps 0, 1, and most of 2 are done.
-Picking back up: click Claim, then steps 3 and 4.
+**Status as of 2026-08-07, end of session.** Steps 0, 1, and 2 are done. The
+domain is claimed. Picking back up at step 3, Rich Pins.
 
 | Step | State |
 |---|---|
 | 0. `hello@` routing | Done. `hello@` and `will@` both forward to Gmail. |
-| 1. Business account | Done. Username `captainscottageva`, name Captain's Cottage. |
-| 2. Claim the domain | **Tag is deployed and live. The Claim button has not been clicked yet.** |
-| 3. Rich Pins | Not started. |
-| 4. Five boards | Not started. |
+| 1. Business account | Done. Username `captainscottageva`, name Captain's Cottage, email `captainscottageva@gmail.com`. |
+| 2. Claim the domain | **Done. captainscottageva.com is claimed.** |
+| 3. Rich Pins | **Next.** Validate a live post URL, then Apply. |
+| 4. Five boards | Not started. Descriptions are in step 4 below, ready to paste. |
 | 5-6. API + secrets | Not started, and not needed for Stage A. |
 
-### Two things that are not finished
+### Small loose end
 
-1. **The account email is unconfirmed.** It is now
-   `captainscottageva@gmail.com`, a Gmail Will controls. Open Settings,
-   Account management, click Confirm Email, then click the link in that inbox.
-2. **The profile Website field reads `http://captainscottageva.com`.** Change
-   it to `https://captainscottageva.com` so it matches the canonical hostname.
+The profile Website field reads `http://captainscottageva.com`. Worth changing
+to `https://captainscottageva.com` so it matches the canonical hostname. Not
+blocking anything.
 
-### What the domain claim needs (already done on my side)
+### How the domain was claimed (done 2026-08-07)
 
-The verification code is `7b792bc46c459ab5657b254d0fc9bcbc`, deployed via
-`SITE.pinterestVerification` and confirmed live in the head of every page on
-captainscottageva.com. Nothing else is needed before clicking Claim. If
-Pinterest ever reissues a different code, paste the new value into
+Verification code `7b792bc46c459ab5657b254d0fc9bcbc`, deployed via
+`SITE.pinterestVerification` and emitted by `BaseLayout.astro` in the head of
+every page. **Leave that value in place.** Removing it can un-claim the domain.
+If Pinterest ever reissues a different code, paste the new value into
 `src/lib/site.ts` and push.
 
 ### The email detour, recorded so nobody repeats it
