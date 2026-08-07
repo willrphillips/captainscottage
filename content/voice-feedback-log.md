@@ -329,7 +329,7 @@ The house was built in 1940. I don't like this article. Reject it and write a di
 **Decision:** request-changes  
 **Reviewer:** Will Phillips
 
-I hate how often "Honest" shows up in AI copy. Remove it — everywhere, not just
+I hate how often "Honest" shows up in AI copy. Remove it everywhere, not just
 this post. Do not use "honest," "honestly," "candidly," or "full transparency"
 to vouch for what you're about to say. Say the thing plainly instead. Applies to
 titles, meta descriptions, headings, and body copy, on every post from here on.
@@ -337,5 +337,22 @@ titles, meta descriptions, headings, and body copy, on every post from here on.
 Swept 2026-08-07 across all live copy: 5 blog posts, `/faq` (4 hits),
 `/what-to-bring`, `/journal` index. Enforcement added to blog-writer voice
 principle #6 and blog-seo-editor checklist item #10.
+
+---
+
+## 2026-08-07 · ALL POSTS (standing voice rule, part 2)
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+"Honest" and em dashes are classic AI telltales. Remove those everywhere, all
+the time, especially on journal posts. No `—` character in body copy,
+headings, titles, meta descriptions, or alt text. Use a comma, a colon,
+parentheses, a semicolon, or two sentences instead.
+
+Swept 2026-08-07: 143 em dashes removed across 17 journal posts, 11 site pages,
+and `src/lib/site.ts`. Two exemptions left in place on purpose, because they are
+other people's words quoted verbatim: Daniel's guest review in `site.ts`, and
+Will's own host notes in `src/lib/guidebook.ts`. Enforcement added to
+blog-writer voice principle #6 and blog-seo-editor checklist item #10.
 
 ---

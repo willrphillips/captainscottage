@@ -1,4 +1,4 @@
-// Property facts pulled from captains_cottage_brief.md §7 — single source of truth.
+// Property facts pulled from captains_cottage_brief.md §7. Single source of truth.
 // Update here; every page reads from this file.
 
 export const PROPERTY = {
@@ -23,19 +23,19 @@ export const PROPERTY = {
   rating: 4.92,
   reviewCount: 137,
   // Will's overall Superhost tenure (across prior properties + this cottage).
-  // Captain's Cottage itself was acquired in fall 2022 — see `cottageAcquiredYear`.
+  // Captain's Cottage itself was acquired in fall 2022. See `cottageAcquiredYear`.
   // Do NOT use `superhostYears` to imply hosting this cottage that long.
   superhostYears: 9,
   cottageAcquiredYear: 2022,
-  // Airbnb has no host API — these are manually maintained. Flip to `false`
+  // Airbnb has no host API, so these are manually maintained. Flip to `false`
   // if/when Airbnb changes status; the SocialProof component hides each
   // badge independently. The rating badge also hides automatically when
   // `rating` drops to 4.80 or below (strict > 4.80 threshold).
   superhost: true,
   guestFavorite: true,
-  top5Percent: true, // "Top 5% of homes" — Airbnb-side; flip if it ever falls off
+  top5Percent: true, // "Top 5% of homes", Airbnb-side; flip if it ever falls off
   airbnbUrl: "https://www.airbnb.com/h/captainscottageva",
-  // email intentionally removed — site directs all contact to the Airbnb listing
+  // email intentionally removed; site directs all contact to the Airbnb listing
   owner: "Buffalo Rentals LLC",
 } as const;
 
@@ -50,7 +50,7 @@ export const DRIVE_TIMES: { place: string; minutes: number }[] = [
 ];
 
 export const STANDOUT_AMENITIES: { title: string; detail: string }[] = [
-  { title: "Waterfront & water access", detail: "Brackish, shallow, mostly fresh. The sand shifts with every passing season — sometimes a wide private beach, sometimes a small one, but it's always ready for wading." },
+  { title: "Waterfront & water access", detail: "Brackish, shallow, mostly fresh. The sand shifts with every passing season: sometimes a wide private beach, sometimes a small one, but it's always ready for wading." },
   { title: "Cedar sauna", detail: "West-facing window onto the creek. Heat, then cold plunge from the dock." },
   { title: "Hot tub", detail: "On the deck, lit by sunset. Open year-round." },
   { title: "Two screened porches", detail: "Sleeping porch off the back, dining porch over the water." },
@@ -65,17 +65,17 @@ export const HEADLINE_REVIEWS: { quote: string; author: string }[] = [
   {
     quote:
       "We pulled crab pots at sunrise and watched osprey work the creek. Three days later none of us wanted to leave.",
-    author: "Maya — Brooklyn, NY",
+    author: "Maya, Brooklyn, NY",
   },
   {
     quote:
       "The sauna alone is worth the trip. Add the dock, the porches, the way the light moves across the water — this is a real place.",
-    author: "Daniel — Washington, DC",
+    author: "Daniel, Washington, DC",
   },
   {
     quote:
       "Will thought of everything. The cottage is beautiful, but the part that stayed with us was the quiet.",
-    author: "Anna — Richmond, VA",
+    author: "Anna, Richmond, VA",
   },
 ];
 
@@ -115,7 +115,7 @@ export function withBase(pathname: string): string {
 
 // Format a date-only value (stored at midnight UTC) as "June 3, 2026".
 // Always formats in UTC so the authored calendar date renders exactly,
-// regardless of the viewer's or build server's timezone — otherwise an
+// regardless of the viewer's or build server's timezone. Otherwise an
 // Eastern viewer sees the date slip back a day.
 export function formatDateUTC(date: Date): string {
   return new Intl.DateTimeFormat("en-US", {

@@ -3,16 +3,16 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 import { GUIDEBOOK } from "~/lib/guidebook";
 import { DRIVE_TIMES, withBase } from "~/lib/site";
 
-const title = "Northern Neck Virginia Travel Guide — Captain's Cottage";
+const title = "Northern Neck Virginia Travel Guide | Captain's Cottage";
 const description =
-  "Where to eat, shop, and explore on Virginia's Northern Neck — Reedville, Kilmarnock, Tappahannock — handpicked by the hosts of Captain's Cottage near Heathsville.";
+  "Where to eat, shop, and explore on Virginia's Northern Neck: Reedville, Kilmarnock, Tappahannock, handpicked by the hosts of Captain's Cottage near Heathsville.";
 
 const sections = [
   {
     key: "Food & drink" as const,
     eyebrow: "Where to eat",
     heading: "The food scene",
-    lede: "Waterfront seafood, a brewery, an ice cream stop worth the drive — the places we send guests to, and a few we keep going back to ourselves.",
+    lede: "Waterfront seafood, a brewery, an ice cream stop worth the drive: the places we send guests to, and a few we keep going back to ourselves.",
   },
   {
     key: "Sightseeing" as const,
@@ -33,7 +33,7 @@ const featured = sections.flatMap((s) => GUIDEBOOK.filter((p) => p.category === 
 const schema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Northern Neck of Virginia — area guide",
+  name: "Northern Neck of Virginia area guide",
   itemListElement: featured.map((p, i) => ({
     "@type": "ListItem",
     position: i + 1,
@@ -65,7 +65,7 @@ const schema = {
           </h1>
         </header>
         <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
-          The Northern Neck is the peninsula where the Potomac meets the Chesapeake Bay. These are the places we point guests to from the cottage — the host's own short list, not a scrape of every business in the county. Coming to stay? Here's <a href={withBase("/what-to-bring")}>what to bring</a>.
+          The Northern Neck is the peninsula where the Potomac meets the Chesapeake Bay. These are the places we point guests to from the cottage: the host's own short list, not a scrape of every business in the county. Coming to stay? Here's <a href={withBase("/what-to-bring")}>what to bring</a>.
         </p>
       </div>
 

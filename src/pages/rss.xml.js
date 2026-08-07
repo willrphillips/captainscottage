@@ -11,7 +11,7 @@ export async function GET(context) {
   }
 
   return rss({
-    title: `${PROPERTY.name} — Journal`,
+    title: `${PROPERTY.name} Journal`,
     description: "Lifestyle, travel, and real estate notes from Virginia's Northern Neck.",
     site: context.site ?? `${SITE.origin}${SITE.base}`,
     items: posts.map((p) => ({

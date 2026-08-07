@@ -2,11 +2,11 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { PROPERTY, withBase } from "~/lib/site";
 
-const title = "FAQ — Captain's Cottage near Heathsville, Northern Neck";
+const title = "FAQ | Captain's Cottage near Heathsville, Northern Neck";
 const description =
   "Quick, straight answers about Captain's Cottage in Heathsville on Virginia's Northern Neck: getting there, the water, kids, remote work, best months.";
 
-// Conversational answers in the host voice — not a kitchen-sink list.
+// Conversational answers in the host voice, not a kitchen-sink list.
 // The schema below mirrors these for AI overviews / Google rich results.
 const faqs = [
   {
@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: "What's the water actually like?",
-    a: "Brackish, shallow, mostly fresh. The creek is calm and easy to wade out into — good for kids and quiet mornings. The dock catches the last of the sun. Sand shifts with the seasons; some visits there's a wide little beach, some visits a small one, but it's always ready for wading.",
+    a: "Brackish, shallow, mostly fresh. The creek is calm and easy to wade out into, good for kids and quiet mornings. The dock catches the last of the sun. Sand shifts with the seasons; some visits there's a wide little beach, some visits a small one, but it's always ready for wading.",
   },
   {
     q: "Is it good for kids?",
@@ -27,19 +27,19 @@ const faqs = [
   },
   {
     q: "What about jellyfish?",
-    a: "Sea nettles drift through the lower Chesapeake for a four-to-six-week stretch somewhere between June and September — never all summer, never on a schedule. If you're here in that window a thin stinger suit or rash guard means you don't think about them. The packing list has more.",
+    a: "Sea nettles drift through the lower Chesapeake for a four-to-six-week stretch somewhere between June and September, never all summer, never on a schedule. If you're here in that window a thin stinger suit or rash guard means you don't think about them. The packing list has more.",
   },
   {
     q: "When's the best time to come?",
-    a: "Late spring and early fall, if you can — water warming, birds migrating, fewer bugs. Summer is peak everything (crabs, swimming, long evenings). Winter is the deep-quiet version, when the sauna and hot tub do their best work.",
+    a: "Late spring and early fall, if you can: water warming, birds migrating, fewer bugs. Summer is peak everything (crabs, swimming, long evenings). Winter is the deep-quiet version, when the sauna and hot tub do their best work.",
   },
   {
     q: "Do we need to bring crabbing gear?",
-    a: "No. The pot and the line are on the dock. The bait you can grab at the Food Lion fifteen minutes away — chicken necks work fine.",
+    a: "No. The pot and the line are on the dock. The bait you can grab at the Food Lion fifteen minutes away. Chicken necks work fine.",
   },
   {
     q: "Where do we eat?",
-    a: "The kitchen is set up for slow meals; cook in if the porch is calling. When you want to go out, the area guide has the short list we'd send a friend to — waterfront seafood in Reedville, ice cream that's worth the drive, a brewery in Callao.",
+    a: "The kitchen is set up for slow meals; cook in if the porch is calling. When you want to go out, the area guide has the short list we'd send a friend to: waterfront seafood in Reedville, ice cream that's worth the drive, a brewery in Callao.",
   },
   {
     q: "Check-in, check-out, how many of us?",
@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     q: "Can we bring the dog?",
-    a: "We love dogs and we know you do too — but the cottage isn't pet-friendly. The reason: the owners have a severe allergy to dogs and cats, which makes a pet-free cottage a hard rule rather than a preference. Sorry to be the bearer.",
+    a: "We love dogs and we know you do too, but the cottage isn't pet-friendly. The reason: the owners have a severe allergy to dogs and cats, which makes a pet-free cottage a hard rule rather than a preference. Sorry to be the bearer.",
   },
 ];
 
@@ -96,7 +96,7 @@ const schema = {
         </header>
         <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
           The short version. If we missed something, message us through the
-          <a href={PROPERTY.airbnbUrl} target="_blank" rel="noopener">Airbnb listing</a> — we read everything.
+          <a href={PROPERTY.airbnbUrl} target="_blank" rel="noopener">Airbnb listing</a>. We read everything.
         </p>
       </div>
     </div>
@@ -131,7 +131,7 @@ const schema = {
       </h2>
       <p class="lede mt-8 text-bone/80 mx-auto max-w-xl">
         Wander through <a href={withBase("/amenities")}>what's here</a>, <a href={withBase("/area")}>the area</a>, and
-        <a href={withBase("/what-to-bring")}> what to bring</a> — or just come down.
+        <a href={withBase("/what-to-bring")}> what to bring</a>, or just come down.
       </p>
       <div class="mt-12 flex flex-wrap justify-center gap-4">
         <a href={withBase("/journal")} class="btn btn-ghost border-bone/40 text-bone hover:!border-bone hover:!text-bone">Read the journal</a>
