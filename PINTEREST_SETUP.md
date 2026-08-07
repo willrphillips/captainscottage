@@ -19,7 +19,15 @@ Go to **pinterest.com/business/create**.
 - Sign up as a **business account**, not personal. A personal account gets no
   analytics and no scheduler, and converting later loses nothing but is an extra
   step.
-- Use an email you keep, not a personal one you might lose access to.
+- **Email: use Will's Gmail** (decided 2026-08-07). There is no Captain's
+  Cottage mailbox. The only address on the domain is
+  `guest-watch@captainscottageva.com`, which is a Cloudflare Email Routing rule
+  feeding the guest-reply Worker, not an inbox. Optional: sign up with
+  `willrphillips+pinterest@gmail.com` so Pinterest mail filters cleanly. It
+  still lands in the same inbox, and Pinterest accepts plus-addressing.
+  If the property is ever handed off, the account email can be changed then;
+  a routing alias like `hello@captainscottageva.com` is a two-minute add
+  whenever that matters.
 - **Display name:** `Captain's Cottage` (Pinterest shows this everywhere).
 - **Username:** `captainscottageva` if free. It becomes pinterest.com/<username>.
 - **Website:** `https://captainscottageva.com`
