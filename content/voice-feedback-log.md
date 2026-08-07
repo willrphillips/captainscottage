@@ -357,3 +357,18 @@ words changes a quote. Enforcement added to blog-writer voice principle #6 and
 blog-seo-editor checklist item #10.
 
 ---
+
+## 2026-08-07 · renovating-a-1950s-waterfront-cottage (KILLED)
+**Decision:** kill  
+**Reviewer:** Will Phillips
+
+"I want no renovation posts as of yet. Remove that."
+
+Second strike on this post. It was already rejected 2026-07-13 ("The house was
+built in 1940. I don't like this article... I don't like real estate-centric
+posts") but stayed in the in-review queue instead of being removed. Draft
+deleted, calendar entry set to `killed`, 2026-10-03 slot freed. Research brief
+and the 2026-07-13 rejection record kept as history. Editor rule updated: do not
+propose or revive a renovation/restoration topic until Will asks for one.
+
+---
