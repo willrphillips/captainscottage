@@ -173,13 +173,20 @@ Implements the locked review model: **Git-based CMS at `/admin`**, batch approve
 
 ---
 
-## 7. Workstream E — Social distribution (deferred)
+## 7. Workstream E — Social distribution (Pinterest active 2026-08-07; IG + email still deferred)
 
-Per brief §6: each post shared to email list, Instagram, Pinterest. **Out of scope until A–D are working.**
+Per brief §6: each post shared to email list, Instagram, Pinterest. **Pinterest is now in scope** at Will's direction (2026-08-07): "I'm thinking Pinterest cause it's the least miserable social media platform I can think of. The web traffic is minimal so far." Instagram and the email list remain deferred.
 
-- [ ] Social agent — published post → IG caption, Pinterest pin copy, email blurb.
-- [ ] Email list capture on site (not yet built).
-- [ ] Publish/scheduling integration decision.
+Full plan: **`PINTEREST_PLAN.md`** (phases, sequencing, day-90 kill criteria).
+
+- [ ] Phase 0 — Will: business account, claim `captainscottageva.com`, validate Rich Pins, create 5 keyword boards.
+- [ ] Phase 1 — `scripts/build-pins.mjs`: 2:3 (1000x1500) pin renders via `sharp`, site type treatment, 3 variants/post. **This is the blocker: of 80 original photos only 2 are portrait, and only 3 of 26 site images are vertical.**
+- [ ] Phase 2 — `pin-writer` agent: pin title/description/board/UTM per post, `status: "draft"`, same human gate as blog posts. Backfill the 9 published posts first (27 pins).
+- [ ] Phase 3A — manual posting via Pinterest's native scheduler (holds 10 pins, 30 days out), 1–3/day for 4 weeks before automating anything.
+- [ ] Phase 3B — Pinterest API v5 GitHub Action, **only if 3A shows signal**. API is free; Trial tier posts to the owner's own account, which may be all we ever need.
+- [ ] Phase 4 — UTM tagging + `content/metrics/pinterest-metrics.json`; **day-90 review with the stop decision written in advance.**
+- [ ] Email list capture on site (not yet built, still deferred).
+- [ ] Instagram (still deferred).
 
 ---
 
