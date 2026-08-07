@@ -34,20 +34,20 @@ export const GUIDEBOOK: GuidebookPlace[] = [
     category: "Food & drink",
     town: "Kilmarnock",
     locals: 31,
-    note: "One of our favorites in Kilmarnock. Sushi plus a long list of Thai options — the curry dishes were really nice.",
+    note: "One of our favorites in Kilmarnock. Sushi plus a long list of Thai options, and the curry dishes were really nice.",
   },
   {
     name: "Reedville Market",
     category: "Food & drink",
     town: "Reedville",
     locals: 71,
-    note: "Solid waterfront dining in Reedville — decent food and a relaxed spot to settle in by the water for an evening.",
+    note: "Solid waterfront dining in Reedville: decent food and a relaxed spot to settle in by the water for an evening.",
   },
   {
     name: "Horn Harbor House",
     category: "Food & drink",
     town: "Burgess",
-    note: "Waterfront dining we happily go back for — settle in by the water and start with the crab dip, which is a real standout. The rest of the menu delivers too.",
+    note: "Waterfront dining we happily go back for. Settle in by the water and start with the crab dip, which is a real standout. The rest of the menu delivers too.",
   },
   {
     name: "Chitterchats",
@@ -75,7 +75,7 @@ export const GUIDEBOOK: GuidebookPlace[] = [
     category: "Food & drink",
     town: "Lancaster",
     locals: 16,
-    note: "Great local produce — fruits and lovely flowers in season. Call ahead to confirm hours and offerings; contact info is on their social media page.",
+    note: "Great local produce, fruits and lovely flowers in season. Call ahead to confirm hours and offerings; contact info is on their social media page.",
   },
   {
     name: "Kellum Farms Produce & Seafood",
@@ -88,14 +88,14 @@ export const GUIDEBOOK: GuidebookPlace[] = [
     category: "Food & drink",
     town: "Kinsale",
     locals: 23,
-    note: "A delightful afternoon adventure nearby. Typically open weekends only — check their website. They host events from time to time, so see if anything lines up with your stay.",
+    note: "A delightful afternoon adventure nearby. Typically open weekends only, so check their website. They host events from time to time, so see if anything lines up with your stay.",
   },
   {
     name: "Reedville Fishermen's Museum",
     category: "Sightseeing",
     town: "Reedville",
     locals: 54,
-    note: "A local spot the locals love. They run lots of events through the year — call or check the website to see what's on during your stay, and whether events are members-only or open to guests.",
+    note: "A local spot the locals love. They run lots of events through the year, so call or check the website to see what's on during your stay, and whether events are members-only or open to guests.",
   },
   {
     name: "Kilmarnock Antique Gallery",
@@ -108,7 +108,7 @@ export const GUIDEBOOK: GuidebookPlace[] = [
     name: "Friends of the Northumberland County Animal Shelter Thrift Shop",
     category: "Shopping",
     town: "Burgess",
-    note: "We like to stop here for antiques. Call to confirm hours before going — plenty of treasures to be found.",
+    note: "We like to stop here for antiques. Call to confirm hours before going. Plenty of treasures to be found.",
   },
   {
     name: "Rivah Consignments",
@@ -128,14 +128,14 @@ export const GUIDEBOOK: GuidebookPlace[] = [
     category: "Entertainment",
     town: "Irvington",
     locals: 134,
-    note: "Loads of fun for the whole family — a huge fun zone with movies, go-karts, mini golf, and lots more. Our kids love it.",
+    note: "Loads of fun for the whole family: a huge fun zone with movies, go-karts, mini golf, and lots more. Our kids love it.",
   },
   {
     name: "The Slips // Kinsale",
     category: "Watercraft",
     town: "Kinsale",
     locals: 13,
-    note: "Kayak rentals and other watercraft. Primarily a summer operation, but give them a call — they also offer kayak deliveries if it's the right time of year.",
+    note: "Kayak rentals and other watercraft. Primarily a summer operation, but give them a call, because they also offer kayak deliveries if it's the right time of year.",
   },
   {
     name: "The Local",
@@ -201,10 +201,10 @@ export interface TravelerTip {
 export const TRAVELER_ADVICE: TravelerTip[] = [
   {
     title: "Pack skin-covering swimwear for late summer and fall",
-    body: "The house sits on a tributary of the Chesapeake Bay, so we share the water with its wildlife. In late summer and early fall it's common to see jellyfish drift past the dock on the current; they can sting swimmers as they pass. To minimize the effect, wear skin-covering swimwear — swim leggings, a full-body rash guard, and/or a wetsuit. Searching \"stinger suit\" online turns up inexpensive options. Message us with any questions before you come.",
+    body: "The house sits on a tributary of the Chesapeake Bay, so we share the water with its wildlife. In late summer and early fall it's common to see jellyfish drift past the dock on the current; they can sting swimmers as they pass. To minimize the effect, wear skin-covering swimwear: swim leggings, a full-body rash guard, and/or a wetsuit. Searching \"stinger suit\" online turns up inexpensive options. Message us with any questions before you come.",
   },
   {
     title: "Fishing tours",
-    body: "If you're interested in a fishing tour, let us know. We know a few local guides who would love to take you out — contact us ahead of time so we can connect you. Availability and price vary.",
+    body: "If you're interested in a fishing tour, let us know. We know a few local guides who would love to take you out. Contact us ahead of time so we can connect you. Availability and price vary.",
   },
 ];

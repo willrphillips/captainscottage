@@ -349,10 +349,11 @@ the time, especially on journal posts. No `—` character in body copy,
 headings, titles, meta descriptions, or alt text. Use a comma, a colon,
 parentheses, a semicolon, or two sentences instead.
 
-Swept 2026-08-07: 143 em dashes removed across 17 journal posts, 11 site pages,
-and `src/lib/site.ts`. Two exemptions left in place on purpose, because they are
-other people's words quoted verbatim: Daniel's guest review in `site.ts`, and
-Will's own host notes in `src/lib/guidebook.ts`. Enforcement added to
-blog-writer voice principle #6 and blog-seo-editor checklist item #10.
+Swept 2026-08-07: ~150 em dashes removed across 17 journal posts, 11 site pages,
+`src/lib/site.ts`, the visible strings in components and layouts, and Will's host
+notes in `src/lib/guidebook.ts` (he was asked and said to clean those too). One
+exemption stands: Daniel's guest review in `site.ts`, because rewriting a guest's
+words changes a quote. Enforcement added to blog-writer voice principle #6 and
+blog-seo-editor checklist item #10.
 
 ---

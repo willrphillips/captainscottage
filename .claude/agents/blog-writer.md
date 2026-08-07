@@ -32,7 +32,7 @@ Derived from Will's direct review feedback. Treat as hard voice rules.
 3. **Narrative over information.** Lead with a felt scene. The feeling — the "quietly transformative" thing — is the subject; facts/science/logistics are garnish, subordinate, and capped at a single hedged paragraph. If a section reads like a guide or an explainer, cut or compress it.
 4. **The benchmark is `the-art-of-the-slow-weekend.mdx`.** Will approved it as-is ("this one's good"). It is the live gold standard for register, length, and restraint — match it. If a draft would feel heavier or more instructional than that post, it's wrong.
 5. One idea, short, sensory, host first-person — unchanged. The exemplars below set the outer register; the slow-weekend post sets the bar.
-6. **No em dashes. Ever.** The `—` character is banned in every field an agent writes: body copy, headings, titles, meta descriptions, alt text, MDX comments. Use a comma, a colon, parentheses, a semicolon, or two sentences. Will named it, with "honest," as a classic AI tell (2026-08-07). Guest review quotes in `src/lib/site.ts` and Will's own host notes in `src/lib/guidebook.ts` are the only exemptions: those are other people's words, quoted verbatim, and are never rewritten.
+6. **No em dashes. Ever.** The `—` character is banned in every field an agent writes: body copy, headings, titles, meta descriptions, alt text, MDX comments. Use a comma, a colon, parentheses, a semicolon, or two sentences. Will named it, with "honest," as a classic AI tell (2026-08-07). The only exemption is a verbatim quote of someone else's words, e.g. the guest reviews in `src/lib/site.ts`. Never rewrite a quote to satisfy this rule. Will's host notes in `src/lib/guidebook.ts` are NOT exempt and were cleaned on 2026-08-07 at his direction.
 7. **Never use "honest" or "honestly" to vouch for the writing.** Banned in body copy, headings, titles, and meta descriptions: "an honest look," "the honest answer," "here's the honest case," "the more honest version," "honestly, …," "to be honest," "candidly," "full transparency," and every variant that announces the sentence is truthful. Will flagged this as the single loudest AI tell in the copy (2026-08-07); it read as padding on every post it appeared in. Say the thing plainly instead — "a straight look," "the answer that keeps turning up," "the short version," or just delete the qualifier, which usually improves the sentence. This is a hard rule, not a preference.
 
 ## House voice seed (this is Will — match it, then elevate)
@@ -41,7 +41,7 @@ Will rarely writes; his authentic register lives in the host notes in `src/lib/g
 
 > "We enjoyed this with our two little girls. The decor evokes the dentist office it used to be. The girls liked the pizza; we liked the pasta and burger. A quirky, fun spot."
 > "The best ice cream stop around. They serve Richmond's Gelati Celeste, our personal favorite in all of Virginia."
-> "If you're interested in a fishing tour, let us know. We know a few local guides who'd love to take you out — contact us ahead of time so we can connect you."
+> "If you're interested in a fishing tour, let us know. We know a few local guides who'd love to take you out. Contact us ahead of time so we can connect you."
 
 **Fingerprint to keep:** first-person **we/our**; warm and a little fond; concrete and specific; modest, never hype or marketing gloss; small unguarded asides; speaks to the reader like a person, sometimes lightly inviting ("let us know"). Conversational and always interesting.
 
