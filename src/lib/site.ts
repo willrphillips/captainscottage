@@ -98,6 +98,11 @@ export const SITE = {
   // once Will's Buttondown account exists. List-building precedes the
   // Phase 6 direct-booking engine by design (see content/AIRBNB_OPTIMIZATION.md).
   newsletterAction: "https://buttondown.com/api/emails/embed-subscribe/captainscottage",
+  // Pinterest domain claim. Pinterest hands you a meta tag whose content value
+  // is a verification code; paste ONLY that code here. Empty string = no tag is
+  // emitted. The code is not a secret (it ships in the page source), same as
+  // the Cloudflare beacon token. See PINTEREST_SETUP.md step 2.
+  pinterestVerification: "",
 } as const;
 
 // Build absolute URLs that account for the GH Pages base path.
