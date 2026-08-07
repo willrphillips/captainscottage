@@ -102,7 +102,7 @@ export const SITE = {
   // is a verification code; paste ONLY that code here. Empty string = no tag is
   // emitted. The code is not a secret (it ships in the page source), same as
   // the Cloudflare beacon token. See PINTEREST_SETUP.md step 2.
-  pinterestVerification: "",
+  pinterestVerification: "7b792bc46c459ab5657b254d0fc9bcbc",
 } as const;
 
 // Build absolute URLs that account for the GH Pages base path.
