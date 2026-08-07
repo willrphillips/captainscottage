@@ -1,16 +1,58 @@
 # Pinterest setup: Phase 0 runbook
 
-Everything here needs a human in the Pinterest UI, so it is Will's, not an
-agent's. Roughly 30 minutes, once. Confirmed 2026-08-07: **starting from zero,
-no existing Captain's Cottage Pinterest account.**
+**Status as of 2026-08-07, 2:00pm ET.** Steps 0, 1, and most of 2 are done.
+Picking back up: click Claim, then steps 3 and 4.
 
-Nothing posts until steps 0 to 4 are done. Steps 5 and 6 are only needed to
-automate posting; skip them if you want to post manually first, which is the
-recommended Stage A in `PINTEREST_PLAN.md`.
+| Step | State |
+|---|---|
+| 0. `hello@` routing | Done. `hello@` and `will@` both forward to Gmail. |
+| 1. Business account | Done. Username `captainscottageva`, name Captain's Cottage. |
+| 2. Claim the domain | **Tag is deployed and live. The Claim button has not been clicked yet.** |
+| 3. Rich Pins | Not started. |
+| 4. Five boards | Not started. |
+| 5-6. API + secrets | Not started, and not needed for Stage A. |
 
-Work top to bottom. Each step says what "done" looks like.
+### Two things that are not finished
+
+1. **The account email is unconfirmed.** It is now
+   `captainscottageva@gmail.com`, a Gmail Will controls. Open Settings,
+   Account management, click Confirm Email, then click the link in that inbox.
+2. **The profile Website field reads `http://captainscottageva.com`.** Change
+   it to `https://captainscottageva.com` so it matches the canonical hostname.
+
+### What the domain claim needs (already done on my side)
+
+The verification code is `7b792bc46c459ab5657b254d0fc9bcbc`, deployed via
+`SITE.pinterestVerification` and confirmed live in the head of every page on
+captainscottageva.com. Nothing else is needed before clicking Claim. If
+Pinterest ever reissues a different code, paste the new value into
+`src/lib/site.ts` and push.
+
+### The email detour, recorded so nobody repeats it
+
+Pinterest refused to send a confirmation to `hello@captainscottageva.com`, and
+then to `will@captainscottageva.com`, both times with a generic "Invalid
+email." It accepted and saved both addresses; only the confirm-send call failed.
+
+Ruled out: DNS. MX points at Cloudflare `route1/2/3.mx.cloudflare.net`, SPF is
+`v=spf1 include:_spf.mx.cloudflare.net ~all`, and delivery is proven, since
+Cloudflare forwarded a live test to Gmail. Also ruled out: the role-address
+theory, because `will@` failed identically. Will's own observation inverted it
+further: the address Pinterest accepted at signup,
+`hello@captainscottage.com`, is a domain we do not own and which has no MX at
+all, so Pinterest is clearly not checking deliverability.
+
+Best-fitting explanation, unproven: Pinterest runs an SMTP probe before
+sending, and Cloudflare Email Routing does not answer probes like a real
+mailbox, since it accepts configured addresses and rejects everything else at
+the SMTP layer. Verification services commonly score that as unconfirmable.
+
+Resolution: the account email is a Gmail. Nothing in the pin pipeline reads it.
+A real mailbox on the domain (Google Workspace or a relay) is a newsletter and
+Phase 6 decision, not a Pinterest one.
 
 ---
+
 
 ## 0. Create hello@captainscottageva.com
 
