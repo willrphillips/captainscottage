@@ -324,3 +324,18 @@ _(no notes — decision only)_
 The house was built in 1940. I don't like this article. Reject it and write a different one. Tell the editor I don't like real estate-centric posts.
 
 ---
+
+## 2026-08-07 · ALL POSTS (standing voice rule)
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+I hate how often "Honest" shows up in AI copy. Remove it — everywhere, not just
+this post. Do not use "honest," "honestly," "candidly," or "full transparency"
+to vouch for what you're about to say. Say the thing plainly instead. Applies to
+titles, meta descriptions, headings, and body copy, on every post from here on.
+
+Swept 2026-08-07 across all live copy: 5 blog posts, `/faq` (4 hits),
+`/what-to-bring`, `/journal` index. Enforcement added to blog-writer voice
+principle #6 and blog-seo-editor checklist item #10.
+
+---
