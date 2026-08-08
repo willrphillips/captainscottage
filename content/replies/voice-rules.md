@@ -39,6 +39,9 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   is an equally natural variant. Neither every reply. For a plain
   logistics or informational reply (not happy news), a simple
   "Hey [Name]!" opener is more natural.
+- A bare name opener ("[Name]!" with no "Hey"/"Hi") is also natural for
+  a direct Q&A reply — interchangeable with the "Hey [Name]!" opener,
+  same slot (confirmed from a sent reply).
 - "Yep," is a natural affirmative opener when confirming a factual yes
   (e.g. "Yep, the kitchen's fully stocked..."). "Yes we do!" is an
   equally natural variant when confirming an amenity/equipment is
