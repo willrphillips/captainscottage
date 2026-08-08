@@ -14,6 +14,12 @@ interface Props {
   ogImage?: string;
   noindex?: boolean;
   breadcrumbs?: { name: string; href: string }[];
+  /** "article" on journal posts, "website" everywhere else. Pinterest reads
+      this to decide whether a URL earns an Article Rich Pin. */
+  ogType?: "website" | "article";
+  /** Journal posts only: feeds article:published_time / article:author. */
+  publishedAt?: Date;
+  author?: string;
 }
 
 const {
@@ -23,6 +29,9 @@ const {
   ogImage = SITE.defaultOgImage,
   noindex = false,
   breadcrumbs,
+  ogType = "website",
+  publishedAt,
+  author,
 } = Astro.props;
 
 const canonical = absoluteUrl(pathname);
@@ -42,7 +51,11 @@ const ogImageUrl = ogImage.startsWith("http") ? ogImage : absoluteUrl(ogImage);
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    {ogType === "article" && publishedAt && (
+      <meta property="article:published_time" content={publishedAt.toISOString()} />
+    )}
+    {ogType === "article" && author && <meta property="article:author" content={author} />}
     <meta property="og:site_name" content={PROPERTY.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
