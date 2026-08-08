@@ -1,7 +1,9 @@
 # Pinterest setup: Phase 0 runbook
 
-**Status as of 2026-08-07, end of session.** Steps 0, 1, and 2 are done. The
-domain is claimed. Picking back up at step 3, Rich Pins.
+**Status as of 2026-08-08.** Steps 0 through 3 are done. The domain is claimed
+and Rich Pins turned out to need nothing. **Picking back up at step 4, the five
+boards.** That is the only thing standing between here and 27 pins queued for
+review.
 
 | Step | State |
 |---|---|
@@ -9,7 +11,7 @@ domain is claimed. Picking back up at step 3, Rich Pins.
 | 1. Business account | Done. Username `captainscottageva`, name Captain's Cottage, email `captainscottageva@gmail.com`. |
 | 2. Claim the domain | **Done. captainscottageva.com is claimed.** |
 | 3. Rich Pins | **Done, and it needed nothing.** Pinterest retired the validator; Rich Pins are automatic from the page metadata. |
-| 4. Five boards | Not started. Descriptions are in step 4 below, ready to paste. |
+| 4. Five boards | **NEXT, and the only thing blocking the pins.** Descriptions are in step 4 below, ready to paste. |
 | 5-6. API + secrets | Not started, and not needed for Stage A. |
 
 ### Small loose end
