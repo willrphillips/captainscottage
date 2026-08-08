@@ -1,0 +1,143 @@
+{
+  "updatedAt": "2026-08-08",
+  "note": "Keyword bank for Pinterest. `variants` are what the pin-writer A/B tests: one pin per variant, each with its own utm_content, so outbound clicks tell us which phrasing wins. Status moves untested -> testing -> winner|retired. Never delete a retired term; move it to `retired` so we do not re-test a settled question. Board names must match the live Pinterest boards exactly.",
+  "rules": [
+    "Never use 'Hull Creek' as a keyword or in a pin title. Locked in CLAUDE.md, and nobody searches it.",
+    "Lead with recognizable geography: Virginia's Northern Neck, Chesapeake Bay, or the DC drive market.",
+    "Titles are search queries, not headlines. First ~40 characters carry the load."
+  ],
+  "boards": [
+    {
+      "name": "Virginia's Northern Neck",
+      "primary": "Virginia Northern Neck",
+      "supporting": ["Northern Neck Virginia things to do", "Reedville Virginia", "Irvington Virginia", "Northumberland County Virginia"],
+      "sourceNote": "Geography term with real search volume and low competition. The place name is the whole point: it is what someone types when they have heard of the region but not decided anything."
+    },
+    {
+      "name": "Weekend Getaways from Washington DC",
+      "primary": "weekend getaways from Washington DC",
+      "supporting": ["weekend trips from DC", "day trips from Washington DC", "romantic getaways near DC", "quick escapes from DC"],
+      "sourceNote": "Highest-intent board we have. Pinterest travel behavior in 2026 skews to weekend itineraries and trips without heavy logistics, which is exactly this."
+    },
+    {
+      "name": "Chesapeake Bay Travel",
+      "primary": "Chesapeake Bay travel",
+      "supporting": ["Chesapeake Bay vacation", "Virginia waterfront towns", "crabbing Chesapeake Bay", "Potomac River Virginia"],
+      "sourceNote": "Broader than the Northern Neck and catches people who know the bay but not the peninsula."
+    },
+    {
+      "name": "Waterfront Cottage Stays",
+      "primary": "waterfront cottage rental",
+      "supporting": ["cottage with private dock", "cabin with hot tub and sauna", "lake house weekend", "waterfront Airbnb Virginia"],
+      "sourceNote": "Stay-type board. Catches people shopping for a kind of place rather than a destination, which is a different and often earlier moment."
+    },
+    {
+      "name": "Slow Weekends and Cabin Trips",
+      "primary": "slow travel weekend",
+      "supporting": ["unplugged weekend", "digital detox getaway", "wellness getaway", "shoulder season travel"],
+      "sourceNote": "Wellness and nature-stay framing is called out in the 2026 travel trend reporting. This is the board where the journal's register works as-is."
+    }
+  ],
+  "postKeywords": {
+    "weekend-getaways-from-washington-dc": {
+      "primary": "weekend getaways from Washington DC",
+      "variants": [
+        "Weekend Getaways from Washington DC: Virginia's Northern Neck",
+        "Weekend Trips from DC Without Bay Bridge Traffic",
+        "Where to Go Instead of the Eastern Shore: A DC Weekend"
+      ],
+      "rationale": "Three distinct intents: destination discovery, the traffic pain point, and comparison shopping against a known alternative.",
+      "board": "Weekend Getaways from Washington DC",
+      "status": "untested"
+    },
+    "northern-neck-long-weekend-from-dc": {
+      "primary": "long weekend itinerary Virginia",
+      "variants": [
+        "A Long Weekend on Virginia's Northern Neck: 3-Day Itinerary",
+        "Waterfront Long Weekend 2.5 Hours from Washington DC",
+        "Crab Pull, Kayaks, Sauna: A Chesapeake Weekend Itinerary"
+      ],
+      "rationale": "Itinerary posts are one of the strongest travel formats on Pinterest. Variant 3 tests concrete activities over the itinerary frame.",
+      "board": "Weekend Getaways from Washington DC",
+      "status": "untested"
+    },
+    "the-art-of-the-slow-weekend": {
+      "primary": "how to disconnect on vacation",
+      "variants": [
+        "How to Actually Disconnect on a Weekend Away",
+        "The Slow Weekend: An Unplugged Trip That Works",
+        "Digital Detox Weekend: A Waterfront Field Guide"
+      ],
+      "rationale": "Not a destination post, so it competes on the behavior rather than the place. Strongest fit for the slow-travel board.",
+      "board": "Slow Weekends and Cabin Trips",
+      "status": "untested"
+    },
+    "complete-guide-to-reedville-virginia": {
+      "primary": "Reedville Virginia",
+      "variants": [
+        "Reedville, Virginia: A Working Fishing Village Guide",
+        "Things to Do in Reedville on Virginia's Northern Neck",
+        "The Chesapeake Town Built on Menhaden, Not Tourism"
+      ],
+      "rationale": "Place-name search, things-to-do search, and a curiosity hook. Variant 3 is the test of whether story framing pulls at all.",
+      "board": "Virginia's Northern Neck",
+      "status": "untested"
+    },
+    "24-hours-in-irvington-virginia": {
+      "primary": "Irvington Virginia things to do",
+      "variants": [
+        "24 Hours in Irvington, Virginia: A Day Trip Guide",
+        "Irvington VA: Tides Inn, Farmers Market, and the Vineyard",
+        "The Prettiest Small Town on Virginia's Northern Neck"
+      ],
+      "rationale": "Day-trip framing, named-landmark framing, and superlative framing. The third is the riskiest and worth a clean read.",
+      "board": "Virginia's Northern Neck",
+      "status": "untested"
+    },
+    "crabbers-morning-on-hull-creek": {
+      "primary": "crabbing Chesapeake Bay",
+      "variants": [
+        "Crabbing on the Chesapeake: A Morning on the Dock",
+        "How to Pull a Crab Pot at First Light",
+        "Blue Crab Season in Virginia: What a Morning Looks Like"
+      ],
+      "rationale": "Activity search, how-to search, and season search. No 'Hull Creek' in any title, per the locked rule.",
+      "board": "Chesapeake Bay Travel",
+      "status": "untested"
+    },
+    "mornings-with-the-ospreys-hull-creek": {
+      "primary": "Chesapeake Bay birding",
+      "variants": [
+        "Osprey Season on the Chesapeake: A Dock at Dawn",
+        "Birding Virginia's Northern Neck: Osprey, Heron, Eagle",
+        "What a Morning on a Tidal Creek Sounds Like"
+      ],
+      "rationale": "Birding is a real Pinterest niche with a devoted audience. Variant 3 tests atmosphere against the birding-list framing.",
+      "board": "Chesapeake Bay Travel",
+      "status": "untested"
+    },
+    "cottage-sauna-culture": {
+      "primary": "sauna with cold plunge",
+      "variants": [
+        "Cedar Sauna and Cold Creek: The Ritual, Done Right",
+        "Cabin with a Sauna and Cold Plunge in Virginia",
+        "Nordic Sauna Ritual on a Chesapeake Creek"
+      ],
+      "rationale": "Sauna and cold plunge is a strong, growing search. Variant 2 is the stay-shopping version and should be watched closely, since it is closest to booking intent.",
+      "board": "Waterfront Cottage Stays",
+      "status": "untested"
+    },
+    "waterfront-kitchen-family-recipes": {
+      "primary": "vacation rental dinner ideas",
+      "variants": [
+        "Easy Vacation House Dinners: Low Boil, Burgers, Caprese",
+        "What to Cook at a Waterfront Rental",
+        "Country Low Boil: The One-Pot Vacation Dinner"
+      ],
+      "rationale": "Food guides travel well on Pinterest and this is the only food post we have. Variant 3 is a single-recipe hook and may outperform the roundups.",
+      "board": "Slow Weekends and Cabin Trips",
+      "status": "untested"
+    }
+  },
+  "retired": []
+}
