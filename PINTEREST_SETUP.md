@@ -8,7 +8,7 @@ domain is claimed. Picking back up at step 3, Rich Pins.
 | 0. `hello@` routing | Done. `hello@` and `will@` both forward to Gmail. |
 | 1. Business account | Done. Username `captainscottageva`, name Captain's Cottage, email `captainscottageva@gmail.com`. |
 | 2. Claim the domain | **Done. captainscottageva.com is claimed.** |
-| 3. Rich Pins | **Next.** Validate a live post URL, then Apply. |
+| 3. Rich Pins | **Done, and it needed nothing.** Pinterest retired the validator; Rich Pins are automatic from the page metadata. |
 | 4. Five boards | Not started. Descriptions are in step 4 below, ready to paste. |
 | 5-6. API + secrets | Not started, and not needed for Stage A. |
 
@@ -143,23 +143,27 @@ analytics. Do not skip it.
 
 ---
 
-## 3. Turn on Rich Pins
+## 3. Rich Pins: nothing to do
 
-Go to **developers.pinterest.com/tools/url-debugger/**, paste any live post URL,
-for example:
+**This step is obsolete.** Pinterest retired the Rich Pins validator and the
+application flow (`developers.pinterest.com/tools/url-debugger/` now redirects
+to the docs overview, which is what Will hit on 2026-08-08). Since late 2022 the
+process is automatic: a page carrying the right metadata becomes an Article Rich
+Pin when someone saves it. There is no form, no validation, no approval.
 
-```
-https://captainscottageva.com/journal/the-art-of-the-slow-weekend/
-```
+What the site needed for that was real, though, and was fixed on 2026-08-08:
+every page was hardcoded to `og:type="website"`, journal posts included, and
+`og:type` is exactly what Pinterest reads to decide whether a URL earns an
+Article Rich Pin. `BaseLayout.astro` now takes an `ogType` prop, and
+`BlogPost.astro` passes `"article"` plus `article:published_time` and
+`article:author`. Confirmed live on the production site.
 
-Hit validate, then **Apply**.
+Journal posts now emit: `og:type=article`, `og:site_name`, `og:title`,
+`og:description`, `og:url`, `og:image`, `article:published_time`,
+`article:author`, plus `BlogPosting` JSON-LD. That is more than Article Rich
+Pins require.
 
-No code changes should be needed. The site already emits the OpenGraph tags that
-Article Rich Pins read (`og:title`, `og:description`, `og:site_name`), because
-`BaseLayout.astro` has emitted them since launch. If the validator complains,
-send me the exact error and I will fix the tags.
-
-**Done when:** the validator reports the pin as valid and you have applied.
+**Done when:** nothing. It is already done.
 
 ---
 

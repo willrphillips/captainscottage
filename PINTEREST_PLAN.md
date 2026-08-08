@@ -41,11 +41,10 @@ Nothing here is automatable; it all needs a human in the Pinterest UI.
    pattern as the existing Cloudflare beacon. Claiming attributes every pin that
    links to the domain, including pins other people create, and unlocks domain
    analytics.
-3. **Enable Rich Pins.** Run the site through the Rich Pins Validator with any
-   journal post URL. The site already emits the OpenGraph tags Article Rich Pins
-   read (`og:title`, `og:description`, `og:site_name`), so this should validate
-   without code changes. Rich Pins pull the post title and description onto the
-   pin automatically and mark it as coming from a real site.
+3. **Rich Pins.** Superseded 2026-08-08: Pinterest retired the validator and the
+   application step, so Rich Pins are automatic from page metadata. The site did
+   need a fix to qualify (`og:type` was hardcoded to `website` on posts); that
+   shipped the same day. See `PINTEREST_SETUP.md` step 3.
 4. **Boards.** Five to start, each a search phrase people actually use, not
    branded cuteness:
    - Virginia's Northern Neck
