@@ -10,8 +10,8 @@ Wellness-conscious traveler curious about the hot tub + cold creek combination. 
 - Hot tub: on the deck, lit by sunset, open year-round. Source: `src/lib/site.ts` STANDOUT_AMENITIES
 - Cedar sauna: west-facing window onto the creek; heat then cold plunge from dock. Source: `src/lib/site.ts`
 - Hull Creek accessible from dock for cold plunge; shallow, brackish. Source: `src/lib/site.ts`
-- The full sequence available at the cottage: sauna (heat) → creek off the dock (cold) → hot tub on the deck (warm recovery) → screened porch (rest). Or simply: hot tub → creek → porch. Multiple configurations of the same hot/cold principle.
-- Hot tub is separate from the sauna: the sauna is a cedar barrel with a west-facing window; the hot tub is on the deck. Both face toward the creek.
+- The full sequence available at the cottage: sauna (heat) → creek off the dock (cold) → hot tub on the patio beside the porch (warm recovery) → screened porch (rest). Or simply: hot tub → creek → porch. Multiple configurations of the same hot/cold principle.
+- Hot tub is separate from the sauna: the sauna is a cedar barrel with a west-facing window; the hot tub is on the patio beside the porch (corrected 2026-08-08 by Will). Both face toward the creek.
 - Amenities present year-round: hot tub confirmed open year-round; creek accessible year-round.
 
 ### From external research (health literature — hedge all claims)

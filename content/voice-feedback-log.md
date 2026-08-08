@@ -372,3 +372,30 @@ and the 2026-07-13 rejection record kept as history. Editor rule updated: do not
 propose or revive a renovation/restoration topic until Will asks for one.
 
 ---
+
+## 2026-08-08 · northern-neck-in-fall-from-dc
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+Five items, all applied:
+
+1. Killed "They've stopped explaining it to people who haven't tried it."
+   ("That sounds dumb.") Replaced with a plain concrete line about rebooking.
+2. Killed "working the shallows" for the ospreys. Said too many times across
+   posts. Now retired everywhere; do not reach for it again.
+3. Ospreys: Will doubted they move south in October. He was right that it was
+   wrong, and it was wrong in the other direction. Chesapeake ospreys start
+   south in August, most go during September, and they reach Central and South
+   America by mid-October. The post had them departing in October. Corrected,
+   and September is now framed as the tail end rather than peak.
+4. Crabbing is productive in September, and it is the best month because the
+   summer crabs are biggest. TODO resolved and the paragraph now says so.
+5. **The hot tub is not on the deck. It is on the patio beside the porch.**
+   This was wrong in seven places, including a live post and a live page, and
+   the root was `STANDOUT_AMENITIES` in `src/lib/site.ts`, which every page
+   reads. Fixed at the source and in all copies.
+
+Also confirmed: the creek is comfortable for swimming in September, so that
+TODO is resolved. The post now carries zero TODO markers.
+
+---

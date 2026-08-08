@@ -30,7 +30,7 @@ A first-person (Will's voice, or close-third on a guest) pre-dawn vignette: some
 - Verified guest review (usable as in-post pull quote, attributed): "We pulled crab pots at sunrise and watched osprey work the creek. Three days later none of us wanted to leave." — Maya, Brooklyn NY
   Source: `src/lib/site.ts` (HEADLINE_REVIEWS)
 
-- The property also has two kayaks and a paddleboard; the cedar sauna faces west onto the creek; the hot tub is on the deck.
+- The property also has two kayaks and a paddleboard; the cedar sauna faces west onto the creek; the hot tub is on the patio beside the porch (corrected 2026-08-08 by Will; it is not on the deck).
   Source: `src/lib/site.ts` (STANDOUT_AMENITIES)
 
 - Max guests: 6. Bedrooms: 3. Rated 4.92 stars across 137 reviews. Superhost 9 years.
