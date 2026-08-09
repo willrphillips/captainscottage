@@ -70,9 +70,9 @@
       "note": "Agent + monthly cron built 2026-08-07; first run pending"
     },
     "pin-writer": {
-      "status": "planned",
-      "lastRun": "2026-08-07",
-      "note": "Agent + weekly cron built 2026-08-07; renders via scripts/build-pins.mjs"
+      "status": "idle",
+      "lastRun": "2026-08-09",
+      "note": "First run: queued 9 draft pins across 3 published posts (the-art-of-the-slow-weekend, weekend-getaways-from-washington-dc, northern-neck-long-weekend-from-dc), 3 keyword variants each, awaiting Will's approval"
     },
     "pinterest-publish": {
       "status": "planned",

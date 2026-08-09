@@ -1,11 +1,45 @@
 {
   "slug": "weekend-getaways-from-washington-dc",
   "postUrl": "https://captainscottageva.com/journal/weekend-getaways-from-washington-dc/",
-  "renderedAt": "2026-08-07T17:08:07.680Z",
+  "renderedAt": "2026-08-09T11:35:06.280Z",
   "sources": {
-    "weekend-getaways-from-washington-dc-v1": "public\\images\\hero-porch-creek.jpg",
-    "weekend-getaways-from-washington-dc-v2": "public\\images\\extras\\creek-sunset.jpg",
-    "weekend-getaways-from-washington-dc-v3": "public\\images\\hero-porch-creek.jpg + public\\images\\extras\\creek-sunset.jpg"
+    "weekend-getaways-from-washington-dc-v1": "public/images/hero-porch-creek.jpg",
+    "weekend-getaways-from-washington-dc-v2": "public/images/extras/creek-sunset.jpg",
+    "weekend-getaways-from-washington-dc-v3": "public/images/hero-porch-creek.jpg + public/images/extras/creek-sunset.jpg"
   },
-  "pins": []
+  "pins": [
+    {
+      "id": "weekend-getaways-from-washington-dc-v1",
+      "title": "Weekend Getaways from Washington DC: Virginia's Northern Neck",
+      "description": "A straight look at weekend getaways from Washington DC: Virginia's Northern Neck versus the Eastern Shore, drive time and traffic included. Two hours forty five minutes from DC, no Bay Bridge required.",
+      "altText": "Screened porch overlooking a tidal creek at Captain's Cottage on Virginia's Northern Neck, with the title 'Weekend Getaways from Washington DC: Virginia's Northern Neck.'",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/journal/weekend-getaways-from-washington-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=weekend-getaways-from-washington-dc&utm_content=v1",
+      "scheduledFor": "2026-08-12",
+      "status": "draft",
+      "keywordVariant": "Weekend Getaways from Washington DC: Virginia's Northern Neck"
+    },
+    {
+      "id": "weekend-getaways-from-washington-dc-v2",
+      "title": "Weekend Trips from DC Without Bay Bridge Traffic",
+      "description": "Skip the Friday Bay Bridge backup. Weekend trips from DC to Virginia's Northern Neck run about two hours forty five minutes with no toll bridge and no bottleneck, just a straight shot to the water.",
+      "altText": "Sunset over a tidal creek on Virginia's Northern Neck, oak branches silhouetted against the sky.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/journal/weekend-getaways-from-washington-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=weekend-getaways-from-washington-dc&utm_content=v2",
+      "scheduledFor": "2026-08-17",
+      "status": "draft",
+      "keywordVariant": "Weekend Trips from DC Without Bay Bridge Traffic"
+    },
+    {
+      "id": "weekend-getaways-from-washington-dc-v3",
+      "title": "Where to Go Instead of the Eastern Shore: A DC Weekend",
+      "description": "Thinking St. Michaels or the Eastern Shore for your next DC weekend? Here's the case for Virginia's Northern Neck instead: the same Chesapeake water, none of the Friday bridge traffic.",
+      "altText": "Split image: a screened porch over the water above, an oak-framed creek sunset below, on Virginia's Northern Neck.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/journal/weekend-getaways-from-washington-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=weekend-getaways-from-washington-dc&utm_content=v3",
+      "scheduledFor": "2026-08-22",
+      "status": "draft",
+      "keywordVariant": "Where to Go Instead of the Eastern Shore: A DC Weekend"
+    }
+  ]
 }

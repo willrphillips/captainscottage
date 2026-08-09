@@ -1,0 +1,45 @@
+{
+  "slug": "northern-neck-long-weekend-from-dc",
+  "postUrl": "https://captainscottageva.com/journal/northern-neck-long-weekend-from-dc/",
+  "renderedAt": "2026-08-09T11:35:09.710Z",
+  "sources": {
+    "northern-neck-long-weekend-from-dc-v1": "public/images/extras/creek-sunset.jpg",
+    "northern-neck-long-weekend-from-dc-v2": "public/images/dock-hull-creek.jpg",
+    "northern-neck-long-weekend-from-dc-v3": "public/images/extras/creek-sunset.jpg + public/images/dock-hull-creek.jpg"
+  },
+  "pins": [
+    {
+      "id": "northern-neck-long-weekend-from-dc-v1",
+      "title": "A Long Weekend on Virginia's Northern Neck: 4-Day Itinerary",
+      "description": "A day-by-day itinerary for a long weekend on Virginia's Northern Neck: check in Thursday, crab pot at dawn, kayaks on the creek, Reedville on Saturday, checkout Sunday. Two hours forty five minutes from Washington DC.",
+      "altText": "Sunset over a tidal creek on Virginia's Northern Neck framed by oak branches, with the title 'A Long Weekend on Virginia's Northern Neck: 4-Day Itinerary.'",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/journal/northern-neck-long-weekend-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-long-weekend-from-dc&utm_content=v1",
+      "scheduledFor": "2026-08-13",
+      "status": "draft",
+      "keywordVariant": "A Long Weekend on Virginia's Northern Neck: 4-Day Itinerary"
+    },
+    {
+      "id": "northern-neck-long-weekend-from-dc-v2",
+      "title": "Waterfront Long Weekend: 2 Hours 45 Minutes from DC",
+      "description": "A waterfront long weekend two hours forty five minutes from Washington DC. A cedar sauna and a cold dip after dark, a crab pot at first light, kayaks on the creek, low boil on the porch. No bay bridge, no crowds.",
+      "altText": "A wooden dock reaching into a calm tidal creek on Virginia's Northern Neck in early morning light.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/journal/northern-neck-long-weekend-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-long-weekend-from-dc&utm_content=v2",
+      "scheduledFor": "2026-08-18",
+      "status": "draft",
+      "keywordVariant": "Waterfront Long Weekend: 2 Hours 45 Minutes from DC"
+    },
+    {
+      "id": "northern-neck-long-weekend-from-dc-v3",
+      "title": "Crab Pull, Kayaks, Sauna: A Chesapeake Weekend Itinerary",
+      "description": "Crab pull at dawn, kayaks on a slow tidal creek, a cedar sauna after dark: a full itinerary for a Chesapeake weekend on Virginia's Northern Neck, two hours forty five minutes from Washington DC.",
+      "altText": "Split image: an oak-framed creek sunset above, a dock at dawn below, on Virginia's Northern Neck.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/journal/northern-neck-long-weekend-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-long-weekend-from-dc&utm_content=v3",
+      "scheduledFor": "2026-08-23",
+      "status": "draft",
+      "keywordVariant": "Crab Pull, Kayaks, Sauna: A Chesapeake Weekend Itinerary"
+    }
+  ]
+}
