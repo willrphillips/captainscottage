@@ -1,0 +1,45 @@
+{
+  "slug": "24-hours-in-irvington-virginia",
+  "postUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/",
+  "renderedAt": "2026-08-10T18:09:48.103Z",
+  "sources": {
+    "24-hours-in-irvington-virginia-v1": "public\\images\\extras\\creek-sunset.jpg",
+    "24-hours-in-irvington-virginia-v2": "public\\images\\dock-hull-creek.jpg",
+    "24-hours-in-irvington-virginia-v3": "public\\images\\extras\\creek-sunset.jpg + public\\images\\dock-hull-creek.jpg"
+  },
+  "pins": [
+    {
+      "id": "24-hours-in-irvington-virginia-v1",
+      "title": "24 Hours in Irvington, Virginia: A Day Trip Guide",
+      "description": "24 hours in Irvington on Virginia's Northern Neck: the Saturday farmers market, the Steamboat Era Museum, a vineyard behind a 19th-century schoolhouse, dinner on Carter's Creek.",
+      "altText": "Aerial view of a waterfront cottage and creek on Virginia's Northern Neck at dusk.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=24-hours-in-irvington-virginia&utm_content=v1",
+      "scheduledFor": "2026-08-19",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "24-hours-in-irvington-virginia-v2",
+      "title": "Irvington VA: Tides Inn, Farmers Market, and the Vineyard",
+      "description": "What to do in Irvington, Virginia: the Tides Inn for a drink even if you are not staying, the Saturday market, the Dog and Oyster vineyard, and where to eat nearby.",
+      "altText": "Golden hour on a Northern Neck creek, dock and treeline in view.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=24-hours-in-irvington-virginia&utm_content=v2",
+      "scheduledFor": "2026-08-24",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "24-hours-in-irvington-virginia-v3",
+      "title": "The Prettiest Small Town on Virginia's Northern Neck",
+      "description": "Irvington is the refined counterweight to Reedville's working waterfront: two nationally known inns, a steamboat museum, and a vineyard, in a town of a few hundred people.",
+      "altText": "A waterfront cottage at dusk seen from the air, Virginia's Northern Neck.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=24-hours-in-irvington-virginia&utm_content=v3",
+      "scheduledFor": "2026-08-29",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

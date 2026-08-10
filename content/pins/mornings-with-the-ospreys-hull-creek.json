@@ -1,0 +1,45 @@
+{
+  "slug": "mornings-with-the-ospreys-hull-creek",
+  "postUrl": "https://captainscottageva.com/journal/mornings-with-the-ospreys-hull-creek/",
+  "renderedAt": "2026-08-10T18:09:52.843Z",
+  "sources": {
+    "mornings-with-the-ospreys-hull-creek-v1": "public\\images\\extras\\osprey-hull-creek.jpg",
+    "mornings-with-the-ospreys-hull-creek-v2": "public\\images\\extras\\creek-sunset.jpg",
+    "mornings-with-the-ospreys-hull-creek-v3": "public\\images\\extras\\osprey-hull-creek.jpg + public\\images\\extras\\creek-sunset.jpg"
+  },
+  "pins": [
+    {
+      "id": "mornings-with-the-ospreys-hull-creek-v1",
+      "title": "Osprey Season on the Chesapeake: A Dock at Dawn",
+      "description": "Osprey season on the Chesapeake runs March into September, and a dock at dawn is the best seat for it. What you hear before you see it, and when the birds head south.",
+      "altText": "An osprey over a tidal creek on Virginia's Northern Neck at first light.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/journal/mornings-with-the-ospreys-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=mornings-with-the-ospreys-hull-creek&utm_content=v1",
+      "scheduledFor": "2026-08-20",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "mornings-with-the-ospreys-hull-creek-v2",
+      "title": "Birding Virginia's Northern Neck: Osprey, Heron, Eagle",
+      "description": "Birding on Virginia's Northern Neck: osprey diving the shallows, a great blue heron standing still for an hour, bald eagles on the thermals, kingfishers working the bank.",
+      "altText": "A quiet Chesapeake tributary at sunrise, seen from a private dock.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/journal/mornings-with-the-ospreys-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=mornings-with-the-ospreys-hull-creek&utm_content=v2",
+      "scheduledFor": "2026-08-25",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "mornings-with-the-ospreys-hull-creek-v3",
+      "title": "What a Morning on a Tidal Creek Sounds Like",
+      "description": "The creek at dawn on Virginia's Northern Neck: an osprey's descending call carrying across flat water, dew on the dock planks, twenty minutes before real light arrives.",
+      "altText": "Sunrise over a brackish tidal creek off the Potomac River.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/journal/mornings-with-the-ospreys-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=mornings-with-the-ospreys-hull-creek&utm_content=v3",
+      "scheduledFor": "2026-08-30",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "crabbers-morning-on-hull-creek",
+  "postUrl": "https://captainscottageva.com/journal/crabbers-morning-on-hull-creek/",
+  "renderedAt": "2026-08-10T18:09:51.530Z",
+  "sources": {
+    "crabbers-morning-on-hull-creek-v1": "public\\images\\stairs-to-dock.jpg",
+    "crabbers-morning-on-hull-creek-v2": "public\\images\\extras\\creek-sunset.jpg",
+    "crabbers-morning-on-hull-creek-v3": "public\\images\\stairs-to-dock.jpg + public\\images\\extras\\creek-sunset.jpg"
+  },
+  "pins": [
+    {
+      "id": "crabbers-morning-on-hull-creek-v1",
+      "title": "Crabbing on the Chesapeake: A Morning on the Dock",
+      "description": "Crabbing on the Chesapeake, start to finish. Bait the pot at first light, pull it before the day warms, keep what the Virginia rules allow. September crabs are the biggest of the year.",
+      "altText": "A crab pot line at the end of a wooden dock at first light, water flat and grey.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/journal/crabbers-morning-on-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=crabbers-morning-on-hull-creek&utm_content=v1",
+      "scheduledFor": "2026-08-18",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "crabbers-morning-on-hull-creek-v2",
+      "title": "How to Pull a Crab Pot at First Light",
+      "description": "How to pull a crab pot, plainly: what goes back (undersized crabs and immature females), what stays, and why the hour before the day warms is the one that matters on a Virginia tidal creek.",
+      "altText": "Morning light on a Northern Neck creek from the end of a private dock.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/journal/crabbers-morning-on-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=crabbers-morning-on-hull-creek&utm_content=v2",
+      "scheduledFor": "2026-08-23",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "crabbers-morning-on-hull-creek-v3",
+      "title": "Blue Crab Season in Virginia: What a Morning Looks Like",
+      "description": "Blue crab season on a Virginia tidal creek, from the dock. The recreational season runs into November, and September is when the summer crabs are at their biggest.",
+      "altText": "A wooden dock and stairs down to a quiet brackish creek on Virginia's Northern Neck.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/journal/crabbers-morning-on-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=crabbers-morning-on-hull-creek&utm_content=v3",
+      "scheduledFor": "2026-08-28",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

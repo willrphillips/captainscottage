@@ -1,0 +1,45 @@
+{
+  "slug": "waterfront-kitchen-family-recipes",
+  "postUrl": "https://captainscottageva.com/journal/waterfront-kitchen-family-recipes/",
+  "renderedAt": "2026-08-10T18:09:53.895Z",
+  "sources": {
+    "waterfront-kitchen-family-recipes-v1": "public\\images\\kitchen-green-cabinets.jpg",
+    "waterfront-kitchen-family-recipes-v2": "public\\images\\extras\\creek-sunset.jpg",
+    "waterfront-kitchen-family-recipes-v3": "public\\images\\kitchen-green-cabinets.jpg + public\\images\\extras\\creek-sunset.jpg"
+  },
+  "pins": [
+    {
+      "id": "waterfront-kitchen-family-recipes-v1",
+      "title": "Easy Vacation House Dinners: Low Boil, Burgers, Caprese",
+      "description": "The meals worth cooking at a waterfront rental: a country low boil in one pot, bacon burgers, caprese on the porch, and whatever the crab pot gives you at dawn.",
+      "altText": "The green-cabineted kitchen at Captain's Cottage, window over the sink facing the water.",
+      "board": "Slow Weekends and Cabin Trips",
+      "destinationUrl": "https://captainscottageva.com/journal/waterfront-kitchen-family-recipes/?utm_source=pinterest&utm_medium=social&utm_campaign=waterfront-kitchen-family-recipes&utm_content=v1",
+      "scheduledFor": "2026-08-21",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "waterfront-kitchen-family-recipes-v2",
+      "title": "What to Cook at a Waterfront Rental",
+      "description": "Order groceries before you leave home, then cook simply. Shrimp tacos, oysters roasted in a hot pan, pasta with whatever seafood you picked up on the Northern Neck.",
+      "altText": "A screened dining porch set for dinner above a Chesapeake creek.",
+      "board": "Slow Weekends and Cabin Trips",
+      "destinationUrl": "https://captainscottageva.com/journal/waterfront-kitchen-family-recipes/?utm_source=pinterest&utm_medium=social&utm_campaign=waterfront-kitchen-family-recipes&utm_content=v2",
+      "scheduledFor": "2026-08-26",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "waterfront-kitchen-family-recipes-v3",
+      "title": "Country Low Boil: The One-Pot Vacation Dinner",
+      "description": "Shrimp, corn, smoked sausage and potatoes in one pot, forty minutes start to table, poured out in the middle of the table. The vacation dinner nobody has to hover over.",
+      "altText": "A waterfront kitchen with open shelving and a view of the creek beyond.",
+      "board": "Slow Weekends and Cabin Trips",
+      "destinationUrl": "https://captainscottageva.com/journal/waterfront-kitchen-family-recipes/?utm_source=pinterest&utm_medium=social&utm_campaign=waterfront-kitchen-family-recipes&utm_content=v3",
+      "scheduledFor": "2026-08-31",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

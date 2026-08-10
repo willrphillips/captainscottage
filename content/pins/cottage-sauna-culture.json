@@ -1,0 +1,45 @@
+{
+  "slug": "cottage-sauna-culture",
+  "postUrl": "https://captainscottageva.com/journal/cottage-sauna-culture/",
+  "renderedAt": "2026-08-10T18:09:50.250Z",
+  "sources": {
+    "cottage-sauna-culture-v1": "public\\images\\cedar-sauna-window.jpg",
+    "cottage-sauna-culture-v2": "public\\images\\cedar-sauna-creek-sunset.jpg",
+    "cottage-sauna-culture-v3": "public\\images\\cedar-sauna-window.jpg + public\\images\\cedar-sauna-creek-sunset.jpg"
+  },
+  "pins": [
+    {
+      "id": "cottage-sauna-culture-v1",
+      "title": "Cedar Sauna and Cold Creek: The Ritual, Done Right",
+      "description": "Heat until you mean it, walk out to the dock, go in. The cedar sauna and cold creek sequence on Virginia's Northern Neck, and why the cold months are when it works best.",
+      "altText": "Inside the cedar barrel sauna, the round window framing a Northern Neck creek at sunset.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/journal/cottage-sauna-culture/?utm_source=pinterest&utm_medium=social&utm_campaign=cottage-sauna-culture&utm_content=v1",
+      "scheduledFor": "2026-08-18",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "cottage-sauna-culture-v2",
+      "title": "Cabin with a Sauna and Cold Plunge in Virginia",
+      "description": "A waterfront cottage on Virginia's Northern Neck with a cedar sauna thirty feet from the water, a hot tub on the patio, and a dock to plunge from. Open year-round, better in the cold.",
+      "altText": "The cedar sauna at Captain's Cottage lit by late afternoon sun, creek and treeline behind.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/journal/cottage-sauna-culture/?utm_source=pinterest&utm_medium=social&utm_campaign=cottage-sauna-culture&utm_content=v2",
+      "scheduledFor": "2026-08-23",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "cottage-sauna-culture-v3",
+      "title": "Nordic Sauna Ritual on a Chesapeake Creek",
+      "description": "The Finnish hot-then-cold sequence, done on a Chesapeake creek: ten minutes of real heat, a walk down the dock, thirty seconds in the water, then a chair on the screened porch.",
+      "altText": "The sauna and the dock at dusk on a tidal creek off the Potomac.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/journal/cottage-sauna-culture/?utm_source=pinterest&utm_medium=social&utm_campaign=cottage-sauna-culture&utm_content=v3",
+      "scheduledFor": "2026-08-28",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}
