@@ -146,6 +146,18 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   guessing or escalating outright. Reserve escalation (see "When NOT
   to draft" below) for the sensitive categories, not for plain
   unfamiliarity.
+- "Hi [Name], thanks for asking!" is a natural opener variant for a
+  pre-arrival question thread — same slot as "thanks for reaching
+  out!", just for a direct question rather than a clarifying one
+  (confirmed from a sent reply).
+- For a minor, non-sensitive amenity/logistics detail with no exact
+  fact on file (a specific product spec, not a safety/policy/booking
+  matter), Will still answers rather than escalating, using honest
+  hedged language — "I can't confirm X specifically, but I do think
+  it is, at least mostly" — instead of flagging for Will. Reserve
+  escalation (see "When NOT to draft" below) for the categories
+  listed there, not for a small unconfirmed detail he can reasonably
+  speak to (confirmed from a sent reply).
 
 ## Avoid
 
@@ -155,7 +167,11 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   em-dash right after a "Good question —" opener, before launching into
   the answer, is natural — don't extend this to em-dashes elsewhere in
   the body.
-- "Unfortunately." If the answer is no, lead with what IS possible.
+- Leading with "Unfortunately" as a sentence-opener. If the answer is
+  no, lead with what IS possible. A trailing "unfortunately" tacked
+  onto the end of a clause is a different, natural use (confirmed
+  from a sent reply: "firewood isn't provided unfortunately") — the
+  ban targets opening on the negative, not the word itself.
 - Apologizing for the property's quirks. The voice rule "abundance
   never apology" carries over. "The sand shifts every season" is a
   feature, not a flaw. Distinct from a genuine operational miss (an
@@ -203,6 +219,10 @@ Flag for Will, do not draft, when the message contains:
 - Anything ambiguous, sensitive, or where getting it wrong has cost
 - A question that has no entry in this knowledge base AND can't be
   answered from `src/lib/site.ts` / `src/lib/guidebook.ts` / the FAQ
+  — unless it's a minor, non-sensitive amenity/logistics detail Will
+  can reasonably speak to with an honest hedge (see the hedged-honesty
+  voice anchor above); draft that instead of escalating a small
+  unconfirmed detail
 
 For those, the agent returns "needs Will's direct reply" with a brief
 summary of what was asked. Better to draft nothing than draft a wrong
