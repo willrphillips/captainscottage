@@ -10,7 +10,21 @@ decision that has to be made before any of it ships.
 
 ---
 
-## The one decision to make first: who posts
+## Who posts: DECIDED 2026-08-10
+
+**Option A is locked.** Capcom reviews; the existing GitHub Action posts. Will:
+"I don't want pins to go out twice... capcom reviews, existing cron posts will
+work fine. I'm just thinking if I can look at them and approve/reject with notes
+in capcom, that should do it."
+
+So capcom needs no Pinterest token and no Pinterest API code. It writes `status`
+(and `rejectedReason` / `approvedAt` / `scheduledFor`) to the queue files,
+commits, and stops there. Do not add posting to capcom without first deleting
+the `schedule:` block in `.github/workflows/pinterest-publish.yml`.
+
+The reasoning is kept below for whoever reads this later.
+
+## The decision, for the record
 
 There is already a publisher in this repo. `scripts/pinterest-publish.mjs`, run
 daily at 14:00 UTC by `.github/workflows/pinterest-publish.yml`, posts approved
