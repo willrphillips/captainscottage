@@ -80,6 +80,11 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 - When context clearly confirms a happy in-stay message, a short warm
   affirmation before the soft close is natural: "Enjoy every bit of it."
   (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
+- When a guest's happy check-in singles out a specific feature they love
+  (the view, a spot on the dock), echo agreement about that same specific
+  thing rather than a generic affirmation — "that spot is our favorite
+  view too," "that view never gets old, we love it too" (confirmed from
+  two sent replies).
 - For an in-stay guest who got a substantive/informational answer (not
   just a happy check-in), a trailing warm line after the soft close can
   be "I hope you're enjoying yourselves!" instead of "Enjoy every bit
