@@ -49,9 +49,14 @@ const ask = async (q, fallback) => {
 };
 
 function openBrowser(url) {
+  // cmd's `start` splits on &, so an OAuth URL opened that way arrives
+  // truncated at the first parameter and Pinterest reports missing params.
+  // PowerShell's Start-Process takes the whole string as one argument.
   try {
-    // Windows: `start` needs an empty title arg because the URL is quoted.
-    spawn("cmd", ["/c", "start", "", url], { stdio: "ignore", detached: true }).unref();
+    spawn("powershell", ["-NoProfile", "-Command", "Start-Process", "-FilePath", `'${url}'`], {
+      stdio: "ignore",
+      detached: true,
+    }).unref();
     return true;
   } catch {
     return false;
