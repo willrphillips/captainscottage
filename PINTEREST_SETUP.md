@@ -11,8 +11,8 @@ review.
 | 1. Business account | Done. Username `captainscottageva`, name Captain's Cottage, email `captainscottageva@gmail.com`. |
 | 2. Claim the domain | **Done. captainscottageva.com is claimed.** |
 | 3. Rich Pins | **Done, and it needed nothing.** Pinterest retired the validator; Rich Pins are automatic from the page metadata. |
-| 4. Five boards | **NEXT, and the only thing blocking the pins.** Descriptions are in step 4 below, ready to paste. |
-| 5-6. API + secrets | Not started, and not needed for Stage A. |
+| 4. Five boards | **Now created by script, not by hand.** Will chose the API path 2026-08-10. Needs the token from step 5 first. |
+| 5-6. API + secrets | **NEXT, and now the only thing blocking the pins.** The token creates the boards and enables posting. |
 
 ### Small loose end
 
@@ -210,7 +210,8 @@ Go to **developers.pinterest.com/apps/**.
   account we post to. Standard access requires submitting a video demo and we do
   not need it.
 - Both tiers are free.
-- **Scopes:** `pins:read`, `pins:write`, `boards:read`.
+- **Scopes:** `pins:read`, `pins:write`, `boards:read`, **`boards:write`**. The
+  last one is what lets the boards be created for you instead of by hand.
 - **Redirect URI:** `https://captainscottageva.com/` is fine; we are not
   building a login flow.
 - Generate an access token and copy it. **Pinterest shows it once.**
@@ -227,15 +228,19 @@ Actions, New repository secret.
 **a. `PINTEREST_ACCESS_TOKEN`** = the token from step 5.
 
 **b. `PINTEREST_BOARD_MAP`** = a JSON map of board name to board ID. Board IDs
-are not shown anywhere useful in the UI, so run this locally with the token in
-your environment:
+are not shown anywhere useful in the UI, so let the script do it:
 
 ```bash
-PINTEREST_ACCESS_TOKEN=your_token_here node scripts/pinterest-boards.mjs
+# creates any of the five boards that do not exist yet, then prints the map
+PINTEREST_ACCESS_TOKEN=your_token_here node scripts/pinterest-create-boards.mjs
 ```
 
-It prints your boards and a ready-to-paste JSON line. Paste that as the secret
-value.
+It reads the board names from `content/pinterest/keywords.json`, creates the
+missing ones as public boards with the descriptions written for them, skips any
+that already exist, and prints a ready-to-paste JSON line. Safe to re-run.
+
+To see what it would do without creating anything, add `DRY_RUN=1`. To list
+boards without creating any, `node scripts/pinterest-boards.mjs` still works.
 
 **Done when:** both secrets are listed in the repo.
 
