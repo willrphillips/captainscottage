@@ -1,0 +1,130 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { PROPERTY, SITE, withBase } from "~/lib/site";
+
+const title = "Privacy Policy | Captain's Cottage, Northern Neck VA";
+const description =
+  "What Captain's Cottage collects and what it does not: cookieless analytics, no ads, no cookies, no trackers, and where booking and email data actually go.";
+
+// Written 2026-08-10. Keep this accurate rather than boilerplate: it describes
+// what the site genuinely does, and it is the URL given to Pinterest's
+// developer app. If analytics, the newsletter, or booking ever change, change
+// this page in the same commit.
+const updated = "August 10, 2026";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={[
+    { name: "Home", href: "/" },
+    { name: "Privacy", href: "/privacy" },
+  ]}
+>
+  <section class="section-pad pt-40 md:pt-48">
+    <div class="container-narrow">
+      <header class="reveal max-w-[42rem]">
+        <p class="eyebrow">The short version</p>
+        <h1 class="mt-6 font-display display-lg leading-[1.05]">Privacy</h1>
+        <p class="lede mt-8">
+          This is a small site for one rental cottage. It sets no cookies, runs
+          no advertising, and has no third-party trackers. What little it
+          measures is counted without identifying anyone.
+        </p>
+      </header>
+
+      <div class="reveal mt-14 h-px bg-rule"></div>
+
+      <div class="body-prose mt-14 max-w-[42rem] space-y-10">
+        <div>
+          <h2 class="font-display text-2xl text-ink">Analytics</h2>
+          <p class="mt-4">
+            Page views are counted with Cloudflare Web Analytics, which is
+            cookieless and does not fingerprint visitors. It reports totals:
+            which pages were viewed, roughly where in the world the visit came
+            from, and which site linked here. It does not build a profile of
+            you, follow you to other sites, or record anything that identifies
+            you personally. There is nothing here to opt out of, which is why
+            you were not asked to dismiss a cookie banner.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-2xl text-ink">Booking</h2>
+          <p class="mt-4">
+            Reservations do not happen on this site. The booking link goes to
+            our Airbnb listing, and everything from that point on, including
+            your name, dates, payment, and messages, is held by Airbnb under
+            their privacy policy, not ours. We see what any host sees in the
+            Airbnb app.
+          </p>
+        </div>
+
+        {SITE.newsletterAction && (
+          <div>
+            <h2 class="font-display text-2xl text-ink">The occasional letter</h2>
+            <p class="mt-4">
+              If you type your email into the footer, it goes to Buttondown, the
+              service that sends the letter, and it is used for that and nothing
+              else. We do not sell it, rent it, or hand it to anyone. Every
+              email has an unsubscribe link, and unsubscribing removes the
+              address.
+            </p>
+          </div>
+        )}
+
+        <div>
+          <h2 class="font-display text-2xl text-ink">Things this site does not do</h2>
+          <ul class="mt-4 list-disc space-y-2 pl-5">
+            <li>No advertising and no ad networks.</li>
+            <li>No social media tracking pixels.</li>
+            <li>No cookies set by us.</li>
+            <li>No selling or sharing of personal information. Ever.</li>
+            <li>No accounts, logins, or user profiles.</li>
+          </ul>
+          <p class="mt-4">
+            The site does carry a Pinterest verification tag, which proves we
+            own this domain so pins made from it are attributed correctly. It is
+            a static line of markup and it does not track anyone.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-2xl text-ink">Children</h2>
+          <p class="mt-4">
+            This site is meant for adults planning a stay, and we do not
+            knowingly collect information from children.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-2xl text-ink">Asking us about your data</h2>
+          <p class="mt-4">
+            Given the above there is usually nothing of yours for us to hold. If
+            you subscribed to the letter and want the address removed, use the
+            unsubscribe link or write to us and we will do it. Questions about a
+            reservation are best raised through the
+            <a href={PROPERTY.airbnbUrl} target="_blank" rel="noopener">Airbnb listing</a>,
+            since that is where the reservation lives.
+          </p>
+          <p class="mt-4">
+            Reach us at
+            <a href="mailto:hello@captainscottageva.com">hello@captainscottageva.com</a>.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-2xl text-ink">Changes</h2>
+          <p class="mt-4">
+            If what the site collects ever changes, this page changes with it.
+            Last updated {updated}.
+          </p>
+        </div>
+      </div>
+
+      <p class="mt-16 text-sm">
+        <a href={withBase("/")}>Back to the cottage</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
