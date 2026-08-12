@@ -188,6 +188,16 @@ function extractGuestMessage(rawBody) {
   return collapsed.map((c) => (c.count > 1 ? `${c.text} (×${c.count})` : c.text)).join("\n\n");
 }
 
+// A bare reaction ("Reacted 👍 to …") is not a question and needs no reply. We
+// still notify Will for the record, but tell him nothing is required of him
+// rather than sending him into Airbnb. True only when EVERY paragraph is a
+// reaction line, so a reaction followed by real text still gets drafted.
+function isReactionOnly(guestMessage) {
+  const parts = guestMessage.split(/\n\s*\n+/).map((p) => p.trim()).filter(Boolean);
+  if (!parts.length) return false;
+  return parts.every((p) => /^Reacted\b/i.test(p.replace(/\s*\(×\d+\)\s*$/, "")));
+}
+
 // The Discord "Open in Gmail" link points here (https). On iOS this page bounces
 // to the Gmail APP compose (googlegmail://), prefilled; on desktop/other it
 // falls back to Gmail web compose. See public/compose.html.
@@ -284,31 +294,40 @@ for (const { id } of list) {
   const fromName = (from.match(/^"?([^"<]+?)"?\s*</) || [, from])[1].trim();
   const guestText = plainBody(msg);
 
-  const draft = draftReply({ guestText, subject, fromName });
   const guestMessage = extractGuestMessage(guestText);
 
-  if (draft.escalate) {
-    escalated++;
+  if (isReactionOnly(guestMessage)) {
     await notify({
-      title: "New guest message — needs you",
-      message:
-        `Guest asked:\n${guestMessage}\n\n` +
-        `${draft.escalate}\n\nHandle this one directly in Airbnb.`,
-      priority: 5,
+      title: "New guest message — no action needed",
+      message: `Guest reacted:\n${guestMessage}\n\nNo further action required.`,
+      priority: 1,
     });
   } else {
-    drafted++;
-    const gmail = buildComposeLink(replyTo, subject, draft.reply);
-    await notify({
-      title: "New guest message — draft ready",
-      message:
-        `Guest asked:\n${guestMessage}\n\n` +
-        `${draft.reasoning ? `(${draft.reasoning})\n\n` : ""}` +
-        `${draft.reply}\n\n` +
-        `Tap → opens prefilled in Gmail → Send. (Sends from your Gmail → relays to the guest. Nothing was sent automatically.)`,
-      clickUrl: gmail,
-      action: { label: "Open in Gmail & send", url: gmail },
-    });
+    const draft = draftReply({ guestText, subject, fromName });
+
+    if (draft.escalate) {
+      escalated++;
+      await notify({
+        title: "New guest message — needs you",
+        message:
+          `Guest asked:\n${guestMessage}\n\n` +
+          `${draft.escalate}\n\nHandle this one directly in Airbnb.`,
+        priority: 5,
+      });
+    } else {
+      drafted++;
+      const gmail = buildComposeLink(replyTo, subject, draft.reply);
+      await notify({
+        title: "New guest message — draft ready",
+        message:
+          `Guest asked:\n${guestMessage}\n\n` +
+          `${draft.reasoning ? `(${draft.reasoning})\n\n` : ""}` +
+          `${draft.reply}\n\n` +
+          `Tap → opens prefilled in Gmail → Send. (Sends from your Gmail → relays to the guest. Nothing was sent automatically.)`,
+        clickUrl: gmail,
+        action: { label: "Open in Gmail & send", url: gmail },
+      });
+    }
   }
 
   seen.add(id);
