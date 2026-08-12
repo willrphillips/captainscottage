@@ -39,7 +39,9 @@ const API = "https://api.pinterest.com/v5";
 // simplest flow that needs no local server.
 const REDIRECT = process.env.PINTEREST_REDIRECT_URI || "https://captainscottageva.com/";
 
-const SCOPES = ["boards:read", "boards:write", "pins:read", "pins:write"];
+// user_accounts:read is here for the analytics the day-90 review needs later.
+// Adding a scope means re-minting the token, so it is cheaper to ask now.
+const SCOPES = ["boards:read", "boards:write", "pins:read", "pins:write", "user_accounts:read"];
 
 const rl = readline.createInterface({ input, output });
 const ask = async (q, fallback) => {

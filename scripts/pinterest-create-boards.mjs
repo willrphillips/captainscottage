@@ -28,11 +28,25 @@ import path from "node:path";
 const ROOT = path.resolve(import.meta.dirname, "..");
 const API = "https://api.pinterest.com/v5";
 
-const token = process.env.PINTEREST_ACCESS_TOKEN;
+// Prefer the env var; fall back to the token minted by pinterest-auth.mjs so
+// this can be re-run without going through OAuth again.
+function readSavedToken() {
+  const f = path.join(ROOT, ".pinterest-token.local");
+  if (!fs.existsSync(f)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(f, "utf8")).access_token || null;
+  } catch {
+    return null;
+  }
+}
+
+const token = process.env.PINTEREST_ACCESS_TOKEN || readSavedToken();
 const dryRun = process.env.DRY_RUN === "1";
 
 if (!token) {
-  console.error("PINTEREST_ACCESS_TOKEN is not set. See PINTEREST_SETUP.md step 5.");
+  console.error(
+    "No token. Either set PINTEREST_ACCESS_TOKEN or run scripts/pinterest-auth.mjs first.",
+  );
   process.exit(1);
 }
 
