@@ -235,7 +235,7 @@ comes from an OAuth round trip.
 `scripts/pinterest-auth.mjs` does the whole thing in one run. From PowerShell:
 
 ```powershell
-cd c:\Codeuffalo-rentals\captainscottage
+cd c:\Code\buffalo-rentals\captainscottage
 node scripts/pinterest-auth.mjs
 ```
 
