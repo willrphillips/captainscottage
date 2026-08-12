@@ -12,7 +12,8 @@ review.
 | 2. Claim the domain | **Done. captainscottageva.com is claimed.** |
 | 3. Rich Pins | **Done, and it needed nothing.** Pinterest retired the validator; Rich Pins are automatic from the page metadata. |
 | 4. Five boards | **Now created by script, not by hand.** Will chose the API path 2026-08-10. Needs the token from step 5 first. |
-| 5-6. API + secrets | **NEXT, and now the only thing blocking the pins.** The token creates the boards and enables posting. |
+| 5. Developer app | **Submitted 2026-08-10. App id 1600288, `Captain's Cottage publisher`. Status: Trial access PENDING Pinterest review.** No token until they approve. |
+| 6. Token + secrets | Blocked on the step 5 approval. |
 
 ### Small loose end
 
@@ -205,7 +206,11 @@ Go to **developers.pinterest.com/apps/**.
 
 - **Create app.** Name it `Captain's Cottage publisher`. Describe it as posting
   the property's own pins to its own account.
-- Trial access is what you get by default, and **Trial is sufficient for us**,
+- **Trial access is not instant.** It goes into a review queue and the app sits
+  at "Trial access pending" until Pinterest approves it. Discovered 2026-08-10;
+  the earlier note that Trial is available by default was wrong. Pinterest also
+  caps you at one open connect request at a time.
+- Trial is still the right tier, and **Trial is sufficient for us**,
   because it can post to the token owner's own account, which is the only
   account we post to. Standard access requires submitting a video demo and we do
   not need it.
