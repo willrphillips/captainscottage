@@ -13,7 +13,7 @@ review.
 | 3. Rich Pins | **Done, and it needed nothing.** Pinterest retired the validator; Rich Pins are automatic from the page metadata. |
 | 4. Five boards | **Now created by script, not by hand.** Will chose the API path 2026-08-10. Needs the token from step 5 first. |
 | 5. Developer app | **Submitted 2026-08-10. App id 1600288, `Captain's Cottage publisher`. Status: Trial access PENDING Pinterest review.** No token until they approve. |
-| 6. Token + secrets | Blocked on the step 5 approval. |
+| 6. Token + boards | **One command: `node scripts/pinterest-auth.mjs`.** Mints the token via OAuth, then creates the boards. |
 
 ### Small loose end
 
@@ -225,29 +225,55 @@ Go to **developers.pinterest.com/apps/**.
 
 ---
 
-## 6. Add the two repo secrets
+## 6. Mint the token and create the boards (one command)
+
+Pinterest v5 does not give you a usable token on the app page. The App ID and
+App secret shown there are **not** bearer tokens; using them directly returns
+`401 Authentication failed`, which is what happened on 2026-08-10. A real token
+comes from an OAuth round trip.
+
+`scripts/pinterest-auth.mjs` does the whole thing in one run. From PowerShell:
+
+```powershell
+cd c:\Codeuffalo-rentals\captainscottage
+node scripts/pinterest-auth.mjs
+```
+
+It will:
+
+1. Ask for the **App ID** (1600288) and the **App secret**.
+2. Print a consent URL and open it. Approve the app as yourself.
+3. Drop you back on `https://captainscottageva.com/?code=...`. The page looks
+   normal; the code is in the address bar. **Paste the code, or the whole URL,
+   back into the prompt.** It accepts either.
+4. Exchange the code for an access token and a refresh token, saving both to
+   `.pinterest-token.local`, which is gitignored and never committed.
+5. Verify the token against `/v5/user_account` before writing anything.
+6. Create the five boards and print the `PINTEREST_BOARD_MAP` value.
+
+The redirect URI has to match what is registered on the app **exactly**,
+trailing slash included. Default is `https://captainscottageva.com/`. If the app
+has a different one, set `PINTEREST_REDIRECT_URI` before running.
+
+The authorization code is single use. If the exchange fails, start the command
+again rather than reusing the code.
+
+### Then the two repo secrets
+
+The GitHub Action needs these; the local token file is not visible to CI.
+
+- **`PINTEREST_ACCESS_TOKEN`** = `access_token` from `.pinterest-token.local`
+- **`PINTEREST_BOARD_MAP`** = the JSON line the script printed
 
 GitHub, repo **willrphillips/captainscottage**, Settings, Secrets and variables,
 Actions, New repository secret.
 
-**a. `PINTEREST_ACCESS_TOKEN`** = the token from step 5.
+**Note the expiry.** Pinterest access tokens are not permanent (the token file
+records `expires_at`). When the publisher starts failing with 401, re-run
+`pinterest-auth.mjs` and update the secret, or wire the saved refresh token into
+the publisher. That is a known open item, not a solved one.
 
-**b. `PINTEREST_BOARD_MAP`** = a JSON map of board name to board ID. Board IDs
-are not shown anywhere useful in the UI, so let the script do it:
-
-```bash
-# creates any of the five boards that do not exist yet, then prints the map
-PINTEREST_ACCESS_TOKEN=your_token_here node scripts/pinterest-create-boards.mjs
-```
-
-It reads the board names from `content/pinterest/keywords.json`, creates the
-missing ones as public boards with the descriptions written for them, skips any
-that already exist, and prints a ready-to-paste JSON line. Safe to re-run.
-
-To see what it would do without creating anything, add `DRY_RUN=1`. To list
-boards without creating any, `node scripts/pinterest-boards.mjs` still works.
-
-**Done when:** both secrets are listed in the repo.
+**Done when:** the boards exist and both secrets are set.
 
 ---
 
@@ -256,28 +282,10 @@ boards without creating any, `node scripts/pinterest-boards.mjs` still works.
 | When | What |
 |---|---|
 | Sunday 11:00 UTC | Pins get rendered and queued at `draft`. Discord ping. |
-| You, whenever | Flip the ones you want from `draft` to `approved` in `content/pins/*.json` |
+| You, whenever | Approve pins (in capcom, once it is built) |
 | Daily 14:00 UTC | Approved pins whose date has arrived get posted, max 3 per day |
 | Friday 12:00 UTC | Edwin posts the state of play to Discord |
 | 1st of the month | The researcher re-verifies Pinterest's specs and rewrites the playbook |
 
-Until `PINTEREST_ACCESS_TOKEN` exists, the daily publisher runs as a dry run: it
-logs what it would have posted and exits clean. That is the current state and it
-is safe.
-
-**The gate does not move.** Agents write `draft`. Only you write `approved`. The
-publisher posts nothing else, and there is no override flag.
-
----
-
-## Report back
-
-Tell me when steps 0 to 4 are done, and specifically:
-
-1. The exact board names you ended up with, if you changed any. The keyword bank
-   and every queued pin reference boards by name, so a rename has to propagate.
-2. Whether the Rich Pins validator passed or what it said.
-3. Whether you want Stage A (manual posting) or to go straight to steps 5 and 6.
-
-Then I run the researcher for the first real playbook, and the pin-writer
-backfills the nine published posts, which is 27 pins waiting for your approval.
+**The gate does not move.** Agents write `draft`. Only Will writes `approved`.
+The publisher posts nothing else, and there is no override flag.

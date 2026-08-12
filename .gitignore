@@ -57,3 +57,6 @@ content/airbnb-archive/
 *.log
 *.tmp
 .flowstatus.json
+
+# Pinterest OAuth token, minted locally by scripts/pinterest-auth.mjs. Never commit.
+.pinterest-token.local
