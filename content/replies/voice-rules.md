@@ -45,7 +45,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 - "Yep," is a natural affirmative opener when confirming a factual yes
   (e.g. "Yep, the kitchen's fully stocked..."). "Yes we do!" is an
   equally natural variant when confirming an amenity/equipment is
-  available (e.g. answering "do you have kayaks?").
+  available (e.g. answering "do you have kayaks?"). "Yes, go for it!"
+  is a further variant, same slot, when the guest is asking permission
+  to use/try something rather than asking if it exists (confirmed from
+  a sent reply).
 - In an ongoing thread where the guest's name has already been used,
   a follow-up that relays a just-resolved logistics detail can skip
   the name opener entirely and start straight on the resolution
@@ -76,7 +79,16 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   departure close. When the reply itself is already a full, detailed
   answer (e.g. a thorough equipment/gear rundown), a simpler "We'll
   see you soon!" close is also natural in place of the two-line
-  version — the detailed answer already carries the warmth.
+  version — the detailed answer already carries the warmth. "...before
+  you head down" is a natural trailing addition to "Let me know if
+  anything comes up" specifically for pre-arrival messages (confirmed
+  from a sent reply).
+- On a pre-arrival Q&A reply, "Looking forward to hosting you" can also
+  sit right after the opener (e.g. "Hi [Name], thanks for asking!
+  Looking forward to hosting you.") rather than only as a trailing
+  close line. When the warmth is expressed up top like this, the reply
+  can just end after the substantive answer, no separate closing line
+  needed (confirmed from a sent-vs-draft correction).
 - When context clearly confirms a happy in-stay message, a short warm
   affirmation before the soft close is natural: "Enjoy every bit of it."
   (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
@@ -163,6 +175,11 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   escalation (see "When NOT to draft" below) for the categories
   listed there, not for a small unconfirmed detail he can reasonably
   speak to (confirmed from a sent reply).
+- When something isn't provided but is available nearby, give the
+  concrete specifics (where to get it, roughly how far) instead of a
+  vague line like "grab some on your way in" — guests want an
+  actionable answer, not filler (confirmed from a sent-vs-draft
+  correction).
 
 ## Avoid
 
