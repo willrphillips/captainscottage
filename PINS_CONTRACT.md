@@ -158,10 +158,13 @@ The point of the UI is a fast yes or no, so lead with the image.
 - **Images are committed to the repo.** They are not fetched from anywhere at
   post time, so a missing `public/pins/<id>.jpg` is a hard error.
 
-## Current state, 2026-08-10
+## Current state, 2026-08-13
 
-- 27 pins across 9 posts, all `draft`, scheduled 2026-08-17 through 08-31.
-- Boards do not exist on Pinterest yet. `scripts/pinterest-create-boards.mjs`
-  creates them once a token with `boards:write` exists.
-- No `PINTEREST_ACCESS_TOKEN` is set, so the publisher currently dry-runs and
-  exits clean.
+- 27 pins across 9 posts, **all `draft`**, scheduled 2026-08-17 through 08-31.
+- **The five boards exist** and every pin's board name resolves.
+- **Both repo secrets are set.** The publisher ran green against the real
+  credentials and correctly reported nothing due, because nothing is approved.
+- So the pipeline is live and waiting on exactly one thing: a human moving a pin
+  from `draft` to `approved`. That is the job capcom is being built to do.
+- The access token expires **2026-09-11**. After that the publisher 401s until
+  the secret is refreshed.

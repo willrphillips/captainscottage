@@ -11,15 +11,32 @@ review.
 | 1. Business account | Done. Username `captainscottageva`, name Captain's Cottage, email `captainscottageva@gmail.com`. |
 | 2. Claim the domain | **Done. captainscottageva.com is claimed.** |
 | 3. Rich Pins | **Done, and it needed nothing.** Pinterest retired the validator; Rich Pins are automatic from the page metadata. |
-| 4. Five boards | **Now created by script, not by hand.** Will chose the API path 2026-08-10. Needs the token from step 5 first. |
-| 5. Developer app | **Submitted 2026-08-10. App id 1600288, `Captain's Cottage publisher`. Status: Trial access PENDING Pinterest review.** No token until they approve. |
-| 6. Token + boards | **One command: `node scripts/pinterest-auth.mjs`.** Mints the token via OAuth, then creates the boards. |
+| 4. Five boards | **Done.** Created by `scripts/pinterest-create-boards.mjs`, all five public. |
+| 5. Developer app | **Done.** App id 1600288, `Captain's Cottage publisher`. Trial access approved. |
+| 6. Token, boards, secrets | **Done 2026-08-13.** Token minted (expires **2026-09-11**), five boards created, both repo secrets set, publisher dry-run green. |
 
-### Small loose end
+### Board IDs (created 2026-08-13)
 
-The profile Website field reads `http://captainscottageva.com`. Worth changing
-to `https://captainscottageva.com` so it matches the canonical hostname. Not
-blocking anything.
+| Board | ID |
+|---|---|
+| Virginia's Northern Neck | 1107111589588796631 |
+| Weekend Getaways from Washington DC | 1107111589588796632 |
+| Chesapeake Bay Travel | 1107111589588796633 |
+| Waterfront Cottage Stays | 1107111589588796634 |
+| Slow Weekends and Cabin Trips | 1107111589588796635 |
+
+These are in the `PINTEREST_BOARD_MAP` repo secret. All 27 queued pins resolve
+against them.
+
+### Two loose ends
+
+1. **The token expires 2026-09-11.** When the publisher starts returning 401,
+   either re-run `scripts/pinterest-auth.mjs` and update the
+   `PINTEREST_ACCESS_TOKEN` secret, or wire the saved refresh token into the
+   publisher so it renews itself. The refresh token is already saved in
+   `.pinterest-token.local`. Unsolved, and it will bite around mid-September.
+2. The profile Website field reads `http://captainscottageva.com`. Worth
+   changing to `https://`. Not blocking anything.
 
 ### How the domain was claimed (done 2026-08-07)
 
