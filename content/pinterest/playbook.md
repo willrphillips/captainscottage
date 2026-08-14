@@ -50,10 +50,34 @@ Rich Pin when someone saves it. The site qualified only after the 2026-08-08
 
 ## Cadence
 
+**Pacing is owned by `pinterest-strategist`, not by this file.** See
+`content/pinterest/pacing.md`. What follows is the platform ceiling only.
+
 Sources cluster at 3 to 5 pins per day for an established account, with 10 a day
-as the point where it reads as spam. **We stay at 1 to 3 per day.** The account
-is new, the corpus is nine posts, and a small consistent cadence beats a burst
-followed by nothing. Revisit once there are 50+ pins live.
+as the point where it reads as spam. That is what Pinterest tolerates. It is not
+what this account can sustain.
+
+**The rule that was missing, added 2026-08-14 after getting it wrong:** cadence
+is an inventory problem before it is a platform problem. Multiply the burn rate
+by the content runway before setting a rate.
+
+```
+runway (weeks) = unposted pins / max(burn per week - replenishment per week, 0.01)
+```
+
+Under 8 weeks of runway means the cadence is too fast, whatever Pinterest
+allows. The 2026-08-10 schedule set 2 pins per day against 27 pins and a
+biweekly blog, which is 14 days of inventory and then silence. Silence after a
+burst costs more than a slower start, because Pinterest rewards consistency.
+Corrected 2026-08-14 to one pin every two days.
+
+**Inventory is not only blog posts.** Every indexed evergreen page is a pin
+destination: `/what-to-bring`, `/getaway-guide`, `/area`, `/activities`,
+`/the-cottage`, `/amenities`, `/photos`, `/faq`. `/what-to-bring` is a packing
+list, one of the strongest travel formats on Pinterest, and it had no pins at
+all until this was noticed. The other levers are a fourth and fifth variant
+where a genuinely different image exists, and new creative on old URLs, which
+Pinterest counts as fresh.
 
 Sources also suggest 3 to 5 distinct designs per post. We do 3, because the
 photo library is thin: of 80 originals only 2 are portrait, so every pin is a
