@@ -4,9 +4,9 @@ import { GUIDEBOOK } from "~/lib/guidebook";
 import { TRAVELER_ADVICE } from "~/lib/guidebook";
 import { STANDOUT_AMENITIES, withBase } from "~/lib/site";
 
-const title = "Things to Do on Virginia's Northern Neck near Heathsville";
+const title = "Crabbing, Kayaks and Sauna on a Chesapeake Creek";
 const description =
-  "Things to do around Captain's Cottage: crabbing and kayaking from the dock, go-karts, a fishermen's museum, kayak rentals, and local fishing-tour guides on the Northern Neck.";
+  "What there is to do at the cottage itself: pull a crab pot at dawn, kayak a sheltered tidal creek, cedar sauna to cold plunge, and swim off a private dock in Virginia.";
 
 const onProperty = STANDOUT_AMENITIES.filter((a) =>
   ["Dock & crab pots", "Move when you want", "Cedar sauna"].includes(a.title)
@@ -23,11 +23,6 @@ const offProperty = [
     eyebrow: "More boats",
     heading: "Rentals on the water",
   },
-  {
-    key: "Sightseeing" as const,
-    eyebrow: "Working water",
-    heading: "Local history",
-  },
 ];
 
 const offPropertyPlaces = offProperty.flatMap((s) =>
@@ -37,7 +32,7 @@ const offPropertyPlaces = offProperty.flatMap((s) =>
 const schema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Things to do on the Northern Neck of Virginia",
+  name: "Waterfront activities at Captain's Cottage, Virginia's Northern Neck",
   itemListElement: [
     ...onProperty.map((a) => ({ name: a.title, description: a.detail })),
     ...offPropertyPlaces.map((p) => ({ name: p.name, description: p.note })),
@@ -68,11 +63,11 @@ const schema = {
         <header class="md:col-span-7 reveal">
           <p class="eyebrow">On the water & beyond</p>
           <h1 class="mt-6 font-display display-xl">
-            Things to do on the <em>Northern Neck</em>.
+            Crabbing, kayaks, and a <em>cedar sauna</em>.
           </h1>
         </header>
         <p class="lede md:col-span-4 md:col-start-9 reveal" style="transition-delay: 120ms;">
-          Most days, the dock is the whole itinerary. When you want more, the rest of the peninsula is a short drive: go-karts to a fishermen's museum to a kayak you didn't have to pack.
+          Most days, the dock is the whole itinerary. When you want more, the rest of the peninsula is a short drive. See <a href={withBase("/area")}>things to do on the Northern Neck</a>, from go-karts to a fishermen's museum to the ice cream worth the detour.
         </p>
       </div>
     </div>
