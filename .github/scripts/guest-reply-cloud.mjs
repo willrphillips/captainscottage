@@ -103,13 +103,25 @@ function parseDraft(out) {
   if (out.startsWith("ESCALATE:")) {
     return { escalate: out.replace(/^ESCALATE:\s*/, "") };
   }
-  const m = out.match(/^REASONING:\s*(.*?)\s*\nREPLY:\s*\n([\s\S]+)$/);
-  if (!m) {
-    console.error("draft did not match expected format:", out.slice(0, 200));
+  // Find the REPLY: marker wherever it lands and take everything after it as the
+  // guest-facing text; whatever precedes it (with its REASONING: label stripped)
+  // is Will-only reasoning. This tolerates stray whitespace, blank lines, or the
+  // reply beginning on the same line as the marker — a rigid anchor used to throw
+  // trivial notes to "format error". The safety rule is preserved: reasoning is
+  // whatever sits BEFORE the marker and can never reach the sent reply.
+  const idx = out.search(/(^|\n)\s*REPLY:/i);
+  if (idx === -1) {
+    console.error("draft had no REPLY: marker — raw output:", out.slice(0, 500));
     return { escalate: "drafting format error (see Actions log)" };
   }
-  const [, reasoning, reply] = m;
-  return { reasoning: reasoning.trim(), reply: reply.trim() };
+  const before = out.slice(0, idx);
+  const reply = out.slice(idx).replace(/(^|\n)\s*REPLY:[ \t]*/i, "").trim();
+  const reasoning = before.replace(/^\s*REASONING:[ \t]*/i, "").trim();
+  if (!reply) {
+    console.error("draft had an empty reply after REPLY: — raw output:", out.slice(0, 500));
+    return { escalate: "drafting format error (see Actions log)" };
+  }
+  return { reasoning, reply };
 }
 
 // ---- Discord push -----------------------------------------------------------
