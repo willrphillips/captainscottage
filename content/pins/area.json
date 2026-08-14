@@ -1,0 +1,45 @@
+{
+  "slug": "area",
+  "postUrl": "https://captainscottageva.com/area/",
+  "renderedAt": "2026-08-14T18:34:31.171Z",
+  "sources": {
+    "area-v1": "public\\images\\extras\\creek-sunset.jpg",
+    "area-v2": "public\\images\\extras\\fire-pit-creek.jpg",
+    "area-v3": "public\\images\\extras\\creek-sunset.jpg + public\\images\\extras\\fire-pit-creek.jpg"
+  },
+  "pins": [
+    {
+      "id": "area-v1",
+      "title": "Things to Do on Virginia's Northern Neck",
+      "description": "Where to eat, shop, and explore on Virginia's Northern Neck: Reedville's working waterfront, Irvington's inns and vineyard, Kilmarnock for restocking, and the ice cream stop worth the drive.",
+      "altText": "Sunset over a tidal creek on Virginia's Northern Neck.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=v1",
+      "scheduledFor": "2026-10-14",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "area-v2",
+      "title": "Northern Neck Virginia Travel Guide",
+      "description": "A host's short list for Virginia's Northern Neck, not a scrape of every business in the county. Waterfront seafood, a brewery, farm stands, and the towns worth your afternoon.",
+      "altText": "A fire pit beside the water at dusk on a Chesapeake creek.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=v2",
+      "scheduledFor": "2026-10-30",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "area-v3",
+      "title": "Reedville, Irvington, Kilmarnock: Northern Neck Towns",
+      "description": "Three Northern Neck towns worth the drive: Reedville for the working fishing fleet, Irvington for the inns and the vineyard, Kilmarnock for a proper meal and the basics.",
+      "altText": "Wooden stairs leading down to a quiet brackish creek.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=v3",
+      "scheduledFor": "2026-11-15",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

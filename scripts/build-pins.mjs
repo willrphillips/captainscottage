@@ -71,6 +71,51 @@ function registerFonts() {
   }
 }
 
+// Evergreen site pages are pin destinations too, and for a while they were the
+// forgotten half of the inventory. Each maps to an .astro page plus the hero
+// images that suit it. Keyed by the slug used on the command line.
+const PAGES = {
+  "what-to-bring": { file: "src/pages/what-to-bring.astro", url: "/what-to-bring/", category: "Before you come",
+    images: ["/images/extras/sunset-rose-dock.jpg", "/images/dock-hull-creek.jpg", "/images/extras/screened-porch-creek-view.jpg"] },
+  "getaway-guide": { file: "src/pages/getaway-guide.astro", url: "/getaway-guide/", category: "Getaway guide",
+    images: ["/images/extras/aerial-cottage-dusk.jpg", "/images/extras/creek-sunset.jpg", "/images/cottage-exterior-creek.jpg"] },
+  "area": { file: "src/pages/area/index.astro", url: "/area/", category: "The area",
+    images: ["/images/extras/creek-sunset.jpg", "/images/extras/fire-pit-creek.jpg", "/images/stairs-to-dock.jpg"] },
+  "activities": { file: "src/pages/activities/index.astro", url: "/activities/", category: "Activities",
+    images: ["/images/dock-hull-creek.jpg", "/images/extras/osprey-hull-creek.jpg", "/images/extras/yoga-mats.jpg"] },
+  "the-cottage": { file: "src/pages/the-cottage.astro", url: "/the-cottage/", category: "The cottage",
+    images: ["/images/hero-porch-creek.jpg", "/images/extras/second-bedroom.jpg", "/images/living-room-rattan.jpg"] },
+  "amenities": { file: "src/pages/amenities.astro", url: "/amenities/", category: "Amenities",
+    images: ["/images/cedar-sauna-creek-sunset.jpg", "/images/hot-tub-hull-creek.jpg", "/images/kitchen-green-cabinets.jpg"] },
+  "photos": { file: "src/pages/photos.astro", url: "/photos/", category: "Photos",
+    images: ["/images/sleeping-porch-sunroom.jpg", "/images/screened-porch-dining.jpg", "/images/master-bedroom.jpg"] },
+  "faq": { file: "src/pages/faq.astro", url: "/faq/", category: "Good to know",
+    images: ["/images/extras/back-patio-hot-tub-fire-pit.jpg", "/images/dining-nook.jpg", "/images/extras/sitting-nook.jpg"] },
+};
+
+/** Read title/description out of an .astro page's frontmatter script. */
+function readPage(slug) {
+  const cfg = PAGES[slug];
+  const p = path.join(ROOT, cfg.file);
+  if (!fs.existsSync(p)) throw new Error(`no such page: ${p}`);
+  const raw = fs.readFileSync(p, "utf8");
+  const grab = (k) => {
+    const re = new RegExp("const " + k + "\\s*=\\s*\\n?\\s*\"([\\s\\S]*?)\";");
+    const m = raw.match(re);
+    return m ? m[1].replace(/\s+/g, " ").trim() : "";
+  };
+  return {
+    title: grab("title").split(" | ")[0],
+    description: grab("description"),
+    category: cfg.category,
+    isDraft: false,
+    isPage: true,
+    url: cfg.url,
+    body: "",
+    poolOverride: cfg.images,
+  };
+}
+
 /** Pull frontmatter fields we need without a YAML dependency. */
 function readPost(slug) {
   const p = path.join(ROOT, "src/content/blog", `${slug}.mdx`);
@@ -112,6 +157,7 @@ function candidateImages(post) {
     out.push(m[0]);
   }
   out.push(...FALLBACK_POOL);
+  if (post.poolOverride) out.unshift(...post.poolOverride);
   const seen = new Set();
   return out
     .map((rel) => path.join(ROOT, "public", rel.replace(/^\//, "")))
@@ -178,7 +224,7 @@ const cropTo = (file) =>
 
 async function main() {
   const fontsOk = registerFonts();
-  const post = readPost(slug);
+  const post = PAGES[slug] ? readPage(slug) : readPost(slug);
 
   if (post.isDraft && !flag("force")) {
     console.error(
@@ -245,7 +291,7 @@ async function main() {
   const manifest = {
     ...prev,
     slug,
-    postUrl: `https://captainscottageva.com/journal/${slug}/`,
+    postUrl: `https://captainscottageva.com${post.isPage ? post.url : `/journal/${slug}/`}`,
     renderedAt: new Date().toISOString(),
     sources,
     pins: prev.pins || [],

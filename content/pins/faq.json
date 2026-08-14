@@ -1,0 +1,45 @@
+{
+  "slug": "faq",
+  "postUrl": "https://captainscottageva.com/faq/",
+  "renderedAt": "2026-08-14T18:34:34.771Z",
+  "sources": {
+    "faq-v1": "public\\images\\extras\\back-patio-hot-tub-fire-pit.jpg",
+    "faq-v2": "public\\images\\dining-nook.jpg",
+    "faq-v3": "public\\images\\extras\\back-patio-hot-tub-fire-pit.jpg + public\\images\\dining-nook.jpg"
+  },
+  "pins": [
+    {
+      "id": "faq-v1",
+      "title": "Northern Neck Virginia: Questions Before You Book",
+      "description": "What the water is actually like, whether it works for kids, jellyfish season, the best months to come, and whether you can work from here. Straight answers about Virginia's Northern Neck.",
+      "altText": "A hot tub and paver fire pit circle on the patio beside a Chesapeake creek.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/faq/?utm_source=pinterest&utm_medium=social&utm_campaign=faq&utm_content=v1",
+      "scheduledFor": "2026-10-22",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "faq-v2",
+      "title": "Is the Chesapeake Good for Swimming? And Other Questions",
+      "description": "Brackish, shallow, calm enough to wade out into, and warm well into September. What to know about swimming, crabbing, and jellyfish on a Virginia tidal creek.",
+      "altText": "A breakfast nook beside a window looking toward the water.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/faq/?utm_source=pinterest&utm_medium=social&utm_campaign=faq&utm_content=v2",
+      "scheduledFor": "2026-11-07",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "faq-v3",
+      "title": "Planning a Northern Neck Trip: Good to Know",
+      "description": "Getting here, the water, kids, working remotely, and when to come. The short version for anyone planning a first trip to Virginia's Northern Neck.",
+      "altText": "A quiet sitting nook inside a waterfront cottage on the Northern Neck.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/faq/?utm_source=pinterest&utm_medium=social&utm_campaign=faq&utm_content=v3",
+      "scheduledFor": "2026-11-23",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

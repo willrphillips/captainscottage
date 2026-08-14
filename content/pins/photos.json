@@ -1,0 +1,45 @@
+{
+  "slug": "photos",
+  "postUrl": "https://captainscottageva.com/photos/",
+  "renderedAt": "2026-08-14T18:34:34.082Z",
+  "sources": {
+    "photos-v1": "public\\images\\sleeping-porch-sunroom.jpg",
+    "photos-v2": "public\\images\\screened-porch-dining.jpg",
+    "photos-v3": "public\\images\\sleeping-porch-sunroom.jpg + public\\images\\screened-porch-dining.jpg"
+  },
+  "pins": [
+    {
+      "id": "photos-v1",
+      "title": "Inside a Virginia Waterfront Cottage",
+      "description": "A look inside a 1940s cottage on a Chesapeake tidal creek: sleeping porch, screened dining porch over the water, green kitchen, and three bedrooms that sleep six.",
+      "altText": "The sleeping porch, a sunroom third bedroom with a brass daybed and windows on three sides.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/photos/?utm_source=pinterest&utm_medium=social&utm_campaign=photos&utm_content=v1",
+      "scheduledFor": "2026-10-24",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "photos-v2",
+      "title": "Screened Porch Living on the Chesapeake",
+      "description": "Two screened porches, one for dinner over the water and one for sleeping with the windows open. A waterfront cottage on Virginia's Northern Neck.",
+      "altText": "The screened dining porch set above a Chesapeake creek.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/photos/?utm_source=pinterest&utm_medium=social&utm_campaign=photos&utm_content=v2",
+      "scheduledFor": "2026-11-09",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "photos-v3",
+      "title": "Waterfront Cottage Interiors, Northern Neck Virginia",
+      "description": "Rattan, vintage rugs, deep green cabinets, and a window over the sink facing the creek. Inside a small waterfront cottage near Heathsville, Virginia.",
+      "altText": "The main bedroom at Captain's Cottage in soft natural light.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/photos/?utm_source=pinterest&utm_medium=social&utm_campaign=photos&utm_content=v3",
+      "scheduledFor": "2026-11-25",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

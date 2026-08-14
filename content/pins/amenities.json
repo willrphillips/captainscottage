@@ -1,0 +1,45 @@
+{
+  "slug": "amenities",
+  "postUrl": "https://captainscottageva.com/amenities/",
+  "renderedAt": "2026-08-14T18:34:33.390Z",
+  "sources": {
+    "amenities-v1": "public\\images\\cedar-sauna-creek-sunset.jpg",
+    "amenities-v2": "public\\images\\hot-tub-hull-creek.jpg",
+    "amenities-v3": "public\\images\\cedar-sauna-creek-sunset.jpg + public\\images\\hot-tub-hull-creek.jpg"
+  },
+  "pins": [
+    {
+      "id": "amenities-v1",
+      "title": "Cabin with a Sauna and Hot Tub in Virginia",
+      "description": "A cedar barrel sauna with a window onto the creek, a hot tub on the patio beside the porch, and a dock to plunge from. Open year round on Virginia's Northern Neck.",
+      "altText": "The cedar sauna at Captain's Cottage lit by late afternoon sun, creek behind.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/amenities/?utm_source=pinterest&utm_medium=social&utm_campaign=amenities&utm_content=v1",
+      "scheduledFor": "2026-10-20",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "amenities-v2",
+      "title": "Waterfront Rental Amenities: Sauna, Dock, Crab Pot",
+      "description": "What comes with the cottage: a private dock and crab pot, two kayaks and a paddleboard, a cedar sauna, a hot tub, two screened porches, and 103 Mbps for the hours you cannot avoid.",
+      "altText": "The hot tub on the patio beside the porch, overlooking a Chesapeake creek.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/amenities/?utm_source=pinterest&utm_medium=social&utm_campaign=amenities&utm_content=v2",
+      "scheduledFor": "2026-11-05",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "amenities-v3",
+      "title": "A Kitchen That Gets Out of Your Way",
+      "description": "A gas range, counter space that works, a grill out back, and a window over the sink facing the water. Cook a low boil, eat it on the screened porch.",
+      "altText": "The green-cabineted kitchen at Captain's Cottage with a window over the sink.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/amenities/?utm_source=pinterest&utm_medium=social&utm_campaign=amenities&utm_content=v3",
+      "scheduledFor": "2026-11-21",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

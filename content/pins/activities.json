@@ -1,0 +1,45 @@
+{
+  "slug": "activities",
+  "postUrl": "https://captainscottageva.com/activities/",
+  "renderedAt": "2026-08-14T18:34:31.950Z",
+  "sources": {
+    "activities-v1": "public\\images\\dock-hull-creek.jpg",
+    "activities-v2": "public\\images\\extras\\osprey-hull-creek.jpg",
+    "activities-v3": "public\\images\\dock-hull-creek.jpg + public\\images\\extras\\osprey-hull-creek.jpg"
+  },
+  "pins": [
+    {
+      "id": "activities-v1",
+      "title": "Things to Do in the Northern Neck: On the Water",
+      "description": "Crabbing off the dock, kayaks and a paddleboard, a cedar sauna and a cold plunge, and swimming in a sheltered tidal creek. What there actually is to do on Virginia's Northern Neck.",
+      "altText": "A private dock on a calm tidal creek off the Potomac River.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=v1",
+      "scheduledFor": "2026-10-16",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "activities-v2",
+      "title": "Crabbing, Kayaking, Birding: Northern Neck Virginia",
+      "description": "What a day on Virginia's Northern Neck looks like: pull the crab pot at dawn, paddle the creek before the wind picks up, watch the osprey work, and finish in the sauna.",
+      "altText": "An osprey over a tidal creek on Virginia's Northern Neck at first light.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=v2",
+      "scheduledFor": "2026-11-01",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "activities-v3",
+      "title": "Waterfront Activities on the Chesapeake Bay",
+      "description": "Chesapeake waterfront activities that need no booking and no gear of your own: crab pot on the line, kayaks at the dock, a sauna a few steps from the water.",
+      "altText": "Yoga mats set out on a lawn above a Chesapeake creek.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=v3",
+      "scheduledFor": "2026-11-17",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

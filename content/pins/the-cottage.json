@@ -1,0 +1,45 @@
+{
+  "slug": "the-cottage",
+  "postUrl": "https://captainscottageva.com/the-cottage/",
+  "renderedAt": "2026-08-14T18:34:32.583Z",
+  "sources": {
+    "the-cottage-v1": "public\\images\\hero-porch-creek.jpg",
+    "the-cottage-v2": "public\\images\\extras\\second-bedroom.jpg",
+    "the-cottage-v3": "public\\images\\hero-porch-creek.jpg + public\\images\\extras\\second-bedroom.jpg"
+  },
+  "pins": [
+    {
+      "id": "the-cottage-v1",
+      "title": "Northern Neck Virginia Vacation Rental on the Water",
+      "description": "A three bedroom waterfront cottage on Virginia's Northern Neck, where the Potomac meets the Chesapeake Bay. Private dock, cedar sauna, hot tub, two screened porches, sleeps six.",
+      "altText": "The screened porch at Captain's Cottage looking west over the creek at golden hour.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/the-cottage/?utm_source=pinterest&utm_medium=social&utm_campaign=the-cottage&utm_content=v1",
+      "scheduledFor": "2026-10-18",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "the-cottage-v2",
+      "title": "Waterfront Cottage with a Private Dock, Virginia",
+      "description": "A 1940s waterfront cottage on a quiet tidal creek near Heathsville, Virginia. Swim from the dock, pull a crab pot, and watch the water go gold every clear evening.",
+      "altText": "A bedroom at Captain's Cottage with an upholstered headboard and soft natural light.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/the-cottage/?utm_source=pinterest&utm_medium=social&utm_campaign=the-cottage&utm_content=v2",
+      "scheduledFor": "2026-11-03",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "the-cottage-v3",
+      "title": "Chesapeake Bay Cottage Rental, Northern Neck VA",
+      "description": "Three bedrooms, two screened porches, a dock, a cedar sauna, and a hot tub on Virginia's Northern Neck. Two hours forty five minutes from Washington DC with no bay crossing.",
+      "altText": "The living room at Captain's Cottage, rattan chairs and a vintage rug in lamplight.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/the-cottage/?utm_source=pinterest&utm_medium=social&utm_campaign=the-cottage&utm_content=v3",
+      "scheduledFor": "2026-11-19",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

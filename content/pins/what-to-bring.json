@@ -1,0 +1,45 @@
+{
+  "slug": "what-to-bring",
+  "postUrl": "https://captainscottageva.com/what-to-bring/",
+  "renderedAt": "2026-08-14T18:34:29.677Z",
+  "sources": {
+    "what-to-bring-v1": "public\\images\\extras\\sunset-rose-dock.jpg",
+    "what-to-bring-v2": "public\\images\\dock-hull-creek.jpg",
+    "what-to-bring-v3": "public\\images\\extras\\sunset-rose-dock.jpg + public\\images\\dock-hull-creek.jpg"
+  },
+  "pins": [
+    {
+      "id": "what-to-bring-v1",
+      "title": "What to Pack for a Waterfront Cottage Weekend",
+      "description": "What to actually pack for a waterfront cottage stay on Virginia's Northern Neck: a stinger suit for jellyfish season, binoculars, slip-on shoes for the dock, and a few things guests wish they had brought.",
+      "altText": "Two glasses of wine on a dock rail at sunset over a Chesapeake creek.",
+      "board": "Slow Weekends and Cabin Trips",
+      "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=v1",
+      "scheduledFor": "2026-10-10",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "what-to-bring-v2",
+      "title": "Packing List: Chesapeake Bay Cottage Stay",
+      "description": "A short packing list for a Chesapeake Bay cottage weekend. The obvious things you will remember; these are the ones that make the difference once you are on the water.",
+      "altText": "A wooden dock reaching into a calm tidal creek on Virginia's Northern Neck.",
+      "board": "Slow Weekends and Cabin Trips",
+      "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=v2",
+      "scheduledFor": "2026-10-26",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "what-to-bring-v3",
+      "title": "Jellyfish Season on the Chesapeake: What to Bring",
+      "description": "Sea nettles drift through the lower Chesapeake for a few weeks between June and September. A thin stinger suit means you stop thinking about them. What else to pack for a Northern Neck stay.",
+      "altText": "A screened porch looking out over a quiet Chesapeake creek in summer.",
+      "board": "Slow Weekends and Cabin Trips",
+      "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=v3",
+      "scheduledFor": "2026-11-11",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}

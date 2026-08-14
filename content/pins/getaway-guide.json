@@ -1,0 +1,45 @@
+{
+  "slug": "getaway-guide",
+  "postUrl": "https://captainscottageva.com/getaway-guide/",
+  "renderedAt": "2026-08-14T18:34:30.427Z",
+  "sources": {
+    "getaway-guide-v1": "public\\images\\extras\\aerial-cottage-dusk.jpg",
+    "getaway-guide-v2": "public\\images\\extras\\creek-sunset.jpg",
+    "getaway-guide-v3": "public\\images\\extras\\aerial-cottage-dusk.jpg + public\\images\\extras\\creek-sunset.jpg"
+  },
+  "pins": [
+    {
+      "id": "getaway-guide-v1",
+      "title": "Northern Neck Getaway Guide: Drive Times and Routes",
+      "description": "Planning a Northern Neck getaway from DC, Richmond, or Baltimore: real drive times, which bridge to avoid on a Friday, where to stop, and what to do once you are here.",
+      "altText": "Aerial view of a waterfront cottage and tidal creek at dusk, Virginia's Northern Neck.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v1",
+      "scheduledFor": "2026-10-12",
+      "keywordVariant": "v1",
+      "status": "draft"
+    },
+    {
+      "id": "getaway-guide-v2",
+      "title": "Weekend Getaway Planning: Virginia's Northern Neck",
+      "description": "Everything you need to plan a weekend on Virginia's Northern Neck: how long the drive really takes, the towns worth a stop, and what a weekend on the water actually looks like.",
+      "altText": "Gold evening light over a Chesapeake creek from a private dock.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v2",
+      "scheduledFor": "2026-10-28",
+      "keywordVariant": "v2",
+      "status": "draft"
+    },
+    {
+      "id": "getaway-guide-v3",
+      "title": "How to Plan a Chesapeake Bay Weekend from DC",
+      "description": "A practical guide to a Chesapeake Bay weekend from Washington DC. Two hours forty five minutes, no Bay Bridge, and a tidal creek at the end of it.",
+      "altText": "The exterior of a waterfront cottage with the creek visible beyond.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v3",
+      "scheduledFor": "2026-11-13",
+      "keywordVariant": "v3",
+      "status": "draft"
+    }
+  ]
+}
