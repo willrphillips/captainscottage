@@ -106,10 +106,21 @@ export const SITE = {
 } as const;
 
 // Build absolute URLs that account for the GH Pages base path.
+// Canonical and OG URLs MUST carry the trailing slash. Astro builds to
+// directory format, so /journal/x/ serves 200 while /journal/x 301-redirects to
+// it, and the sitemap emits the slashed form. Before 2026-08-14 this returned
+// the unslashed URL, so every page's canonical pointed at a redirect while the
+// sitemap pointed at the real page. That is a documented cause of Search
+// Console excluding pages as "Alternate page with proper canonical tag" or
+// "Duplicate, Google chose a different canonical", and 15 pages were sitting
+// unindexed when it was found. Do not drop the slash again.
 export function absoluteUrl(pathname: string): string {
   const clean = pathname.startsWith("/") ? pathname : `/${pathname}`;
   const base = SITE.base.endsWith("/") ? SITE.base.slice(0, -1) : SITE.base;
-  return `${SITE.origin}${base}${clean === "/" ? "" : clean}`;
+  if (clean === "/") return `${SITE.origin}${base}/`;
+  // Leave real files (rss.xml, sitemap) alone; only directory routes get a slash.
+  const slashed = /\.[a-z0-9]+$/i.test(clean) ? clean : `${clean.replace(/\/$/, "")}/`;
+  return `${SITE.origin}${base}${slashed}`;
 }
 
 export function withBase(pathname: string): string {
