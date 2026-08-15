@@ -76,7 +76,9 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 - For a pre-arrival message (guest not yet checked in), "Let me know
   if anything comes up" can take an added second line: "We're looking
   forward to hosting you!" Anticipatory warmth, distinct from the
-  departure close. When the reply itself is already a full, detailed
+  departure close. "Can't wait to have you all out here this
+  [weekend/week], we hope you'll love it" is a natural alternate
+  anticipation line, same slot (confirmed from a sent reply). When the reply itself is already a full, detailed
   answer (e.g. a thorough equipment/gear rundown), a simpler "We'll
   see you soon!" close is also natural in place of the two-line
   version — the detailed answer already carries the warmth. "...before
@@ -110,7 +112,13 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   standard soft close. Exclamation points are natural here. (Confirmed
   2026-06-25 from a sent reply: *"So glad you had a great time, [Name]!
   We're so glad to have been able to host you, and hope to have you back
-  out on the water sometime. Travel safe! Take care!"*)
+  out on the water sometime. Travel safe! Take care!"*) "[Name], it was
+  our absolute pleasure to host you!" is a natural alternate opener,
+  same slot. "You're welcome back anytime, we'd love to have you." is a
+  natural alternate to the "hope to have you back" line. The close can
+  also read as a single comma-joined line, "Safe travels, and take
+  care!" rather than two separate exclamations (all confirmed from sent
+  replies).
 - Detect departure context from the reservation dates, not just from
   the message content. A brief thank-you or reaction to something
   minor (e.g. a restaurant tip) sent after the stay's dates have
@@ -135,7 +143,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   us know, [Name]!") instead of the standard "So glad you had a great
   time" checkout opener — the full checkout close ("Hope you come back
   and see us sometime," "Travel safe! Take care!") still applies at
-  the end (confirmed from a sent reply).
+  the end (confirmed from a sent reply). A brief bridge line before
+  that close, "I hope you guys enjoyed everything!," is natural to
+  restate general warmth after addressing the specific item raised
+  (confirmed from a sent reply).
 - **No sign-off. Will does not sign Airbnb messages** — no "Will," no
   "— Will," no "The Captain's Cottage Team," no "Best." Airbnb displays
   the sender's name automatically; the message just ends on its last
