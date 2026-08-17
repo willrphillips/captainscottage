@@ -18,7 +18,9 @@
       "scheduledFor": "2026-08-17",
       "keywordVariant": "v1",
       "status": "approved",
-      "approvedAt": "2026-08-14T18:44:31.687Z"
+      "approvedAt": "2026-08-14T18:44:31.687Z",
+      "lastError": "403 {\"code\":29,\"message\":\"Apps with Trial access may not create Pins in production https://api.pinterest.com - use API Sandbox https://api-sandbox.pinterest.com instead.\"}",
+      "lastErrorAt": "2026-08-17T14:35:32.336Z"
     },
     {
       "id": "weekend-getaways-from-washington-dc-v2",
