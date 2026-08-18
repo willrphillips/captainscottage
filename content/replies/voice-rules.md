@@ -105,6 +105,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   of it" — same trailing-warmth slot as the logistics-reply "I'm here
   if you need me," just recast for mid-stay context (confirmed from a
   sent reply).
+- A warm affirmation line and the soft close can be joined into one
+  sentence with "and" rather than kept as two separate sentences —
+  "Enjoy every bit of it, and let me know if anything comes up." /
+  "Let me know if anything comes up, and we're looking forward to
+  hosting you!" Either the joined or the separate form is natural
+  (confirmed from two sent replies).
 - For checkout/departure messages, open with "So glad you had a great
   time, [Name]!" (not "So glad to hear it"). Follow with "We're so glad
   to have been able to host you, and hope to have you back [out on the
@@ -134,7 +140,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   flagging something small that needs fixing, not asking for
   compensation or venting) can get a brief warm acknowledgment plus
   thanks for flagging it — "No worries at all, we'll take a look at
-  that. Really appreciate you flagging it." This is distinct from the
+  that. Really appreciate you flagging it." When a guest flags two
+  separate items in one message, acknowledge each in turn (a plain
+  "no worries" note on one, a genuine short apology on the other if
+  it was an operational miss) and close the acknowledgment with
+  "Really appreciate you flagging both." (confirmed from a sent
+  reply). This is distinct from the
   "complaint about the stay or property condition" case in "When NOT
   to draft" below: that's for a guest who is unhappy or wants
   something done about it, not a passing, good-natured heads-up.
