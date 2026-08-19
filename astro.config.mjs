@@ -186,7 +186,9 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes("/404"),
+      // /book meta-refreshes to Airbnb, so it is a redirect, not a destination.
+      // Submitting it caused a "Page with redirect" exclusion in Search Console.
+      filter: (page) => !page.includes("/404") && !page.includes("/book"),
     }),
   ],
   vite: {
