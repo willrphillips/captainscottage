@@ -14,12 +14,12 @@ Captain's Cottage is an entire-home rental (not a shared space), hosted by Will 
 
 ## Primary pages
 - [Home](https://captainscottageva.com/): overview of the cottage, the water, and the setting
-- [The Cottage](https://captainscottageva.com/the-cottage): room-by-room tour (kitchen, bedrooms, porches, sauna, hot tub, dock)
-- [The Area](https://captainscottageva.com/area): the Northern Neck — towns, water, and what's nearby
-- [Activities](https://captainscottageva.com/activities): things to do — crabbing, kayaking, birding, wineries, oysters
-- [What to Bring](https://captainscottageva.com/what-to-bring): a short seasonal packing guide for a Hull Creek stay
-- [Journal](https://captainscottageva.com/journal): essays on slow weekends, wildlife, sauna culture, and Northern Neck travel
-- [FAQ](https://captainscottageva.com/faq): common questions about the stay and the area
+- [The Cottage](https://captainscottageva.com/the-cottage/): room-by-room tour (kitchen, bedrooms, porches, sauna, hot tub, dock)
+- [The Area](https://captainscottageva.com/area/): the Northern Neck — towns, water, and what's nearby
+- [Activities](https://captainscottageva.com/activities/): things to do — crabbing, kayaking, birding, wineries, oysters
+- [What to Bring](https://captainscottageva.com/what-to-bring/): a short seasonal packing guide for a Hull Creek stay
+- [Journal](https://captainscottageva.com/journal/): essays on slow weekends, wildlife, sauna culture, and Northern Neck travel
+- [FAQ](https://captainscottageva.com/faq/): common questions about the stay and the area
 
 ## Booking
 - [Airbnb listing (book here)](https://www.airbnb.com/h/captainscottageva): availability, pricing, and reservations
