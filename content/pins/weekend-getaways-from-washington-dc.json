@@ -20,7 +20,7 @@
       "status": "approved",
       "approvedAt": "2026-08-14T18:44:31.687Z",
       "lastError": "403 {\"code\":29,\"message\":\"Apps with Trial access may not create Pins in production https://api.pinterest.com - use API Sandbox https://api-sandbox.pinterest.com instead.\"}",
-      "lastErrorAt": "2026-08-18T14:41:09.384Z"
+      "lastErrorAt": "2026-08-19T14:41:20.603Z"
     },
     {
       "id": "weekend-getaways-from-washington-dc-v2",
