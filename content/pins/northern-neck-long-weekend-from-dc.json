@@ -20,7 +20,7 @@
       "status": "approved",
       "approvedAt": "2026-08-14T18:44:32.762Z",
       "lastError": "403 {\"code\":29,\"message\":\"Apps with Trial access may not create Pins in production https://api.pinterest.com - use API Sandbox https://api-sandbox.pinterest.com instead.\"}",
-      "lastErrorAt": "2026-08-19T14:41:21.043Z"
+      "lastErrorAt": "2026-08-20T14:43:42.263Z"
     },
     {
       "id": "northern-neck-long-weekend-from-dc-v2",
