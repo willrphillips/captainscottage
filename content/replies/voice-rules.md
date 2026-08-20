@@ -125,6 +125,13 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   also read as a single comma-joined line, "Safe travels, and take
   care!" rather than two separate exclamations (all confirmed from sent
   replies).
+- When the thread reveals what the guest specifically came for or
+  enjoyed (quiet, crabbing, a particular view), the checkout follow-up
+  line can name it directly instead of the generic "we're so glad to
+  have been able to host you" — "We're so glad the cottage gave you
+  the quiet and the crabs you were after." Same personalization
+  instinct as the in-stay echo-agreement rule above, applied to the
+  checkout body line (confirmed from a sent reply).
 - Detect departure context from the reservation dates, not just from
   the message content. A brief thank-you or reaction to something
   minor (e.g. a restaurant tip) sent after the stay's dates have
