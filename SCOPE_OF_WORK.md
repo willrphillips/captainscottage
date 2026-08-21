@@ -2,6 +2,24 @@
 
 **Living document.** Last updated: 2026-08-21. Owner: Will Phillips.
 
+> **2026-08-21 — Pinterest publishing moves to Todoist click-to-publish; API route abandoned (LOCKED).**
+> Will's call, same session as the diagnosis below: rather than record a video demo and wait
+> out a multi-week Standard-access review for one to three pins a day, drop the Pinterest app
+> entirely. Pinterest's public save endpoint
+> (`pinterest.com/pin/create/button/?url=&media=&description=`) needs no app, token or access
+> tier. New `scripts/pinterest-todoist-queue.mjs` reads `content/pins/*.json` and turns every
+> `status: "approved"` pin into a Todoist task whose title is that pre-filled save link, due at
+> the exact publish moment with a push reminder. Will taps it, the composer opens with image,
+> destination link (UTMs intact) and description already filled, he picks the board, pastes the
+> title, publishes. Board and title are the only two fields the endpoint cannot pre-fill, so both
+> ride in the task body. **Approval gate unchanged:** agents write "draft", only Will writes
+> "approved". Queued pins flip to `status: "queued"` with a `todoistTaskId` so nothing double-posts.
+> New workflow `pinterest-todoist-queue.yml` (daily 13:30 UTC); `pinterest-publish.yml` is parked,
+> cron removed, manual dispatch only. All 4 approved pins were queued live this session (tasks in
+> `Buffalo Rentals Dated`, label `pinterest`, 10:00 ET) — the two that the API job missed on 08-17
+> and 08-19 kept their original dates, so they land as overdue and get posted first.
+> **Open:** add repo secret `TODOIST_API_TOKEN` so the workflow runs unattended.
+
 > **2026-08-21 — Pinterest publishing is blocked on Standard access; earlier "Trial is
 > sufficient" note was wrong (CORRECTED).** `pinterest-publish.yml` has failed on every
 > due pin since 2026-08-17 (0 posted / 1-2 failed on 08-17, 08-18, 08-19, 08-20). Cause is

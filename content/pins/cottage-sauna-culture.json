@@ -17,8 +17,10 @@
       "destinationUrl": "https://captainscottageva.com/journal/cottage-sauna-culture/?utm_source=pinterest&utm_medium=social&utm_campaign=cottage-sauna-culture&utm_content=v1",
       "scheduledFor": "2026-08-23",
       "keywordVariant": "v1",
-      "status": "approved",
-      "approvedAt": "2026-08-14T18:45:10.431Z"
+      "status": "queued",
+      "approvedAt": "2026-08-14T18:45:10.431Z",
+      "todoistTaskId": "6hJRG4x3JR77gvx8",
+      "queuedAt": "2026-08-21T10:38:09.993Z"
     },
     {
       "id": "cottage-sauna-culture-v2",

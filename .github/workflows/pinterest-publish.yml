@@ -1,19 +1,22 @@
-name: Pinterest publish (drip approved pins)
+name: Pinterest publish (API, PARKED)
 
-# Daily. Posts pins that are BOTH status "approved" AND past their scheduledFor
-# date. Nothing else is ever posted. Agents can only write "draft"; "approved"
-# is Will's word alone, so this job cannot post anything he has not seen.
+# PARKED 2026-08-21. Do not re-enable the schedule without checking the app's
+# access tier first.
 #
-# No PINTEREST_ACCESS_TOKEN secret means a dry run that logs what it would have
-# posted and exits clean, so this is safe to merge before the Pinterest app
-# exists. That is the intended state until Phase 0 is done.
+# This job posted via Pinterest API v5. It cannot work on our app's Trial
+# access: every POST /v5/pins returns 403 code 29, "Apps with Trial access may
+# not create Pins in production". It failed silently every night from
+# 2026-08-17 to 2026-08-20 (the script exits 0 on a failed pin, so GitHub
+# showed green while nothing posted).
 #
-# 14:00 UTC ~= 10am EDT, inside the US late-morning window and clear of the
-# auto-publish crons (12:00/16:00/21:00) and guest-reply-tune (13:00).
+# Replaced by pinterest-todoist-queue.yml, which needs no Pinterest app at all:
+# it turns each approved pin into a Todoist task carrying a pre-filled save
+# link, due at the moment the pin should go live.
+#
+# The cron is removed, not the workflow. If Standard access is ever granted,
+# restore `schedule: - cron: "0 14 * * *"` and retire the Todoist queue.
 
 on:
-  schedule:
-    - cron: "0 14 * * *" # daily 14:00 UTC
   workflow_dispatch:
     inputs:
       limit:

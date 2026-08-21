@@ -17,8 +17,10 @@
       "destinationUrl": "https://captainscottageva.com/journal/crabbers-morning-on-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=crabbers-morning-on-hull-creek&utm_content=v1",
       "scheduledFor": "2026-08-21",
       "keywordVariant": "v1",
-      "status": "approved",
-      "approvedAt": "2026-08-14T18:44:33.503Z"
+      "status": "queued",
+      "approvedAt": "2026-08-14T18:44:33.503Z",
+      "todoistTaskId": "6hJRG4pvJP6w2f88",
+      "queuedAt": "2026-08-21T10:38:09.993Z"
     },
     {
       "id": "crabbers-morning-on-hull-creek-v2",

@@ -12,7 +12,7 @@ review.
 | 2. Claim the domain | **Done. captainscottageva.com is claimed.** |
 | 3. Rich Pins | **Done, and it needed nothing.** Pinterest retired the validator; Rich Pins are automatic from the page metadata. |
 | 4. Five boards | **Done.** Created by `scripts/pinterest-create-boards.mjs`, all five public. |
-| 5. Developer app | **Partial.** App id 1600288, `Captain's Cottage publisher`. Trial access approved. **Trial cannot post real pins.** Standard-access upgrade required and not yet submitted. |
+| 5. Developer app | **Abandoned 2026-08-21.** App id 1600288 sits at Trial, which cannot post real pins. We did not pursue Standard access. Publishing now runs through Todoist, no app needed. |
 | 6. Token, boards, secrets | **Done 2026-08-13.** Token minted (expires **2026-09-11**), five boards created, both repo secrets set, publisher dry-run green. |
 
 ### Board IDs (created 2026-08-13)
@@ -315,36 +315,61 @@ The publisher posts nothing else, and there is no override flag.
 
 ---
 
-## Standard access upgrade (open item, 2026-08-21)
+## Publishing: Todoist click-to-publish (LOCKED 2026-08-21)
 
-**Why:** nightly `pinterest-publish.yml` has failed on every due pin since
-2026-08-17 with `403 code 29`. Trial apps may only create Pins against the
-sandbox host. Standard access is the only fix; no code change helps.
+**The API route is dead and we are not reviving it.** Our app (id 1600288) holds
+Trial access, and Trial apps cannot create Pins on `api.pinterest.com`; every
+attempt returns `403 code 29`. Standard access would fix it but requires
+recording a screen-capture video demo (OAuth flow running, a live API call, no
+sensitive data on screen), uploading it at My apps, app card, Upgrade, and then
+waiting out a review that community reports put at roughly 12 days to 2 weeks.
+Will's call: not worth it for one to three pins a day.
 
-**What Pinterest requires**
+**What we do instead.** Pinterest's public save endpoint needs no app, no token
+and no access tier:
 
-| Requirement | State |
+```
+https://www.pinterest.com/pin/create/button/?url=<destination>&media=<image>&description=<text>
+```
+
+`scripts/pinterest-todoist-queue.mjs` reads `content/pins/*.json`, and for every
+pin at `status: "approved"` builds that link and creates a Todoist task due at
+the exact publish moment, with a push reminder set for the same time. Will taps
+the task, Pinterest's composer opens with the image, the destination link (UTMs
+intact) and the description already filled, he picks the board, pastes the
+title, publishes.
+
+**Two fields the save endpoint cannot pre-fill:** board and title. Both are
+written into the task description for copy/paste. Everything else arrives.
+
+| Piece | Where it comes from |
 |---|---|
-| App approved for Trial access | Done (app 1600288) |
-| Complies with Pinterest Developer Guidelines | Believed yes, first-party single-account posting |
-| Use-case details and privacy policy link on file | Verify during the upgrade form |
-| Screen-recording video demo | **Missing. This is the blocker.** |
+| `media` | `public/pins/<id>.jpg`, live at `captainscottageva.com/pins/<id>.jpg` |
+| `url` | the pin's `destinationUrl`, UTMs already baked in |
+| `description` | the pin's `description` |
+| due date | the pin's `scheduledFor` |
+| due time | `PIN_PUBLISH_TIME`, default `10:00` `America/New_York` |
 
-**Portal path:** My apps, app card, Upgrade, verify the app info, upload the
-video, submit.
+**The approval gate is unchanged.** Only `status: "approved"` is queued. Agents
+write `"draft"`; `"approved"` is Will's word alone. A queued pin flips to
+`status: "queued"` and records its `todoistTaskId`, so it is never queued twice.
 
-**The video must show**
+**Wiring.**
 
-- The OAuth authorization flow actually running, user sent to the consent screen
-- A live Pinterest API call made by the app
-- That no sensitive information is stored or shown on screen
+| Piece | Value |
+|---|---|
+| Workflow | `.github/workflows/pinterest-todoist-queue.yml`, daily 13:30 UTC |
+| Parked workflow | `.github/workflows/pinterest-publish.yml`, cron removed, manual only |
+| Todoist project | `Buffalo Rentals Dated` (`6FwqXhv2wM64hGGg`) |
+| Todoist label | `pinterest` |
+| Repo secret needed | `TODOIST_API_TOKEN` |
+| Optional repo vars | `TODOIST_PROJECT_ID`, `PIN_PUBLISH_TIME` |
 
-A terminal screen recording is acceptable when you are the sole intended user.
+Without `TODOIST_API_TOKEN` the script dry-runs, logs the links it would have
+created and exits clean. Get the token at Todoist Settings, Integrations,
+Developer, API token.
 
-**Review time:** Pinterest states only that upgrade requests are "reviewed
-regularly" and the decision arrives by email. Community reports through August
-2026 put the wait at roughly 12 days to 2 weeks.
-
-**Interim state:** the publish workflow still exits 0, so GitHub shows the run
-as green while posting nothing. The Discord alert is the only real signal.
-Decide whether to pause the schedule until Standard is granted.
+**First four tasks were created by hand 2026-08-21** through the Todoist MCP
+connection, before the secret existed, and recorded with
+`node scripts/pinterest-todoist-queue.mjs --mark <pinId>=<taskId>,...`. That
+flag writes state only; use it any time a task is created outside the script.
