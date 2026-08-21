@@ -12,7 +12,7 @@ review.
 | 2. Claim the domain | **Done. captainscottageva.com is claimed.** |
 | 3. Rich Pins | **Done, and it needed nothing.** Pinterest retired the validator; Rich Pins are automatic from the page metadata. |
 | 4. Five boards | **Done.** Created by `scripts/pinterest-create-boards.mjs`, all five public. |
-| 5. Developer app | **Done.** App id 1600288, `Captain's Cottage publisher`. Trial access approved. |
+| 5. Developer app | **Partial.** App id 1600288, `Captain's Cottage publisher`. Trial access approved. **Trial cannot post real pins.** Standard-access upgrade required and not yet submitted. |
 | 6. Token, boards, secrets | **Done 2026-08-13.** Token minted (expires **2026-09-11**), five boards created, both repo secrets set, publisher dry-run green. |
 
 ### Board IDs (created 2026-08-13)
@@ -227,10 +227,16 @@ Go to **developers.pinterest.com/apps/**.
   at "Trial access pending" until Pinterest approves it. Discovered 2026-08-10;
   the earlier note that Trial is available by default was wrong. Pinterest also
   caps you at one open connect request at a time.
-- Trial is still the right tier, and **Trial is sufficient for us**,
-  because it can post to the token owner's own account, which is the only
-  account we post to. Standard access requires submitting a video demo and we do
-  not need it.
+- **CORRECTED 2026-08-21: Trial is NOT sufficient.** The earlier note here said
+  Trial could post to the token owner's own account and that Standard was
+  unnecessary. That was wrong. Trial apps cannot create Pins against
+  `api.pinterest.com` at all; every attempt returns
+  `403 {"code":29,"message":"Apps with Trial access may not create Pins in
+  production ... use API Sandbox https://api-sandbox.pinterest.com instead."}`
+  Pins created on Trial are sandbox entities visible only to their creator.
+  **Standard access is required to publish real pins**, and Standard requires
+  submitting a screen-recording video demo for review. See
+  "Standard access upgrade" below.
 - Both tiers are free.
 - **Scopes:** `pins:read`, `pins:write`, `boards:read`, **`boards:write`**. The
   last one is what lets the boards be created for you instead of by hand.
@@ -306,3 +312,39 @@ the publisher. That is a known open item, not a solved one.
 
 **The gate does not move.** Agents write `draft`. Only Will writes `approved`.
 The publisher posts nothing else, and there is no override flag.
+
+---
+
+## Standard access upgrade (open item, 2026-08-21)
+
+**Why:** nightly `pinterest-publish.yml` has failed on every due pin since
+2026-08-17 with `403 code 29`. Trial apps may only create Pins against the
+sandbox host. Standard access is the only fix; no code change helps.
+
+**What Pinterest requires**
+
+| Requirement | State |
+|---|---|
+| App approved for Trial access | Done (app 1600288) |
+| Complies with Pinterest Developer Guidelines | Believed yes, first-party single-account posting |
+| Use-case details and privacy policy link on file | Verify during the upgrade form |
+| Screen-recording video demo | **Missing. This is the blocker.** |
+
+**Portal path:** My apps, app card, Upgrade, verify the app info, upload the
+video, submit.
+
+**The video must show**
+
+- The OAuth authorization flow actually running, user sent to the consent screen
+- A live Pinterest API call made by the app
+- That no sensitive information is stored or shown on screen
+
+A terminal screen recording is acceptable when you are the sole intended user.
+
+**Review time:** Pinterest states only that upgrade requests are "reviewed
+regularly" and the decision arrives by email. Community reports through August
+2026 put the wait at roughly 12 days to 2 weeks.
+
+**Interim state:** the publish workflow still exits 0, so GitHub shows the run
+as green while posting nothing. The Discord alert is the only real signal.
+Decide whether to pause the schedule until Standard is granted.

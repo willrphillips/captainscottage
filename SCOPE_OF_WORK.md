@@ -1,6 +1,21 @@
 # Scope of Work — Captain's Cottage
 
-**Living document.** Last updated: 2026-07-20. Owner: Will Phillips.
+**Living document.** Last updated: 2026-08-21. Owner: Will Phillips.
+
+> **2026-08-21 — Pinterest publishing is blocked on Standard access; earlier "Trial is
+> sufficient" note was wrong (CORRECTED).** `pinterest-publish.yml` has failed on every
+> due pin since 2026-08-17 (0 posted / 1-2 failed on 08-17, 08-18, 08-19, 08-20). Cause is
+> not a code bug: the app (id 1600288) holds **Trial** access, and Pinterest returns
+> `403 code 29 — "Apps with Trial access may not create Pins in production"`. Trial is
+> restricted to the sandbox host and its pins are visible only to their creator.
+> `PINTEREST_SETUP.md` and `PINTEREST_PLAN.md` both previously claimed Trial was
+> permanently sufficient because we only post to our own account; that claim is now
+> corrected in both files. **Fix requires a Standard-access upgrade**, which requires
+> uploading a screen-recording video demo (OAuth flow running, a live API call, no
+> sensitive data on screen) via My apps → app card → Upgrade. Community reports put the
+> review wait at ~12 days to 2 weeks. **Open:** record and submit the video; decide
+> whether to pause the nightly schedule meanwhile (the workflow exits 0, so GitHub shows
+> green while posting nothing, and only the Discord alert reveals the failure).
 
 > **2026-07-20 — Publishing cadence switched to biweekly; per-post day/time slots (LOCKED).**
 > At Will's direction: (1) `content-calendar.json` synced to frontmatter truth — statuses

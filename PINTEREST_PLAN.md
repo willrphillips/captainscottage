@@ -126,9 +126,13 @@ what actually gets saved, and building an API integration for a channel that
 turns out not to convert is wasted work.
 
 **Stage B, API v5 (only if Stage A shows signal).** The API is free at both
-tiers. A new app starts in Trial, which can only post to the app owner's own
-account, which is exactly our case, so Trial may be sufficient permanently.
-Standard access requires submitting a video demo for review. Implementation
+tiers. A new app starts in Trial. **Corrected 2026-08-21: Trial is not enough.**
+Trial apps cannot create Pins on `api.pinterest.com`; they are limited to the
+sandbox host, and anything they create is visible only to its creator. Posting
+real pins requires **Standard access**, which requires submitting a
+screen-recording video demo for review. The earlier claim that Trial "may be
+sufficient permanently" was wrong and cost us four nights of failed publishes
+(2026-08-17 through 08-20). Implementation
 would be a scheduled GitHub Action alongside the existing `auto-publish.yml`,
 reading approved pins from `content/pins/*.json` and posting `POST /v5/pins`
 with OAuth credentials in repo secrets. Trial access is heavily rate-limited,
