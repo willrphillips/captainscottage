@@ -362,12 +362,22 @@ write `"draft"`; `"approved"` is Will's word alone. A queued pin flips to
 | Parked workflow | `.github/workflows/pinterest-publish.yml`, cron removed, manual only |
 | Todoist project | `Buffalo Rentals Dated` (`6FwqXhv2wM64hGGg`) |
 | Todoist label | `pinterest` |
-| Repo secret needed | `TODOIST_API_TOKEN` |
-| Optional repo vars | `TODOIST_PROJECT_ID`, `PIN_PUBLISH_TIME` |
+| Repo secret | `TODOIST_API_TOKEN` — **set 2026-08-21** |
+| Repo vars | `TODOIST_PROJECT_ID` = `6FwqXhv2wM64hGGg`, `PIN_PUBLISH_TIME` = `10:00` |
 
 Without `TODOIST_API_TOKEN` the script dry-runs, logs the links it would have
-created and exits clean. Get the token at Todoist Settings, Integrations,
-Developer, API token.
+created and exits clean. The token came from `crowboard/.secrets/todoist-api.md`,
+the same one the Codex dashboard uses. It is a **full read/write token for Will's
+whole Todoist account** and Todoist does not offer scoped tokens, so it now sits
+in a public repo's Actions secrets. Encrypted and not exposed to forks, but if it
+ever leaks, revoke at
+https://app.todoist.com/app/settings/integrations/developer and reissue in every
+project that holds it.
+
+Todoist's old `/rest/v2` and `/sync/v9` return 410 Gone. The script uses the
+unified `/api/v1/sync` endpoint, batching `item_add` and `reminder_add` in one
+call and resolving the task id from `temp_id_mapping`. Verified end to end
+2026-08-21: both commands returned `ok`.
 
 **First four tasks were created by hand 2026-08-21** through the Todoist MCP
 connection, before the secret existed, and recorded with
