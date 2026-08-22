@@ -106,22 +106,45 @@ rewrites it. Editing copy in the reviewer bypasses the voice rules in
 ## Status lifecycle
 
 ```
-draft ──approve──> approved ──date arrives + publisher runs──> posted
+draft ──approve──> approved ──queue run──> queued ──Will clicks the task──> posted
+  │                                          ▲
+  └──────────── --include-drafts ────────────┘
   │
   └──reject──> rejected   (terminal; pin-writer may supersede it with a new pin)
 ```
 
 - **`draft`** is the only status an agent may write. This is the safety model.
 - **`approved`** means Will has seen it. Only a human action in a UI produces it.
-- **`posted`** is written by the publisher, along with `postedAt` and `pinterestId`.
+- **`queued`** means a Todoist task exists carrying the pin's save link, with
+  `todoistTaskId` and `queuedAt` recorded. Written by
+  `scripts/pinterest-todoist-queue.mjs`. Nothing has reached Pinterest yet.
+- **`posted`** is set once Will has actually published from the Todoist task.
 - **`rejected`** is terminal. Do not recycle the id; a replacement gets a new one.
+
+### Queueing a draft (`--include-drafts`)
+
+Since 2026-08-21 the publisher is `pinterest-todoist-queue.mjs`, and a queued
+pin publishes only when Will clicks its Todoist task. That makes the task itself
+a usable review surface, so drafts may be queued directly with the manual
+`--include-drafts` flag. Such a task is titled "Review + publish" and opens with
+"Not reviewed yet", so nothing unread can be mistaken for approved copy.
+
+This does **not** loosen the gate. `--include-drafts` never sets `approved`, the
+scheduled workflow never passes it, and no pin reaches Pinterest without Will's
+click. Pair it with `--until <ISO date>` so a run cannot queue further ahead
+than intended.
+
+**Queued 2026-08-22 at Will's direction:** the 19 pins scheduled through
+2026-09-30. October and November (28 pins) remain `draft` by his choice, to see
+how the volume feels first.
 
 ## Rules any publisher must honor
 
 Taken from `content/pinterest/playbook.md`, which is the authority and is
 re-verified monthly. Read it rather than hardcoding these numbers.
 
-1. Post only when `status === "approved"` **and** `scheduledFor <= today`.
+1. Queue only when `status` is `approved`, or `draft` under an explicit
+   manual `--include-drafts` run. Never post without Will's click.
 2. Maximum 3 pins per day across the whole account. The queue is currently built
    at 2 per day.
 3. At least 5 days between two pins pointing at the same URL. Pinterest's spam

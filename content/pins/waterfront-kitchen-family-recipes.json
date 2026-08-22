@@ -17,7 +17,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/waterfront-kitchen-family-recipes/?utm_source=pinterest&utm_medium=social&utm_campaign=waterfront-kitchen-family-recipes&utm_content=v1",
       "scheduledFor": "2026-09-02",
       "keywordVariant": "v1",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMHpVV7RV7r58",
+      "queuedAt": "2026-08-22T18:59:08.978Z"
     },
     {
       "id": "waterfront-kitchen-family-recipes-v2",
@@ -28,7 +30,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/waterfront-kitchen-family-recipes/?utm_source=pinterest&utm_medium=social&utm_campaign=waterfront-kitchen-family-recipes&utm_content=v2",
       "scheduledFor": "2026-09-20",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMJ7gvMWjRVwg",
+      "queuedAt": "2026-08-22T18:59:08.984Z"
     },
     {
       "id": "waterfront-kitchen-family-recipes-v3",

@@ -17,7 +17,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=24-hours-in-irvington-virginia&utm_content=v1",
       "scheduledFor": "2026-08-27",
       "keywordVariant": "v1",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMHf3fMWHjrX8",
+      "queuedAt": "2026-08-22T18:59:08.977Z"
     },
     {
       "id": "24-hours-in-irvington-virginia-v2",
@@ -28,7 +30,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=24-hours-in-irvington-virginia&utm_content=v2",
       "scheduledFor": "2026-09-14",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMJ6HgqVrR7m8",
+      "queuedAt": "2026-08-22T18:59:08.982Z"
     },
     {
       "id": "24-hours-in-irvington-virginia-v3",

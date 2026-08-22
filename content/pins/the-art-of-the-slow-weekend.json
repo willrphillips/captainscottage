@@ -17,7 +17,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/the-art-of-the-slow-weekend/?utm_source=pinterest&utm_medium=social&utm_campaign=the-art-of-the-slow-weekend&utm_content=v1",
       "scheduledFor": "2026-08-25",
       "keywordVariant": "v1",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMHV8HG2H47Mg",
+      "queuedAt": "2026-08-22T18:59:08.972Z"
     },
     {
       "id": "the-art-of-the-slow-weekend-v2",
@@ -28,7 +30,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/the-art-of-the-slow-weekend/?utm_source=pinterest&utm_medium=social&utm_campaign=the-art-of-the-slow-weekend&utm_content=v2",
       "scheduledFor": "2026-09-12",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMJ4qjcVMVcWg",
+      "queuedAt": "2026-08-22T18:59:08.981Z"
     },
     {
       "id": "the-art-of-the-slow-weekend-v3",
@@ -39,7 +43,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/the-art-of-the-slow-weekend/?utm_source=pinterest&utm_medium=social&utm_campaign=the-art-of-the-slow-weekend&utm_content=v3",
       "scheduledFor": "2026-09-30",
       "keywordVariant": "v3",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMJJMGHCVFgJ8",
+      "queuedAt": "2026-08-22T18:59:08.986Z"
     }
   ]
 }

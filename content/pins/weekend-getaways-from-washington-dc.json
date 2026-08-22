@@ -31,7 +31,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/weekend-getaways-from-washington-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=weekend-getaways-from-washington-dc&utm_content=v2",
       "scheduledFor": "2026-09-04",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMHwJXWVRm2cg",
+      "queuedAt": "2026-08-22T18:59:08.979Z"
     },
     {
       "id": "weekend-getaways-from-washington-dc-v3",
@@ -42,7 +44,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/weekend-getaways-from-washington-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=weekend-getaways-from-washington-dc&utm_content=v3",
       "scheduledFor": "2026-09-22",
       "keywordVariant": "v3",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMJCgVJCC6WP8",
+      "queuedAt": "2026-08-22T18:59:08.984Z"
     }
   ]
 }

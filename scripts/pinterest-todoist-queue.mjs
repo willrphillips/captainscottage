@@ -16,7 +16,14 @@
  *
  * The gate is unchanged from pinterest-publish.mjs: a pin is queued only when
  * `status === "approved"`. Agents write "draft"; only Will writes "approved".
- * Do not add a flag that bypasses it.
+ * The scheduled workflow never queues anything else.
+ *
+ * `--include-drafts` is the one exception, and it is manual-only. It queues
+ * pins still at "draft", which makes the Todoist task itself the review step:
+ * Will reads the pin there and either publishes it or deletes the task. That is
+ * safe because a Todoist task posts nothing on its own; only his click reaches
+ * Pinterest. It does NOT mark anything approved, and the workflow never passes
+ * it. Use `--until` with it to bound how far ahead you queue.
  *
  * Board and title cannot be pre-filled by the save endpoint, so both are
  * written into the task description for copy/paste.
@@ -32,6 +39,7 @@
  *
  * Usage:
  *   node scripts/pinterest-todoist-queue.mjs [--limit 25]
+ *   node scripts/pinterest-todoist-queue.mjs --include-drafts --until 2026-09-30
  *   node scripts/pinterest-todoist-queue.mjs --mark <pinId>=<taskId>[,<pinId>=<taskId>...]
  *
  * `--mark` records tasks that were created outside this script (for example by
@@ -58,6 +66,14 @@ const args = process.argv.slice(2);
 const limitArg = args.indexOf("--limit");
 const LIMIT = limitArg === -1 ? 25 : Number(args[limitArg + 1]) || 25;
 const markArg = args.indexOf("--mark");
+const INCLUDE_DRAFTS = args.includes("--include-drafts");
+const untilArg = args.indexOf("--until");
+const UNTIL = untilArg === -1 ? null : args[untilArg + 1];
+
+if (UNTIL && !/^\d{4}-\d{2}-\d{2}$/.test(UNTIL)) {
+  console.error(`--until needs an ISO date, got "${UNTIL}"`);
+  process.exit(1);
+}
 
 const token = process.env.TODOIST_API_TOKEN;
 const dryRun = !token || process.env.DRY_RUN === "1";
@@ -131,9 +147,12 @@ function saveUrl(pin) {
 
 function taskFor(pin) {
   const link = saveUrl(pin);
+  // A draft has not been read by Will yet: the task is where he reviews it.
+  const unreviewed = pin.status === "draft";
   return {
-    content: `[Publish pin: ${pin.title}](${link})`,
+    content: `[${unreviewed ? "Review + publish" : "Publish"} pin: ${pin.title}](${link})`,
     description: [
+      unreviewed ? "_Not reviewed yet. Read it, then publish or delete this task._\n" : null,
       `**Board:** ${pin.board}`,
       "",
       `**Title** (paste into the composer, it cannot be pre-filled):`,
@@ -144,7 +163,9 @@ function taskFor(pin) {
       `Image and description arrive pre-filled. Pick the board, paste the title, publish.`,
       "",
       `Pin id: \`${pin.id}\``,
-    ].join("\n"),
+    ]
+      .filter((line) => line !== null)
+      .join("\n"),
     due: { date: `${pin.scheduledFor}T${PUBLISH_TIME}:00`, timezone: TIMEZONE },
     labels: [LABEL],
     priority: 3, // Todoist p2
@@ -155,9 +176,13 @@ function taskFor(pin) {
 const pending = [];
 for (const entry of queue) {
   for (const pin of entry.data.pins || []) {
-    if (pin.status !== "approved") continue; // the gate
+    const queueable = INCLUDE_DRAFTS
+      ? pin.status === "approved" || pin.status === "draft"
+      : pin.status === "approved";
+    if (!queueable) continue; // the gate
     if (pin.todoistTaskId) continue; // already queued
     if (!pin.scheduledFor) continue;
+    if (UNTIL && pin.scheduledFor > UNTIL) continue;
     const image = path.join(ROOT, "public/pins", `${pin.id}.jpg`);
     if (!fs.existsSync(image)) {
       console.error(`  SKIP ${pin.id}: image missing at public/pins/${pin.id}.jpg`);
@@ -174,7 +199,9 @@ if (!pending.length) {
 
 pending.sort((a, b) => (a.pin.scheduledFor < b.pin.scheduledFor ? -1 : 1));
 const batch = pending.slice(0, LIMIT);
-console.log(`${pending.length} approved pin(s) unqueued; queueing ${batch.length}${dryRun ? " (DRY RUN)" : ""}.`);
+const scope = INCLUDE_DRAFTS ? "approved+draft" : "approved";
+const bound = UNTIL ? ` through ${UNTIL}` : "";
+console.log(`${pending.length} ${scope} pin(s) unqueued${bound}; queueing ${batch.length}${dryRun ? " (DRY RUN)" : ""}.`);
 
 if (dryRun) {
   for (const { pin } of batch) {

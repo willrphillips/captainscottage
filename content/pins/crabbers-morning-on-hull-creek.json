@@ -32,7 +32,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/crabbers-morning-on-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=crabbers-morning-on-hull-creek&utm_content=v2",
       "scheduledFor": "2026-09-08",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMJ25Qqx5HVmg",
+      "queuedAt": "2026-08-22T18:59:08.980Z"
     },
     {
       "id": "crabbers-morning-on-hull-creek-v3",
@@ -43,7 +45,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/crabbers-morning-on-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=crabbers-morning-on-hull-creek&utm_content=v3",
       "scheduledFor": "2026-09-26",
       "keywordVariant": "v3",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMJHvR5cQQWc8",
+      "queuedAt": "2026-08-22T18:59:08.985Z"
     }
   ]
 }

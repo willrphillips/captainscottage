@@ -17,7 +17,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/complete-guide-to-reedville-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=complete-guide-to-reedville-virginia&utm_content=v1",
       "scheduledFor": "2026-08-29",
       "keywordVariant": "v1",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMHf27xg3fhr8",
+      "queuedAt": "2026-08-22T18:59:08.977Z"
     },
     {
       "id": "complete-guide-to-reedville-virginia-v2",
@@ -28,7 +30,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/complete-guide-to-reedville-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=complete-guide-to-reedville-virginia&utm_content=v2",
       "scheduledFor": "2026-09-16",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMJ5Vwg7vCRc8",
+      "queuedAt": "2026-08-22T18:59:08.983Z"
     },
     {
       "id": "complete-guide-to-reedville-virginia-v3",

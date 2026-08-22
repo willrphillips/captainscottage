@@ -31,7 +31,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/northern-neck-long-weekend-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-long-weekend-from-dc&utm_content=v2",
       "scheduledFor": "2026-09-06",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMHwpwcgX8w4g",
+      "queuedAt": "2026-08-22T18:59:08.980Z"
     },
     {
       "id": "northern-neck-long-weekend-from-dc-v3",
@@ -42,7 +44,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/northern-neck-long-weekend-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-long-weekend-from-dc&utm_content=v3",
       "scheduledFor": "2026-09-24",
       "keywordVariant": "v3",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJpMJG6QCXCC7Cg",
+      "queuedAt": "2026-08-22T18:59:08.985Z"
     }
   ]
 }
