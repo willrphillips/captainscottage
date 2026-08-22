@@ -17,7 +17,9 @@
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v1",
       "scheduledFor": "2026-10-12",
       "keywordVariant": "v1",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6PGCGCcP8rWg",
+      "queuedAt": "2026-08-22T21:17:46.218Z"
     },
     {
       "id": "getaway-guide-v2",
@@ -28,7 +30,9 @@
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v2",
       "scheduledFor": "2026-10-28",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6PXv4Xvw8mcg",
+      "queuedAt": "2026-08-22T21:17:46.222Z"
     },
     {
       "id": "getaway-guide-v3",
@@ -39,7 +43,9 @@
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v3",
       "scheduledFor": "2026-11-13",
       "keywordVariant": "v3",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6Pq9xj88HCX8",
+      "queuedAt": "2026-08-22T21:17:46.225Z"
     }
   ]
 }

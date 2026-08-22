@@ -17,7 +17,9 @@
       "destinationUrl": "https://captainscottageva.com/the-cottage/?utm_source=pinterest&utm_medium=social&utm_campaign=the-cottage&utm_content=v1",
       "scheduledFor": "2026-10-18",
       "keywordVariant": "v1",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6PQ8HfrF6HCg",
+      "queuedAt": "2026-08-22T21:17:46.220Z"
     },
     {
       "id": "the-cottage-v2",
@@ -28,7 +30,9 @@
       "destinationUrl": "https://captainscottageva.com/the-cottage/?utm_source=pinterest&utm_medium=social&utm_campaign=the-cottage&utm_content=v2",
       "scheduledFor": "2026-11-03",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6Pghjjx6Vp9g",
+      "queuedAt": "2026-08-22T21:17:46.223Z"
     },
     {
       "id": "the-cottage-v3",
@@ -39,7 +43,9 @@
       "destinationUrl": "https://captainscottageva.com/the-cottage/?utm_source=pinterest&utm_medium=social&utm_campaign=the-cottage&utm_content=v3",
       "scheduledFor": "2026-11-19",
       "keywordVariant": "v3",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6PxR8424pxP8",
+      "queuedAt": "2026-08-22T21:17:46.226Z"
     }
   ]
 }

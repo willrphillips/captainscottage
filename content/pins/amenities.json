@@ -17,7 +17,9 @@
       "destinationUrl": "https://captainscottageva.com/amenities/?utm_source=pinterest&utm_medium=social&utm_campaign=amenities&utm_content=v1",
       "scheduledFor": "2026-10-20",
       "keywordVariant": "v1",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6PP7fJ59mvxg",
+      "queuedAt": "2026-08-22T21:17:46.220Z"
     },
     {
       "id": "amenities-v2",
@@ -28,7 +30,9 @@
       "destinationUrl": "https://captainscottageva.com/amenities/?utm_source=pinterest&utm_medium=social&utm_campaign=amenities&utm_content=v2",
       "scheduledFor": "2026-11-05",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6Pp74h67hHc8",
+      "queuedAt": "2026-08-22T21:17:46.224Z"
     },
     {
       "id": "amenities-v3",
@@ -39,7 +43,9 @@
       "destinationUrl": "https://captainscottageva.com/amenities/?utm_source=pinterest&utm_medium=social&utm_campaign=amenities&utm_content=v3",
       "scheduledFor": "2026-11-21",
       "keywordVariant": "v3",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6Q4WVfrV63W8",
+      "queuedAt": "2026-08-22T21:17:46.226Z"
     }
   ]
 }

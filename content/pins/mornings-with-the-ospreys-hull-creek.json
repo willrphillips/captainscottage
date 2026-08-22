@@ -43,7 +43,9 @@
       "destinationUrl": "https://captainscottageva.com/journal/mornings-with-the-ospreys-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=mornings-with-the-ospreys-hull-creek&utm_content=v3",
       "scheduledFor": "2026-10-06",
       "keywordVariant": "v3",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6P97mFWPxcv8",
+      "queuedAt": "2026-08-22T21:17:46.216Z"
     }
   ]
 }

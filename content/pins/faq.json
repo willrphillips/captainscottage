@@ -17,7 +17,9 @@
       "destinationUrl": "https://captainscottageva.com/faq/?utm_source=pinterest&utm_medium=social&utm_campaign=faq&utm_content=v1",
       "scheduledFor": "2026-10-22",
       "keywordVariant": "v1",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6PWJ8pFhfC28",
+      "queuedAt": "2026-08-22T21:17:46.221Z"
     },
     {
       "id": "faq-v2",
@@ -28,7 +30,9 @@
       "destinationUrl": "https://captainscottageva.com/faq/?utm_source=pinterest&utm_medium=social&utm_campaign=faq&utm_content=v2",
       "scheduledFor": "2026-11-07",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6PpFr7hmPPrg",
+      "queuedAt": "2026-08-22T21:17:46.224Z"
     },
     {
       "id": "faq-v3",
@@ -39,7 +43,9 @@
       "destinationUrl": "https://captainscottageva.com/faq/?utm_source=pinterest&utm_medium=social&utm_campaign=faq&utm_content=v3",
       "scheduledFor": "2026-11-23",
       "keywordVariant": "v3",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6Q4c78vHQ2Jg",
+      "queuedAt": "2026-08-22T21:17:46.226Z"
     }
   ]
 }

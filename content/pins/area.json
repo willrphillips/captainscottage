@@ -17,7 +17,9 @@
       "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=v1",
       "scheduledFor": "2026-10-14",
       "keywordVariant": "v1",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6PGX4fMpgGV8",
+      "queuedAt": "2026-08-22T21:17:46.219Z"
     },
     {
       "id": "area-v2",
@@ -28,7 +30,9 @@
       "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=v2",
       "scheduledFor": "2026-10-30",
       "keywordVariant": "v2",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6PXHf2G37pvg",
+      "queuedAt": "2026-08-22T21:17:46.222Z"
     },
     {
       "id": "area-v3",
@@ -39,7 +43,9 @@
       "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=v3",
       "scheduledFor": "2026-11-15",
       "keywordVariant": "v3",
-      "status": "draft"
+      "status": "queued",
+      "todoistTaskId": "6hJq6PxJccmMfxCg",
+      "queuedAt": "2026-08-22T21:17:46.225Z"
     }
   ]
 }

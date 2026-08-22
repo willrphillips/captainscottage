@@ -2,6 +2,16 @@
 
 **Living document.** Last updated: 2026-08-21. Owner: Will Phillips.
 
+> **2026-08-22 — Whole pin queue is in Todoist (50 tasks through 2026-11-25).** Will published
+> the first pin by hand and confirmed the flow works, then had the rest queued: the 19 through
+> 2026-09-30 first, the remaining 28 on his go-ahead the same session. Queue now runs every other
+> day at 10:00 ET from 2026-08-21 to 2026-11-25. 47 of the 50 are draft-origin: they were never
+> read one by one, so their tasks are titled "Review + publish" and open with "Not reviewed yet",
+> and the pins stay `status: "draft"` in the repo. Nothing was marked `approved` on Will's behalf.
+> New `--include-drafts` and `--until` flags on `pinterest-todoist-queue.mjs` are manual-only; the
+> scheduled workflow still queues `approved` pins alone. `PINS_CONTRACT.md` updated with the
+> `queued` state and why queueing a draft does not loosen the gate.
+
 > **2026-08-21 — Pinterest publishing moves to Todoist click-to-publish; API route abandoned (LOCKED).**
 > Will's call, same session as the diagnosis below: rather than record a video demo and wait
 > out a multi-week Standard-access review for one to three pins a day, drop the Pinterest app

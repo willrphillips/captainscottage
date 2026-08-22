@@ -134,9 +134,10 @@ scheduled workflow never passes it, and no pin reaches Pinterest without Will's
 click. Pair it with `--until <ISO date>` so a run cannot queue further ahead
 than intended.
 
-**Queued 2026-08-22 at Will's direction:** the 19 pins scheduled through
-2026-09-30. October and November (28 pins) remain `draft` by his choice, to see
-how the volume feels first.
+**Queued 2026-08-22 at Will's direction:** first the 19 pins through 2026-09-30,
+then the remaining 28 on his go-ahead. The whole queue is now in Todoist: 50
+tasks, 2026-08-21 through 2026-11-25, every other day at 10:00 ET. 47 of them
+are draft-origin and read "Review + publish".
 
 ## Rules any publisher must honor
 
