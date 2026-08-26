@@ -150,19 +150,28 @@ So the test for "unread" is `status is draft/approved/queued AND no approvedAt`,
 not a status check. Capcom's pin pane was filtering on `draft`/`approved` and
 therefore displayed "no pins waiting" while all 47 sat unread; fixed 2026-08-26.
 
-### Capcom cannot reach Todoist (open)
+### The pin routes do not reach Todoist (open)
 
-Capcom holds no Todoist token. Rejecting or rescheduling a queued pin changes
-the repo and leaves the task untouched, which means:
+**Correction, same day:** an earlier draft of this section said capcom holds no
+Todoist token. That is wrong. Capcom has had a full read/write Todoist
+integration since 2026-07-22 (`/api/todoist/today`, `/inbox`, `/quick-add`,
+`/close`, `/update`), reading `TODOIST_TOKEN` from `C:\Code\dashboard\.env`.
+
+What is actually true is narrower: **the pin routes never call it.**
+`src/pinterest.js` was written under a no-token rule that was about *Pinterest*,
+and the Todoist helper lives in `server.js`, so the pin paths never used it.
+Rejecting or rescheduling a queued pin changes the repo and leaves the task
+untouched, which means:
 
 - a **rejected** pin's task still carries a working save link, so tapping it
   publishes copy that was rejected;
 - a **rescheduled** pin's task keeps its original due date and reminder.
 
 Capcom now warns loudly on both paths rather than reporting plain success, and
-`pinterestView()` surfaces a `stale-todoist-task` warning. Closing the task
-still has to be done by hand in Todoist. Whether to give capcom write access to
-Todoist, or to have the daily workflow reconcile it, is undecided.
+`pinterestView()` surfaces a `stale-todoist-task` warning. Closing the task is
+still manual. Wiring the existing `/api/todoist/close` and `/update` calls into
+the pin reject and reschedule paths is a small change needing no new
+credentials, and it is undecided only because nobody has asked for it yet.
 
 ### Queueing a draft (`--include-drafts`)
 
