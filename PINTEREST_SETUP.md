@@ -302,16 +302,23 @@ the publisher. That is a known open item, not a solved one.
 
 ## What happens automatically after that
 
+**Updated 2026-08-26.** The old "daily 14:00 UTC, approved pins get posted" row
+described the API publisher, which is parked. Nothing posts to Pinterest on a
+timer any more: Will publishes by tapping a Todoist task.
+
 | When | What |
 |---|---|
 | Sunday 11:00 UTC | Pins get rendered and queued at `draft`. Discord ping. |
-| You, whenever | Approve pins (in capcom, once it is built) |
-| Daily 14:00 UTC | Approved pins whose date has arrived get posted, max 3 per day |
+| Daily 13:30 UTC, first | **Reconcile.** Completed Todoist tasks are read back and their pins marked `posted`. |
+| Daily 13:30 UTC, then | **Queue.** Approved pins with no task yet get one, due at `PIN_PUBLISH_TIME`. |
+| You, whenever | Review pins in capcom (Buffalo tab, Pinterest queue) |
+| You, at the task | Tap the Todoist task, pick the board, paste the title, publish |
 | Friday 12:00 UTC | Edwin posts the state of play to Discord |
 | 1st of the month | The researcher re-verifies Pinterest's specs and rewrites the playbook |
 
-**The gate does not move.** Agents write `draft`. Only Will writes `approved`.
-The publisher posts nothing else, and there is no override flag.
+**The gate does not move.** Agents write `draft`. Only Will approves. The
+reconcile job can only move `queued → posted` and cannot write `approved`, and
+the scheduled queue run never passes `--include-drafts`.
 
 ---
 
@@ -354,16 +361,31 @@ written into the task description for copy/paste. Everything else arrives.
 write `"draft"`; `"approved"` is Will's word alone. A queued pin flips to
 `status: "queued"` and records its `todoistTaskId`, so it is never queued twice.
 
+**Reviewing, and getting publishes back into the repo (both added 2026-08-26).**
+
+Review happens in **capcom**, Buffalo tab, "Pinterest queue": every pin still
+reviewable, unread first, showing the notes already sent on it. Approve marks a
+pin read, Adjust sends the pin-writer a note without killing the pin, Reject is
+terminal and deletes the pin's Todoist task. See `PINS_CONTRACT.md`.
+
+Tapping a task used to leave no trace in the repo, so the queue files drifted on
+every publish. `scripts/pinterest-todoist-reconcile.mjs` now runs first in the
+daily workflow, reads completed tasks back and marks those pins `posted`. It is
+read-only against Todoist and can only move `queued → posted`.
+
 **Wiring.**
 
 | Piece | Value |
 |---|---|
-| Workflow | `.github/workflows/pinterest-todoist-queue.yml`, daily 13:30 UTC |
+| Workflow | `.github/workflows/pinterest-todoist-queue.yml`, daily 13:30 UTC — reconcile, then queue |
+| Reconciler | `scripts/pinterest-todoist-reconcile.mjs` (also runs standalone; `--dry-run`, `--since`) |
+| Review UI | capcom, `src/pinterest.js` + the Buffalo tab |
 | Parked workflow | `.github/workflows/pinterest-publish.yml`, cron removed, manual only |
 | Todoist project | `Buffalo Rentals Dated` (`6FwqXhv2wM64hGGg`) |
 | Todoist label | `pinterest` |
 | Repo secret | `TODOIST_API_TOKEN` — **set 2026-08-21** |
 | Repo vars | `TODOIST_PROJECT_ID` = `6FwqXhv2wM64hGGg`, `PIN_PUBLISH_TIME` = `10:00` |
+| Optional repo var | `PIN_TIMEZONE`, default `America/New_York`. The reconciler stamps `postedAt` with it, so an evening publish is not recorded as the next day. |
 
 Without `TODOIST_API_TOKEN` the script dry-runs, logs the links it would have
 created and exits clean. The token came from `crowboard/.secrets/todoist-api.md`,

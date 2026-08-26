@@ -131,6 +131,8 @@ draft ──approve──> approved ──queue run──> queued ──Will cli
   `todoistTaskId` and `queuedAt` recorded. Written by
   `scripts/pinterest-todoist-queue.mjs`. Nothing has reached Pinterest yet.
 - **`posted`** is set once Will has actually published from the Todoist task.
+  Written by `scripts/pinterest-todoist-reconcile.mjs`, daily, from the task's
+  completion; see "Closing the loop" below.
 - **`rejected`** is terminal. Do not recycle the id; a replacement gets a new one.
 
 ### `queued` is reviewable, not finished (locked 2026-08-26)
@@ -150,28 +152,64 @@ So the test for "unread" is `status is draft/approved/queued AND no approvedAt`,
 not a status check. Capcom's pin pane was filtering on `draft`/`approved` and
 therefore displayed "no pins waiting" while all 47 sat unread; fixed 2026-08-26.
 
-### The pin routes do not reach Todoist (open)
+### Closing the loop: how a pin becomes `posted` (locked 2026-08-26)
 
-**Correction, same day:** an earlier draft of this section said capcom holds no
-Todoist token. That is wrong. Capcom has had a full read/write Todoist
-integration since 2026-07-22 (`/api/todoist/today`, `/inbox`, `/quick-add`,
-`/close`, `/update`), reading `TODOIST_TOKEN` from `C:\Code\dashboard\.env`.
+Publishing happens when Will taps a Todoist task, and for five days nothing told
+the repo that had happened. The queue files drifted on every publish: on
+2026-08-26 the repo read 48 queued / 3 posted and believed the next pin was due
+2026-08-23, which had already gone.
 
-What is actually true is narrower: **the pin routes never call it.**
-`src/pinterest.js` was written under a no-token rule that was about *Pinterest*,
-and the Todoist helper lives in `server.js`, so the pin paths never used it.
-Rejecting or rescheduling a queued pin changes the repo and leaves the task
-untouched, which means:
+`scripts/pinterest-todoist-reconcile.mjs` runs **first** in the daily
+`pinterest-todoist-queue.yml` workflow (13:30 UTC), so the queue pass works from
+a true picture. For every pin at `status: "queued"` holding a `todoistTaskId`,
+it asks Todoist whether that task is completed; if so, it sets `posted` and
+stamps `postedAt` with the completion date in `PIN_TIMEZONE` (a UTC slice would
+push an evening publish onto the next day).
 
-- a **rejected** pin's task still carries a working save link, so tapping it
-  publishes copy that was rejected;
-- a **rescheduled** pin's task keeps its original due date and reminder.
+What it will not do:
 
-Capcom now warns loudly on both paths rather than reporting plain success, and
-`pinterestView()` surfaces a `stale-todoist-task` warning. Closing the task is
-still manual. Wiring the existing `/api/todoist/close` and `/update` calls into
-the pin reject and reschedule paths is a small change needing no new
-credentials, and it is undecided only because nobody has asked for it yet.
+- It never writes `approved`. It only ever moves `queued → posted`, so the gate
+  is untouched.
+- It never creates, edits or completes a Todoist task. Read-only there.
+- It never touches a pin the queue script has not queued: matching is by
+  `todoistTaskId` and nothing else.
+
+**A completed task means published, and only that.** There is no other signal
+available. That is why a rejected pin's task is deleted rather than completed.
+
+### Capcom's pin actions reach Todoist (locked 2026-08-26)
+
+Capcom has held a full read/write Todoist token since 2026-07-22
+(`TODOIST_TOKEN`, read from `C:\Code\dashboard\.env`). Until 2026-08-26 the pin
+routes never used it, so rejecting a queued pin left its task on the list with a
+working save link, and rescheduling left the task prompting on the old day.
+Both now act on the task.
+
+| Action in capcom | What happens in Todoist |
+|---|---|
+| **Reject** | The task is **deleted**. |
+| **Reschedule** | The task moves to the new date at `PIN_PUBLISH_TIME` in `PIN_TIMEZONE`. |
+| **Approve / Adjust** | Nothing. The task stands. |
+
+**Reject deletes; it must never complete.** This is load-bearing, not a style
+choice. `pinterest-todoist-reconcile.mjs` treats a completed `pinterest` task as
+proof the pin was published, because the tap IS the publish signal now that the
+Pinterest API is closed to us. Completing a rejected pin's task would therefore
+tell the reconciler that rejected copy went live and stamp the pin `posted`.
+`capcom/test/pinterest.test.mjs` asserts `/close` is never called on this path.
+
+Two things capcom records or reports rather than hiding:
+
+- `todoistTaskRemovedAt` is stamped when the delete succeeds, so the view stops
+  flagging a live task. The `todoistTaskId` itself stays: it is the record of
+  which task the pin was, and the queue script reads its presence to avoid
+  re-queueing.
+- Todoist drops a task's reminder when its due date changes. A rescheduled pin
+  still appears on its new day but will not push-notify, and capcom says so.
+
+If the Todoist call fails, the repo-side change still stands (it was written
+first) and the response carries `staleTask` plus the error, because a working
+save link on rejected copy is the dangerous half.
 
 ### Queueing a draft (`--include-drafts`)
 
