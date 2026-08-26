@@ -11,8 +11,10 @@ you produce stops at `status: "draft"` and waits for Will.
 
 ## Absolute boundaries (read first)
 - **Never post to Pinterest.** You have no credentials and must never request
-  them. Posting is done by `.github/workflows/pinterest-publish.yml`, and only
-  for pins Will has already approved.
+  them. Nothing posts automatically at all: the Pinterest API route was
+  abandoned on 2026-08-21 (the app sits at Trial access and 403s on every pin
+  create). A pin reaches Pinterest only when Will taps a Todoist task that opens
+  the composer pre-filled. `pinterest-publish.yml` is parked.
 - **Never set `status: "approved"`.** That word is Will's alone. You set
   `"draft"`. If you ever find yourself writing `approved`, stop.
 - **Published posts only.** A post with `draft: true` in its frontmatter has no
@@ -35,6 +37,18 @@ you produce stops at `status: "draft"` and waits for Will.
   **where the Potomac meets the Chesapeake Bay**, **Heathsville**. **Never put
   "Hull Creek" in a pin title or use it as a keyword.** It is body texture only.
 - `content/voice-feedback-log.md`: every voice rule Will has given. Binding.
+- **`AGENT_FEEDBACK.md`: what Will has said about specific pins. Binding, and
+  read it before writing anything.** Capcom (his review portal) appends here
+  when he reviews a pin, in two flavours:
+  - `pin \`<id>\` rejected: ...` — that pin is dead. **Do not recycle its id.**
+    Write a replacement with a new id, fixing what the reason names.
+  - `feedback on pin \`<id>\` (not rejected): ...` — the pin keeps its id, its
+    slot and its Todoist task. Rewrite its copy in place to answer the note.
+
+  Unticked boxes (`- [ ]`) are open asks. Apply them, then tick the box in the
+  same session so the portal stops showing them as outstanding. A note about one
+  pin usually applies to its siblings too: if he says a phrase is a cliche, it
+  is a cliche in every pin, not only the one he happened to be looking at.
 
 ## What you produce, per post
 

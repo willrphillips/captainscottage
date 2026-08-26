@@ -1,5 +1,13 @@
 # Pinterest distribution plan
 
+> **Planning doc, partly overtaken by events.** The strategy (boards, keyword
+> variants, cadence, UTM scheme) still holds and is still the reference. The
+> **publishing mechanism described here does not exist**: the API route was
+> abandoned 2026-08-21 because the app cannot get past Trial access, and
+> `pinterest-publish.yml` is parked. Publishing runs through Todoist, and
+> reviewing happens in capcom. `PINS_CONTRACT.md` and `PINTEREST_SETUP.md` are
+> the current authority; where they and this file disagree, they win.
+
 Written 2026-08-07 at Will's direction ("I'm thinking Pinterest cause it's the
 least miserable social media platform I can think of"). This is Workstream E
 from `SCOPE_OF_WORK.md`, previously deferred, now scoped to Pinterest only.

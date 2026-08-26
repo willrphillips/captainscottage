@@ -10,38 +10,49 @@ decision that has to be made before any of it ships.
 
 ---
 
-## Who posts: DECIDED 2026-08-10
+## Who posts: WILL DOES, by hand (current since 2026-08-21)
 
-**Option A is locked.** Capcom reviews; the existing GitHub Action posts. Will:
-"I don't want pins to go out twice... capcom reviews, existing cron posts will
-work fine. I'm just thinking if I can look at them and approve/reject with notes
-in capcom, that should do it."
+**Nothing posts to Pinterest automatically, and nothing can.** The API route is
+abandoned: app 1600288 sits at Trial access, which returns `403 code 29` on every
+pin create, and Standard access needs a video demo plus a two-week review that
+Will declined. `pinterest-publish.yml` is parked, cron removed.
 
-So capcom needs no Pinterest token and no Pinterest API code. It writes `status`
-(and `rejectedReason` / `approvedAt` / `scheduledFor`) to the queue files,
-commits, and stops there. Do not add posting to capcom without first deleting
-the `schedule:` block in `.github/workflows/pinterest-publish.yml`.
+The chain is now:
 
-The reasoning is kept below for whoever reads this later.
+```
+pin-writer  ──draft──>  Will reviews in capcom  ──approved──>  daily queue run
+   ──Todoist task──>  Will taps it, composer opens pre-filled  ──>  PUBLISHED
+   ──daily reconcile reads the completed task──>  status: "posted"
+```
 
-## The decision, for the record
+Capcom still holds **no Pinterest token and no Pinterest API code**, and that
+part is permanent. It writes `status`, `scheduledFor`, `approvedAt`,
+`rejectedReason` and `todoistTaskRemovedAt` to the queue files, and it acts on a
+pin's Todoist task (deleting it on reject, moving it on reschedule). It does not
+publish.
 
-There is already a publisher in this repo. `scripts/pinterest-publish.mjs`, run
-daily at 14:00 UTC by `.github/workflows/pinterest-publish.yml`, posts approved
-pins whose date has arrived.
+<details>
+<summary>The 2026-08-10 decision this replaced, kept for whoever reads back</summary>
 
-**If capcom also posts, every pin goes out twice.** Both readers see the same
-`status: "approved"` and the same date, and neither knows about the other.
+**Option A was locked on 2026-08-10:** capcom reviews, the existing GitHub Action
+posts. Will: "I don't want pins to go out twice... capcom reviews, existing cron
+posts will work fine. I'm just thinking if I can look at them and approve/reject
+with notes in capcom, that should do it."
 
-Pick one:
+The reasoning was double-posting: `scripts/pinterest-publish.mjs`, run daily at
+14:00 UTC, posted approved pins whose date had arrived. If capcom also posted,
+both readers would see the same `status: "approved"` and the same date and
+neither would know about the other.
 
-| Option | Who posts | What changes |
+| Option | Who posts | What changed |
 |---|---|---|
-| **A. Capcom reviews, GH Action posts** (recommended) | The existing cron | Capcom only ever writes `status` and commits. No token in capcom, no Pinterest API code, no double-post risk. |
-| B. Capcom does both | Capcom | **Disable `pinterest-publish.yml` first** (delete the `schedule:` block). Capcom needs `PINTEREST_ACCESS_TOKEN` and must replicate the posting rules below. |
+| **A. Capcom reviews, GH Action posts** (chosen) | The existing cron | Capcom only ever writes `status` and commits. No token in capcom, no double-post risk. |
+| B. Capcom does both | Capcom | Would have needed `pinterest-publish.yml` disabled first, plus `PINTEREST_ACCESS_TOKEN` in capcom. |
 
-A is recommended because posting is already built, tested, and rate-limited, and
-because the failure mode of B is public and embarrassing rather than quiet.
+That fork is moot: option A's publisher turned out not to work at all. The
+no-token half of it survived intact and is still the rule.
+
+</details>
 
 ---
 
@@ -272,13 +283,26 @@ The point of the UI is a fast yes or no, so lead with the image.
 - **Images are committed to the repo.** They are not fetched from anywhere at
   post time, so a missing `public/pins/<id>.jpg` is a hard error.
 
-## Current state, 2026-08-13
+## Current state, 2026-08-26
 
-- 27 pins across 9 posts, **all `draft`**, scheduled 2026-08-17 through 08-31.
-- **The five boards exist** and every pin's board name resolves.
-- **Both repo secrets are set.** The publisher ran green against the real
-  credentials and correctly reported nothing due, because nothing is approved.
-- So the pipeline is live and waiting on exactly one thing: a human moving a pin
-  from `draft` to `approved`. That is the job capcom is being built to do.
-- The access token expires **2026-09-11**. After that the publisher 401s until
-  the secret is refreshed.
+- **51 pins: 46 `queued`, 5 `posted`, 0 `draft`**, running every other day at
+  10:00 ET through 2026-11-25.
+- **All 46 queued pins are unread.** They were queued from `draft` under the
+  manual `--include-drafts` flag, so their Todoist tasks exist and say "Review +
+  publish", and no one has read the copy. Clearing that backlog in capcom is the
+  live job.
+- **The five boards exist** and every pin's board name resolves. Every render is
+  present.
+- **The review portal is built** (capcom, Buffalo tab, Pinterest queue): unread
+  first, feedback history on every card, Approve / Adjust / Reject / reschedule.
+- **The loop is closed.** `pinterest-todoist-reconcile.mjs` runs daily and marks
+  published pins `posted`, so the queue files no longer drift.
+- The **Pinterest** access token expiring 2026-09-11 no longer matters: nothing
+  calls the Pinterest API. `PINTEREST_ACCESS_TOKEN` and `PINTEREST_BOARD_MAP` are
+  dormant secrets, used only if the parked publisher is ever revived.
+
+### Earlier state, for the record
+
+- **2026-08-13:** 27 pins across 9 posts, all `draft`, scheduled 08-17 to 08-31.
+  The pipeline was waiting on exactly one thing, a human moving a pin from
+  `draft` to `approved`, which is the job capcom was built to do.

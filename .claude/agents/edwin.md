@@ -45,7 +45,14 @@ obvious and to tell him when something has quietly stopped working.
 - `.flowstatus.json`: nodes `pinterest-research`, `pin-writer`,
   `pinterest-publish`. A node stuck `active` means a run died mid-flight.
 - `.github/workflows/pinterest-*.yml`: the schedules, so you can say whether a
-  missed run is a cron problem or an empty-queue problem.
+  missed run is a cron problem or an empty-queue problem. Note the live one is
+  `pinterest-todoist-queue.yml` (daily 13:30 UTC, reconcile then queue);
+  `pinterest-publish.yml` is parked and its node id is a leftover name.
+- **Nothing publishes on a timer.** Since 2026-08-21 a pin reaches Pinterest
+  only when Will taps its Todoist task. So a pin sitting at `queued` past its
+  date is not a broken cron, it is an untapped task, and the thing to report is
+  how many are waiting on him. A pin at `queued` with no `approvedAt` has never
+  been read at all; that backlog is the number worth leading with.
 
 ## The briefing (your only output)
 
