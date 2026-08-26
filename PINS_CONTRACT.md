@@ -88,9 +88,9 @@ either way.
 
 | Field | Rule |
 |---|---|
-| `status` | `draft` to `approved`, or `draft` to `rejected`. **Nothing else may set `approved`.** |
-| `scheduledFor` | ISO date. May be changed while `draft` or `approved`. Never set it in the past. |
-| `approvedAt` | ISO timestamp, set when Will approves. Optional but useful. |
+| `status` | `draft` to `approved`, or to `rejected`. **Nothing else may set `approved`.** A `queued` pin keeps its status when reviewed; see the lifecycle note below. |
+| `scheduledFor` | ISO date. May be changed while `draft`, `approved` or `queued`. Never set it in the past. On a queued pin this moves the repo only, not the Todoist task. |
+| `approvedAt` | ISO timestamp, set when Will reads the pin. **This is the review record**, and on a queued pin it is the only thing that changes. Not optional. |
 | `rejectedReason` | Free text, when status becomes `rejected`. Feeds future pin-writer runs. |
 
 ### Fields capcom must not touch
@@ -99,9 +99,21 @@ either way.
 `keywordVariant`, `sources`, `renderedAt`, and anything the publisher writes
 (`postedAt`, `pinterestId`, `lastError`, `lastErrorAt`).
 
-If the copy is wrong, the fix is `rejected` plus a reason, and the pin-writer
+If the copy is wrong, the fix is a note to the pin-writer, and the pin-writer
 rewrites it. Editing copy in the reviewer bypasses the voice rules in
 `.claude/agents/pin-writer.md`, which is how AI tells creep back in.
+
+Two ways to send that note, added 2026-08-26:
+
+| Ask | What it does |
+|---|---|
+| **Adjust** (`POST /api/pinterest/pins/:id/feedback`) | Appends to `AGENT_FEEDBACK.md`. The pin keeps its status, its slot, and its id. |
+| **Reject** | Terminal. `rejectedReason` is recorded and the replacement needs a **new id**. |
+
+Adjust exists because rejection was the only channel and it costs a whole pin,
+so small notes went unsent. `AGENT_FEEDBACK.md` is also read back now: capcom
+shows every note already sent on a pin or draft, and flags the ones still
+unticked, so nothing gets reviewed twice from a blank slate.
 
 ## Status lifecycle
 
@@ -120,6 +132,37 @@ draft ──approve──> approved ──queue run──> queued ──Will cli
   `scripts/pinterest-todoist-queue.mjs`. Nothing has reached Pinterest yet.
 - **`posted`** is set once Will has actually published from the Todoist task.
 - **`rejected`** is terminal. Do not recycle the id; a replacement gets a new one.
+
+### `queued` is reviewable, not finished (locked 2026-08-26)
+
+`queued` answers "does a Todoist task exist", not "has anyone read the copy".
+Those came apart the moment 47 pins were queued from `draft` under
+`--include-drafts`: their tasks exist and their save links work, and nobody has
+read a word of them.
+
+**`approvedAt` is the review record, and it is independent of status.** Capcom
+reviewing a queued pin stamps `approvedAt` and leaves `status: "queued"` alone.
+It must not move a queued pin back to `approved`: the queue script skips
+anything holding a `todoistTaskId`, so the round trip would gain nothing and
+would hide the fact that a live task exists.
+
+So the test for "unread" is `status is draft/approved/queued AND no approvedAt`,
+not a status check. Capcom's pin pane was filtering on `draft`/`approved` and
+therefore displayed "no pins waiting" while all 47 sat unread; fixed 2026-08-26.
+
+### Capcom cannot reach Todoist (open)
+
+Capcom holds no Todoist token. Rejecting or rescheduling a queued pin changes
+the repo and leaves the task untouched, which means:
+
+- a **rejected** pin's task still carries a working save link, so tapping it
+  publishes copy that was rejected;
+- a **rescheduled** pin's task keeps its original due date and reminder.
+
+Capcom now warns loudly on both paths rather than reporting plain success, and
+`pinterestView()` surfaces a `stale-todoist-task` warning. Closing the task
+still has to be done by hand in Todoist. Whether to give capcom write access to
+Todoist, or to have the daily workflow reconcile it, is undecided.
 
 ### Queueing a draft (`--include-drafts`)
 
