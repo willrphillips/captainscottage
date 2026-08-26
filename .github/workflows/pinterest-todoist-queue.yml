@@ -1,8 +1,17 @@
 name: Pinterest queue to Todoist
 
-# Daily. Every pin that is BOTH status "approved" and not already queued gets a
-# Todoist task carrying a pre-filled Pinterest save link, due at the moment the
-# pin should go live, with a push reminder at that time.
+# Daily, two passes.
+#
+# RECONCILE FIRST. Publishing happens when Will taps a Todoist task, and until
+# 2026-08-26 nothing told the repo that had happened. The queue files drifted
+# every time he published: on that date the repo read 48 queued / 3 posted with
+# a "next pin" date already in the past. The reconcile pass reads completed
+# tasks back and marks the matching pins posted. It runs first so the queue pass
+# is working from a true picture.
+#
+# THEN QUEUE. Every pin that is BOTH status "approved" and not already queued
+# gets a Todoist task carrying a pre-filled Pinterest save link, due at the
+# moment the pin should go live, with a push reminder at that time.
 #
 # The gate is the same one the old API job used: agents write "draft", only Will
 # writes "approved". This job cannot queue anything he has not seen.
@@ -48,6 +57,18 @@ jobs:
         with:
           node-version: "22"
 
+      # Read-only against Todoist. Only ever moves queued -> posted; it cannot
+      # write "approved", so the gate is untouched.
+      - name: Reconcile published pins from Todoist
+        id: reconcile
+        env:
+          TODOIST_API_TOKEN: ${{ secrets.TODOIST_API_TOKEN }}
+          PIN_TIMEZONE: ${{ vars.PIN_TIMEZONE }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+        run: |
+          node scripts/pinterest-todoist-reconcile.mjs | tee /tmp/pin-reconcile.txt
+          echo "summary=$(tail -1 /tmp/pin-reconcile.txt)" >> "$GITHUB_OUTPUT"
+
       - name: Queue approved pins
         id: queue
         env:
@@ -69,7 +90,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add content/pins
-          git commit -m "pinterest-queue: mark pins queued to Todoist"
+          git commit -m "pinterest-queue: reconcile published pins, mark new pins queued"
           git pull --rebase origin main
           git push
 
