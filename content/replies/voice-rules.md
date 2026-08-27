@@ -209,6 +209,22 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   vague line like "grab some on your way in" — guests want an
   actionable answer, not filler (confirmed from a sent-vs-draft
   correction).
+- "I appreciate the heads up" is a natural line when a guest gives
+  advance notice of something (an extra guest joining, a change of
+  plan). Approve/accommodate warmly first, then use this as a light
+  acknowledgment, not a caveat (confirmed from a sent reply).
+- When disclosing an active, unresolved property/equipment issue: be
+  specific and honest about what's wrong and that a fix is in
+  progress, then ask directly whether the guest can plan around it if
+  it isn't resolved in time, rather than over-promising a fix. A
+  brief, light, local-color aside about repairs/service taking time
+  out here is a natural way to close that disclosure, not an apology
+  pile-up (confirmed from a sent reply).
+- A personalized well-wish tied to something specific the guest
+  mentioned about their trip's purpose or occasion ("sounds like this
+  trip is well-earned!") is a natural addition before the anticipatory
+  close, when the thread gives Will something concrete to react to
+  (confirmed from a sent reply).
 
 ## Avoid
 
