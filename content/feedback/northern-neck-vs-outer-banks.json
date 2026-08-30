@@ -1,0 +1,85 @@
+{
+  "slug": "northern-neck-vs-outer-banks",
+  "title": "Northern Neck vs. Outer Banks: Which Shore Is Your Getaway?",
+  "isDraft": true,
+  "decision": "request-changes",
+  "edits": [
+    {
+      "id": "eiuc72s5g",
+      "kind": "comment",
+      "anchor": "DC drive market",
+      "replacement": "",
+      "note": "I don't like calling our guests a \"market\". Make it more personable. \"DC travel lovers\" or 'weekend warriors' or something warm but collective",
+      "at": "2026-08-29T11:19:37.878Z"
+    },
+    {
+      "id": "erlbzgz0j",
+      "kind": "rewrite",
+      "anchor": "where the Potomac River meets the Chesapeake Bay",
+      "replacement": "ALong the potomac, down to the chesapeake bay",
+      "note": "You print \"where the potomac meets the chesapeake bay\" too often. It's becoming a goofy catch phrase that people don't use in normal speech. Great for the hero image of the site, limit it in blog",
+      "at": "2026-08-29T11:20:48.657Z"
+    },
+    {
+      "id": "e392ylalb",
+      "kind": "rewrite",
+      "anchor": "twenty",
+      "replacement": "fifty",
+      "note": "",
+      "at": "2026-08-29T11:21:35.650Z"
+    },
+    {
+      "id": "eri9jseyf",
+      "kind": "rewrite",
+      "anchor": "swim off the end of the dock or",
+      "replacement": "delete. WE just wade in from the shore",
+      "note": "",
+      "at": "2026-08-29T11:22:03.791Z"
+    },
+    {
+      "id": "e0xzd65a3",
+      "kind": "suggest",
+      "anchor": "That two-hour difference compounds across a three-night weekend. A five-hour drive changes what you can realistically do with a Friday. A two-and-three- quarter-hour drive lets you leave after work on Thursday and arrive before dark with energy left over for a drink on the dock.",
+      "replacement": "Add some kind of note about how if you have kids, under 3 hours in the car is worlds away from 5 hours",
+      "note": "",
+      "at": "2026-08-29T11:23:15.716Z"
+    },
+    {
+      "id": "esyb3kkg8",
+      "kind": "comment",
+      "anchor": "The crowd, and what happens without it",
+      "replacement": "",
+      "note": "Too many sentences formed like this. Let's go with something like \"What happens without the crowd\"",
+      "at": "2026-08-29T11:23:48.886Z"
+    },
+    {
+      "id": "e9uni5ss2",
+      "kind": "comment",
+      "anchor": "twenty feet",
+      "replacement": "",
+      "note": "Just a few steps from the creek*",
+      "at": "2026-08-29T11:24:46.228Z"
+    },
+    {
+      "id": "egz4lkxsw",
+      "kind": "suggest",
+      "anchor": "two and three-quarter hours",
+      "replacement": "\"Less than 3 hours\"",
+      "note": "",
+      "at": "2026-08-29T11:25:06.805Z"
+    },
+    {
+      "id": "efbeyh1h8",
+      "kind": "comment",
+      "anchor": "answer the question has been missing.",
+      "replacement": "",
+      "note": "weekend you've been looking for",
+      "at": "2026-08-29T11:25:30.901Z"
+    }
+  ],
+  "freeNote": "",
+  "feedback": "On \"DC drive market\": I don't like calling our guests a \"market\". Make it more personable. \"DC travel lovers\" or 'weekend warriors' or something warm but collective\n\nRewrite \"where the Potomac River meets the Chesapeake Bay\" — ALong the potomac, down to the chesapeake bay (You print \"where the potomac meets the chesapeake bay\" too often. It's becoming a goofy catch phrase that people don't use in normal speech. Great for the hero image of the site, limit it in blog)\n\nRewrite \"twenty\" — fifty\n\nRewrite \"swim off the end of the dock or\" — delete. WE just wade in from the shore\n\nReplace \"That two-hour difference compounds across a three-night weekend. A five-hour drive changes what you can realistically do with a Friday. A two-and-three- quarter-hour drive lets you leave after work on Thursday and arrive before dark with energy left over for a drink on the dock.\" with \"Add some kind of note about how if you have kids, under 3 hours in the car is worlds away from 5 hours\".\n\nOn \"The crowd, and what happens without it\": Too many sentences formed like this. Let's go with something like \"What happens without the crowd\"\n\nOn \"twenty feet\": Just a few steps from the creek*\n\nReplace \"two and three-quarter hours\" with \"\"Less than 3 hours\"\".\n\nOn \"answer the question has been missing.\": weekend you've been looking for",
+  "reviewer": "Will Phillips",
+  "at": "2026-08-29T11:25:40.402Z",
+  "note": "Captured via ReviewPanel (inline). Agents read content/feedback/<slug>.json. 'approve-for-batch' records intent; publish remains gated."
+}

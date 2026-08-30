@@ -675,8 +675,37 @@ function fmtDate(iso: string): string {
     var popCancel = document.getElementById("rp-popover-cancel");
     var popClose = document.getElementById("rp-popover-close");
     var postBody = document.querySelector(".post-body");
+    var selectableRoots = Array.prototype.slice.call(
+      document.querySelectorAll(".post-intro, .post-body")
+    );
 
-    if (!postBody) return;
+    if (!postBody || selectableRoots.length === 0) return;
+
+    function findAnchorRoot(node) {
+      for (var i = 0; i < selectableRoots.length; i++) {
+        if (selectableRoots[i] === node) return selectableRoots[i];
+      }
+      return null;
+    }
+
+    function marksById(id) {
+      var out = [];
+      selectableRoots.forEach(function (root) {
+        Array.prototype.forEach.call(
+          root.querySelectorAll('mark.rp-anchored[data-edit-id="' + id + '"]'),
+          function (m) { out.push(m); }
+        );
+      });
+      return out;
+    }
+
+    function allMarks() {
+      var out = [];
+      selectableRoots.forEach(function (root) {
+        Array.prototype.forEach.call(root.querySelectorAll("mark.rp-anchored"), function (m) { out.push(m); });
+      });
+      return out;
+    }
 
     var session = { edits: [] };
     try {
@@ -721,7 +750,7 @@ function fmtDate(iso: string): string {
       var inBody = false;
       var node = anchorEl.nodeType === 1 ? anchorEl : anchorEl.parentNode;
       while (node) {
-        if (node === postBody) { inBody = true; break; }
+        if (findAnchorRoot(node)) { inBody = true; break; }
         if (node === section || node === pop) return hideChip();
         node = node.parentNode;
       }
@@ -807,21 +836,23 @@ function fmtDate(iso: string): string {
     }); }
 
     function markAnchorInBody(entry) {
-      var walker = document.createTreeWalker(postBody, NodeFilter.SHOW_TEXT, null);
-      var node;
-      while ((node = walker.nextNode())) {
-        var idx = node.nodeValue.indexOf(entry.anchor);
-        if (idx === -1) continue;
-        var range = document.createRange();
-        range.setStart(node, idx);
-        range.setEnd(node, idx + entry.anchor.length);
-        var mark = document.createElement("mark");
-        mark.className = "rp-anchored";
-        mark.setAttribute("data-kind", entry.kind);
-        mark.setAttribute("data-edit-id", entry.id);
-        mark.setAttribute("title", entry.kind === "comment" ? entry.note : (entry.replacement || entry.note));
-        try { range.surroundContents(mark); } catch (e) {}
-        return;
+      for (var r = 0; r < selectableRoots.length; r++) {
+        var walker = document.createTreeWalker(selectableRoots[r], NodeFilter.SHOW_TEXT, null);
+        var node;
+        while ((node = walker.nextNode())) {
+          var idx = node.nodeValue.indexOf(entry.anchor);
+          if (idx === -1) continue;
+          var range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + entry.anchor.length);
+          var mark = document.createElement("mark");
+          mark.className = "rp-anchored";
+          mark.setAttribute("data-kind", entry.kind);
+          mark.setAttribute("data-edit-id", entry.id);
+          mark.setAttribute("title", entry.kind === "comment" ? entry.note : (entry.replacement || entry.note));
+          try { range.surroundContents(mark); } catch (e) {}
+          return;
+        }
       }
     }
 
@@ -858,7 +889,7 @@ function fmtDate(iso: string): string {
         btn.addEventListener("click", function () {
           var id = btn.getAttribute("data-remove");
           session.edits = session.edits.filter(function (e) { return e.id !== id; });
-          var marks = postBody.querySelectorAll('mark.rp-anchored[data-edit-id="' + id + '"]');
+          var marks = marksById(id);
           Array.prototype.forEach.call(marks, function (m) {
             var parent = m.parentNode;
             while (m.firstChild) parent.insertBefore(m.firstChild, m);
@@ -927,7 +958,7 @@ function fmtDate(iso: string): string {
             freeNoteEl.value = "";
             renderList();
             renderBanner();
-            Array.prototype.forEach.call(postBody.querySelectorAll("mark.rp-anchored"), function (m) {
+            Array.prototype.forEach.call(allMarks(), function (m) {
               var parent = m.parentNode;
               while (m.firstChild) parent.insertBefore(m.firstChild, m);
               parent.removeChild(m);

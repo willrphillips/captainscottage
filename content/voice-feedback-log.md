@@ -399,3 +399,27 @@ Also confirmed: the creek is comfortable for swimming in September, so that
 TODO is resolved. The post now carries zero TODO markers.
 
 ---
+
+## 2026-08-29T11:25:40.402Z · northern-neck-vs-outer-banks
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+On "DC drive market": I don't like calling our guests a "market". Make it more personable. "DC travel lovers" or 'weekend warriors' or something warm but collective
+
+Rewrite "where the Potomac River meets the Chesapeake Bay" — ALong the potomac, down to the chesapeake bay (You print "where the potomac meets the chesapeake bay" too often. It's becoming a goofy catch phrase that people don't use in normal speech. Great for the hero image of the site, limit it in blog)
+
+Rewrite "twenty" — fifty
+
+Rewrite "swim off the end of the dock or" — delete. WE just wade in from the shore
+
+Replace "That two-hour difference compounds across a three-night weekend. A five-hour drive changes what you can realistically do with a Friday. A two-and-three- quarter-hour drive lets you leave after work on Thursday and arrive before dark with energy left over for a drink on the dock." with "Add some kind of note about how if you have kids, under 3 hours in the car is worlds away from 5 hours".
+
+On "The crowd, and what happens without it": Too many sentences formed like this. Let's go with something like "What happens without the crowd"
+
+On "twenty feet": Just a few steps from the creek*
+
+Replace "two and three-quarter hours" with ""Less than 3 hours"".
+
+On "answer the question has been missing.": weekend you've been looking for
+
+---
