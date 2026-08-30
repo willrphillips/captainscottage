@@ -42,6 +42,10 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 - A bare name opener ("[Name]!" with no "Hey"/"Hi") is also natural for
   a direct Q&A reply — interchangeable with the "Hey [Name]!" opener,
   same slot (confirmed from a sent reply).
+- "Hi there [Name]," is a natural opener variant, same slot as "Hey
+  [Name]!", when confirming a logistics request has been actioned
+  (e.g. a reservation change already sent) rather than answering a
+  question (confirmed from a sent reply).
 - "Yep," is a natural affirmative opener when confirming a factual yes
   (e.g. "Yep, the kitchen's fully stocked..."). "Yes we do!" is an
   equally natural variant when confirming an amenity/equipment is
@@ -73,6 +77,11 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   just answering a question), the natural close is the shorter "Just
   let me know" rather than "Let me know if anything comes up" — it
   reads as prompting a decision, not just an open invitation.
+- After walking a guest through a process or set of steps (e.g. how to
+  accept/decline a reservation change), "Let me know if you have any
+  other questions" is a natural close variant, same slot as the
+  default soft close — it fits following instructions better than
+  "anything comes up" (confirmed from a sent reply).
 - For a pre-arrival message (guest not yet checked in), "Let me know
   if anything comes up" can take an added second line: "We're looking
   forward to hosting you!" Anticipatory warmth, distinct from the
