@@ -46,6 +46,11 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   [Name]!", when confirming a logistics request has been actioned
   (e.g. a reservation change already sent) rather than answering a
   question (confirmed from a sent reply).
+- "Sounds great, [Name]!" is a natural opener when agreeing to a
+  guest-proposed plan or time (e.g. a suggested arrival time) — same
+  slot as "Hi there [Name],", but for agreeing to their suggestion
+  rather than confirming an action already taken (confirmed from a
+  sent reply).
 - "Yep," is a natural affirmative opener when confirming a factual yes
   (e.g. "Yep, the kitchen's fully stocked..."). "Yes we do!" is an
   equally natural variant when confirming an amenity/equipment is
@@ -119,7 +124,9 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   "Enjoy every bit of it, and let me know if anything comes up." /
   "Let me know if anything comes up, and we're looking forward to
   hosting you!" Either the joined or the separate form is natural
-  (confirmed from two sent replies).
+  (confirmed from two sent replies). "Enjoy yourselves" is a natural
+  alternate to "Enjoy every bit of it" in this same joined slot
+  (confirmed from a sent reply).
 - For checkout/departure messages, open with "So glad you had a great
   time, [Name]!" (not "So glad to hear it"). Follow with "We're so glad
   to have been able to host you, and hope to have you back [out on the
@@ -253,7 +260,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   feature, not a flaw. Distinct from a genuine operational miss (an
   item not left where it should be, a gap in a prior message) — a
   brief, real apology ("Sorry for the oversight," "Apologies it
-  wasn't put back") is natural and correct there.
+  wasn't put back") is natural and correct there. Also distinct: a
+  guest's own passing hiccup that's nobody's fault and needs no
+  action (fumbling a combo lock, tiredness after a long drive) can
+  still get a light "sorry about that, but glad you got it sorted" —
+  brief sympathy for their moment, not an apology for the property
+  (confirmed from a sent reply).
 - Reservation-management language ("per our policy," "as stated in
   the listing"). Sounds corporate.
 - Mid-stay language ("enjoy the rest of your stay," "hope you're
