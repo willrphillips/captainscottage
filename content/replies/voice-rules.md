@@ -108,6 +108,11 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 - When context clearly confirms a happy in-stay message, a short warm
   affirmation before the soft close is natural: "Enjoy every bit of it."
   (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
+  When that in-stay reply already gives a full, specific answer (e.g.
+  confirming the crab pot is theirs to use), the affirmation alone can
+  close the message with no separate soft-close line after it — same
+  "detailed answer already carries the warmth" logic as the pre-arrival
+  exception above, applied in-stay (confirmed from a sent reply).
 - When a guest's happy check-in singles out a specific feature they love
   (the view, a spot on the dock), echo agreement about that same specific
   thing rather than a generic affirmation — "that spot is our favorite
@@ -180,7 +185,18 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   the end (confirmed from a sent reply). A brief bridge line before
   that close, "I hope you guys enjoyed everything!," is natural to
   restate general warmth after addressing the specific item raised
-  (confirmed from a sent reply).
+  (confirmed from a sent reply). When the item flagged is broken
+  furniture/equipment that could plausibly have hurt someone (not just
+  cosmetic), add a brief genuine check-in on the guest's wellbeing
+  before the appreciation line — "I hope no one was hurt when the
+  chair broke!" — same slot as the acknowledgment, not a replacement
+  for it (confirmed from a sent reply).
+- Equipment wear or failure attributable to the marine/coastal
+  environment (not an operational miss) gets the same "quirk, not
+  apology" treatment as the sand-shifting rule below: a light,
+  matter-of-fact local-color line normalizes it instead of apologizing
+  — "Marine air is tough on hardware out there, so that kind of thing
+  happens from time to time." (confirmed from a sent reply)
 - **No sign-off. Will does not sign Airbnb messages** — no "Will," no
   "— Will," no "The Captain's Cottage Team," no "Best." Airbnb displays
   the sender's name automatically; the message just ends on its last
