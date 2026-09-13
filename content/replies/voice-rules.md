@@ -191,6 +191,18 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   before the appreciation line — "I hope no one was hurt when the
   chair broke!" — same slot as the acknowledgment, not a replacement
   for it (confirmed from a sent reply).
+- When acknowledging a flagged item, a brief causal explanation (what
+  normally happens, and what must have gone differently this time)
+  naturally accompanies the "no worries"/apology — "our cleaner
+  generally checks that but must have missed it this time," "we
+  generally leave it up at the house, but our last renters must have
+  forgot it." For a genuine operational miss, a short forward-looking
+  fix commitment can follow the apology — "we'll get it cleaned up and
+  keep a closer eye on that porch between guests" (confirmed from sent
+  replies).
+- "Glad you're all set." is a natural opener variant, same slot as
+  "Hey [Name]!", when a guest's message confirms they've already
+  sorted something out themselves (confirmed from a sent reply).
 - Equipment wear or failure attributable to the marine/coastal
   environment (not an operational miss) gets the same "quirk, not
   apology" treatment as the sand-shifting rule below: a light,
