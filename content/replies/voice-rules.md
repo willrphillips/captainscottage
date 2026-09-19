@@ -51,6 +51,9 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   slot as "Hi there [Name],", but for agreeing to their suggestion
   rather than confirming an action already taken (confirmed from a
   sent reply).
+- "So happy to hear" is a natural variant of "So glad to hear it," same
+  slot, for happy news about the guest's experience (confirmed from a
+  sent reply).
 - "Yep," is a natural affirmative opener when confirming a factual yes
   (e.g. "Yep, the kitchen's fully stocked..."). "Yes we do!" is an
   equally natural variant when confirming an amenity/equipment is
@@ -118,6 +121,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   thing rather than a generic affirmation — "that spot is our favorite
   view too," "that view never gets old, we love it too" (confirmed from
   two sent replies).
+- When a guest mentions a specific item (a toy, a book, a piece of gear)
+  their kid loved, a natural extra touch is tying it to Will's own kids
+  enjoying that same item at the cottage ("Our kids play with them all
+  the time, so that makes us so happy to hear.") — a warmer, more
+  personal version of the specific-feature echo above (confirmed from a
+  sent reply).
 - For an in-stay guest who got a substantive/informational answer (not
   just a happy check-in), a trailing warm line after the soft close can
   be "I hope you're enjoying yourselves!" instead of "Enjoy every bit
@@ -257,6 +266,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   advance notice of something (an extra guest joining, a change of
   plan). Approve/accommodate warmly first, then use this as a light
   acknowledgment, not a caveat (confirmed from a sent reply).
+- When a guest gives advance notice they're leaving early for their own
+  reasons (not a property issue), pair "no worries at all" and "we
+  appreciate the heads up" with a brief genuine sympathy line — "Sorry
+  you had to cut your trip a little short." Same warm-first instinct as
+  the heads-up rule above, extended to a guest's own change of plans
+  (confirmed from a sent reply).
 - When disclosing an active, unresolved property/equipment issue: be
   specific and honest about what's wrong and that a fix is in
   progress, then ask directly whether the guest can plan around it if
