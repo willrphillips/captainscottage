@@ -1,0 +1,127 @@
+{
+  "slug": "northern-neck-vs-outer-banks",
+  "round": 1,
+  "appliedAt": "2026-09-19T12:05:06.000Z",
+  "edits": [
+    {
+      "editId": "eiuc72s5g",
+      "kind": "comment",
+      "anchor": "DC drive market",
+      "before": "The Outer Banks and Virginia's Northern Neck serve the same DC drive market.",
+      "after": "The Outer Banks and Virginia's Northern Neck draw the same DC-area travelers.",
+      "status": "applied",
+      "note": "Frontmatter description reworded away from 'market' language, per Will's 2026-08-29 comment."
+    },
+    {
+      "editId": "erlbzgz0j",
+      "kind": "rewrite",
+      "anchor": "where the Potomac River meets the Chesapeake Bay",
+      "before": "the answer that keeps turning up is Virginia's Northern Neck, where the Potomac River meets the Chesapeake Bay, two hours and forty-five minutes from DC",
+      "after": "the answer that keeps turning up is Virginia's Northern Neck, along the Potomac, down toward the Chesapeake Bay, under three hours from DC",
+      "status": "applied",
+      "note": "Retired the site's hero catchphrase from blog body copy per Will's overuse note; kept the phrase for the site hero only."
+    },
+    {
+      "editId": "e392ylalb",
+      "kind": "rewrite",
+      "anchor": "twenty",
+      "before": "sits about twenty feet from the back porch",
+      "after": "sits just below the back porch",
+      "status": "applied",
+      "note": "Anchor 'twenty' was ambiguous (two separate 'twenty feet' claims in the post: porch-to-creek and hot-tub-to-creek). Resolved per the clearer 2026-09-19 AGENT_FEEDBACK note: dropped the exact footage on the porch-to-creek line rather than repeat a number, and rewrote the hot-tub line separately (see below) to the 'overlooks the water, stargaze at night' framing Will asked for instead of restating a corrected number."
+    },
+    {
+      "editId": "eri9jseyf",
+      "kind": "rewrite",
+      "anchor": "swim off the end of the dock or",
+      "before": "You swim off the end of the dock or wade in from the shore, and the creek holds you.",
+      "after": "You wade in straight from the shore, no current to fight, no wave to time.",
+      "status": "applied",
+      "note": "Dropped the dock-swim claim (dock is too high to swim off) and the 'the creek holds you' phrasing per the 2026-09-19 note calling it too ethereal."
+    },
+    {
+      "editId": "e0xzd65a3",
+      "kind": "suggest",
+      "anchor": "That two-hour difference compounds across a three-night weekend. A five-hour drive changes what you can realistically do with a Friday. A two-and-three- quarter-hour drive lets you leave after work on Thursday and arrive before dark with energy left over for a drink on the dock.",
+      "before": "That two-hour difference compounds across a three-night weekend. A five-hour drive changes what you can realistically do with a Friday. A two-and-three-quarter-hour drive lets you leave after work on Thursday and arrive before dark with energy left over for a drink on the dock.",
+      "after": "That time difference compounds across a three-night weekend, and it compounds faster with kids in the car. A five-hour drive turns a Friday into a wash, and a car seat and a tired toddler make it worse. Under three hours from DC means leaving after work on Thursday and still catching sunset over the water, a glass of wine in hand, before anyone's asking when they'll get there.",
+      "status": "applied",
+      "note": "Added the kids-in-the-car angle Will asked for, and folded in the 2026-09-19 'drink on the dock' -> sunset/wine swap in the same paragraph."
+    },
+    {
+      "editId": "esyb3kkg8",
+      "kind": "comment",
+      "anchor": "The crowd, and what happens without it",
+      "before": "## The crowd, and what happens without it",
+      "after": "## What happens without the crowd",
+      "status": "applied",
+      "note": "Heading reworded exactly as suggested."
+    },
+    {
+      "editId": "e9uni5ss2",
+      "kind": "comment",
+      "anchor": "twenty feet",
+      "before": "a sauna and a hot tub twenty feet from the creek",
+      "after": "a sauna, and a hot tub that looks straight out over the creek for stargazing at night",
+      "status": "applied",
+      "note": "Combined with the 2026-09-19 note on the same line: dropped the footage claim entirely in favor of the overlook/stargaze framing Will gave."
+    },
+    {
+      "editId": "egz4lkxsw",
+      "kind": "suggest",
+      "anchor": "two and three-quarter hours",
+      "before": "two and three-quarter hours from DC with no Bay Bridge traffic",
+      "after": "under three hours from DC with no Bay Bridge traffic",
+      "status": "applied",
+      "note": "Applied verbatim."
+    },
+    {
+      "editId": "efbeyh1h8",
+      "kind": "comment",
+      "anchor": "answer the question has been missing.",
+      "before": "is the kind of answer the question has been missing.",
+      "after": "is the kind of weekend you've been looking for.",
+      "status": "applied",
+      "note": "Applied verbatim."
+    }
+  ],
+  "agentFeedbackApplied": [
+    {
+      "id": "fb:draftfb-northern-neck-vs-outer-banks-mu8bj6bu",
+      "note": "Add a note at the beginning that couches the fact that the outer banks are great; don't be negative or unfair.",
+      "status": "applied",
+      "change": "Opened the post with a fair, positive line about the Outer Banks ('The Outer Banks earns its reputation... it's a great trip.') before pivoting to the Northern Neck comparison."
+    },
+    {
+      "id": "fb:draftfb-northern-neck-vs-outer-banks-mu8bl70k",
+      "note": "Dock is too high to swim off; wade in from shore only. 'The creek holds you' is too ethereal.",
+      "status": "applied",
+      "change": "Same fix as edit eri9jseyf above (same underlying issue, restated)."
+    },
+    {
+      "id": "fb:draftfb-northern-neck-vs-outer-banks-mu8bmmp1",
+      "note": "Swap 'a drink on the dock' for a sunset-over-the-water-with-wine image.",
+      "status": "applied",
+      "change": "Same fix as edit e0xzd65a3 above (same underlying issue, restated)."
+    },
+    {
+      "id": "fb:draftfb-northern-neck-vs-outer-banks-mu8bq72o",
+      "note": "Don't repeat 'twenty feet from the creek'; hot tub is closer to 50 feet; just say it overlooks the water and you can stargaze from it at night.",
+      "status": "applied",
+      "change": "Same fix as edit e9uni5ss2 above; porch line lost its number too so 'twenty feet' isn't repeated anywhere in the post."
+    }
+  ],
+  "writerChanges": [
+    {
+      "before": "{/* TODO: Will to confirm his read on the OBX vs. Northern Neck comparison. Has he been to the Outer Banks? Any personal framing or experience he'd add? Also confirm rental price range comparison if he wants to include it. */}",
+      "after": "(removed)",
+      "why": "Will confirmed 2026-09-19 he has not been to the Outer Banks, so no personal OBX framing is added, and the rental-price comparison is dropped (it was never in the body copy). TODO resolved and deleted."
+    },
+    {
+      "before": "two hours and forty-five minutes from DC (intro paragraph)",
+      "after": "under three hours from DC",
+      "why": "Cascade consistency: kept the precise 'two hours and forty-five minutes' figure only in the dedicated drive-time paragraph with the turn-by-turn route; used the colloquial 'under three hours' everywhere else in the post to match the two direct edits that requested it (egz4lkxsw and the kids paragraph)."
+    }
+  ],
+  "freeNoteAddressed": true
+}
