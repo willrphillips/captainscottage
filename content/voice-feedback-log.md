@@ -439,3 +439,57 @@ Flagged on winter-birding-northern-neck: cut rather than replaced, since no
 sourced specific road detail was available to swap in.
 
 ---
+
+## 2026-09-19 · ALL COPY (standing voice rule: animals and weather never "work" anything)
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+Will, via the manager session: "I hate phrases like 'ospreys are working the
+shallows' [...] It reads like sloppy AI tells." This is the third time he has
+flagged the construction: "remove 'working the shallows' about ospreys. Weve
+said that too many times before" (2026-08-08, northern-neck-in-fall-from-dc);
+"you use the term 'works' and 'works the creek' too often" and "There you go
+again. Use more language than osprey working the creek" (2026-09-19,
+winter-birding-northern-neck).
+
+Locked rule, same standing as the em-dash and "honest" bans: no bird, fish,
+tide, wind, or light "works" a place. Banned: "working the shallows / the
+bank / the thermals / the marsh / the creek," "works the creek," "worked the
+creek," "the tide works," "the light works," and every cousin. Say what the
+animal does instead: dives, hunts, hovers, stands, circles, drops, lifts.
+Applies to posts, pins, meta descriptions, alt text, and the guidebook. The
+only exemption is a verbatim guest review (the site.ts headline review
+"watched osprey work the creek" stays as written).
+
+Swept 2026-09-19: five live posts, the home page StorySection, and two queued
+pins had instances; all rewritten in place. Now a grep-based FAIL item in
+blog-seo-editor.md (#11) and a numbered principle in blog-writer.md (#8) and
+pin-writer.md (#3).
+
+---
+
+## 2026-09-19 · ALL COPY (standing voice rule: no sensory-anticipation constructions)
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+Will, via the manager session, in the same note as the "working" rule: "I
+hate phrases like 'ospreys are working the shallows' along with 'the kind of
+day that you feel before you hear' and stuff like that. It reads like sloppy
+AI tells."
+
+Locked rule, same standing as the em-dash and "honest" bans. Banned: "the
+kind of X you feel before you hear/see," "you hear it before you see it,"
+"you feel it before you know it," "the kind of quiet that…," "a silence you
+can hear," "the sort of morning that…," "the kind of light you'll…," and the
+nearest cousins (any "kind of / sort of [day, morning, quiet, silence,
+light]" followed by a vague relative clause). Say the concrete thing instead:
+what the sound is, what the light does, what is actually there.
+
+Swept 2026-09-19: three live posts and the home page StorySection had
+instances; all rewritten in place. One posted pin (mornings-with-the-ospreys
+v1, "What you hear before you see it") is already live on Pinterest and its
+JSON record was left as-is to match what was actually posted. Now a
+grep-based FAIL item in blog-seo-editor.md (#11) and a numbered principle in
+blog-writer.md (#9) and pin-writer.md (#4).
+
+---

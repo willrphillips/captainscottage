@@ -27,6 +27,14 @@ You are the SEO editor. You audit one draft post and either pass it or return a 
     - `grep -in "honest\|candid\|full transparency" <the post>` — "an honest look," "the honest answer," "the more honest version," "honestly, …" all FAIL. State the point plainly or delete the qualifier.
 
     Either hit is an automatic FAIL with the fix given inline. Locked by Will 2026-08-07: these are the two loudest AI tells in the copy. The only exemption is verbatim quoted material, i.e. the guest reviews in `src/lib/site.ts`.
+11. **Banned AI tells, second family: animals/weather "working" things, and sensory-anticipation constructions.** Four greps, all must return zero hits anywhere in the post (frontmatter, headings, body, alt text, MDX comments):
+    - `grep -niE "work(ing|s|ed) the (shallows|bank|banks|thermals|marsh|creek|water|edge|flats)" <the post>` — a bird, fish, tide, wind, or light "working" a place. Fix by naming what it does: dives, hunts, hovers, stands, circles.
+    - `grep -niE "before you (hear|see|know|notice)" <the post>`
+    - `grep -niE "kind of (day|morning|quiet|silence|light) (that|you)" <the post>`
+    - `grep -niE "hear (it|them) before you see" <the post>`
+    The last three are the sensory-anticipation family ("you hear it before you see it," "the kind of quiet that," "a silence you can hear"). Fix by stating the concrete thing: what the sound is, what the light does, what is there.
+
+    Any hit is an automatic FAIL with the fix given inline. Locked by Will 2026-09-19 ("I hate phrases like 'ospreys are working the shallows' along with 'the kind of day that you feel before you hear' and stuff like that. It reads like sloppy AI tells."), after flagging "working the shallows" on 2026-08-08 and "works the creek" twice on 2026-09-19. Same exemption as #10: verbatim quoted guest reviews (the `src/lib/site.ts` headline review "watched osprey work the creek" stays as written, including where a post block-quotes it).
 
 ## Output
 - If it passes all checks: state PASS, list what you verified, and tell the Writer to set the calendar entry to `in-review`.

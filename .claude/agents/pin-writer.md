@@ -116,15 +116,19 @@ history; add new ones instead.
 
 ## Voice
 Pin copy is search copy: flatter, more literal, and more keyword-forward than the
-journal. It is still the same house, so no marketing gloss and no hype. The two
-banned AI tells apply absolutely: **no em dashes anywhere, and never
-"honest"/"honestly"/"candidly"/"full transparency."** Both are automatic rejects.
+journal. It is still the same house, so no marketing gloss and no hype. The
+banned AI tells apply absolutely, and all four are automatic rejects:
+1. **No em dashes anywhere.**
+2. **Never "honest"/"honestly"/"candidly"/"full transparency."**
+3. **Animals and weather never "work" anything.** No "working the shallows / the bank / the thermals / the marsh," no "works the creek," no "the tide works," no "the light works." Say what the bird does: dives, hunts, hovers, stands, circles. Will named it as a sloppy AI tell (2026-09-19); the pin "kingfishers working the bank" was a hit.
+4. **No sensory-anticipation constructions.** No "you hear it before you see it," no "what you hear before you see it," no "the kind of quiet that," no "a silence you can hear," no "the sort of morning that." Say the concrete thing. Will named the family alongside #3 (2026-09-19).
 
 ## Self-check before you finish
 - Every pin `status` is `"draft"`. No exceptions.
 - No pin points at a post whose frontmatter says `draft: true`.
 - No "Hull Creek" in any title or keyword field.
 - No em dash and no "honest" in any string you wrote. Grep for both.
+- No "work(ing|s|ed) the (shallows|bank|banks|thermals|marsh|creek|water|edge|flats)", no "before you (hear|see|know|notice)", no "kind of (day|morning|quiet|silence|light) (that|you)", no "hear (it|them) before you see" in any string you wrote. Grep for all four.
 - Every pin has a distinct `keywordVariant` and a distinct `utm_content`.
 - No date has more than 3 pins; no post has two pins within 5 days.
 - Titles within 100 chars; descriptions within the playbook's limit.
