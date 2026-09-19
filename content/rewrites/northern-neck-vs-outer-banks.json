@@ -1,7 +1,25 @@
 {
   "slug": "northern-neck-vs-outer-banks",
-  "round": 1,
-  "appliedAt": "2026-09-19T12:05:06.000Z",
+  "round": 2,
+  "appliedAt": "2026-09-19T12:40:00.000Z",
+  "round2Edits": [
+    {
+      "id": "fb:draftfb-northern-neck-vs-outer-banks-mu8cqz32",
+      "note": "WE do have a current. You can just remove that bit.",
+      "status": "applied",
+      "before": "You wade in straight from the shore, no current to fight, no wave to time.",
+      "after": "You wade in straight from the shore, easy and unhurried, no wave to time.",
+      "context": "Arrived after the post was already approved (draft:false); this corrected a factual error my own round-1 edit had introduced (Hull Creek is tidal, so it does have a current). Committed separately as a hot-fix (42b5206) before this round-2 manifest entry was written."
+    },
+    {
+      "id": "fb:draftfb-northern-neck-vs-outer-banks-mu8cu0qu",
+      "note": "on the passage \"reek for stargazing at night, a\": , and is perfect for stargazing at night (something like that)",
+      "status": "applied",
+      "before": "a hot tub that looks straight out over the creek for stargazing at night, all under three hours from DC with no Bay Bridge traffic and no planned itinerary:",
+      "after": "a hot tub that looks straight out over the creek, and is perfect for stargazing at night, all under three hours from DC with no Bay Bridge traffic and no planned itinerary:",
+      "context": "Applied near-verbatim per Will's suggested phrasing. draft:false and approvedAt left untouched; only the body sentence changed."
+    }
+  ],
   "edits": [
     {
       "editId": "eiuc72s5g",
