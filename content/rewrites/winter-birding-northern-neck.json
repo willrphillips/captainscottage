@@ -1,60 +1,18 @@
 {
   "slug": "winter-birding-northern-neck",
-  "round": 3,
+  "round": 5,
   "appliedAt": "2026-09-19T00:00:00.000Z",
   "edits": [
     {
-      "editId": "fb:draftfb-winter-birding-northern-neck-mu8e1hs8",
-      "kind": "suggest",
-      "anchor": "the same county as Captain's Cottage,",
-      "before": "Northumberland County, the same county as <a href={withBase(\"/the-cottage\")}>Captain's\nCottage</a>, holds two preserves built for exactly this: Hughlett Point and\nDameron Marsh, both a short drive from the cottage on the kind of small\ncountry roads that pass more farms than houses.",
-      "after": "Northumberland County holds two preserves built for exactly this: Hughlett\nPoint and Dameron Marsh, both a short drive from the cottage.",
-      "status": "applied",
-      "note": "Cut the aside per instruction. Dropped the /the-cottage link entirely rather than forcing it elsewhere in the sentence; it did not fit naturally anywhere nearby. Internal-link count after this change: mornings-with-the-ospreys-hull-creek, wildlife-sightings-hull-creek, plus the /book CTA, which meets the >=2 internal-link requirement per Will's own note."
-    },
-    {
-      "editId": "fb:draftfb-winter-birding-northern-neck-mu8e29w8",
+      "editId": "review-proposal-2026-09-19-osprey-timing",
       "kind": "rewrite",
-      "anchor": "on the kind of small country roads that pass more farms than houses",
-      "before": "both a short drive from the cottage on the kind of small\ncountry roads that pass more farms than houses.",
-      "after": "both a short drive from the cottage.",
+      "anchor": "its calendar flips in the fall the same way Hull Creek's does: osprey are still fishing here through October, and once they've gone, the tundra swans move in along with ducks and Canada geese",
+      "before": "seven miles of shoreline and over a hundred documented bird species, and its\ncalendar flips in the fall the same way Hull Creek's does: osprey are still\nfishing here through October, and once they've gone, the tundra swans move in\nalong with ducks and Canada geese. The swans arrive in November and build through",
+      "after": "seven miles of shoreline and over a hundred documented bird species, and its\ncalendar flips in the fall too: the last osprey linger into early October,\nand once they've gone, the tundra swans move in along with ducks and Canada\ngeese. The swans arrive in November and build through",
       "status": "applied",
-      "note": "Cut rather than replaced with a substitute detail: no sourced, concrete detail about the specific roads to Hughlett Point or Dameron Marsh exists in the research brief, and inventing one (a road name, a specific landmark) would violate the no-invented-facts rule. Per instructions, cutting is the correct move when nothing concrete is available. Also codified this as a new standing rule: appended a dated entry to content/voice-feedback-log.md ('## 2026-09-19 - ALL POSTS (standing voice rule)') per Will's explicit request, so generic scenic/color filler is flagged on every future post."
-    },
-    {
-      "editId": "fb:draftfb-winter-birding-northern-neck-mu8foo37",
-      "kind": "rewrite",
-      "anchor": "osprey work the park",
-      "before": "calendar flips in the fall the same way Hull Creek's does: osprey work the\npark through October, and once they've gone, the tundra swans move in along\nwith ducks and Canada geese.",
-      "after": "calendar flips in the fall the same way Hull Creek's does: osprey are still\nfishing here through October, and once they've gone, the tundra swans move in\nalong with ducks and Canada geese.",
-      "status": "applied",
-      "note": "Replaced 'work' with varied, concrete language ('are still fishing here'), avoiding the retired work/works-the-creek/working-the-shallows phrasing family (voice-feedback-log 2026-08-08). Also swept the same phrasing pattern elsewhere in the post per Will's 'anywhere in the post' instruction: 'northern harriers working the marsh edges low and slow' (earlier paragraph) changed to 'northern harriers quartering the marsh edges low and slow', using an accurate, specific birding term for harriers' characteristic low hunting flight rather than the generic 'working' verb. Logged separately under writerChanges below."
-    },
-    {
-      "editId": "fb:draftfb-winter-birding-northern-neck-mu8frwe6",
-      "kind": "rewrite",
-      "anchor": "The summer version of this cottage gets the reviews: the dock, the sauna, the long sunset over the creek. But winter clears the calendar and drops the rates, and it hands you a completely different cast of characters on the same water.",
-      "before": "The summer version of this cottage gets the reviews: the dock, the sauna, the\nlong sunset over the creek. But winter clears the calendar and drops the\nrates, and it hands you <a href={withBase(\"/journal/wildlife-sightings-hull-creek\")}>a\ncompletely different cast of characters</a> on the same water.",
-      "after": "The summer version of this cottage gets the reviews: the dock, the sauna, the\nlong sunset over the creek. Winter hands you <a href={withBase(\"/journal/wildlife-sightings-hull-creek\")}>a\ncompletely different cast of characters</a> on the same water, just as worth\nthe trip.",
-      "status": "applied",
-      "note": "Removed all reference to rates, the calendar clearing/being empty, and off-season framing. Rewrote as abundance (a different, equally worthwhile set of wildlife on the same water) rather than a downside-then-reassurance shape, per voice principle #1. Kept the wildlife-sightings-hull-creek link in place."
-    },
-    {
-      "editId": "fb:draftfb-winter-birding-northern-neck-mu8fsbro",
-      "kind": "suggest",
-      "anchor": "bring the same kayak you'd bring in July",
-      "before": "Bring\nbinoculars, bring the same kayak you'd bring in July, and go looking.",
-      "after": "Bring binoculars and go looking, the two kayaks are already down at\nthe dock if a closer look sounds good.",
-      "status": "applied",
-      "note": "Checked src/lib/site.ts STANDOUT_AMENITIES ('Move when you want: Yoga mats, kettlebells, two kayaks, a paddleboard'): the cottage provides two kayaks, so guests do not pack their own. Reworded so the kayaks read as already there and ready, not an item to bring, in keeping with the abundance-not-instruction framing."
+      "note": "Clear fix from content/review-proposals/winter-birding-northern-neck.md (Clear fixes section). Softened 'osprey are still fishing here through October' to 'the last osprey linger into early October' and dropped 'the same way Hull Creek's does' (replaced with 'too'), resolving the internal contradiction with the post's own opening line ('gone by October' for Hull Creek) and the 2026-08-08 voice-feedback-log correction that Chesapeake ospreys start south in August, most go during September, and reach Central/South America by mid-October (tail end, not still-fishing-through-the-month). Smallest faithful change; no new facts invented. Taste calls and the open TODO placeholder in this post were left untouched per instruction."
     }
   ],
-  "writerChanges": [
-    {
-      "before": "northern harriers working the marsh edges low and slow",
-      "after": "northern harriers quartering the marsh edges low and slow",
-      "why": "Cascade consistency with note 3 (fb:draftfb-winter-birding-northern-neck-mu8foo37): Will's instruction said 'do not reuse work/works the creek/working the shallows phrasing anywhere in the post,' and this earlier paragraph used 'working' for the same bird-hunting-behavior construction. Replaced with 'quartering,' the accurate birding term for a harrier's low, tilting hunting flight, rather than a generic substitute."
-    }
-  ],
+  "writerChanges": [],
   "freeNoteAddressed": true
 }

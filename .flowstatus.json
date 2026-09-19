@@ -45,12 +45,12 @@
     "writer": {
       "status": "idle",
       "lastRun": "2026-09-19",
-      "note": "SEO fix: replaced winter-birding-northern-neck.mdx frontmatter description (159 chars, missing literal 'birding' keyword) with 146-char version containing 'birding'. Single-field fix only, draft:true unchanged."
+      "note": "Round 5: applied reviewer clear fix to winter-birding-northern-neck.mdx (osprey-timing contradiction at Belle Isle). draft:true unchanged, calendar status untouched (in-review)."
     },
     "seo-editor": {
       "status": "idle",
       "lastRun": "2026-09-19",
-      "note": "winter-birding-northern-neck (round 4) PASS. Title 60 chars, description 146 chars w/ 'birding', single h1 via title, 2 internal links + 1 booking CTA all withBase(), hero alt descriptive, ~468 body words one-idea post, draft:true, plain build clean 0 errors 25 pages (draft correctly excluded from prod build by design), both greps (em dash, honest/candid/full transparency) zero hits. Handed back to Writer to set calendar to in-review."
+      "note": "winter-birding-northern-neck (feedback-session round 1) PASS. Title 60 chars, description 146 chars w/ 'birding', single h1 via title, 2 internal links + 1 booking CTA all withBase(), hero alt descriptive, ~459 body words (word-count floor 450), category Travel, draft:true, plain build clean 0 errors 25 pages, both greps (em dash, honest/candid/full transparency) zero hits, facts cross-checked against content/research/winter-birding-northern-neck.md with no invented claims. Calendar left at in-review (orchestrator-owned). Handed back PASS."
     },
     "approve": {
       "status": "planned",
