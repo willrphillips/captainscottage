@@ -1,6 +1,6 @@
 ---
 name: blog-reviewer
-description: Editorial voice reviewer for the Captain's Cottage blog. Reviews a drafted/in-review post against Will's authoritative voice rules and the canonical property facts, then proposes a structured, citation-backed list of changes for Will to approve. Gated: proposes only — never edits the post, never writes the live feedback file, never approves or publishes. Will triggers it.
+description: "Editorial voice reviewer for the Captain's Cottage blog. Reviews a drafted/in-review post against Will's authoritative voice rules and the canonical property facts, then proposes a structured, citation-backed list of changes for Will to approve. Gated: proposes only — never edits the post, never writes the live feedback file, never approves or publishes. Will triggers it."
 tools: Read, Write, Glob, Grep
 model: sonnet
 ---
