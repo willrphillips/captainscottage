@@ -50,7 +50,7 @@
     "seo-editor": {
       "status": "idle",
       "lastRun": "2026-09-19",
-      "note": "winter-birding-northern-neck PASS. Title 60 chars, description 159 chars, word count 561, \u22652 internal links + 1 CTA, keyword-natural hero alt text, no em dash, no 'honest', build clean (0 errors, 0 warnings). Set to in-review."
+      "note": "northern-neck-watermen-culture re-audited after reviewer sentence-swap fix: PASS. Title 53 chars, description 159 chars, ~581 body words, 2 internal links + 1 CTA, hero alt keyword-natural, no em dash, no 'honest', plain build clean (0 errors/0 warnings). Diff confirmed only the opening-paragraph edit changed."
     },
     "approve": {
       "status": "planned",

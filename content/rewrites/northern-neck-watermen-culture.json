@@ -1,0 +1,29 @@
+{
+  "slug": "northern-neck-watermen-culture",
+  "round": 2,
+  "appliedAt": "2026-09-19T00:00:00.000Z",
+  "edits": [
+    {
+      "editId": "fb:draftfb-northern-neck-watermen-culture-mu8d8t94",
+      "kind": "rewrite",
+      "anchor": "Before dawn on the Potomac, the workboats are already out. They've been running these waters...vacation destination.",
+      "before": "Before dawn on the Potomac, the workboats are already out. They've been running these waters on Virginia's Northern Neck, where the Potomac River meets the Chesapeake Bay, since before anyone thought to call this a vacation destination.",
+      "after": "Watermen have been running these waters on Virginia's Northern Neck, where the Potomac River meets the Chesapeake Bay, since before anyone thought to call this a vacation destination. Before dawn on the Potomac, the workboats are already out.",
+      "status": "applied",
+      "note": "Swapped sentence order per Will's note. Minimal grammar fix: changed the now-leading sentence's pronoun \"They've\" to \"Watermen have\" since it no longer has an antecedent when it comes first. No other content changed."
+    }
+  ],
+  "writerChanges": [
+    {
+      "before": "Watermen have been running these waters on Virginia's Northern Neck, where the Potomac River meets the Chesapeake Bay, since before anyone thought to call this a vacation destination.",
+      "after": "Watermen have been running these waters on Virginia's Northern Neck since before anyone thought to call this a vacation destination.",
+      "why": "reviewer clear fix (review-proposals/northern-neck-watermen-culture.md, clear fix 1) - dropped the 'where the Potomac River meets the Chesapeake Bay' clause per voice-feedback-log 2026-08-29, where Will called that exact phrase a goofy catch phrase to limit in blog copy (fine for the hero image, not for post prose)."
+    },
+    {
+      "before": "Before dawn on the Potomac, the workboats are already out. The men who work them are called watermen, and they have their own vocabulary, their own hours, their own relationship with the tides that doesn't particularly need to be explained or appreciated by anyone onshore.",
+      "after": "Before dawn on the Potomac, the workboats are already out. They have their own vocabulary, their own hours, their own relationship with the tides that doesn't particularly need to be explained or appreciated by anyone onshore.",
+      "why": "reviewer clear fix (review-proposals/northern-neck-watermen-culture.md, clear fix 2) - cut the redundant re-introduction of \"watermen\" as the subject, since \"Watermen\" already opens the post's first sentence; cascade consistency from the round-1 sentence swap."
+    }
+  ],
+  "freeNoteAddressed": false
+}
