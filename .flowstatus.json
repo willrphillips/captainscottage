@@ -45,12 +45,12 @@
     "writer": {
       "status": "idle",
       "lastRun": "2026-09-19",
-      "note": "Round 2: applied the two clear fixes from content/review-proposals/winter-birding-northern-neck.md to winter-birding-northern-neck.mdx (Belle Isle drive-time wording, cut the recurring-swan-sighting sentence). Taste call and open TODO left for Will. Post stays draft:true, in-review."
+      "note": "SEO fix: replaced winter-birding-northern-neck.mdx frontmatter description (159 chars, missing literal 'birding' keyword) with 146-char version containing 'birding'. Single-field fix only, draft:true unchanged."
     },
     "seo-editor": {
       "status": "idle",
       "lastRun": "2026-09-19",
-      "note": "northern-neck-watermen-culture re-audited after reviewer sentence-swap fix: PASS. Title 53 chars, description 159 chars, ~581 body words, 2 internal links + 1 CTA, hero alt keyword-natural, no em dash, no 'honest', plain build clean (0 errors/0 warnings). Diff confirmed only the opening-paragraph edit changed."
+      "note": "winter-birding-northern-neck (round 4) PASS. Title 60 chars, description 146 chars w/ 'birding', single h1 via title, 2 internal links + 1 booking CTA all withBase(), hero alt descriptive, ~468 body words one-idea post, draft:true, plain build clean 0 errors 25 pages (draft correctly excluded from prod build by design), both greps (em dash, honest/candid/full transparency) zero hits. Handed back to Writer to set calendar to in-review."
     },
     "approve": {
       "status": "planned",

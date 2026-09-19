@@ -423,3 +423,19 @@ Replace "two and three-quarter hours" with ""Less than 3 hours"".
 On "answer the question has been missing.": weekend you've been looking for
 
 ---
+
+## 2026-09-19 · ALL POSTS (standing voice rule)
+**Decision:** request-changes  
+**Reviewer:** Will Phillips
+
+Generic scenic/color filler sentences that describe a place in vague,
+unverifiable atmospheric terms (e.g. "small country roads that pass more
+farms than houses") are a classic AI tell, same family as the em-dash and
+"honest" rules. Every sensory/scenic detail must be concrete and specific,
+something actually true of this property or area, rather than generic
+rural-atmosphere filler. Applies to every post from here on.
+
+Flagged on winter-birding-northern-neck: cut rather than replaced, since no
+sourced specific road detail was available to swap in.
+
+---

@@ -1,45 +1,60 @@
 {
   "slug": "winter-birding-northern-neck",
-  "round": 2,
+  "round": 3,
   "appliedAt": "2026-09-19T00:00:00.000Z",
   "edits": [
     {
-      "editId": "fb:draftfb-winter-birding-northern-neck-mu8d9g3f",
-      "kind": "comment",
-      "anchor": "osprey that works Hull Creek all summer",
-      "before": "The <a href={withBase(\"/journal/mornings-with-the-ospreys-hull-creek\")}>osprey that works Hull Creek all summer</a> is gone by October",
-      "after": "The <a href={withBase(\"/journal/mornings-with-the-ospreys-hull-creek\")}>osprey that dives for fish in Hull Creek all summer</a> is gone by October",
+      "editId": "fb:draftfb-winter-birding-northern-neck-mu8e1hs8",
+      "kind": "suggest",
+      "anchor": "the same county as Captain's Cottage,",
+      "before": "Northumberland County, the same county as <a href={withBase(\"/the-cottage\")}>Captain's\nCottage</a>, holds two preserves built for exactly this: Hughlett Point and\nDameron Marsh, both a short drive from the cottage on the kind of small\ncountry roads that pass more farms than houses.",
+      "after": "Northumberland County holds two preserves built for exactly this: Hughlett\nPoint and Dameron Marsh, both a short drive from the cottage.",
       "status": "applied",
-      "note": "Round 1. Removed 'works'/'works the creek'. Avoided 'working the shallows' (retired 2026-08-08 per voice-feedback-log) and 'shallows' generally to stay clear of that family of phrasing. Replaced with a concrete, sensory action (diving for fish) instead of a generic verb. Link href and destination unchanged; only the visible link text and its lead-in changed."
+      "note": "Cut the aside per instruction. Dropped the /the-cottage link entirely rather than forcing it elsewhere in the sentence; it did not fit naturally anywhere nearby. Internal-link count after this change: mornings-with-the-ospreys-hull-creek, wildlife-sightings-hull-creek, plus the /book CTA, which meets the >=2 internal-link requirement per Will's own note."
     },
     {
-      "editId": "fb:draftfb-winter-birding-northern-neck-mu8da211",
-      "kind": "comment",
-      "anchor": "the osprey is gone by October, and the water goes quiet for a few weeks (implicit claim: no ospreys at the creek in winter)",
-      "before": "N/A (no text changed for this note)",
-      "after": "N/A (no text changed for this note)",
-      "status": "applied",
-      "note": "Round 1. Verified rather than edited. Will's note was an uncertain recollection ('I think') of a winter osprey sighting at the creek. content/research/winter-birding-northern-neck.md and the voice-feedback-log's 2026-08-08 entry (item 3, northern-neck-in-fall-from-dc correction) both establish, from sourced research, that Chesapeake-region ospreys migrate south starting in August, most depart by September, and reach Central/South America by mid-October, not returning until spring. That makes ospreys essentially absent from Hull Creek in winter, which matches this post's existing framing ('gone by October,' the water going quiet, the season built around swans/eagles/ducks/geese instead). Per instructions, this note is resolved by confirming that existing framing is correct and by deliberately not adding any invented winter-osprey sighting, rather than by changing post text. No wording in the post was altered for this note."
-    },
-    {
-      "editId": "rp:review-proposals-winter-birding-northern-neck-clearfix-1",
+      "editId": "fb:draftfb-winter-birding-northern-neck-mu8e29w8",
       "kind": "rewrite",
-      "anchor": "Belle Isle State Park, about half an hour past Kilmarnock on the Rappahannock River",
-      "before": "For the swans specifically, the better bet is Belle Isle State Park, about\nhalf an hour past Kilmarnock on the Rappahannock River.",
-      "after": "For the swans specifically, the better bet is Belle Isle State Park, a little\npast Kilmarnock on the Rappahannock River.",
+      "anchor": "on the kind of small country roads that pass more farms than houses",
+      "before": "both a short drive from the cottage on the kind of small\ncountry roads that pass more farms than houses.",
+      "after": "both a short drive from the cottage.",
       "status": "applied",
-      "note": "Round 2, from content/review-proposals/winter-birding-northern-neck.md 'Clear fixes' item 1. content/research/winter-birding-northern-neck.md sources the Belle Isle drive only as 'on the order of Kilmarnock's verified 30-minute drive time from the cottage, plus some additional minutes' and explicitly warns not to round it into a specific number. 'About half an hour past Kilmarnock' implied roughly 60 minutes total, doubling the sourced estimate; reworded to the proposal's suggested phrasing so it no longer implies a rounded figure."
+      "note": "Cut rather than replaced with a substitute detail: no sourced, concrete detail about the specific roads to Hughlett Point or Dameron Marsh exists in the research brief, and inventing one (a road name, a specific landmark) would violate the no-invented-facts rule. Per instructions, cutting is the correct move when nothing concrete is available. Also codified this as a new standing rule: appended a dated entry to content/voice-feedback-log.md ('## 2026-09-19 - ALL POSTS (standing voice rule)') per Will's explicit request, so generic scenic/color filler is flagged on every future post."
     },
     {
-      "editId": "rp:review-proposals-winter-birding-northern-neck-clearfix-2",
+      "editId": "fb:draftfb-winter-birding-northern-neck-mu8foo37",
       "kind": "rewrite",
-      "anchor": "Then, some mornings, something bigger and whiter sits on the far bank that wasn't there the day before.",
-      "before": "quiet for a few weeks. Then the ducks show up. Then the geese. Then, some\nmornings, something bigger and whiter sits on the far bank that wasn't there\nthe day before.",
-      "after": "quiet for a few weeks. Then the ducks show up. Then the geese.",
+      "anchor": "osprey work the park",
+      "before": "calendar flips in the fall the same way Hull Creek's does: osprey work the\npark through October, and once they've gone, the tundra swans move in along\nwith ducks and Canada geese.",
+      "after": "calendar flips in the fall the same way Hull Creek's does: osprey are still\nfishing here through October, and once they've gone, the tundra swans move in\nalong with ducks and Canada geese.",
       "status": "applied",
-      "note": "Round 2, from content/review-proposals/winter-birding-northern-neck.md 'Clear fixes' item 2. The sentence implied a recurring morning swan sighting at the cottage itself. The only Will-confirmed swan sighting on record (voice-feedback-log, 2026-05-29 entry) was a single afternoon sighting by the sandbar, not a morning pattern, and the post's own open TODO already admits no confirmed winter sighting from the property exists. Cut the sentence rather than inventing or softening into a hedged claim, so the paragraph no longer contradicts its own TODO. Did not touch the TODO comment itself or the RRV NWR 'closer to an hour' taste-call wording, both left for Will per instructions."
+      "note": "Replaced 'work' with varied, concrete language ('are still fishing here'), avoiding the retired work/works-the-creek/working-the-shallows phrasing family (voice-feedback-log 2026-08-08). Also swept the same phrasing pattern elsewhere in the post per Will's 'anywhere in the post' instruction: 'northern harriers working the marsh edges low and slow' (earlier paragraph) changed to 'northern harriers quartering the marsh edges low and slow', using an accurate, specific birding term for harriers' characteristic low hunting flight rather than the generic 'working' verb. Logged separately under writerChanges below."
+    },
+    {
+      "editId": "fb:draftfb-winter-birding-northern-neck-mu8frwe6",
+      "kind": "rewrite",
+      "anchor": "The summer version of this cottage gets the reviews: the dock, the sauna, the long sunset over the creek. But winter clears the calendar and drops the rates, and it hands you a completely different cast of characters on the same water.",
+      "before": "The summer version of this cottage gets the reviews: the dock, the sauna, the\nlong sunset over the creek. But winter clears the calendar and drops the\nrates, and it hands you <a href={withBase(\"/journal/wildlife-sightings-hull-creek\")}>a\ncompletely different cast of characters</a> on the same water.",
+      "after": "The summer version of this cottage gets the reviews: the dock, the sauna, the\nlong sunset over the creek. Winter hands you <a href={withBase(\"/journal/wildlife-sightings-hull-creek\")}>a\ncompletely different cast of characters</a> on the same water, just as worth\nthe trip.",
+      "status": "applied",
+      "note": "Removed all reference to rates, the calendar clearing/being empty, and off-season framing. Rewrote as abundance (a different, equally worthwhile set of wildlife on the same water) rather than a downside-then-reassurance shape, per voice principle #1. Kept the wildlife-sightings-hull-creek link in place."
+    },
+    {
+      "editId": "fb:draftfb-winter-birding-northern-neck-mu8fsbro",
+      "kind": "suggest",
+      "anchor": "bring the same kayak you'd bring in July",
+      "before": "Bring\nbinoculars, bring the same kayak you'd bring in July, and go looking.",
+      "after": "Bring binoculars and go looking, the two kayaks are already down at\nthe dock if a closer look sounds good.",
+      "status": "applied",
+      "note": "Checked src/lib/site.ts STANDOUT_AMENITIES ('Move when you want: Yoga mats, kettlebells, two kayaks, a paddleboard'): the cottage provides two kayaks, so guests do not pack their own. Reworded so the kayaks read as already there and ready, not an item to bring, in keeping with the abundance-not-instruction framing."
     }
   ],
-  "writerChanges": [],
+  "writerChanges": [
+    {
+      "before": "northern harriers working the marsh edges low and slow",
+      "after": "northern harriers quartering the marsh edges low and slow",
+      "why": "Cascade consistency with note 3 (fb:draftfb-winter-birding-northern-neck-mu8foo37): Will's instruction said 'do not reuse work/works the creek/working the shallows phrasing anywhere in the post,' and this earlier paragraph used 'working' for the same bird-hunting-behavior construction. Replaced with 'quartering,' the accurate birding term for a harrier's low, tilting hunting flight, rather than a generic substitute."
+    }
+  ],
   "freeNoteAddressed": true
 }
