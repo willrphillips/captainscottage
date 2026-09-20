@@ -1,6 +1,6 @@
 {
   "projectId": "captainscottage",
-  "updatedAt": "2026-08-07T00:00:00.000Z",
+  "updatedAt": "2026-09-20T00:00:00.000Z",
   "nodes": {
     "site-foundation": {
       "status": "active",
@@ -29,28 +29,28 @@
     },
     "calendar": {
       "status": "idle",
-      "lastRun": "2026-09-19",
-      "note": "winter-birding-northern-neck added as an idea slot 2026-09-19 and advanced to in-review same session (single-slot manual pipeline run; cottage-pipeline.mjs's agentType lookups are unavailable in this harness, so the editor/researcher/writer/seo-editor steps were run directly instead of via Workflow). Calendar updatedAt: 2026-09-19."
+      "lastRun": "2026-09-20",
+      "note": "Three fishing idea slots added at Will's direction (fall-rockfish-northern-neck, fishing-from-the-dock-hull-creek, reedville-charter-fishing-guide). Rockfish advanced to in-review same session; the other two stay idea for the buffer-keeper. 19 posts on the calendar."
     },
     "editor": {
       "status": "idle",
-      "lastRun": "2026-09-19",
-      "note": "Advanced winter-birding-northern-neck from idea to in-review (Nov 4 publish, ~Dec 12 target experience date, ~5.5 weeks ahead of peak swan season). Topic-screened: positive seasonal story, not a caveat/logistics topic; no real-estate-investor or renovation angle."
+      "lastRun": "2026-09-20",
+      "note": "fall-rockfish-northern-neck: idea -> in-review, publishDate 2026-10-07 kept (season already open; 8-12-week and Pinterest lead rules cannot be met this year; earliest slot that does not displace winter-birding Oct 1 or hot-tub Oct 15). Two spring fishing ideas parked."
     },
     "researcher": {
       "status": "idle",
-      "lastRun": "2026-09-19",
-      "note": "Brief written: content/research/winter-birding-northern-neck.md. Verified Hughlett Point, Dameron Marsh, Belle Isle State Park, and Rappahannock River Valley NWR facts via WebSearch/WebFetch; tundra swans sourced only to Belle Isle, not the other two sites; exact drive times to Hughlett Point/Dameron Marsh flagged UNVERIFIED (no sourced figure), written around qualitatively rather than guessed."
+      "lastRun": "2026-09-20",
+      "note": "content/research/fall-rockfish-northern-neck.md: 4VAC20-252-90, 4VAC20-252-100, Va. Code 28.2-302.5 quoted from the primary text, retrieved 2026-09-20. PRFC main-stem dates UNVERIFIED (Blue Sheet PDF unreadable); short-term-rental license exemption flagged as interpretation."
     },
     "writer": {
       "status": "idle",
       "lastRun": "2026-09-20",
-      "note": "Round 7: applied the two 'Clear fixes' from content/review-proposals/winter-birding-northern-neck.md to winter-birding-northern-neck.mdx (dropped 'osprey stragglers'; cut two of three 'kind of' constructions). Taste calls and open TODO left untouched. Calendar status untouched (in-review)."
+      "note": "src/content/blog/fall-rockfish-northern-neck.mdx, draft:true, ~450 words, one hedged regulations paragraph, links crabbers + Reedville guide + /book CTA, hero fire-pit-creek.jpg. 1 TODO (dock story; watermen link after Oct 29; keep license paragraph?)."
     },
     "seo-editor": {
       "status": "idle",
       "lastRun": "2026-09-20",
-      "note": "winter-birding-northern-neck re-audit PASS after writer round 7. Title 60 chars, description 146 chars, unique title, single h1, 2 internal links + 1 booking CTA all withBase() (verified both linked slugs exist), hero alt/filename descriptive, ~451 body words (at the 450 floor, on-idea not padded), category Travel, all 6 grep checks (em dash, honest/candid/full transparency, working-the-X, before-you-hear, kind-of-day-that, hear-it-before-you-see) zero hits, plain build clean 0 errors 26 pages incl. /journal/winter-birding-northern-neck. draft:false is Will's own CMS approval mid-pipeline (auto-publish model, publishedAt 2026-11-04) -- not a checklist failure, noted per instruction. Handed back PASS; Will is sole approver of publish state."
+      "note": "fall-rockfish-northern-neck PASS: title 59, description 158 w/ keyword, 453 body words (at the floor, complete and on-idea), 2 internal links + 1 CTA, hero alt descriptive, all six banned-tell greps zero, cspell only proper nouns. Set to in-review."
     },
     "approve": {
       "status": "planned",
