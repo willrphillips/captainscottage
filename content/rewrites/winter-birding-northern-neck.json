@@ -1,16 +1,34 @@
 {
   "slug": "winter-birding-northern-neck",
-  "round": 5,
-  "appliedAt": "2026-09-19T00:00:00.000Z",
+  "round": 7,
+  "appliedAt": "2026-09-20T00:00:00.000Z",
   "edits": [
     {
-      "editId": "review-proposal-2026-09-19-osprey-timing",
+      "editId": "reviewer-clear-fix-osprey-stragglers",
       "kind": "rewrite",
-      "anchor": "its calendar flips in the fall the same way Hull Creek's does: osprey are still fishing here through October, and once they've gone, the tundra swans move in along with ducks and Canada geese",
-      "before": "seven miles of shoreline and over a hundred documented bird species, and its\ncalendar flips in the fall the same way Hull Creek's does: osprey are still\nfishing here through October, and once they've gone, the tundra swans move in\nalong with ducks and Canada geese. The swans arrive in November and build through",
-      "after": "seven miles of shoreline and over a hundred documented bird species, and its\ncalendar flips in the fall too: the last osprey linger into early October,\nand once they've gone, the tundra swans move in along with ducks and Canada\ngeese. The swans arrive in November and build through",
+      "anchor": "hunting territory for bald eagles, osprey stragglers, and northern harriers quartering the marsh edges low and slow.",
+      "before": "hunting territory for bald eagles, osprey stragglers, and\nnorthern harriers quartering the marsh edges low and slow.",
+      "after": "hunting territory for bald eagles and northern harriers quartering the\nmarsh edges low and slow.",
       "status": "applied",
-      "note": "Clear fix from content/review-proposals/winter-birding-northern-neck.md (Clear fixes section). Softened 'osprey are still fishing here through October' to 'the last osprey linger into early October' and dropped 'the same way Hull Creek's does' (replaced with 'too'), resolving the internal contradiction with the post's own opening line ('gone by October' for Hull Creek) and the 2026-08-08 voice-feedback-log correction that Chesapeake ospreys start south in August, most go during September, and reach Central/South America by mid-October (tail end, not still-fishing-through-the-month). Smallest faithful change; no new facts invented. Taste calls and the open TODO placeholder in this post were left untouched per instruction."
+      "note": "content/review-proposals/winter-birding-northern-neck.md, Clear fix #1: dropped 'osprey stragglers' because it contradicts the post's own opening line ('The osprey ... is gone by October') and the 2026-08-08 voice-feedback-log correction that Chesapeake ospreys are absent all winter. List grammar fixed accordingly (two-item list, no dangling comma)."
+    },
+    {
+      "editId": "reviewer-clear-fix-kind-of-repetition",
+      "kind": "rewrite",
+      "anchor": "the hot tub, open all year for exactly this kind of cold, clear morning.",
+      "before": "the hot tub, open all year for exactly this kind of cold, clear morning.",
+      "after": "the hot tub, open all year for a cold, clear morning like this one.",
+      "status": "applied",
+      "note": "content/review-proposals/winter-birding-northern-neck.md, Clear fix #2: this was the instance flagged as landing on blog-writer.md voice principle #9's banned 'kind of / sort of [morning]' sensory-anticipation family (Will, 2026-09-19 rule). Rewritten to concrete plain language, no 'kind of', no em dash, no invented facts."
+    },
+    {
+      "editId": "reviewer-clear-fix-kind-of-repetition",
+      "kind": "rewrite",
+      "anchor": "If a quieter version of the water sounds like your kind of winter,",
+      "before": "If a quieter version of the water sounds like your kind of winter,",
+      "after": "If a quieter version of the water sounds like the winter you want,",
+      "status": "applied",
+      "note": "content/review-proposals/winter-birding-northern-neck.md, Clear fix #2 continued: second of the two 'kind of' instances cut to bring the post from three uses down to one, per the reviewer's 'at most one kind of remains' instruction. The third instance ('kind of number that only holds up because enough people keep showing up to count', line 63) was left untouched: it does not match the [day/morning/quiet/silence/light] head-noun family the rule targets, and the reviewer's fix only required varying two of the three."
     }
   ],
   "writerChanges": [],

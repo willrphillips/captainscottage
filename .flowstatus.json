@@ -44,13 +44,13 @@
     },
     "writer": {
       "status": "idle",
-      "lastRun": "2026-09-19",
-      "note": "Round 5: applied reviewer clear fix to winter-birding-northern-neck.mdx (osprey-timing contradiction at Belle Isle). draft:true unchanged, calendar status untouched (in-review)."
+      "lastRun": "2026-09-20",
+      "note": "Round 7: applied the two 'Clear fixes' from content/review-proposals/winter-birding-northern-neck.md to winter-birding-northern-neck.mdx (dropped 'osprey stragglers'; cut two of three 'kind of' constructions). Taste calls and open TODO left untouched. Calendar status untouched (in-review)."
     },
     "seo-editor": {
       "status": "idle",
-      "lastRun": "2026-09-19",
-      "note": "winter-birding-northern-neck (feedback-session round 1) PASS. Title 60 chars, description 146 chars w/ 'birding', single h1 via title, 2 internal links + 1 booking CTA all withBase(), hero alt descriptive, ~459 body words (word-count floor 450), category Travel, draft:true, plain build clean 0 errors 25 pages, both greps (em dash, honest/candid/full transparency) zero hits, facts cross-checked against content/research/winter-birding-northern-neck.md with no invented claims. Calendar left at in-review (orchestrator-owned). Handed back PASS."
+      "lastRun": "2026-09-20",
+      "note": "winter-birding-northern-neck re-audit PASS after writer round 7. Title 60 chars, description 146 chars, unique title, single h1, 2 internal links + 1 booking CTA all withBase() (verified both linked slugs exist), hero alt/filename descriptive, ~451 body words (at the 450 floor, on-idea not padded), category Travel, all 6 grep checks (em dash, honest/candid/full transparency, working-the-X, before-you-hear, kind-of-day-that, hear-it-before-you-see) zero hits, plain build clean 0 errors 26 pages incl. /journal/winter-birding-northern-neck. draft:false is Will's own CMS approval mid-pipeline (auto-publish model, publishedAt 2026-11-04) -- not a checklist failure, noted per instruction. Handed back PASS; Will is sole approver of publish state."
     },
     "approve": {
       "status": "planned",
