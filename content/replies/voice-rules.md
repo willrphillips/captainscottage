@@ -229,6 +229,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   generic "Sounds good, see you soon!" even if the guest's message
   arrives buried in a reaction/quote digest. Read past the quoted
   text for the real question before drafting.
+- For a water-safety question (swimming conditions, current, etc.),
+  give the full honest answer, naming the specific hazards and the
+  reassurance together, then close with a plain "own risk" caveat
+  rather than corporate liability language — "Swimming is always done
+  at one's own risk, but our water is safe to swim in, yes." (confirmed
+  from a sent reply).
 - A brief "Sorry that didn't come across yet" (owning a gap in a
   *prior* reply) is fine and distinct from the "Unfortunately" ban —
   that rule targets leading with the negative on a new answer, not
