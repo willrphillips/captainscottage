@@ -229,6 +229,11 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   generic "Sounds good, see you soon!" even if the guest's message
   arrives buried in a reaction/quote digest. Read past the quoted
   text for the real question before drafting.
+- For a specific gadget/product a guest asks about (e.g. water leak
+  sensors), Will often adds a brief personal aside on why he likes it
+  or how well it's worked, plus the actual brand name if a guest might
+  want the same thing for themselves — not just confirming it exists
+  (confirmed from a sent reply).
 - For a water-safety question (swimming conditions, current, etc.),
   give the full honest answer, naming the specific hazards and the
   reassurance together, then close with a plain "own risk" caveat
