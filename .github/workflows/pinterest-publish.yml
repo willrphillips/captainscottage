@@ -15,6 +15,12 @@ name: Pinterest publish (API, PARKED)
 #
 # The cron is removed, not the workflow. If Standard access is ever granted,
 # restore `schedule: - cron: "0 14 * * *"` and retire the Todoist queue.
+#
+# SAFETY, 2026-09-27: the workflow is disabled on GitHub, but the
+# PINTEREST_ACCESS_TOKEN secret still exists, so a plain dispatch used to post
+# for real. `dry_run` now defaults to TRUE and the token is only passed when
+# dry_run is explicitly off, so posting takes a deliberate un-tick and a dry
+# run cannot reach the API at all. Deliberate posting is unchanged.
 
 on:
   workflow_dispatch:
@@ -24,9 +30,9 @@ on:
         type: string
         default: "3"
       dry_run:
-        description: "Log only, post nothing"
+        description: "Log only, post nothing (default ON; un-tick to post for real)"
         type: boolean
-        default: false
+        default: true
 
 permissions:
   contents: write
@@ -47,7 +53,7 @@ jobs:
       - name: Post what is due
         id: post
         env:
-          PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+          PINTEREST_ACCESS_TOKEN: ${{ !inputs.dry_run && secrets.PINTEREST_ACCESS_TOKEN || '' }}
           PINTEREST_BOARD_MAP: ${{ secrets.PINTEREST_BOARD_MAP }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
         run: |
