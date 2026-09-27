@@ -218,6 +218,11 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   matter-of-fact local-color line normalizes it instead of apologizing
   — "Marine air is tough on hardware out there, so that kind of thing
   happens from time to time." (confirmed from a sent reply)
+- When a guest describes something thoughtful they did for the property
+  or for future guests (not flagging a problem, but leaving something
+  helpful behind), acknowledge it directly — "Very thoughtful of you."
+  Distinct from the flagging-an-issue acknowledgment above, which pairs
+  "no worries" with an explanation (confirmed from a sent reply).
 - **No sign-off. Will does not sign Airbnb messages** — no "Will," no
   "— Will," no "The Captain's Cottage Team," no "Best." Airbnb displays
   the sender's name automatically; the message just ends on its last
