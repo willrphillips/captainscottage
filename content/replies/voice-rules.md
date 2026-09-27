@@ -51,6 +51,9 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   slot as "Hi there [Name],", but for agreeing to their suggestion
   rather than confirming an action already taken (confirmed from a
   sent reply).
+- "So happy to hear" is a natural variant of "So glad to hear it," same
+  slot, for happy news about the guest's experience (confirmed from a
+  sent reply).
 - "Yep," is a natural affirmative opener when confirming a factual yes
   (e.g. "Yep, the kitchen's fully stocked..."). "Yes we do!" is an
   equally natural variant when confirming an amenity/equipment is
@@ -108,11 +111,22 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
 - When context clearly confirms a happy in-stay message, a short warm
   affirmation before the soft close is natural: "Enjoy every bit of it."
   (Will's confirmed phrasing.) Only when in-stay status is unambiguous.
+  When that in-stay reply already gives a full, specific answer (e.g.
+  confirming the crab pot is theirs to use), the affirmation alone can
+  close the message with no separate soft-close line after it — same
+  "detailed answer already carries the warmth" logic as the pre-arrival
+  exception above, applied in-stay (confirmed from a sent reply).
 - When a guest's happy check-in singles out a specific feature they love
   (the view, a spot on the dock), echo agreement about that same specific
   thing rather than a generic affirmation — "that spot is our favorite
   view too," "that view never gets old, we love it too" (confirmed from
   two sent replies).
+- When a guest mentions a specific item (a toy, a book, a piece of gear)
+  their kid loved, a natural extra touch is tying it to Will's own kids
+  enjoying that same item at the cottage ("Our kids play with them all
+  the time, so that makes us so happy to hear.") — a warmer, more
+  personal version of the specific-feature echo above (confirmed from a
+  sent reply).
 - For an in-stay guest who got a substantive/informational answer (not
   just a happy check-in), a trailing warm line after the soft close can
   be "I hope you're enjoying yourselves!" instead of "Enjoy every bit
@@ -180,7 +194,30 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   the end (confirmed from a sent reply). A brief bridge line before
   that close, "I hope you guys enjoyed everything!," is natural to
   restate general warmth after addressing the specific item raised
-  (confirmed from a sent reply).
+  (confirmed from a sent reply). When the item flagged is broken
+  furniture/equipment that could plausibly have hurt someone (not just
+  cosmetic), add a brief genuine check-in on the guest's wellbeing
+  before the appreciation line — "I hope no one was hurt when the
+  chair broke!" — same slot as the acknowledgment, not a replacement
+  for it (confirmed from a sent reply).
+- When acknowledging a flagged item, a brief causal explanation (what
+  normally happens, and what must have gone differently this time)
+  naturally accompanies the "no worries"/apology — "our cleaner
+  generally checks that but must have missed it this time," "we
+  generally leave it up at the house, but our last renters must have
+  forgot it." For a genuine operational miss, a short forward-looking
+  fix commitment can follow the apology — "we'll get it cleaned up and
+  keep a closer eye on that porch between guests" (confirmed from sent
+  replies).
+- "Glad you're all set." is a natural opener variant, same slot as
+  "Hey [Name]!", when a guest's message confirms they've already
+  sorted something out themselves (confirmed from a sent reply).
+- Equipment wear or failure attributable to the marine/coastal
+  environment (not an operational miss) gets the same "quirk, not
+  apology" treatment as the sand-shifting rule below: a light,
+  matter-of-fact local-color line normalizes it instead of apologizing
+  — "Marine air is tough on hardware out there, so that kind of thing
+  happens from time to time." (confirmed from a sent reply)
 - **No sign-off. Will does not sign Airbnb messages** — no "Will," no
   "— Will," no "The Captain's Cottage Team," no "Best." Airbnb displays
   the sender's name automatically; the message just ends on its last
@@ -192,6 +229,17 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   generic "Sounds good, see you soon!" even if the guest's message
   arrives buried in a reaction/quote digest. Read past the quoted
   text for the real question before drafting.
+- For a specific gadget/product a guest asks about (e.g. water leak
+  sensors), Will often adds a brief personal aside on why he likes it
+  or how well it's worked, plus the actual brand name if a guest might
+  want the same thing for themselves — not just confirming it exists
+  (confirmed from a sent reply).
+- For a water-safety question (swimming conditions, current, etc.),
+  give the full honest answer, naming the specific hazards and the
+  reassurance together, then close with a plain "own risk" caveat
+  rather than corporate liability language — "Swimming is always done
+  at one's own risk, but our water is safe to swim in, yes." (confirmed
+  from a sent reply).
 - A brief "Sorry that didn't come across yet" (owning a gap in a
   *prior* reply) is fine and distinct from the "Unfortunately" ban —
   that rule targets leading with the negative on a new answer, not
@@ -229,6 +277,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   advance notice of something (an extra guest joining, a change of
   plan). Approve/accommodate warmly first, then use this as a light
   acknowledgment, not a caveat (confirmed from a sent reply).
+- When a guest gives advance notice they're leaving early for their own
+  reasons (not a property issue), pair "no worries at all" and "we
+  appreciate the heads up" with a brief genuine sympathy line — "Sorry
+  you had to cut your trip a little short." Same warm-first instinct as
+  the heads-up rule above, extended to a guest's own change of plans
+  (confirmed from a sent reply).
 - When disclosing an active, unresolved property/equipment issue: be
   specific and honest about what's wrong and that a fix is in
   progress, then ask directly whether the guest can plan around it if

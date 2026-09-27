@@ -221,6 +221,16 @@ function buildComposeLink(to, subject, body) {
   );
 }
 
+// A hidden (Discord spoiler) marker appended to every guest post so that when
+// Will 🐢-reacts the post, Edwin (which HAS the calendar/Atlas the cloud watcher
+// lacks) can recover the thread's reply relay address + subject and rebuild a
+// real compose link for his redraft. Without this the reply-to lives only in the
+// email header, which Edwin's side can't read. Kept in a spoiler so it stays out
+// of Will's way; values URL-encoded so the block is a single clean token to parse.
+function grbMeta(replyTo, subject) {
+  return `\n\n||GRB to=${encodeURIComponent(replyTo)} su=${encodeURIComponent(subject)}||`;
+}
+
 // ---- Main -------------------------------------------------------------------
 
 // Test mode: run the REAL drafting brain on a simulated guest question, then
@@ -323,7 +333,8 @@ for (const { id } of list) {
         title: "New guest message — needs you",
         message:
           `Guest asked:\n${guestMessage}\n\n` +
-          `${draft.escalate}\n\nHandle this one directly in Airbnb.`,
+          `${draft.escalate}\n\n🐢 this and Edwin will draft it with your calendar in hand.` +
+          grbMeta(replyTo, subject),
         priority: 5,
       });
     } else {
@@ -335,7 +346,8 @@ for (const { id } of list) {
           `Guest asked:\n${guestMessage}\n\n` +
           `${draft.reasoning ? `(${draft.reasoning})\n\n` : ""}` +
           `${draft.reply}\n\n` +
-          `Tap → opens prefilled in Gmail → Send. (Sends from your Gmail → relays to the guest. Nothing was sent automatically.)`,
+          `Tap → opens prefilled in Gmail → Send. (Sends from your Gmail → relays to the guest. Nothing was sent automatically.)` +
+          grbMeta(replyTo, subject),
         clickUrl: gmail,
         action: { label: "Open in Gmail & send", url: gmail },
       });

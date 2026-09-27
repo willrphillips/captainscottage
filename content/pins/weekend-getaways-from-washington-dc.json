@@ -47,9 +47,10 @@
       "destinationUrl": "https://captainscottageva.com/journal/weekend-getaways-from-washington-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=weekend-getaways-from-washington-dc&utm_content=v3",
       "scheduledFor": "2026-09-22",
       "keywordVariant": "v3",
-      "status": "queued",
+      "status": "posted",
       "todoistTaskId": "6hJpMJCgVJCC6WP8",
-      "queuedAt": "2026-08-22T18:59:08.984Z"
+      "queuedAt": "2026-08-22T18:59:08.984Z",
+      "postedAt": "2026-09-22"
     }
   ]
 }

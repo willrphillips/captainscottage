@@ -31,9 +31,10 @@
       "destinationUrl": "https://captainscottageva.com/journal/waterfront-kitchen-family-recipes/?utm_source=pinterest&utm_medium=social&utm_campaign=waterfront-kitchen-family-recipes&utm_content=v2",
       "scheduledFor": "2026-09-20",
       "keywordVariant": "v2",
-      "status": "queued",
+      "status": "posted",
       "todoistTaskId": "6hJpMJ7gvMWjRVwg",
-      "queuedAt": "2026-08-22T18:59:08.984Z"
+      "queuedAt": "2026-08-22T18:59:08.984Z",
+      "postedAt": "2026-09-20"
     },
     {
       "id": "waterfront-kitchen-family-recipes-v3",
