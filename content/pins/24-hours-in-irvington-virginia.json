@@ -30,11 +30,12 @@
       "altText": "Golden hour on a Northern Neck creek, dock and treeline in view.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=24-hours-in-irvington-virginia&utm_content=v2",
-      "scheduledFor": "2026-09-14",
+      "scheduledFor": "2026-10-01",
       "keywordVariant": "v2",
       "status": "queued",
       "todoistTaskId": "6hJpMJ6HgqVrR7m8",
-      "queuedAt": "2026-08-22T18:59:08.982Z"
+      "queuedAt": "2026-08-22T18:59:08.982Z",
+      "previousScheduledFor": "2026-09-14"
     },
     {
       "id": "24-hours-in-irvington-virginia-v3",
@@ -43,11 +44,12 @@
       "altText": "A waterfront cottage at dusk seen from the air, Virginia's Northern Neck.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=24-hours-in-irvington-virginia&utm_content=v3",
-      "scheduledFor": "2026-10-02",
+      "scheduledFor": "2026-10-04",
       "keywordVariant": "v3",
       "status": "queued",
       "todoistTaskId": "6hJq6P48G63P7v3g",
-      "queuedAt": "2026-08-22T21:17:46.203Z"
+      "queuedAt": "2026-08-22T21:17:46.203Z",
+      "previousScheduledFor": "2026-10-02"
     }
   ]
 }

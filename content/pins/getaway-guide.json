@@ -15,11 +15,12 @@
       "altText": "Aerial view of a waterfront cottage and tidal creek at dusk, Virginia's Northern Neck.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v1",
-      "scheduledFor": "2026-10-12",
+      "scheduledFor": "2026-10-07",
       "keywordVariant": "v1",
       "status": "queued",
       "todoistTaskId": "6hJq6PGCGCcP8rWg",
-      "queuedAt": "2026-08-22T21:17:46.218Z"
+      "queuedAt": "2026-08-22T21:17:46.218Z",
+      "previousScheduledFor": "2026-10-12"
     },
     {
       "id": "getaway-guide-v2",
@@ -28,11 +29,12 @@
       "altText": "Gold evening light over a Chesapeake creek from a private dock.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v2",
-      "scheduledFor": "2026-10-28",
+      "scheduledFor": "2026-10-11",
       "keywordVariant": "v2",
       "status": "queued",
       "todoistTaskId": "6hJq6PXv4Xvw8mcg",
-      "queuedAt": "2026-08-22T21:17:46.222Z"
+      "queuedAt": "2026-08-22T21:17:46.222Z",
+      "previousScheduledFor": "2026-10-28"
     },
     {
       "id": "getaway-guide-v3",
@@ -41,11 +43,12 @@
       "altText": "The exterior of a waterfront cottage with the creek visible beyond.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v3",
-      "scheduledFor": "2026-11-13",
+      "scheduledFor": "2026-10-15",
       "keywordVariant": "v3",
       "status": "queued",
       "todoistTaskId": "6hJq6Pq9xj88HCX8",
-      "queuedAt": "2026-08-22T21:17:46.225Z"
+      "queuedAt": "2026-08-22T21:17:46.225Z",
+      "previousScheduledFor": "2026-11-13"
     }
   ]
 }

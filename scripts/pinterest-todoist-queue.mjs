@@ -145,6 +145,23 @@ function saveUrl(pin) {
   return `${SAVE_ENDPOINT}?${params.toString()}`;
 }
 
+// Will gets two Buffalo blocks a week (schedule.md): Tue 20:30 and Fri 11:15.
+// A task is due at the first block on or before the pin's own live date, so a
+// batch is always waiting for him when he sits down and never lands mid-week
+// on a day he does not open Buffalo work. Falls back to the live date itself
+// if the pin is somehow dated in the past.
+function nextBatchSlot(scheduledFor) {
+  const live = new Date(`${scheduledFor}T00:00:00Z`);
+  for (let back = 0; back <= 7; back++) {
+    const d = new Date(live.getTime() - back * 86400000);
+    const day = d.getUTCDay();
+    if (day === 2 || day === 5) {
+      return `${d.toISOString().slice(0, 10)}T${day === 2 ? "20:30" : "11:15"}:00`;
+    }
+  }
+  return `${scheduledFor}T${PUBLISH_TIME}:00`;
+}
+
 function taskFor(pin) {
   const link = saveUrl(pin);
   // A draft has not been read by Will yet: the task is where he reviews it.
@@ -160,13 +177,24 @@ function taskFor(pin) {
       "",
       `**Alt text:** ${pin.altText}`,
       "",
-      `Image and description arrive pre-filled. Pick the board, paste the title, publish.`,
+      `**Schedule this pin in Pinterest for ${pin.scheduledFor}.**`,
+      "",
+      `Image and description arrive pre-filled. Pick the board, paste the title,`,
+      `set the date above, then Schedule. Only publish now if the composer will`,
+      `not let you pick a date.`,
+      "",
+      `Pinterest holds 10 scheduled pins at a time, 30 days out. If you hit`,
+      `either limit, publish the rest of this batch now and say so.`,
       "",
       `Pin id: \`${pin.id}\``,
     ]
       .filter((line) => line !== null)
       .join("\n"),
-    due: { date: `${pin.scheduledFor}T${PUBLISH_TIME}:00`, timezone: TIMEZONE },
+    // Due = when Will TAPS the task (his Buffalo block), which is deliberately
+    // not the same as pin.scheduledFor, the date the pin should go LIVE. See
+    // the 2026-09-27 cadence entry in SCOPE_OF_WORK.md: he approves in batches
+    // on Tue/Fri, the pins themselves go out spread via Pinterest's scheduler.
+    due: { date: nextBatchSlot(pin.scheduledFor), timezone: TIMEZONE },
     labels: [LABEL],
     priority: 3, // Todoist p2
     project_id: PROJECT_ID,

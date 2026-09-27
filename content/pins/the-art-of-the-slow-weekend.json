@@ -29,11 +29,12 @@
       "altText": "Rose light over the water at the end of a private dock, Virginia's Northern Neck.",
       "board": "Slow Weekends and Cabin Trips",
       "destinationUrl": "https://captainscottageva.com/journal/the-art-of-the-slow-weekend/?utm_source=pinterest&utm_medium=social&utm_campaign=the-art-of-the-slow-weekend&utm_content=v2",
-      "scheduledFor": "2026-09-12",
+      "scheduledFor": "2026-09-30",
       "keywordVariant": "v2",
       "status": "queued",
       "todoistTaskId": "6hJpMJ4qjcVMVcWg",
-      "queuedAt": "2026-08-22T18:59:08.981Z"
+      "queuedAt": "2026-08-22T18:59:08.981Z",
+      "previousScheduledFor": "2026-09-12"
     },
     {
       "id": "the-art-of-the-slow-weekend-v3",
@@ -42,11 +43,12 @@
       "altText": "A screened porch and creek view at Captain's Cottage on Virginia's Northern Neck.",
       "board": "Slow Weekends and Cabin Trips",
       "destinationUrl": "https://captainscottageva.com/journal/the-art-of-the-slow-weekend/?utm_source=pinterest&utm_medium=social&utm_campaign=the-art-of-the-slow-weekend&utm_content=v3",
-      "scheduledFor": "2026-09-30",
+      "scheduledFor": "2026-10-04",
       "keywordVariant": "v3",
       "status": "queued",
       "todoistTaskId": "6hJpMJJMGHCVFgJ8",
-      "queuedAt": "2026-08-22T18:59:08.986Z"
+      "queuedAt": "2026-08-22T18:59:08.986Z",
+      "previousScheduledFor": "2026-09-30"
     }
   ]
 }

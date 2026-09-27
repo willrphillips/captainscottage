@@ -30,11 +30,12 @@
       "altText": "A quiet Chesapeake creek at golden hour on Virginia's Northern Neck.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/journal/complete-guide-to-reedville-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=complete-guide-to-reedville-virginia&utm_content=v2",
-      "scheduledFor": "2026-09-16",
+      "scheduledFor": "2026-10-01",
       "keywordVariant": "v2",
       "status": "queued",
       "todoistTaskId": "6hJpMJ5Vwg7vCRc8",
-      "queuedAt": "2026-08-22T18:59:08.983Z"
+      "queuedAt": "2026-08-22T18:59:08.983Z",
+      "previousScheduledFor": "2026-09-16"
     },
     {
       "id": "complete-guide-to-reedville-virginia-v3",
@@ -43,11 +44,12 @@
       "altText": "Evening light over the water on Virginia's Northern Neck.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/journal/complete-guide-to-reedville-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=complete-guide-to-reedville-virginia&utm_content=v3",
-      "scheduledFor": "2026-10-04",
+      "scheduledFor": "2026-10-05",
       "keywordVariant": "v3",
       "status": "queued",
       "todoistTaskId": "6hJq6P86hRrXr52g",
-      "queuedAt": "2026-08-22T21:17:46.215Z"
+      "queuedAt": "2026-08-22T21:17:46.215Z",
+      "previousScheduledFor": "2026-10-04"
     }
   ]
 }

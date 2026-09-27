@@ -15,11 +15,12 @@
       "altText": "The sleeping porch, a sunroom third bedroom with a brass daybed and windows on three sides.",
       "board": "Waterfront Cottage Stays",
       "destinationUrl": "https://captainscottageva.com/photos/?utm_source=pinterest&utm_medium=social&utm_campaign=photos&utm_content=v1",
-      "scheduledFor": "2026-10-24",
+      "scheduledFor": "2026-10-10",
       "keywordVariant": "v1",
       "status": "queued",
       "todoistTaskId": "6hJq6PRv4FQH7WG8",
-      "queuedAt": "2026-08-22T21:17:46.221Z"
+      "queuedAt": "2026-08-22T21:17:46.221Z",
+      "previousScheduledFor": "2026-10-24"
     },
     {
       "id": "photos-v2",
@@ -28,11 +29,12 @@
       "altText": "The screened dining porch set above a Chesapeake creek.",
       "board": "Waterfront Cottage Stays",
       "destinationUrl": "https://captainscottageva.com/photos/?utm_source=pinterest&utm_medium=social&utm_campaign=photos&utm_content=v2",
-      "scheduledFor": "2026-11-09",
+      "scheduledFor": "2026-10-14",
       "keywordVariant": "v2",
       "status": "queued",
       "todoistTaskId": "6hJq6Ppq3FhW7Cf8",
-      "queuedAt": "2026-08-22T21:17:46.224Z"
+      "queuedAt": "2026-08-22T21:17:46.224Z",
+      "previousScheduledFor": "2026-11-09"
     },
     {
       "id": "photos-v3",
@@ -41,11 +43,12 @@
       "altText": "The main bedroom at Captain's Cottage in soft natural light.",
       "board": "Waterfront Cottage Stays",
       "destinationUrl": "https://captainscottageva.com/photos/?utm_source=pinterest&utm_medium=social&utm_campaign=photos&utm_content=v3",
-      "scheduledFor": "2026-11-25",
+      "scheduledFor": "2026-10-18",
       "keywordVariant": "v3",
       "status": "queued",
       "todoistTaskId": "6hJq6Q7vHR4f2w7g",
-      "queuedAt": "2026-08-22T21:17:46.227Z"
+      "queuedAt": "2026-08-22T21:17:46.227Z",
+      "previousScheduledFor": "2026-11-25"
     }
   ]
 }

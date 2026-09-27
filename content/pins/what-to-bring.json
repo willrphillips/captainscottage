@@ -15,11 +15,12 @@
       "altText": "Two glasses of wine on a dock rail at sunset over a Chesapeake creek.",
       "board": "Slow Weekends and Cabin Trips",
       "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=v1",
-      "scheduledFor": "2026-10-10",
+      "scheduledFor": "2026-10-06",
       "keywordVariant": "v1",
       "status": "queued",
       "todoistTaskId": "6hJq6P9hvHJxw9gg",
-      "queuedAt": "2026-08-22T21:17:46.218Z"
+      "queuedAt": "2026-08-22T21:17:46.218Z",
+      "previousScheduledFor": "2026-10-10"
     },
     {
       "id": "what-to-bring-v2",
@@ -28,11 +29,12 @@
       "altText": "A wooden dock reaching into a calm tidal creek on Virginia's Northern Neck.",
       "board": "Slow Weekends and Cabin Trips",
       "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=v2",
-      "scheduledFor": "2026-10-26",
+      "scheduledFor": "2026-10-10",
       "keywordVariant": "v2",
       "status": "queued",
       "todoistTaskId": "6hJq6Pcw7xVjMVR8",
-      "queuedAt": "2026-08-22T21:17:46.222Z"
+      "queuedAt": "2026-08-22T21:17:46.222Z",
+      "previousScheduledFor": "2026-10-26"
     },
     {
       "id": "what-to-bring-v3",
@@ -41,11 +43,12 @@
       "altText": "A screened porch looking out over a quiet Chesapeake creek in summer.",
       "board": "Slow Weekends and Cabin Trips",
       "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=v3",
-      "scheduledFor": "2026-11-11",
+      "scheduledFor": "2026-10-14",
       "keywordVariant": "v3",
       "status": "queued",
       "todoistTaskId": "6hJq6PqVQVJjR4pg",
-      "queuedAt": "2026-08-22T21:17:46.224Z"
+      "queuedAt": "2026-08-22T21:17:46.224Z",
+      "previousScheduledFor": "2026-11-11"
     }
   ]
 }

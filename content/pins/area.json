@@ -15,11 +15,12 @@
       "altText": "Sunset over a tidal creek on Virginia's Northern Neck.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=v1",
-      "scheduledFor": "2026-10-14",
+      "scheduledFor": "2026-10-07",
       "keywordVariant": "v1",
       "status": "queued",
       "todoistTaskId": "6hJq6PGX4fMpgGV8",
-      "queuedAt": "2026-08-22T21:17:46.219Z"
+      "queuedAt": "2026-08-22T21:17:46.219Z",
+      "previousScheduledFor": "2026-10-14"
     },
     {
       "id": "area-v2",
@@ -28,11 +29,12 @@
       "altText": "A fire pit beside the water at dusk on a Chesapeake creek.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=v2",
-      "scheduledFor": "2026-10-30",
+      "scheduledFor": "2026-10-11",
       "keywordVariant": "v2",
       "status": "queued",
       "todoistTaskId": "6hJq6PXHf2G37pvg",
-      "queuedAt": "2026-08-22T21:17:46.222Z"
+      "queuedAt": "2026-08-22T21:17:46.222Z",
+      "previousScheduledFor": "2026-10-30"
     },
     {
       "id": "area-v3",
@@ -41,11 +43,12 @@
       "altText": "Wooden stairs leading down to a quiet brackish creek.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=v3",
-      "scheduledFor": "2026-11-15",
+      "scheduledFor": "2026-10-15",
       "keywordVariant": "v3",
       "status": "queued",
       "todoistTaskId": "6hJq6PxJccmMfxCg",
-      "queuedAt": "2026-08-22T21:17:46.225Z"
+      "queuedAt": "2026-08-22T21:17:46.225Z",
+      "previousScheduledFor": "2026-11-15"
     }
   ]
 }
