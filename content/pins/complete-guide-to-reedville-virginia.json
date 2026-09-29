@@ -51,7 +51,8 @@
       "todoistTaskId": "6hJq6P86hRrXr52g",
       "queuedAt": "2026-08-22T21:17:46.215Z",
       "previousScheduledFor": "2026-10-04",
-      "rejectedReason": "You're using the evening light over the water picture too often"
+      "rejectedReason": "You're using the evening light over the water picture too often",
+      "todoistTaskRemovedAt": "2026-09-29T16:14:58.967Z"
     }
   ]
 }
