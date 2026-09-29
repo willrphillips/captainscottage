@@ -15,13 +15,13 @@
       "altText": "The cedar sauna at Captain's Cottage lit by late afternoon sun, creek behind.",
       "board": "Waterfront Cottage Stays",
       "destinationUrl": "https://captainscottageva.com/amenities/?utm_source=pinterest&utm_medium=social&utm_campaign=amenities&utm_content=v1",
-      "scheduledFor": "2026-10-08",
+      "scheduledFor": "2026-10-23",
       "keywordVariant": "v1",
       "status": "queued",
       "todoistTaskId": "6hJq6PP7fJ59mvxg",
       "queuedAt": "2026-08-22T21:17:46.220Z",
       "previousScheduledFor": "2026-10-20",
-      "todoistDue": "2026-10-06T20:30:00"
+      "todoistDue": "2026-10-23T11:15:00"
     },
     {
       "id": "amenities-v2",
@@ -30,13 +30,13 @@
       "altText": "The hot tub on the patio beside the porch, overlooking a Chesapeake creek.",
       "board": "Waterfront Cottage Stays",
       "destinationUrl": "https://captainscottageva.com/amenities/?utm_source=pinterest&utm_medium=social&utm_campaign=amenities&utm_content=v2",
-      "scheduledFor": "2026-10-13",
+      "scheduledFor": "2026-11-03",
       "keywordVariant": "v2",
       "status": "queued",
       "todoistTaskId": "6hJq6Pp74h67hHc8",
       "queuedAt": "2026-08-22T21:17:46.224Z",
       "previousScheduledFor": "2026-11-05",
-      "todoistDue": "2026-10-09T11:15:00"
+      "todoistDue": "2026-11-03T20:30:00"
     },
     {
       "id": "amenities-v3",
@@ -45,13 +45,13 @@
       "altText": "The green-cabineted kitchen at Captain's Cottage with a window over the sink.",
       "board": "Waterfront Cottage Stays",
       "destinationUrl": "https://captainscottageva.com/amenities/?utm_source=pinterest&utm_medium=social&utm_campaign=amenities&utm_content=v3",
-      "scheduledFor": "2026-10-18",
+      "scheduledFor": "2026-11-24",
       "keywordVariant": "v3",
       "status": "queued",
       "todoistTaskId": "6hJq6Q4WVfrV63W8",
       "queuedAt": "2026-08-22T21:17:46.226Z",
       "previousScheduledFor": "2026-11-21",
-      "todoistDue": "2026-10-16T11:15:00"
+      "todoistDue": "2026-11-24T20:30:00"
     }
   ]
 }

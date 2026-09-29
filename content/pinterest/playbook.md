@@ -175,3 +175,13 @@ days.** Tap dates did not move. This is the rule of thumb the spread has to
 respect: with 3 variants per URL, a URL needs a 10-day span, so live dates
 spread wider than the tap schedule and that is fine. Will taps on his
 blocks; the pins land when they land.
+
+**Re-cut 2026-09-29, same evening, after Will saw the first batch.** Six in one
+sitting was too many: *"Fix it so the schedule restarts today but not with 5
+todos today."* Sizes are now **2 per session**, Tue 20:30 and Fri 11:15, which
+is 4 a week. Against a 36-pin inventory that is **9 weeks of runway**, above
+the 8-week floor this playbook sets, where 6-and-8 was about 3 weeks and below
+it. Live dates re-spread to 2026-09-30..2026-11-27, still no two pins to the
+same URL inside 5 days. The lesson worth keeping: the batch size that fits the
+calendar is not the same as the batch size that fits the person, and his
+reaction to seeing it is better evidence than the arithmetic.

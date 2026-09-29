@@ -15,13 +15,13 @@
       "altText": "Aerial view of a waterfront cottage and tidal creek at dusk, Virginia's Northern Neck.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v1",
-      "scheduledFor": "2026-10-09",
+      "scheduledFor": "2026-10-27",
       "keywordVariant": "v1",
       "status": "queued",
       "todoistTaskId": "6hJq6PGCGCcP8rWg",
       "queuedAt": "2026-08-22T21:17:46.218Z",
       "previousScheduledFor": "2026-10-12",
-      "todoistDue": "2026-10-06T20:30:00"
+      "todoistDue": "2026-10-27T20:30:00"
     },
     {
       "id": "getaway-guide-v2",
@@ -30,13 +30,13 @@
       "altText": "Gold evening light over a Chesapeake creek from a private dock.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v2",
-      "scheduledFor": "2026-10-14",
+      "scheduledFor": "2026-11-06",
       "keywordVariant": "v2",
       "status": "queued",
       "todoistTaskId": "6hJq6PXv4Xvw8mcg",
       "queuedAt": "2026-08-22T21:17:46.222Z",
       "previousScheduledFor": "2026-10-28",
-      "todoistDue": "2026-10-09T11:15:00"
+      "todoistDue": "2026-11-06T11:15:00"
     },
     {
       "id": "getaway-guide-v3",
@@ -45,13 +45,13 @@
       "altText": "The exterior of a waterfront cottage with the creek visible beyond.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=v3",
-      "scheduledFor": "2026-10-19",
+      "scheduledFor": "2026-11-17",
       "keywordVariant": "v3",
       "status": "queued",
       "todoistTaskId": "6hJq6Pq9xj88HCX8",
       "queuedAt": "2026-08-22T21:17:46.225Z",
       "previousScheduledFor": "2026-11-13",
-      "todoistDue": "2026-10-13T20:30:00"
+      "todoistDue": "2026-11-17T20:30:00"
     }
   ]
 }
