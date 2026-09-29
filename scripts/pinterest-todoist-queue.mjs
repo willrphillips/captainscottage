@@ -145,31 +145,92 @@ function saveUrl(pin) {
   return `${SAVE_ENDPOINT}?${params.toString()}`;
 }
 
-// Will gets two Buffalo blocks a week (schedule.md): Tue 20:30 and Fri 11:15.
-// A task is due at the first block on or before the pin's own live date, so a
-// batch is always waiting for him when he sits down and never lands mid-week
-// on a day he does not open Buffalo work. Falls back to the live date itself
-// if the pin is somehow dated in the past.
-function nextBatchSlot(scheduledFor) {
-  const live = new Date(`${scheduledFor}T00:00:00Z`);
-  for (let back = 0; back <= 7; back++) {
-    const d = new Date(live.getTime() - back * 86400000);
-    const day = d.getUTCDay();
-    if (day === 2 || day === 5) {
-      return `${d.toISOString().slice(0, 10)}T${day === 2 ? "20:30" : "11:15"}:00`;
+// ---- The slotter -----------------------------------------------------------
+//
+// Approval decides WHETHER a pin goes out. This decides WHEN. Both dates are
+// assigned here, at queue time, and nowhere else:
+//
+//   todoistDue    the Buffalo block where Will is asked to post it
+//   scheduledFor  the day the pin should actually go live
+//
+// It lives here rather than in CAPCOM's approve button because every rule is
+// about the whole queue, not one pin: two per session, five days between pins
+// to the same URL, at most three live on a day, and nothing scheduled further
+// than 30 days past its own block (Pinterest's scheduler horizon). A single
+// pin cannot answer any of those. Keeping it here is also what makes bulk
+// approval safe: approve ten at once and they fill the next five sessions,
+// because the slotter fills SESSIONS, not days.
+//
+// Will gets two blocks a week (schedule.md): Tue 20:30 and Fri 11:15.
+const SESSION_SIZE = 2;
+const GAP_DAYS = 5;
+const MAX_LIVE_PER_DAY = 3;
+const HORIZON_DAYS = 30;
+
+const dayNum = (iso) => Math.floor(new Date(`${iso}T00:00:00Z`).getTime() / 86400000);
+const dayISO = (n) => new Date(n * 86400000).toISOString().slice(0, 10);
+const urlKeyOf = (pin) => String(pin.destinationUrl || "").split("?")[0];
+
+function upcomingSessions(fromISO, count = 120) {
+  const out = [];
+  for (let i = 0; out.length < count; i++) {
+    const d = new Date(`${fromISO}T00:00:00Z`).getTime() + i * 86400000;
+    const w = new Date(d).getUTCDay();
+    if (w === 2 || w === 5) {
+      out.push(`${new Date(d).toISOString().slice(0, 10)}T${w === 2 ? "20:30" : "11:15"}:00`);
     }
   }
-  return `${scheduledFor}T${PUBLISH_TIME}:00`;
+  return out;
 }
 
+// Reads what is already committed to, then places each new pin in the first
+// slot that breaks none of the rules.
+function planSlots(pins, allPins, todayISO) {
+  const perSession = new Map();
+  const perDay = new Map();
+  const lastForUrl = new Map();
+  for (const p of allPins) {
+    if (p.status !== "queued") continue;
+    if (p.todoistDue) perSession.set(p.todoistDue, (perSession.get(p.todoistDue) || 0) + 1);
+    if (!p.scheduledFor) continue;
+    const d = dayNum(p.scheduledFor);
+    perDay.set(d, (perDay.get(d) || 0) + 1);
+    const k = urlKeyOf(p);
+    lastForUrl.set(k, Math.max(lastForUrl.get(k) ?? -Infinity, d));
+  }
+
+  const sessions = upcomingSessions(todayISO);
+  const plan = [];
+  let si = 0;
+  for (const pin of pins) {
+    while (si < sessions.length && (perSession.get(sessions[si]) || 0) >= SESSION_SIZE) si++;
+    if (si >= sessions.length) break;
+    const slot = sessions[si];
+    const slotDay = dayNum(slot.slice(0, 10));
+    const k = urlKeyOf(pin);
+    let live = Math.max(slotDay, (lastForUrl.get(k) ?? -Infinity) + GAP_DAYS);
+    while ((perDay.get(live) || 0) >= MAX_LIVE_PER_DAY) live++;
+    if (live > slotDay + HORIZON_DAYS) {
+      console.error(`  SKIP ${pin.id}: no live date inside ${HORIZON_DAYS} days of ${slot}`);
+      continue;
+    }
+    perSession.set(slot, (perSession.get(slot) || 0) + 1);
+    perDay.set(live, (perDay.get(live) || 0) + 1);
+    lastForUrl.set(k, live);
+    plan.push({ pin, todoistDue: slot, scheduledFor: dayISO(live) });
+  }
+  return plan;
+}
+
+// A task only exists for a pin Will has already approved in CAPCOM, so it is
+// a do-it item, not a review item. Nothing here asks him to judge the pin
+// again; it tells him what he already decided and when it goes out.
 function taskFor(pin) {
   const link = saveUrl(pin);
-  // A draft has not been read by Will yet: the task is where he reviews it.
-  const unreviewed = pin.status === "draft";
   return {
-    content: `[${unreviewed ? "Review + publish" : "Publish"} pin: ${pin.title}](${link})`,
+    content: `[Post pin: ${pin.title}](${link})`,
     description: [
-      unreviewed ? "_Not reviewed yet. Read it, then publish or delete this task._\n" : null,
+      `_You approved this on ${String(pin.approvedAt || "").slice(0, 10)}. Nothing to decide, just post it._\n`,
       `**Board:** ${pin.board}`,
       "",
       `**Title** (paste into the composer, it cannot be pre-filled):`,
@@ -194,7 +255,7 @@ function taskFor(pin) {
     // not the same as pin.scheduledFor, the date the pin should go LIVE. See
     // the 2026-09-27 cadence entry in SCOPE_OF_WORK.md: he approves in batches
     // on Tue/Fri, the pins themselves go out spread via Pinterest's scheduler.
-    due: { date: nextBatchSlot(pin.scheduledFor), timezone: TIMEZONE },
+    due: { date: pin.todoistDue, timezone: TIMEZONE },
     labels: [LABEL],
     priority: 3, // Todoist p2
     project_id: PROJECT_ID,
@@ -220,17 +281,18 @@ function destinationIsLive(pin) {
 const pending = [];
 for (const entry of queue) {
   for (const pin of entry.data.pins || []) {
-    const queueable = INCLUDE_DRAFTS
-      ? pin.status === "approved" || pin.status === "draft"
-      : pin.status === "approved";
-    if (!queueable) continue; // the gate
+    // THE GATE, inverted 2026-09-29 at Will's direction. A task used to be
+    // where a pin got reviewed; now it only exists after review. `approvedAt`
+    // is the marker, not `status`: CAPCOM's approvePin() stamps it and, for a
+    // pin that was already queued under the old flow, deliberately leaves the
+    // status alone, so status cannot answer "has he looked at this".
+    if (!pin.approvedAt) continue;
+    if (pin.status === "posted" || pin.status === "rejected") continue;
     if (pin.todoistTaskId) continue; // already queued
-    if (!pin.scheduledFor) continue;
     if (!destinationIsLive(pin)) {
       console.log(`  SKIP ${pin.id}: destination post is not published yet`);
       continue;
     }
-    if (UNTIL && pin.scheduledFor > UNTIL) continue;
     const image = path.join(ROOT, "public/pins", `${pin.id}.jpg`);
     if (!fs.existsSync(image)) {
       console.error(`  SKIP ${pin.id}: image missing at public/pins/${pin.id}.jpg`);
@@ -245,15 +307,30 @@ if (!pending.length) {
   process.exit(0);
 }
 
-pending.sort((a, b) => (a.pin.scheduledFor < b.pin.scheduledFor ? -1 : 1));
-const batch = pending.slice(0, LIMIT);
-const scope = INCLUDE_DRAFTS ? "approved+draft" : "approved";
+// Oldest approval first, so the queue is served in the order he reviewed.
+pending.sort((a, b) => String(a.pin.approvedAt).localeCompare(String(b.pin.approvedAt)));
+
+// Assign both dates now. Everything downstream (the task body, the due date,
+// what gets written back to the pin) just reads them off the pin.
+const allPins = queue.flatMap((e) => e.data.pins || []);
+const today = new Date().toISOString().slice(0, 10);
+const plan = planSlots(pending.map((p) => p.pin), allPins, today);
+const planned = new Map(plan.map((s) => [s.pin.id, s]));
+for (const { pin, todoistDue, scheduledFor } of plan) {
+  pin.todoistDue = todoistDue;
+  pin.scheduledFor = scheduledFor;
+}
+
+const slotted = pending.filter(({ pin }) => planned.has(pin.id));
+const batch = slotted.slice(0, LIMIT);
 const bound = UNTIL ? ` through ${UNTIL}` : "";
-console.log(`${pending.length} ${scope} pin(s) unqueued${bound}; queueing ${batch.length}${dryRun ? " (DRY RUN)" : ""}.`);
+console.log(
+  `${slotted.length} approved pin(s) awaiting a task${bound}; queueing ${batch.length}${dryRun ? " (DRY RUN)" : ""}.`,
+);
 
 if (dryRun) {
   for (const { pin } of batch) {
-    console.log(`  WOULD QUEUE ${pin.id} -> ${pin.scheduledFor} ${PUBLISH_TIME} ${TIMEZONE} | ${pin.board}`);
+    console.log(`  WOULD QUEUE ${pin.id}  tap ${pin.todoistDue}  live ${pin.scheduledFor}`);
     console.log(`    ${saveUrl(pin)}`);
   }
   console.log(`done: ${batch.length} would be queued, ${pending.length - batch.length} left over.`);
@@ -317,7 +394,7 @@ for (const { entry, pin } of batch) {
     // "live X / tap Y" and flag a pin whose live date falls before the day
     // Will is asked to schedule it. Without this the two dates exist only in
     // two systems that cannot see each other.
-    pin.todoistDue = nextBatchSlot(pin.scheduledFor);
+    // scheduledFor and todoistDue were assigned by planSlots() above.
     pin.queuedAt = new Date().toISOString();
     pin.status = "queued";
     delete pin.lastError;

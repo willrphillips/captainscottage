@@ -45,13 +45,10 @@
       "altText": "Sunrise over a brackish tidal creek off the Potomac River.",
       "board": "Chesapeake Bay Travel",
       "destinationUrl": "https://captainscottageva.com/journal/mornings-with-the-ospreys-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=mornings-with-the-ospreys-hull-creek&utm_content=v3",
-      "scheduledFor": "2026-10-13",
       "keywordVariant": "v3",
-      "status": "queued",
-      "todoistTaskId": "6hJq6P97mFWPxcv8",
-      "queuedAt": "2026-08-22T21:17:46.216Z",
-      "previousScheduledFor": "2026-10-06",
-      "todoistDue": "2026-10-13T20:30:00"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-13",
+      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     }
   ]
 }

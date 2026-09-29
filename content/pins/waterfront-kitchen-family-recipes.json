@@ -43,13 +43,10 @@
       "altText": "A waterfront kitchen with open shelving and a view of the creek beyond.",
       "board": "Slow Weekends and Cabin Trips",
       "destinationUrl": "https://captainscottageva.com/journal/waterfront-kitchen-family-recipes/?utm_source=pinterest&utm_medium=social&utm_campaign=waterfront-kitchen-family-recipes&utm_content=v3",
-      "scheduledFor": "2026-10-16",
       "keywordVariant": "v3",
-      "status": "queued",
-      "todoistTaskId": "6hJq6PC5XVRfxJF8",
-      "queuedAt": "2026-08-22T21:17:46.217Z",
-      "previousScheduledFor": "2026-10-08",
-      "todoistDue": "2026-10-16T11:15:00"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-16",
+      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     }
   ]
 }

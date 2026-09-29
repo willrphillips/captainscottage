@@ -185,3 +185,41 @@ it. Live dates re-spread to 2026-09-30..2026-11-27, still no two pins to the
 same URL inside 5 days. The lesson worth keeping: the batch size that fits the
 calendar is not the same as the batch size that fits the person, and his
 reaction to seeing it is better evidence than the arithmetic.
+
+## The pipeline inverted, 2026-09-29 evening
+
+Will: *"Can you remove all the buffalo pinterest posts from todoist if they
+haven't been approved? Once they're approved, then there should be a workflow
+where they schedule after approval, then send to todoist."*
+
+| | before | after |
+|---|---|---|
+| where review happens | the Todoist task | CAPCOM's Pinterest pane |
+| what a task means | decide, then publish | you already decided, post it |
+| when a task exists | as soon as a pin is drafted | only once approved |
+| who sets the dates | the drafter, weeks ahead | the queue script, at approval |
+
+Tapping a task publishes a pin, so while tasks were the review surface,
+"approve" and "publish" were the same keystroke. That is what this separates,
+and it is why every cadence problem this week was hard: there was no way to
+batch one without batching the other.
+
+**`approvedAt` is the approval marker, not `status`.** CAPCOM's approvePin()
+stamps `approvedAt` and, for a pin that was already queued, deliberately
+leaves the status alone. A queued pin Will has approved still reads
+`status: "queued"`, so anything asking "has he looked at this" must read
+`approvedAt`.
+
+**The scheduler lives in `scripts/pinterest-todoist-queue.mjs`, not in the
+approve button.** Every placement rule is about the whole queue rather than
+one pin: 2 per session, 5 days between pins to the same URL, at most 3 live
+in a day, nothing more than 30 days past its own block. A single pin cannot
+answer any of them. This is also what makes bulk approval safe: approve ten
+in one sitting and they fill the next five sessions, because the slotter
+fills sessions rather than days.
+
+**The trade, stated plainly: an unapproved pin now has no presence in Todoist
+at all.** If Will wants to review from his phone rather than at CAPCOM, that
+is no longer possible, and the fix would be a CAPCOM change, not a Todoist
+one. Intended, but worth knowing before he goes looking for a pin that is not
+there.

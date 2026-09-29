@@ -15,13 +15,10 @@
       "altText": "A private dock on a calm tidal creek off the Potomac River.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=v1",
-      "scheduledFor": "2026-10-20",
       "keywordVariant": "v1",
-      "status": "queued",
-      "todoistTaskId": "6hJq6PGFf8vJHR68",
-      "queuedAt": "2026-08-22T21:17:46.219Z",
-      "previousScheduledFor": "2026-10-16",
-      "todoistDue": "2026-10-20T20:30:00"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-20",
+      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     },
     {
       "id": "activities-v2",
@@ -30,13 +27,10 @@
       "altText": "An osprey over a tidal creek on Virginia's Northern Neck at first light.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=v2",
-      "scheduledFor": "2026-10-30",
       "keywordVariant": "v2",
-      "status": "queued",
-      "todoistTaskId": "6hJq6Pg3G4Rpj5W8",
-      "queuedAt": "2026-08-22T21:17:46.223Z",
-      "previousScheduledFor": "2026-11-01",
-      "todoistDue": "2026-10-30T11:15:00"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-30",
+      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     },
     {
       "id": "activities-v3",
@@ -45,13 +39,10 @@
       "altText": "Yoga mats set out on a lawn above a Chesapeake creek.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=v3",
-      "scheduledFor": "2026-11-13",
       "keywordVariant": "v3",
-      "status": "queued",
-      "todoistTaskId": "6hJq6PxpfpjqVWpg",
-      "queuedAt": "2026-08-22T21:17:46.225Z",
-      "previousScheduledFor": "2026-11-17",
-      "todoistDue": "2026-11-13T11:15:00"
+      "status": "draft",
+      "previousScheduledFor": "2026-11-13",
+      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     }
   ]
 }

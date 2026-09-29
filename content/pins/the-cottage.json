@@ -15,13 +15,10 @@
       "altText": "The screened porch at Captain's Cottage looking west over the creek at golden hour.",
       "board": "Waterfront Cottage Stays",
       "destinationUrl": "https://captainscottageva.com/the-cottage/?utm_source=pinterest&utm_medium=social&utm_campaign=the-cottage&utm_content=v1",
-      "scheduledFor": "2026-10-30",
       "keywordVariant": "v1",
-      "status": "queued",
-      "todoistTaskId": "6hJq6PQ8HfrF6HCg",
-      "queuedAt": "2026-08-22T21:17:46.220Z",
-      "previousScheduledFor": "2026-10-18",
-      "todoistDue": "2026-10-30T11:15:00"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-30",
+      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     },
     {
       "id": "the-cottage-v2",
@@ -30,13 +27,10 @@
       "altText": "A bedroom at Captain's Cottage with an upholstered headboard and soft natural light.",
       "board": "Waterfront Cottage Stays",
       "destinationUrl": "https://captainscottageva.com/the-cottage/?utm_source=pinterest&utm_medium=social&utm_campaign=the-cottage&utm_content=v2",
-      "scheduledFor": "2026-11-10",
       "keywordVariant": "v2",
-      "status": "queued",
-      "todoistTaskId": "6hJq6Pghjjx6Vp9g",
-      "queuedAt": "2026-08-22T21:17:46.223Z",
-      "previousScheduledFor": "2026-11-03",
-      "todoistDue": "2026-11-10T20:30:00"
+      "status": "draft",
+      "previousScheduledFor": "2026-11-10",
+      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     },
     {
       "id": "the-cottage-v3",
@@ -45,13 +39,10 @@
       "altText": "The living room at Captain's Cottage, rattan chairs and a vintage rug in lamplight.",
       "board": "Waterfront Cottage Stays",
       "destinationUrl": "https://captainscottageva.com/the-cottage/?utm_source=pinterest&utm_medium=social&utm_campaign=the-cottage&utm_content=v3",
-      "scheduledFor": "2026-11-20",
       "keywordVariant": "v3",
-      "status": "queued",
-      "todoistTaskId": "6hJq6PxR8424pxP8",
-      "queuedAt": "2026-08-22T21:17:46.226Z",
-      "previousScheduledFor": "2026-11-19",
-      "todoistDue": "2026-11-20T11:15:00"
+      "status": "draft",
+      "previousScheduledFor": "2026-11-20",
+      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     }
   ]
 }

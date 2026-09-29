@@ -45,13 +45,10 @@
       "altText": "A screened porch and creek view at Captain's Cottage on Virginia's Northern Neck.",
       "board": "Slow Weekends and Cabin Trips",
       "destinationUrl": "https://captainscottageva.com/journal/the-art-of-the-slow-weekend/?utm_source=pinterest&utm_medium=social&utm_campaign=the-art-of-the-slow-weekend&utm_content=v3",
-      "scheduledFor": "2026-10-16",
       "keywordVariant": "v3",
-      "status": "queued",
-      "todoistTaskId": "6hJpMJJMGHCVFgJ8",
-      "queuedAt": "2026-08-22T18:59:08.986Z",
-      "previousScheduledFor": "2026-09-30",
-      "todoistDue": "2026-10-16T11:15:00"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-16",
+      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     }
   ]
 }

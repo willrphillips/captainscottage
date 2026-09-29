@@ -44,13 +44,10 @@
       "altText": "A wooden dock and stairs down to a quiet brackish creek on Virginia's Northern Neck.",
       "board": "Chesapeake Bay Travel",
       "destinationUrl": "https://captainscottageva.com/journal/crabbers-morning-on-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=crabbers-morning-on-hull-creek&utm_content=v3",
-      "scheduledFor": "2026-10-13",
       "keywordVariant": "v3",
-      "status": "queued",
-      "todoistTaskId": "6hJpMJHvR5cQQWc8",
-      "queuedAt": "2026-08-22T18:59:08.985Z",
-      "previousScheduledFor": "2026-09-26",
-      "todoistDue": "2026-10-13T20:30:00"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-13",
+      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     }
   ]
 }
