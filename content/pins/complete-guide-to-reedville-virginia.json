@@ -47,10 +47,11 @@
       "destinationUrl": "https://captainscottageva.com/journal/complete-guide-to-reedville-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=complete-guide-to-reedville-virginia&utm_content=v3",
       "scheduledFor": "2026-10-05",
       "keywordVariant": "v3",
-      "status": "queued",
+      "status": "rejected",
       "todoistTaskId": "6hJq6P86hRrXr52g",
       "queuedAt": "2026-08-22T21:17:46.215Z",
-      "previousScheduledFor": "2026-10-04"
+      "previousScheduledFor": "2026-10-04",
+      "rejectedReason": "You're using the evening light over the water picture too often"
     }
   ]
 }
