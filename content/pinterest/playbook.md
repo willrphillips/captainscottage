@@ -166,3 +166,12 @@ than queued.
 taps from. If it does not, this whole split collapses and the sizes drop to
 2 per session (about 4 a week, ~10 weeks of runway). The 2026-09-29 batch
 carries the test.
+
+**Amended 2026-09-29, before the first batch.** The 2/day spread above put
+same-URL variants 3-4 days apart and tripped the playbook's own 5-day rule
+21 times. Live dates are now spread to satisfy it: **2026-09-30 to
+2026-10-20, at most 2 pins a day, no two pins to the same URL inside 5
+days.** Tap dates did not move. This is the rule of thumb the spread has to
+respect: with 3 variants per URL, a URL needs a 10-day span, so live dates
+spread wider than the tap schedule and that is fine. Will taps on his
+blocks; the pins land when they land.

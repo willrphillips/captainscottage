@@ -19,3 +19,4 @@
 - [x] 2026-09-19 **blog-writer** - feedback on draft `winter-birding-northern-neck` (not declined): on the passage “bring the same kayak you'd bring in July”: WE have 2 kayaks. No need to BYOK <!-- fb:draftfb-winter-birding-northern-neck-mu8fsbro -->
 - [x] 2026-09-19 **blog-writer** - feedback on draft `winter-birding-northern-neck` (not declined): on the passage “already down at the dock”: change to "yours to enjoy" <!-- fb:draftfb-winter-birding-northern-neck-mu8gy0pl -->
 - [x] 2026-09-20 **blog-writer** - feedback on draft `winter-birding-northern-neck` (not declined): on the passage “linger”: lingers* <!-- fb:draftfb-winter-birding-northern-neck-mu9p5hdd -->
+- [ ] 2026-09-29 **pin-writer** - pin `complete-guide-to-reedville-virginia-v3` rejected: You're using the evening light over the water picture too often (rejected is terminal; write a replacement with a new id) <!-- fb:pin-complete-guide-to-reedville-virginia-v3-mumvng81 -->
