@@ -201,6 +201,22 @@ function taskFor(pin) {
   };
 }
 
+// A pin whose destination is still an unpublished draft would hand Will a
+// task linking to a 404: the journal route filters on `draft`, so the page
+// does not exist until auto-publish flips it. Cheap to check here, from the
+// frontmatter, and far better than letting the pin reach his phone. Site
+// pages (/area/, /what-to-bring/ and the rest) are always live, so only
+// /journal/<slug>/ destinations are gated.
+function destinationIsLive(pin) {
+  const url = String(pin.destinationUrl || "").split("?")[0];
+  const m = url.match(/\/journal\/([^/]+)\/?$/);
+  if (!m) return true; // not a journal post; a site page or an odd URL
+  const mdx = path.join(ROOT, "src/content/blog", `${m[1]}.mdx`);
+  if (!fs.existsSync(mdx)) return false; // post does not exist at all
+  const fm = (fs.readFileSync(mdx, "utf8").split("---")[1] || "");
+  return !/^draft:\s*true\s*$/m.test(fm);
+}
+
 const pending = [];
 for (const entry of queue) {
   for (const pin of entry.data.pins || []) {
@@ -210,6 +226,10 @@ for (const entry of queue) {
     if (!queueable) continue; // the gate
     if (pin.todoistTaskId) continue; // already queued
     if (!pin.scheduledFor) continue;
+    if (!destinationIsLive(pin)) {
+      console.log(`  SKIP ${pin.id}: destination post is not published yet`);
+      continue;
+    }
     if (UNTIL && pin.scheduledFor > UNTIL) continue;
     const image = path.join(ROOT, "public/pins", `${pin.id}.jpg`);
     if (!fs.existsSync(image)) {
