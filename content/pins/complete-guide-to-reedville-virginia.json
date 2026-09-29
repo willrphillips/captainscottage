@@ -35,7 +35,8 @@
       "status": "queued",
       "todoistTaskId": "6hJpMJ5Vwg7vCRc8",
       "queuedAt": "2026-08-22T18:59:08.983Z",
-      "previousScheduledFor": "2026-09-16"
+      "previousScheduledFor": "2026-09-16",
+      "approvedAt": "2026-09-29T16:14:14.914Z"
     },
     {
       "id": "complete-guide-to-reedville-virginia-v3",
