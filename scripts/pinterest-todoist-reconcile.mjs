@@ -27,6 +27,29 @@
  * published here. That is why capcom DELETES the task of a rejected pin rather
  * than completing it: a completed task means published, and only that.
  *
+ * KNOWN GAP, not yet fixed (2026-09-29, with capcom-64)
+ *
+ * A task that is DELETED rather than completed leaves its pin stranded at
+ * "queued" holding a dead todoistTaskId. The queue script skips it (it has a
+ * task id) and this script never sees it (it was never completed), so the pin
+ * is invisible to both, indefinitely. reedville-v3 was this shape and was
+ * sorted out by hand.
+ *
+ * The repair: list active tasks, diff against queued pins, return the orphans
+ * to "approved" with todoistTaskId cleared so the next queue run re-slots
+ * them. Deliberately NOT done alongside the 2026-09-29 pipeline inversion:
+ * this job runs unattended every day and the change deserves a dry run rather
+ * than the tail end of a long session.
+ *
+ * TRAP, found by capcom-64 doing exactly this diff: Todoist's
+ * /tasks?limit=200 returned exactly 200 rows, and the truncated tail read as
+ * six missing tasks. It was a false alarm; querying each id directly showed
+ * all present. Paginate, or verify each id, before believing a task is gone.
+ *
+ * Scope: capcom's rejectPin() deletes the task AND stamps
+ * todoistTaskRemovedAt, so it cannot produce an orphan. This shape only
+ * arises from a deletion made outside capcom.
+ *
  * Usage:
  *   node scripts/pinterest-todoist-reconcile.mjs
  *   node scripts/pinterest-todoist-reconcile.mjs --since 2026-08-01
