@@ -36,7 +36,8 @@
       "todoistTaskId": "6hJpMJ6HgqVrR7m8",
       "queuedAt": "2026-08-22T18:59:08.982Z",
       "previousScheduledFor": "2026-09-14",
-      "approvedAt": "2026-09-29T16:14:13.004Z"
+      "approvedAt": "2026-09-29T16:14:13.004Z",
+      "todoistDue": "2026-09-29T20:30:00"
     },
     {
       "id": "24-hours-in-irvington-virginia-v3",
@@ -51,7 +52,8 @@
       "todoistTaskId": "6hJq6P48G63P7v3g",
       "queuedAt": "2026-08-22T21:17:46.203Z",
       "previousScheduledFor": "2026-10-02",
-      "approvedAt": "2026-09-29T16:14:32.659Z"
+      "approvedAt": "2026-09-29T16:14:32.659Z",
+      "todoistDue": "2026-10-02T11:15:00"
     }
   ]
 }

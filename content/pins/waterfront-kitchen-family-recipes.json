@@ -48,7 +48,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6PC5XVRfxJF8",
       "queuedAt": "2026-08-22T21:17:46.217Z",
-      "previousScheduledFor": "2026-10-08"
+      "previousScheduledFor": "2026-10-08",
+      "todoistDue": "2026-10-02T11:15:00"
     }
   ]
 }

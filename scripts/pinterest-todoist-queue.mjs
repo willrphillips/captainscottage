@@ -293,11 +293,16 @@ for (const { entry, pin } of batch) {
     failed++;
   } else {
     pin.todoistTaskId = String(taskId);
+    // The tap date, persisted so readers (CAPCOM's Pinterest tab) can show
+    // "live X / tap Y" and flag a pin whose live date falls before the day
+    // Will is asked to schedule it. Without this the two dates exist only in
+    // two systems that cannot see each other.
+    pin.todoistDue = nextBatchSlot(pin.scheduledFor);
     pin.queuedAt = new Date().toISOString();
     pin.status = "queued";
     delete pin.lastError;
     delete pin.lastErrorAt;
-    console.log(`  QUEUED ${pin.id} -> task ${taskId} @ ${pin.scheduledFor} ${PUBLISH_TIME}`);
+    console.log(`  QUEUED ${pin.id} -> task ${taskId} @ live ${pin.scheduledFor} / tap ${pin.todoistDue}`);
     queued++;
   }
   save(entry);

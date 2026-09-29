@@ -36,7 +36,8 @@
       "todoistTaskId": "6hJpMHx8h45qmHc8",
       "queuedAt": "2026-08-22T18:59:08.981Z",
       "approvedAt": "2026-09-14T15:16:28.871Z",
-      "previousScheduledFor": "2026-09-10"
+      "previousScheduledFor": "2026-09-10",
+      "todoistDue": "2026-09-29T20:30:00"
     },
     {
       "id": "cottage-sauna-culture-v3",
@@ -51,7 +52,8 @@
       "todoistTaskId": "6hJpMJJhj9mHChXg",
       "queuedAt": "2026-08-22T18:59:08.986Z",
       "previousScheduledFor": "2026-09-28",
-      "approvedAt": "2026-09-29T16:14:21.491Z"
+      "approvedAt": "2026-09-29T16:14:21.491Z",
+      "todoistDue": "2026-10-02T11:15:00"
     }
   ]
 }

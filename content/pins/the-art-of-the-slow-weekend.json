@@ -35,7 +35,8 @@
       "todoistTaskId": "6hJpMJ4qjcVMVcWg",
       "queuedAt": "2026-08-22T18:59:08.981Z",
       "previousScheduledFor": "2026-09-12",
-      "approvedAt": "2026-09-29T16:14:09.268Z"
+      "approvedAt": "2026-09-29T16:14:09.268Z",
+      "todoistDue": "2026-09-29T20:30:00"
     },
     {
       "id": "the-art-of-the-slow-weekend-v3",
@@ -49,7 +50,8 @@
       "status": "queued",
       "todoistTaskId": "6hJpMJJMGHCVFgJ8",
       "queuedAt": "2026-08-22T18:59:08.986Z",
-      "previousScheduledFor": "2026-09-30"
+      "previousScheduledFor": "2026-09-30",
+      "todoistDue": "2026-10-02T11:15:00"
     }
   ]
 }

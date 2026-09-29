@@ -20,7 +20,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6PWJ8pFhfC28",
       "queuedAt": "2026-08-22T21:17:46.221Z",
-      "previousScheduledFor": "2026-10-22"
+      "previousScheduledFor": "2026-10-22",
+      "todoistDue": "2026-10-06T20:30:00"
     },
     {
       "id": "faq-v2",
@@ -34,7 +35,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6PpFr7hmPPrg",
       "queuedAt": "2026-08-22T21:17:46.224Z",
-      "previousScheduledFor": "2026-11-07"
+      "previousScheduledFor": "2026-11-07",
+      "todoistDue": "2026-10-09T11:15:00"
     },
     {
       "id": "faq-v3",
@@ -48,7 +50,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6Q4c78vHQ2Jg",
       "queuedAt": "2026-08-22T21:17:46.226Z",
-      "previousScheduledFor": "2026-11-23"
+      "previousScheduledFor": "2026-11-23",
+      "todoistDue": "2026-10-16T11:15:00"
     }
   ]
 }

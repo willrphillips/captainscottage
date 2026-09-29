@@ -20,7 +20,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6PGCGCcP8rWg",
       "queuedAt": "2026-08-22T21:17:46.218Z",
-      "previousScheduledFor": "2026-10-12"
+      "previousScheduledFor": "2026-10-12",
+      "todoistDue": "2026-10-06T20:30:00"
     },
     {
       "id": "getaway-guide-v2",
@@ -34,7 +35,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6PXv4Xvw8mcg",
       "queuedAt": "2026-08-22T21:17:46.222Z",
-      "previousScheduledFor": "2026-10-28"
+      "previousScheduledFor": "2026-10-28",
+      "todoistDue": "2026-10-09T11:15:00"
     },
     {
       "id": "getaway-guide-v3",
@@ -48,7 +50,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6Pq9xj88HCX8",
       "queuedAt": "2026-08-22T21:17:46.225Z",
-      "previousScheduledFor": "2026-11-13"
+      "previousScheduledFor": "2026-11-13",
+      "todoistDue": "2026-10-13T20:30:00"
     }
   ]
 }

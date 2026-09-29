@@ -20,7 +20,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6PQ8HfrF6HCg",
       "queuedAt": "2026-08-22T21:17:46.220Z",
-      "previousScheduledFor": "2026-10-18"
+      "previousScheduledFor": "2026-10-18",
+      "todoistDue": "2026-10-06T20:30:00"
     },
     {
       "id": "the-cottage-v2",
@@ -34,7 +35,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6Pghjjx6Vp9g",
       "queuedAt": "2026-08-22T21:17:46.223Z",
-      "previousScheduledFor": "2026-11-03"
+      "previousScheduledFor": "2026-11-03",
+      "todoistDue": "2026-10-09T11:15:00"
     },
     {
       "id": "the-cottage-v3",
@@ -48,7 +50,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6PxR8424pxP8",
       "queuedAt": "2026-08-22T21:17:46.226Z",
-      "previousScheduledFor": "2026-11-19"
+      "previousScheduledFor": "2026-11-19",
+      "todoistDue": "2026-10-13T20:30:00"
     }
   ]
 }

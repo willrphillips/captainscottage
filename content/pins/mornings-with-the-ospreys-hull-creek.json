@@ -35,7 +35,8 @@
       "todoistTaskId": "6hJpMJ7HMQPW3jF8",
       "queuedAt": "2026-08-22T18:59:08.983Z",
       "previousScheduledFor": "2026-09-18",
-      "approvedAt": "2026-09-29T16:14:16.772Z"
+      "approvedAt": "2026-09-29T16:14:16.772Z",
+      "todoistDue": "2026-09-29T20:30:00"
     },
     {
       "id": "mornings-with-the-ospreys-hull-creek-v3",
@@ -49,7 +50,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6P97mFWPxcv8",
       "queuedAt": "2026-08-22T21:17:46.216Z",
-      "previousScheduledFor": "2026-10-06"
+      "previousScheduledFor": "2026-10-06",
+      "todoistDue": "2026-10-02T11:15:00"
     }
   ]
 }

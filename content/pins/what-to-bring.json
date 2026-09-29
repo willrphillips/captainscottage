@@ -20,7 +20,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6P9hvHJxw9gg",
       "queuedAt": "2026-08-22T21:17:46.218Z",
-      "previousScheduledFor": "2026-10-10"
+      "previousScheduledFor": "2026-10-10",
+      "todoistDue": "2026-10-02T11:15:00"
     },
     {
       "id": "what-to-bring-v2",
@@ -34,7 +35,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6Pcw7xVjMVR8",
       "queuedAt": "2026-08-22T21:17:46.222Z",
-      "previousScheduledFor": "2026-10-26"
+      "previousScheduledFor": "2026-10-26",
+      "todoistDue": "2026-10-09T11:15:00"
     },
     {
       "id": "what-to-bring-v3",
@@ -48,7 +50,8 @@
       "status": "queued",
       "todoistTaskId": "6hJq6PqVQVJjR4pg",
       "queuedAt": "2026-08-22T21:17:46.224Z",
-      "previousScheduledFor": "2026-11-11"
+      "previousScheduledFor": "2026-11-11",
+      "todoistDue": "2026-10-13T20:30:00"
     }
   ]
 }

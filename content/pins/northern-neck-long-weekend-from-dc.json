@@ -50,7 +50,8 @@
       "todoistTaskId": "6hJpMJG6QCXCC7Cg",
       "queuedAt": "2026-08-22T18:59:08.985Z",
       "previousScheduledFor": "2026-09-24",
-      "approvedAt": "2026-09-29T16:14:17.846Z"
+      "approvedAt": "2026-09-29T16:14:17.846Z",
+      "todoistDue": "2026-09-29T20:30:00"
     }
   ]
 }
