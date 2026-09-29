@@ -247,6 +247,13 @@ function taskFor(pin) {
       `Pinterest holds 10 scheduled pins at a time, 30 days out. If you hit`,
       `either limit, publish the rest of this batch now and say so.`,
       "",
+      // The tick is the only "it went out" signal there is: the Pinterest API
+      // is dead to us, so the reconcile job reads a completed task as
+      // published and nothing else. Ticking one he did not post would record
+      // it as posted and drop it out of review, silently.
+      `Changed your mind? Reject it in CAPCOM rather than ticking this off.`,
+      `Ticking it is what tells the repo the pin went out.`,
+      "",
       `Pin id: \`${pin.id}\``,
     ]
       .filter((line) => line !== null)
