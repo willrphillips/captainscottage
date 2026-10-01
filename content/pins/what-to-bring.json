@@ -1,0 +1,45 @@
+{
+  "slug": "what-to-bring",
+  "postUrl": "https://captainscottageva.com/what-to-bring/",
+  "renderedAt": "2026-10-01T21:43:38.415Z",
+  "sources": {
+    "what-to-bring-v1": "public/images/extras/sunset-rose-dock.jpg",
+    "what-to-bring-v2": "public/images/dock-hull-creek.jpg",
+    "what-to-bring-v3": "public/images/extras/sunset-rose-dock.jpg + public/images/dock-hull-creek.jpg"
+  },
+  "pins": [
+    {
+      "id": "what-to-bring-v1",
+      "title": "What to Pack for a Weekend Getaway on Virginia's Northern Neck",
+      "description": "What to pack for a weekend getaway on Virginia's Northern Neck: polarized sunglasses, water shoes, binoculars, slip-ons for the sauna walk, and a swimsuit in any month.",
+      "altText": "Two stemless glasses of rosé on a wooden dock rail at dusk, with a still creek and dark tree line behind.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=wtb-weekend-packing",
+      "scheduledFor": "2026-10-03",
+      "keywordVariant": "what to pack for a weekend getaway",
+      "status": "draft"
+    },
+    {
+      "id": "what-to-bring-v2",
+      "title": "Packing List for a Chesapeake Bay Cottage Stay in Virginia",
+      "description": "A Chesapeake Bay cottage packing list from the hosts: a thin stinger suit for jellyfish season, water shoes for the oystery shallows, binoculars, and a few small extras.",
+      "altText": "A weathered wooden dock with pilings reaching out over calm, pale creek water in daylight.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=wtb-chesapeake-list",
+      "scheduledFor": "2026-10-09",
+      "keywordVariant": "Chesapeake Bay packing list",
+      "status": "draft"
+    },
+    {
+      "id": "what-to-bring-v3",
+      "title": "What to Bring to a Waterfront Cottage with a Sauna and Hot Tub",
+      "description": "Staying at a waterfront cottage with a cedar sauna and a year-round hot tub? Bring slip-on shoes for the walk, a swimsuit in any month, and a camera for the evening gold.",
+      "altText": "Top half: two glasses of rosé on a dock rail at dusk. Bottom half: a wooden dock extending over calm creek water.",
+      "board": "Waterfront Cottage Stays",
+      "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=wtb-sauna-hot-tub",
+      "scheduledFor": "2026-10-15",
+      "keywordVariant": "what to bring to a cottage with a sauna and hot tub",
+      "status": "draft"
+    }
+  ]
+}

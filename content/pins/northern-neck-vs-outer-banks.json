@@ -1,0 +1,45 @@
+{
+  "slug": "northern-neck-vs-outer-banks",
+  "postUrl": "https://captainscottageva.com/journal/northern-neck-vs-outer-banks/",
+  "renderedAt": "2026-10-01T21:43:44.492Z",
+  "sources": {
+    "northern-neck-vs-outer-banks-v1": "public/images/extras/aerial-cottage-dusk.jpg",
+    "northern-neck-vs-outer-banks-v2": "public/images/stairs-to-dock.jpg",
+    "northern-neck-vs-outer-banks-v3": "public/images/extras/aerial-cottage-dusk.jpg + public/images/stairs-to-dock.jpg"
+  },
+  "pins": [
+    {
+      "id": "northern-neck-vs-outer-banks-v1",
+      "title": "Northern Neck vs Outer Banks: Which Shore Fits Your Weekend?",
+      "description": "Northern Neck vs Outer Banks, compared fairly. The Outer Banks is a great trip; the Northern Neck is under 3 hours from DC, quieter, and shallow enough to wade into from shore.",
+      "altText": "A single-story cottage with a screened porch under tall trees and a blue sky.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/journal/northern-neck-vs-outer-banks/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-vs-outer-banks&utm_content=obx-vs-nn",
+      "scheduledFor": "2026-10-04",
+      "keywordVariant": "Northern Neck vs Outer Banks",
+      "status": "draft"
+    },
+    {
+      "id": "northern-neck-vs-outer-banks-v2",
+      "title": "Outer Banks Alternative from DC: A Shorter Waterfront Drive",
+      "description": "Looking for an Outer Banks alternative from DC? Virginia's Northern Neck is under 3 hours away, which matters a lot more with kids in the back seat.",
+      "altText": "A wooden staircase leading down to a long dock over a calm, sunlit creek.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/journal/northern-neck-vs-outer-banks/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-vs-outer-banks&utm_content=obx-alternative-dc",
+      "scheduledFor": "2026-10-10",
+      "keywordVariant": "Outer Banks alternative from DC",
+      "status": "draft"
+    },
+    {
+      "id": "northern-neck-vs-outer-banks-v3",
+      "title": "Quiet Chesapeake Weekend Without the Beach Crowds",
+      "description": "A quiet Chesapeake weekend without the beach crowds: a sheltered tidal creek, a private dock, and a hot tub for stargazing, under 3 hours from Washington DC.",
+      "altText": "Top half: a cottage with a screened porch under tall trees. Bottom half: a staircase and dock over still creek water.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/journal/northern-neck-vs-outer-banks/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-vs-outer-banks&utm_content=obx-quiet-beach-trip",
+      "scheduledFor": "2026-10-16",
+      "keywordVariant": "quiet Chesapeake beach weekend",
+      "status": "draft"
+    }
+  ]
+}

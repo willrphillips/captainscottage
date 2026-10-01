@@ -1,0 +1,45 @@
+{
+  "slug": "activities",
+  "postUrl": "https://captainscottageva.com/activities/",
+  "renderedAt": "2026-10-01T21:43:50.752Z",
+  "sources": {
+    "activities-v1": "public/images/dock-hull-creek.jpg",
+    "activities-v2": "public/images/extras/osprey-hull-creek.jpg",
+    "activities-v3": "public/images/dock-hull-creek.jpg + public/images/extras/osprey-hull-creek.jpg"
+  },
+  "pins": [
+    {
+      "id": "activities-v1",
+      "title": "Things to Do on the Chesapeake Bay: Crabbing, Kayaks, Sauna",
+      "description": "Things to do at a Chesapeake Bay cottage: pull a crab pot at dawn, paddle a sheltered creek in the kayaks, and finish with a cedar sauna and a cold plunge.",
+      "altText": "A wooden dock with pilings stretching out over calm, pale creek water in daylight.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=act-things-to-do",
+      "scheduledFor": "2026-10-07",
+      "keywordVariant": "things to do on the Chesapeake Bay",
+      "status": "draft"
+    },
+    {
+      "id": "activities-v2",
+      "title": "Birding on Virginia's Northern Neck: Ospreys, Herons, Eagles",
+      "description": "Birding on Virginia's Northern Neck starts at the dock: an osprey on a bare snag over the water, with herons and eagles in the same view. Bring binoculars.",
+      "altText": "An osprey perched on top of a bare, pale snag beside green trees, with open water and a sandbar behind.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=act-birding",
+      "scheduledFor": "2026-10-13",
+      "keywordVariant": "birding Virginia Northern Neck",
+      "status": "draft"
+    },
+    {
+      "id": "activities-v3",
+      "title": "Cabin Weekend Activities: Kayaks, Crab Pot, Sauna and Fire Pit",
+      "description": "Cabin weekend activities that keep the phone in the drawer: kayaks, a crab pot, a cedar sauna with a cold plunge, and a fire pit, on the Virginia Chesapeake.",
+      "altText": "Top half: a long dock over a calm creek. Bottom half: an osprey on a bare snag above open water.",
+      "board": "Slow Weekends and Cabin Trips",
+      "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=act-cabin-weekend",
+      "scheduledFor": "2026-10-19",
+      "keywordVariant": "weekend cabin activities",
+      "status": "draft"
+    }
+  ]
+}

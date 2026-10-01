@@ -1,0 +1,45 @@
+{
+  "slug": "northern-neck-in-fall-from-dc",
+  "postUrl": "https://captainscottageva.com/journal/northern-neck-in-fall-from-dc/",
+  "renderedAt": "2026-10-01T21:43:41.393Z",
+  "sources": {
+    "northern-neck-in-fall-from-dc-v1": "public/images/extras/osprey-hull-creek.jpg",
+    "northern-neck-in-fall-from-dc-v2": "public/images/hot-tub-hull-creek.jpg",
+    "northern-neck-in-fall-from-dc-v3": "public/images/extras/osprey-hull-creek.jpg + public/images/hot-tub-hull-creek.jpg"
+  },
+  "pins": [
+    {
+      "id": "northern-neck-in-fall-from-dc-v1",
+      "title": "Fall Weekend Trip from DC: Virginia's Northern Neck in September",
+      "description": "A fall weekend trip from DC, under 3 hours south. September on Virginia's Northern Neck means warm creek water, the best crabbing of the year, and the quiet after summer.",
+      "altText": "An osprey perched at the top of a bare, silvery snag above Chesapeake water, with green shoreline trees below.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/journal/northern-neck-in-fall-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-in-fall-from-dc&utm_content=fall-weekend-dc",
+      "scheduledFor": "2026-10-03",
+      "keywordVariant": "fall weekend trip from DC",
+      "status": "draft"
+    },
+    {
+      "id": "northern-neck-in-fall-from-dc-v2",
+      "title": "Chesapeake Bay Fall Getaway: Why September Beats Summer",
+      "description": "Why a Chesapeake Bay fall getaway beats summer: the restaurant lines thin out, crabs are at their biggest, and the water is still warm enough to swim in September.",
+      "altText": "A cedar-sided hot tub with steps on a stone patio, beside the cottage with a tidal creek and tree line beyond, in soft light.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/journal/northern-neck-in-fall-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-in-fall-from-dc&utm_content=fall-chesapeake-getaway",
+      "scheduledFor": "2026-10-09",
+      "keywordVariant": "Chesapeake Bay fall getaway",
+      "status": "draft"
+    },
+    {
+      "id": "northern-neck-in-fall-from-dc-v3",
+      "title": "Virginia Waterfront Fall Weekend: Northern Neck Ospreys and Crabs",
+      "description": "Planning a Virginia waterfront fall weekend? Late-season ospreys still fish the creek in September, crabbing peaks, and the hot tub is best on a cool night.",
+      "altText": "Top half: an osprey on a bare snag over the water. Bottom half: a hot tub on a patio beside the cottage.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/journal/northern-neck-in-fall-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-in-fall-from-dc&utm_content=fall-virginia-waterfront",
+      "scheduledFor": "2026-10-15",
+      "keywordVariant": "Virginia waterfront fall weekend",
+      "status": "draft"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "area",
+  "postUrl": "https://captainscottageva.com/area/",
+  "renderedAt": "2026-10-01T21:44:47.133Z",
+  "sources": {
+    "area-v1": "public/images/extras/fire-pit-creek.jpg",
+    "area-v2": "public/images/extras/screened-porch-creek-view.jpg",
+    "area-v3": "public/images/extras/fire-pit-creek.jpg + public/images/extras/screened-porch-creek-view.jpg"
+  },
+  "pins": [
+    {
+      "id": "area-v1",
+      "title": "Things to Do on Virginia's Northern Neck: A Local Guide",
+      "description": "Things to do on Virginia's Northern Neck, picked by hosts who live here: waterfront seafood, Reedville's working docks, antique shops, and country markets.",
+      "altText": "Stone fire pit ringed by black Adirondack chairs on a paved patio, with two orange kayaks resting on a rack and tall trees behind.",
+      "board": "Virginia's Northern Neck",
+      "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=area-things-to-do",
+      "scheduledFor": "2026-10-08",
+      "keywordVariant": "Northern Neck Virginia things to do",
+      "status": "draft"
+    },
+    {
+      "id": "area-v2",
+      "title": "Day Trips from Washington DC: Virginia's Northern Neck Towns",
+      "description": "Day trips from Washington DC to Virginia's Northern Neck: Reedville, Heathsville, and the waterfront towns worth the drive, plus where to eat when you get there.",
+      "altText": "The inside of a screened porch, with a wooden bench-style table and screens opening onto a tidal creek.",
+      "board": "Weekend Getaways from Washington DC",
+      "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=area-day-trips",
+      "scheduledFor": "2026-10-14",
+      "keywordVariant": "day trips from Washington DC",
+      "status": "draft"
+    },
+    {
+      "id": "area-v3",
+      "title": "Virginia Waterfront Towns on the Chesapeake: Northern Neck Guide",
+      "description": "Virginia waterfront towns on the Northern Neck, from Reedville's fishing docks to Heathsville: where to eat seafood, shop for antiques, and buy local produce.",
+      "altText": "Top half: a stone fire pit with Adirondack chairs and kayaks. Bottom half: a screened porch over a creek.",
+      "board": "Chesapeake Bay Travel",
+      "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=area-waterfront-towns",
+      "scheduledFor": "2026-10-20",
+      "keywordVariant": "Virginia waterfront towns",
+      "status": "draft"
+    }
+  ]
+}
