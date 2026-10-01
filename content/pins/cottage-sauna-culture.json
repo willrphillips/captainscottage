@@ -3,9 +3,7 @@
   "postUrl": "https://captainscottageva.com/journal/cottage-sauna-culture/",
   "renderedAt": "2026-08-10T18:09:50.250Z",
   "sources": {
-    "cottage-sauna-culture-v1": "public\\images\\cedar-sauna-window.jpg",
-    "cottage-sauna-culture-v2": "public\\images\\cedar-sauna-creek-sunset.jpg",
-    "cottage-sauna-culture-v3": "public\\images\\cedar-sauna-window.jpg + public\\images\\cedar-sauna-creek-sunset.jpg"
+    "cottage-sauna-culture-v1": "public\\images\\cedar-sauna-window.jpg"
   },
   "pins": [
     {
@@ -22,38 +20,6 @@
       "todoistTaskId": "6hJRG4x3JR77gvx8",
       "queuedAt": "2026-08-21T10:38:09.993Z",
       "postedAt": "2026-08-24"
-    },
-    {
-      "id": "cottage-sauna-culture-v2",
-      "title": "Cabin with a Sauna and Cold Plunge in Virginia",
-      "description": "A waterfront cottage on Virginia's Northern Neck with a cedar sauna thirty feet from the water, a hot tub on the patio, and a dock to plunge from. Open year-round, better in the cold.",
-      "altText": "The cedar sauna at Captain's Cottage lit by late afternoon sun, creek and treeline behind.",
-      "board": "Waterfront Cottage Stays",
-      "destinationUrl": "https://captainscottageva.com/journal/cottage-sauna-culture/?utm_source=pinterest&utm_medium=social&utm_campaign=cottage-sauna-culture&utm_content=v2",
-      "scheduledFor": "2026-09-30",
-      "keywordVariant": "v2",
-      "status": "queued",
-      "todoistTaskId": "6hJpMHx8h45qmHc8",
-      "queuedAt": "2026-08-22T18:59:08.981Z",
-      "approvedAt": "2026-09-14T15:16:28.871Z",
-      "previousScheduledFor": "2026-09-10",
-      "todoistDue": "2026-09-29T20:30:00"
-    },
-    {
-      "id": "cottage-sauna-culture-v3",
-      "title": "Nordic Sauna Ritual on a Chesapeake Creek",
-      "description": "The Finnish hot-then-cold sequence, done on a Chesapeake creek: ten minutes of real heat, a walk down the dock, thirty seconds in the water, then a chair on the screened porch.",
-      "altText": "The sauna and the dock at dusk on a tidal creek off the Potomac.",
-      "board": "Waterfront Cottage Stays",
-      "destinationUrl": "https://captainscottageva.com/journal/cottage-sauna-culture/?utm_source=pinterest&utm_medium=social&utm_campaign=cottage-sauna-culture&utm_content=v3",
-      "scheduledFor": "2026-10-09",
-      "keywordVariant": "v3",
-      "status": "queued",
-      "todoistTaskId": "6hJpMJJhj9mHChXg",
-      "queuedAt": "2026-08-22T18:59:08.986Z",
-      "previousScheduledFor": "2026-09-28",
-      "approvedAt": "2026-09-29T16:14:21.491Z",
-      "todoistDue": "2026-10-09T11:15:00"
     }
   ]
 }

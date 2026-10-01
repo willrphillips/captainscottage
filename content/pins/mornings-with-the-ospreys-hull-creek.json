@@ -3,9 +3,7 @@
   "postUrl": "https://captainscottageva.com/journal/mornings-with-the-ospreys-hull-creek/",
   "renderedAt": "2026-08-10T18:09:52.843Z",
   "sources": {
-    "mornings-with-the-ospreys-hull-creek-v1": "public\\images\\extras\\osprey-hull-creek.jpg",
-    "mornings-with-the-ospreys-hull-creek-v2": "public\\images\\extras\\creek-sunset.jpg",
-    "mornings-with-the-ospreys-hull-creek-v3": "public\\images\\extras\\osprey-hull-creek.jpg + public\\images\\extras\\creek-sunset.jpg"
+    "mornings-with-the-ospreys-hull-creek-v1": "public\\images\\extras\\osprey-hull-creek.jpg"
   },
   "pins": [
     {
@@ -21,34 +19,6 @@
       "todoistTaskId": "6hJpMHjJjVJCFCQg",
       "queuedAt": "2026-08-22T18:59:08.978Z",
       "postedAt": "2026-08-31"
-    },
-    {
-      "id": "mornings-with-the-ospreys-hull-creek-v2",
-      "title": "Birding Virginia's Northern Neck: Osprey, Heron, Eagle",
-      "description": "Birding on Virginia's Northern Neck: osprey diving the shallows, a great blue heron standing still for an hour, bald eagles on the thermals, kingfishers darting off the bank.",
-      "altText": "A quiet Chesapeake tributary at sunrise, seen from a private dock.",
-      "board": "Chesapeake Bay Travel",
-      "destinationUrl": "https://captainscottageva.com/journal/mornings-with-the-ospreys-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=mornings-with-the-ospreys-hull-creek&utm_content=v2",
-      "scheduledFor": "2026-10-06",
-      "keywordVariant": "v2",
-      "status": "queued",
-      "todoistTaskId": "6hJpMJ7HMQPW3jF8",
-      "queuedAt": "2026-08-22T18:59:08.983Z",
-      "previousScheduledFor": "2026-09-18",
-      "approvedAt": "2026-09-29T16:14:16.772Z",
-      "todoistDue": "2026-10-06T20:30:00"
-    },
-    {
-      "id": "mornings-with-the-ospreys-hull-creek-v3",
-      "title": "What a Morning on a Tidal Creek Sounds Like",
-      "description": "The creek at dawn on Virginia's Northern Neck: an osprey's descending call carrying across flat water, dew on the dock planks, twenty minutes before real light arrives.",
-      "altText": "Sunrise over a brackish tidal creek off the Potomac River.",
-      "board": "Chesapeake Bay Travel",
-      "destinationUrl": "https://captainscottageva.com/journal/mornings-with-the-ospreys-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=mornings-with-the-ospreys-hull-creek&utm_content=v3",
-      "keywordVariant": "v3",
-      "status": "draft",
-      "previousScheduledFor": "2026-10-13",
-      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     }
   ]
 }

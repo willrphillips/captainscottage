@@ -3,9 +3,7 @@
   "postUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/",
   "renderedAt": "2026-08-10T18:09:48.103Z",
   "sources": {
-    "24-hours-in-irvington-virginia-v1": "public\\images\\extras\\creek-sunset.jpg",
-    "24-hours-in-irvington-virginia-v2": "public\\images\\dock-hull-creek.jpg",
-    "24-hours-in-irvington-virginia-v3": "public\\images\\extras\\creek-sunset.jpg + public\\images\\dock-hull-creek.jpg"
+    "24-hours-in-irvington-virginia-v1": "public\\images\\extras\\creek-sunset.jpg"
   },
   "pins": [
     {
@@ -22,38 +20,6 @@
       "queuedAt": "2026-08-22T18:59:08.977Z",
       "postedAt": "2026-08-28",
       "approvedAt": "2026-09-07T14:47:09.027Z"
-    },
-    {
-      "id": "24-hours-in-irvington-virginia-v2",
-      "title": "Irvington VA: Tides Inn, Farmers Market, and the Vineyard",
-      "description": "What to do in Irvington, Virginia: the Tides Inn for a drink even if you are not staying, the Saturday market, the Dog and Oyster vineyard, and where to eat nearby.",
-      "altText": "Golden hour on a Northern Neck creek, dock and treeline in view.",
-      "board": "Virginia's Northern Neck",
-      "destinationUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=24-hours-in-irvington-virginia&utm_content=v2",
-      "scheduledFor": "2026-10-02",
-      "keywordVariant": "v2",
-      "status": "queued",
-      "todoistTaskId": "6hJpMJ6HgqVrR7m8",
-      "queuedAt": "2026-08-22T18:59:08.982Z",
-      "previousScheduledFor": "2026-09-14",
-      "approvedAt": "2026-09-29T16:14:13.004Z",
-      "todoistDue": "2026-10-02T11:15:00"
-    },
-    {
-      "id": "24-hours-in-irvington-virginia-v3",
-      "title": "The Prettiest Small Town on Virginia's Northern Neck",
-      "description": "Irvington is the refined counterweight to Reedville's working waterfront: two nationally known inns, a steamboat museum, and a vineyard, in a town of a few hundred people.",
-      "altText": "A waterfront cottage at dusk seen from the air, Virginia's Northern Neck.",
-      "board": "Virginia's Northern Neck",
-      "destinationUrl": "https://captainscottageva.com/journal/24-hours-in-irvington-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=24-hours-in-irvington-virginia&utm_content=v3",
-      "scheduledFor": "2026-10-09",
-      "keywordVariant": "v3",
-      "status": "queued",
-      "todoistTaskId": "6hJq6P48G63P7v3g",
-      "queuedAt": "2026-08-22T21:17:46.203Z",
-      "previousScheduledFor": "2026-10-02",
-      "approvedAt": "2026-09-29T16:14:32.659Z",
-      "todoistDue": "2026-10-09T11:15:00"
     }
   ]
 }

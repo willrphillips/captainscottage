@@ -4,7 +4,6 @@
   "renderedAt": "2026-08-10T18:09:49.067Z",
   "sources": {
     "complete-guide-to-reedville-virginia-v1": "public\\images\\cottage-exterior-creek.jpg",
-    "complete-guide-to-reedville-virginia-v2": "public\\images\\extras\\creek-sunset.jpg",
     "complete-guide-to-reedville-virginia-v3": "public\\images\\cottage-exterior-creek.jpg + public\\images\\extras\\creek-sunset.jpg"
   },
   "pins": [
@@ -22,22 +21,6 @@
       "queuedAt": "2026-08-22T18:59:08.977Z",
       "postedAt": "2026-09-01",
       "approvedAt": "2026-09-06T02:04:44.588Z"
-    },
-    {
-      "id": "complete-guide-to-reedville-virginia-v2",
-      "title": "Things to Do in Reedville on Virginia's Northern Neck",
-      "description": "What to do in Reedville: the Fishermen's Museum, Main Street's Victorian houses, waterfront crab and oyster spots, and the Tangier Island boat in season.",
-      "altText": "A quiet Chesapeake creek at golden hour on Virginia's Northern Neck.",
-      "board": "Virginia's Northern Neck",
-      "destinationUrl": "https://captainscottageva.com/journal/complete-guide-to-reedville-virginia/?utm_source=pinterest&utm_medium=social&utm_campaign=complete-guide-to-reedville-virginia&utm_content=v2",
-      "scheduledFor": "2026-10-02",
-      "keywordVariant": "v2",
-      "status": "queued",
-      "todoistTaskId": "6hJpMJ5Vwg7vCRc8",
-      "queuedAt": "2026-08-22T18:59:08.983Z",
-      "previousScheduledFor": "2026-09-16",
-      "approvedAt": "2026-09-29T16:14:14.914Z",
-      "todoistDue": "2026-10-02T11:15:00"
     },
     {
       "id": "complete-guide-to-reedville-virginia-v3",

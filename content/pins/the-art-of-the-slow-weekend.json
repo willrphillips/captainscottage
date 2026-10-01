@@ -3,9 +3,7 @@
   "postUrl": "https://captainscottageva.com/journal/the-art-of-the-slow-weekend/",
   "renderedAt": "2026-08-09T11:35:02.935Z",
   "sources": {
-    "the-art-of-the-slow-weekend-v1": "public/images/extras/sunset-rose-dock.jpg",
-    "the-art-of-the-slow-weekend-v2": "public/images/extras/creek-sunset.jpg",
-    "the-art-of-the-slow-weekend-v3": "public/images/extras/sunset-rose-dock.jpg + public/images/extras/creek-sunset.jpg"
+    "the-art-of-the-slow-weekend-v1": "public/images/extras/sunset-rose-dock.jpg"
   },
   "pins": [
     {
@@ -21,34 +19,6 @@
       "todoistTaskId": "6hJpMHV8HG2H47Mg",
       "queuedAt": "2026-08-22T18:59:08.972Z",
       "postedAt": "2026-08-25"
-    },
-    {
-      "id": "the-art-of-the-slow-weekend-v2",
-      "title": "The Slow Weekend: An Unplugged Trip That Works",
-      "description": "The slow weekend is a skill, not a setting. What actually works on an unplugged trip: friction on purpose, no itinerary, and a creek that changes character through the day.",
-      "altText": "Rose light over the water at the end of a private dock, Virginia's Northern Neck.",
-      "board": "Slow Weekends and Cabin Trips",
-      "destinationUrl": "https://captainscottageva.com/journal/the-art-of-the-slow-weekend/?utm_source=pinterest&utm_medium=social&utm_campaign=the-art-of-the-slow-weekend&utm_content=v2",
-      "scheduledFor": "2026-09-30",
-      "keywordVariant": "v2",
-      "status": "queued",
-      "todoistTaskId": "6hJpMJ4qjcVMVcWg",
-      "queuedAt": "2026-08-22T18:59:08.981Z",
-      "previousScheduledFor": "2026-09-12",
-      "approvedAt": "2026-09-29T16:14:09.268Z",
-      "todoistDue": "2026-09-29T20:30:00"
-    },
-    {
-      "id": "the-art-of-the-slow-weekend-v3",
-      "title": "Digital Detox Weekend: A Waterfront Field Guide",
-      "description": "A digital detox weekend that survives contact with reality. Phone face-down on the counter, the dock instead of the feed, on a quiet creek 2 hours 45 minutes from Washington DC.",
-      "altText": "A screened porch and creek view at Captain's Cottage on Virginia's Northern Neck.",
-      "board": "Slow Weekends and Cabin Trips",
-      "destinationUrl": "https://captainscottageva.com/journal/the-art-of-the-slow-weekend/?utm_source=pinterest&utm_medium=social&utm_campaign=the-art-of-the-slow-weekend&utm_content=v3",
-      "keywordVariant": "v3",
-      "status": "draft",
-      "previousScheduledFor": "2026-10-16",
-      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     }
   ]
 }

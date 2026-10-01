@@ -4,8 +4,7 @@
   "renderedAt": "2026-08-10T18:09:53.895Z",
   "sources": {
     "waterfront-kitchen-family-recipes-v1": "public\\images\\kitchen-green-cabinets.jpg",
-    "waterfront-kitchen-family-recipes-v2": "public\\images\\extras\\creek-sunset.jpg",
-    "waterfront-kitchen-family-recipes-v3": "public\\images\\kitchen-green-cabinets.jpg + public\\images\\extras\\creek-sunset.jpg"
+    "waterfront-kitchen-family-recipes-v2": "public\\images\\extras\\creek-sunset.jpg"
   },
   "pins": [
     {
@@ -35,18 +34,6 @@
       "todoistTaskId": "6hJpMJ7gvMWjRVwg",
       "queuedAt": "2026-08-22T18:59:08.984Z",
       "postedAt": "2026-09-20"
-    },
-    {
-      "id": "waterfront-kitchen-family-recipes-v3",
-      "title": "Country Low Boil: The One-Pot Vacation Dinner",
-      "description": "Shrimp, corn, smoked sausage and potatoes in one pot, forty minutes start to table, poured out in the middle of the table. The vacation dinner nobody has to hover over.",
-      "altText": "A waterfront kitchen with open shelving and a view of the creek beyond.",
-      "board": "Slow Weekends and Cabin Trips",
-      "destinationUrl": "https://captainscottageva.com/journal/waterfront-kitchen-family-recipes/?utm_source=pinterest&utm_medium=social&utm_campaign=waterfront-kitchen-family-recipes&utm_content=v3",
-      "keywordVariant": "v3",
-      "status": "draft",
-      "previousScheduledFor": "2026-10-16",
-      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     }
   ]
 }

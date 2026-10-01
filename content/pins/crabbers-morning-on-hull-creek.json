@@ -4,8 +4,7 @@
   "renderedAt": "2026-08-10T18:09:51.530Z",
   "sources": {
     "crabbers-morning-on-hull-creek-v1": "public\\images\\stairs-to-dock.jpg",
-    "crabbers-morning-on-hull-creek-v2": "public\\images\\extras\\creek-sunset.jpg",
-    "crabbers-morning-on-hull-creek-v3": "public\\images\\stairs-to-dock.jpg + public\\images\\extras\\creek-sunset.jpg"
+    "crabbers-morning-on-hull-creek-v2": "public\\images\\extras\\creek-sunset.jpg"
   },
   "pins": [
     {
@@ -36,18 +35,6 @@
       "todoistTaskId": "6hJpMJ25Qqx5HVmg",
       "queuedAt": "2026-08-22T18:59:08.980Z",
       "postedAt": "2026-09-22"
-    },
-    {
-      "id": "crabbers-morning-on-hull-creek-v3",
-      "title": "Blue Crab Season in Virginia: What a Morning Looks Like",
-      "description": "Blue crab season on a Virginia tidal creek, from the dock. The recreational season runs into November, and September is when the summer crabs are at their biggest.",
-      "altText": "A wooden dock and stairs down to a quiet brackish creek on Virginia's Northern Neck.",
-      "board": "Chesapeake Bay Travel",
-      "destinationUrl": "https://captainscottageva.com/journal/crabbers-morning-on-hull-creek/?utm_source=pinterest&utm_medium=social&utm_campaign=crabbers-morning-on-hull-creek&utm_content=v3",
-      "keywordVariant": "v3",
-      "status": "draft",
-      "previousScheduledFor": "2026-10-13",
-      "todoistTaskRemovedAt": "2026-09-29T20:00:38.592Z"
     }
   ]
 }
