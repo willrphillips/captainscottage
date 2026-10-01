@@ -1,14 +1,32 @@
 name: Pinterest queue (keep pins ready to approve)
 
 # Weekly buffer-keeper, same shape as draft-batch.yml. The rule: keep at least
-# QUEUE_FLOOR (14) pins sitting APPROVED-and-scheduled, which is about two weeks
-# of runway at 1/day. When the approved queue is below that, render and write
-# pins for published posts that have none, so Will always has something to
-# approve. Every pin lands at status "draft" and GOES NOWHERE until he approves.
+# QUEUE_FLOOR (12) pins in the APPROVED BANK, which is three weeks at the
+# 4/week rate in content/pinterest/pacing.md. When the bank is below that,
+# render and write pins for published posts that have none, so Will always has
+# something to approve. Every pin lands at status "draft" and GOES NOWHERE
+# until he approves.
 #
-# Never posts. Posting is pinterest-publish.yml, approved pins only.
+# Never posts. Posting is a Todoist tap (pinterest-todoist-queue.yml);
+# pinterest-publish.yml is parked.
 # Sunday 11:00 UTC ~= 7am EDT. Clear of draft-batch (Sat 09:00) and the
 # auto-publish crons (12:00/16:00/21:00).
+#
+# OFF FROM 2026-08-16 TO 2026-10-01, reason never recorded. That is most of why
+# the queue went stale, and two things had rotted by the time Will asked for it
+# back:
+#
+#   1. The queue count was grep for `"status": "approved"`. The 2026-09-29
+#      inversion made that always zero, because an approved pin now keeps
+#      `status: "queued"` and carries `approvedAt`. The floor was therefore
+#      breached on every run and the agent's own pile-on check was the only
+#      brake left. Counted in node now, on the approved bank.
+#   2. The floor was 14 "at 1/day". The rate is 4/week (pacing.md, 2026-10-01)
+#      and the floor is 12, which is three weeks of approved stock.
+#
+# `dry_run` defaults TRUE for the same reason it does in pinterest-research.yml:
+# this job is unproven until it has worked once since the inversion. Dispatch it
+# dry, read the artifact, dispatch it live, THEN trust the cron.
 
 on:
   schedule:
@@ -16,13 +34,21 @@ on:
   workflow_dispatch:
     inputs:
       queue_floor:
-        description: "Render more pins when approved+scheduled is below this"
+        description: "Render more pins when the approved bank is below this"
         type: string
-        default: "14"
+        default: "12"
       max_posts:
         description: "Most posts to work in one run"
         type: string
         default: "3"
+      drafts_ceiling:
+        description: "Write nothing if this many pins are already awaiting approval"
+        type: string
+        default: "12"
+      dry_run:
+        description: "Render and write, but do not commit. Output goes up as an artifact either way."
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -44,27 +70,49 @@ jobs:
           npm ci || npm install
           npm install -g @anthropic-ai/claude-code
 
+      # Counted in node, not grep. The 2026-09-29 pipeline inversion made the
+      # old grep wrong and nothing caught it, because this workflow has not run
+      # since 2026-08-16: it counted `"status": "approved"`, and after the
+      # inversion an approved pin KEEPS `status: "queued"` and carries
+      # `approvedAt` instead. So the count read 0 forever, the floor was always
+      # breached, and the agent's own pile-on check was the only real brake.
+      #
+      # The number that matters is the APPROVED BANK: pins Will has approved
+      # that have not gone out yet. `pacing.md` (2026-10-01) puts the floor at
+      # 12, because Todoist tasks exist only for approved pins, so a bank of
+      # zero means a silent account even with drafts piled up behind it.
       - name: Count the queue
         id: plan
         run: |
-          FLOOR="${{ inputs.queue_floor || '14' }}"
-          approved=0; drafts=0
-          shopt -s nullglob
-          for f in content/pins/*.json; do
-            approved=$((approved + $(grep -c '"status": *"approved"' "$f" || true)))
-            drafts=$((drafts + $(grep -c '"status": *"draft"' "$f" || true)))
-          done
-          # Published posts (draft:false) with no pins file yet.
-          uncovered=0
-          for f in src/content/blog/*.mdx; do
-            grep -q '^draft: false' "$f" || continue
-            slug=$(basename "$f" .mdx)
-            [ -f "content/pins/$slug.json" ] || uncovered=$((uncovered+1))
-          done
-          need=0
-          if [ "$approved" -lt "$FLOOR" ]; then need=1; fi
-          { echo "approved=$approved"; echo "drafts=$drafts"; echo "uncovered=$uncovered"; echo "need=$need"; } >> "$GITHUB_OUTPUT"
-          echo "approved=$approved (floor $FLOOR) | awaiting-approval=$drafts | published-posts-with-no-pins=$uncovered | run=$need"
+          FLOOR="${{ inputs.queue_floor || '12' }}"
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const dir = "content/pins";
+            let bank = 0, drafts = 0, posted = 0;
+            if (fs.existsSync(dir)) {
+              for (const f of fs.readdirSync(dir).filter((f) => f.endsWith(".json"))) {
+                const j = JSON.parse(fs.readFileSync(dir + "/" + f, "utf8"));
+                for (const p of j.pins || []) {
+                  const s = p.status || "draft";
+                  if (s === "posted") posted++;
+                  else if (s === "draft") drafts++;
+                  if (p.approvedAt && s !== "posted" && s !== "rejected") bank++;
+                }
+              }
+            }
+            let uncovered = 0;
+            for (const f of fs.readdirSync("src/content/blog").filter((f) => f.endsWith(".mdx"))) {
+              if (!/^draft:\s*false/m.test(fs.readFileSync("src/content/blog/" + f, "utf8"))) continue;
+              if (!fs.existsSync(dir + "/" + f.replace(/\.mdx$/, ".json"))) uncovered++;
+            }
+            const floor = Number(process.env.FLOOR || 12);
+            const need = bank < floor ? 1 : 0;
+            fs.appendFileSync(process.env.GITHUB_OUTPUT,
+              `bank=${bank}\ndrafts=${drafts}\nposted=${posted}\nuncovered=${uncovered}\nneed=${need}\n`);
+            console.log(`approved bank=${bank} (floor ${floor}) | awaiting-approval=${drafts} | posted=${posted} | published-posts-with-no-pins=${uncovered} | run=${need}`);
+          '
+        env:
+          FLOOR: ${{ inputs.queue_floor || '12' }}
 
       - name: Render + write pins (gated at draft)
         if: steps.plan.outputs.need == '1'
@@ -72,12 +120,15 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           MAX_POSTS: ${{ inputs.max_posts || '3' }}
           DRAFTS_WAITING: ${{ steps.plan.outputs.drafts }}
+          DRAFTS_CEILING: ${{ inputs.drafts_ceiling || '12' }}
         run: |
           claude -p "You are the Captain's Cottage Pin Writer running headless on the weekly cron.
 
           Read and FOLLOW .claude/agents/pin-writer.md as your role instructions. Read content/pinterest/playbook.md first and follow its specs over your own defaults. Read content/pinterest/keywords.json, CLAUDE.md (locked location wording), and content/voice-feedback-log.md.
 
-          There are $DRAFTS_WAITING pins already waiting on Will's approval. Do not pile on: if that number is 12 or higher, write nothing, print 'SKIPPED: queue already full' and stop.
+          There are $DRAFTS_WAITING pins already waiting on Will's approval. Do not pile on: if that number is $DRAFTS_CEILING or higher, write nothing, print 'SKIPPED: queue already full' and stop.
+
+          Read content/pinterest/decisions.md before you choose dates. It holds our own operating decisions and it outranks the playbook. Read content/pinterest/pacing.md for the current rate and runway.
 
           Otherwise pick up to $MAX_POSTS PUBLISHED posts (frontmatter draft:false) that have the fewest pins, preferring any with none at all, and for each: run 'npm run build:pins -- <slug>', check the renders are sensible, then write the pin copy into content/pins/<slug>.json per the agent file. Each pin tests a DIFFERENT keyword variant from keywords.json and gets its own utm_content. Space one post's variants at least 5 days apart, never more than 3 pins on any one date across the whole queue, and never a date less than 2 days out.
 
@@ -85,8 +136,27 @@ jobs:
 
           Finish by printing 'QUEUED: <slug> <n> pins' per post." --permission-mode bypassPermissions --allowedTools "Read,Write,Edit,Glob,Grep,Bash"
 
+      # Always, dry run or not. This job had not run since 2026-08-16, so its
+      # first output after the inversion is worth reading before anything
+      # downstream consumes it. JSON only; the rendered images are large and
+      # the listing is enough to see what was produced.
+      - name: Upload what the pin writer wrote
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pin-writer-output
+          path: content/pins/
+          if-no-files-found: warn
+
+      - name: Show what changed
+        if: always()
+        run: |
+          git --no-pager diff --stat content/pins public/pins || true
+          echo "--- new or changed renders:"
+          git status --porcelain public/pins || true
+
       - name: Commit + notify
-        if: steps.plan.outputs.need == '1'
+        if: steps.plan.outputs.need == '1' && !inputs.dry_run
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_DRAFTS_WEBHOOK_URL }}
         run: |
