@@ -161,14 +161,30 @@ Pinterest is search-driven and a pin lives for months.
 evidence does not support. These stand until our own Pinterest Analytics can
 answer it, and the day-90 review (2026-11-19) is the first chance.
 
-### The cost of this change, which Will has not answered yet
+### What overdue means now, decided by Will 2026-10-01
 
-An overdue task used to mean he was busy. It now means **a pin missed its
-window.** Two tasks were already overdue on 2026-10-01 from the first session
-of the 2-per-session cadence, so due-at-his-own-block did not make him act
-either, and moving the time will not fix that by itself. Raised with him
-2026-10-01; recorded here because "nothing is late" was his own framing on
-2026-09-27 and this change quietly redefines late.
+An overdue task used to mean Will was busy. It now means **a pin missed its
+window.** That was the one real cost of collapsing the two dates, and it was put
+to him twice before it was built, because *"nothing is late"* had been his own
+framing on 2026-09-27 and this change redefines late.
+
+He chose it: **"Yes that's what I want a pin to mean."**
+
+So it is deliberate, not inherited. Record it that way, because the two are
+different: a consequence someone accepted with their eyes open is a decision,
+and a consequence nobody ever answered is a liability waiting to be discovered
+by whoever next reads the code.
+
+Worth knowing alongside it: two tasks were already overdue on 2026-10-01 under
+the old scheme, due in his own Tuesday block. Due-at-his-own-block did not make
+him act either, so moving the time is not what fixes an untapped task and was
+never claimed to be.
+
+**Open, and only Will can settle it:** what he should DO with an overdue one. If
+overdue genuinely means the window has passed, a week-old task may want
+re-slotting rather than posting into a window that is gone. That is a question
+about the response, not the meaning, and the meaning is what he just decided.
+Raised by `code-d2` 2026-10-01 and deliberately not built.
 
 ## Warning for the next person changing this pipeline
 
