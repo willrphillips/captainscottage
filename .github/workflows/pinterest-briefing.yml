@@ -17,6 +17,10 @@ on:
 
 permissions:
   contents: read
+  # The staleness check asks GitHub when each Pinterest workflow last ran.
+  # Without this, `gh run list` 403s and every workflow check reads UNKNOWN,
+  # which is the one thing that must not pass quietly.
+  actions: read
 
 concurrency:
   group: pinterest-briefing
@@ -33,6 +37,25 @@ jobs:
       - name: Install Claude Code
         run: npm install -g @anthropic-ai/claude-code
 
+      # Counted by script, not by the agent. An agent asked "has anything
+      # stopped" has to infer it from file contents and cannot see a workflow's
+      # run history at all, which is precisely the thing that went unnoticed
+      # for six weeks. So the facts are measured here and handed over; the
+      # agent's job is what they mean, not what they are.
+      - name: Measure staleness
+        id: stale
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node scripts/pinterest-staleness.mjs --markdown > /tmp/staleness.md
+          cat /tmp/staleness.md
+          node scripts/pinterest-staleness.mjs --json > /tmp/staleness.json
+          node -e '
+            const s = require("/tmp/staleness.json");
+            const fs = require("fs");
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `alarm=${s.alarm ? 1 : 0}\nheadline=${s.headline}\n`);
+          '
+
       - name: Run Edwin
         id: brief
         env:
@@ -40,20 +63,51 @@ jobs:
         run: |
           claude -p "You are Edwin, overseeing the Captain's Cottage Pinterest operation, running headless on the weekly cron.
 
-          Read and FOLLOW .claude/agents/edwin.md as your role instructions. Read every file that agent file lists. Report only what the files actually say; if one is missing or stale, that is the finding.
+          Read and FOLLOW .claude/agents/edwin.md as your role instructions. Read every file that agent file lists, plus content/pinterest/decisions.md and content/pinterest/pacing.md. Report only what the files actually say; if one is missing or stale, that is the finding.
 
-          Produce the briefing described in that agent file, but formatted for Discord: under 1800 characters, no markdown tables (use short lines), lead with what is waiting on Will. If the day-90 window has arrived, give the verdict per PINTEREST_PLAN.md, including recommending a stop if the numbers say stop.
+          READ /tmp/staleness.md FIRST. It is a measured staleness check: pins posted, the approved bank against its floor, published posts with no pins, and the last run of every Pinterest workflow, taken from the repo and the GitHub API. You cannot see workflow run history yourself, so those numbers are the only way you know whether a job has quietly stopped. Report them as given and never restate one from your own guess. A check reading UNKNOWN was not verifiable and must not be reported as passing.
+
+          IF ANY CHECK IS STALE, lead with it, name it in the first line, and say what it means in plain words. Do not bury it under the queue summary. This is the whole reason you run: three of the four Pinterest workflows sat switched off from mid-August to 2026-10-01 and nobody noticed, because the only job whose purpose was to say so was itself one of the jobs that had stopped. A briefing that reads calm while something is broken is worse than no briefing.
+
+          Produce the briefing described in that agent file, but formatted for Discord: under 1800 characters, no markdown tables (use short lines). If nothing is stale, say so in one line and then report what is waiting on Will. If the day-90 window has arrived, give the verdict per PINTEREST_PLAN.md, including recommending a stop if the numbers say stop.
 
           HARD RULES: read-only. Never approve, post, edit, or run another agent. Never run git. No em dashes and never use 'honest'/'honestly'/'candidly' to vouch for a statement.
 
           Print ONLY the briefing text. No preamble." --permission-mode bypassPermissions --allowedTools "Read,Glob,Grep,WebFetch" > /tmp/briefing.txt
           echo "Briefing written ($(wc -c < /tmp/briefing.txt) bytes)"
 
+      # The card itself has to look different when something is wrong. A weekly
+      # blue card titled "state of play" trains Will to skim it, and a card he
+      # skims is the one that let August happen.
       - name: Post to Discord
+        if: always()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_DRAFTS_WEBHOOK_URL }}
+          ALARM: ${{ steps.stale.outputs.alarm }}
+          HEADLINE: ${{ steps.stale.outputs.headline }}
+        run: |
+          if [[ -z "$DISCORD_WEBHOOK_URL" ]]; then echo "No webhook configured; briefing:"; cat /tmp/briefing.txt; exit 0; fi
+          if [[ "$ALARM" == "1" ]]; then
+            TITLE="Pinterest: SOMETHING HAS STOPPED ($HEADLINE)"
+            COLOR=15158332
+          else
+            TITLE="Pinterest: state of play (nothing stale)"
+            COLOR=5793266
+          fi
+          BODY=$(node -e "const fs=require('fs');process.stdout.write(JSON.stringify(fs.readFileSync('/tmp/briefing.txt','utf8').slice(0,1800)))")
+          TITLE_JSON=$(node -e "process.stdout.write(JSON.stringify(process.argv[1].slice(0,240)))" "$TITLE")
+          curl -s -o /dev/null -X POST "$DISCORD_WEBHOOK_URL" -H "Content-Type: application/json" \
+            --data "{\"username\":\"Edwin\",\"embeds\":[{\"title\":${TITLE_JSON},\"description\":${BODY},\"color\":${COLOR}}]}"
+
+      # A briefing job that fails silently is the failure mode this whole
+      # change exists to remove. If Edwin or the staleness check errored, say so
+      # in Discord rather than leaving a green tick and no card.
+      - name: Say so if the briefing itself broke
+        if: failure()
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_DRAFTS_WEBHOOK_URL }}
         run: |
-          if [[ -z "$DISCORD_WEBHOOK_URL" ]]; then echo "No webhook configured; briefing:"; cat /tmp/briefing.txt; exit 0; fi
-          BODY=$(node -e "const fs=require('fs');process.stdout.write(JSON.stringify(fs.readFileSync('/tmp/briefing.txt','utf8').slice(0,1800)))")
-          curl -s -o /dev/null -X POST "$DISCORD_WEBHOOK_URL" -H "Content-Type: application/json" \
-            --data "{\"username\":\"Edwin\",\"embeds\":[{\"title\":\"Pinterest: state of play\",\"description\":${BODY},\"color\":5793266}]}"
+          if [[ -n "$DISCORD_WEBHOOK_URL" ]]; then
+            curl -s -o /dev/null -X POST "$DISCORD_WEBHOOK_URL" -H "Content-Type: application/json" \
+              --data "{\"username\":\"Edwin\",\"embeds\":[{\"title\":\"Pinterest briefing FAILED to run\",\"description\":\"The weekly check errored, so you have no state of play this week. Run ${{ github.run_id }} in Actions has the log. Treat the Pinterest operation as unverified until this is fixed.\",\"color\":15158332}]}"
+          fi
