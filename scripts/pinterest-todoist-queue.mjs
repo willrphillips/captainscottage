@@ -32,7 +32,8 @@
  *   TODOIST_API_TOKEN    required to create tasks. Absent = dry run, exit 0.
  *   TODOIST_PROJECT_ID   default 6FwqXhv2wM64hGGg ("Buffalo Rentals Dated").
  *   TODOIST_LABEL        default "pinterest".
- *   PIN_PUBLISH_TIME     default "10:00", local time, HH:MM 24h.
+ *   (there is no PIN_PUBLISH_TIME any more: the posting time comes from the
+ *    slot table below, because a single constant cannot vary by weekday.)
  *   PIN_TIMEZONE         default "America/New_York".
  *   SITE_ORIGIN          default https://captainscottageva.com
  *   DRY_RUN=1            force a dry run.
@@ -59,7 +60,6 @@ const SAVE_ENDPOINT = "https://www.pinterest.com/pin/create/button/";
 const ORIGIN = process.env.SITE_ORIGIN || "https://captainscottageva.com";
 const PROJECT_ID = process.env.TODOIST_PROJECT_ID || "6FwqXhv2wM64hGGg";
 const LABEL = process.env.TODOIST_LABEL || "pinterest";
-const PUBLISH_TIME = process.env.PIN_PUBLISH_TIME || "10:00";
 const TIMEZONE = process.env.PIN_TIMEZONE || "America/New_York";
 
 const args = process.argv.slice(2);
@@ -150,74 +150,99 @@ function saveUrl(pin) {
 // Approval decides WHETHER a pin goes out. This decides WHEN. Both dates are
 // assigned here, at queue time, and nowhere else:
 //
-//   todoistDue    the Buffalo block where Will is asked to post it
-//   scheduledFor  the day the pin should actually go live
+//   scheduledFor  the day the pin goes live
+//   todoistDue    the moment Will is asked to post it, which is now the SAME
+//                 moment, to the hour
 //
-// It lives here rather than in CAPCOM's approve button because every rule is
-// about the whole queue, not one pin: two per session, five days between pins
-// to the same URL, at most three live on a day, and nothing scheduled further
-// than 30 days past its own block (Pinterest's scheduler horizon). A single
-// pin cannot answer any of those. Keeping it here is also what makes bulk
-// approval safe: approve ten at once and they fill the next five sessions,
-// because the slotter fills SESSIONS, not days.
+// REWRITTEN 2026-10-01 at Will's direction: *"The todoist task is a good
+// reminder of when I need to post to pin... But I'd like to approve a bank of
+// them in capcom, then have them schedule on todoist for time to post."*
 //
-// Will gets two blocks a week (schedule.md): Tue 20:30 and Fri 11:15.
-const SESSION_SIZE = 2;
+// So the two dates collapsed. Until today the task was due in one of Will's
+// two Buffalo blocks (Tue 20:30 / Fri 11:15) and carried a separate live date
+// for him to type into Pinterest's scheduler. Now the task fires at the moment
+// the pin should go out and he just posts it. Approving is the batched act;
+// posting is spread.
+//
+// WHAT WENT, AND WHY: the per-session cap of 2. It existed only because
+// tapping a click-to-publish link WAS publishing, so batching his attention
+// and batching the pins were the same action. The 2026-09-29 inversion broke
+// that link and this finishes the job. A bank approval may now produce as many
+// tasks as he approves; each fires at its own moment rather than landing on him
+// at once, which is the whole point.
+//
+// WHAT STAYED, AND WHY: the rules that protect the ACCOUNT rather than his
+// attention. Five days between pins to the same URL, at most three live in a
+// day, and a 30-day placement horizon so one bank approval cannot sprawl into
+// next quarter. Pinterest's own 10-scheduled/30-day scheduler ceiling no
+// longer binds, because he is posting rather than scheduling, but the horizon
+// is kept as a sanity bound on how far ahead a pin may be placed at all.
 const GAP_DAYS = 5;
 const MAX_LIVE_PER_DAY = 3;
 const HORIZON_DAYS = 30;
 
+// THE SLOT TABLE, and read the caveat before trusting it.
+//
+// Two constants, and they are a SESSION'S GUESS, not a finding. The researcher
+// ran for the first time on 2026-10-01 specifically to source these and came
+// back with: "The timing evidence is thin and contradictory, and I recommend
+// nothing." No first-party Pinterest source gives best-time guidance; every
+// source is a scheduler vendor's marketing blog with no stated method; and they
+// contradict each other on weekdays (one ranks Wednesday last, another ranks it
+// among the best). The only thing they agree on is evenings and weekend
+// mornings, and several of those same sources say timing barely matters for
+// evergreen pins because Pinterest is search-driven and a pin lives for months.
+//
+// So: two slots, not four. Four would imply a weekday pattern the evidence does
+// not support. These stand until Pinterest Analytics can answer it from our own
+// data, which the day-90 review (2026-11-19) is the first chance to do.
+// See content/pinterest/decisions.md and content/pinterest/playbook.md.
+const SLOT_BY_WEEKDAY = {
+  0: "10:00", // Sunday, weekend morning
+  1: "20:00", // Monday, evening
+  2: "20:00",
+  3: "20:00",
+  4: "20:00",
+  5: "20:00", // Friday, evening
+  6: "10:00", // Saturday, weekend morning
+};
+
 const dayNum = (iso) => Math.floor(new Date(`${iso}T00:00:00Z`).getTime() / 86400000);
 const dayISO = (n) => new Date(n * 86400000).toISOString().slice(0, 10);
 const urlKeyOf = (pin) => String(pin.destinationUrl || "").split("?")[0];
+const slotFor = (iso) => SLOT_BY_WEEKDAY[new Date(`${iso}T00:00:00Z`).getUTCDay()];
 
-function upcomingSessions(fromISO, count = 120) {
-  const out = [];
-  for (let i = 0; out.length < count; i++) {
-    const d = new Date(`${fromISO}T00:00:00Z`).getTime() + i * 86400000;
-    const w = new Date(d).getUTCDay();
-    if (w === 2 || w === 5) {
-      out.push(`${new Date(d).toISOString().slice(0, 10)}T${w === 2 ? "20:30" : "11:15"}:00`);
-    }
-  }
-  return out;
-}
-
-// Reads what is already committed to, then places each new pin in the first
-// slot that breaks none of the rules.
+// Reads what is already committed to, then places each new pin on the first
+// day that breaks none of the rules. Fills DAYS now rather than sessions,
+// because there are no sessions any more.
 function planSlots(pins, allPins, todayISO) {
-  const perSession = new Map();
   const perDay = new Map();
   const lastForUrl = new Map();
   for (const p of allPins) {
-    if (p.status !== "queued") continue;
-    if (p.todoistDue) perSession.set(p.todoistDue, (perSession.get(p.todoistDue) || 0) + 1);
-    if (!p.scheduledFor) continue;
+    if (p.status !== "queued" || !p.scheduledFor) continue;
     const d = dayNum(p.scheduledFor);
     perDay.set(d, (perDay.get(d) || 0) + 1);
     const k = urlKeyOf(p);
     lastForUrl.set(k, Math.max(lastForUrl.get(k) ?? -Infinity, d));
   }
 
-  const sessions = upcomingSessions(todayISO);
+  // Never today: the daily job runs at 13:30 UTC (09:30 ET) and the earliest
+  // slot is 10:00 local, so a task placed today could be due within half an
+  // hour of being created, or already past. Start tomorrow.
+  const first = dayNum(todayISO) + 1;
   const plan = [];
-  let si = 0;
   for (const pin of pins) {
-    while (si < sessions.length && (perSession.get(sessions[si]) || 0) >= SESSION_SIZE) si++;
-    if (si >= sessions.length) break;
-    const slot = sessions[si];
-    const slotDay = dayNum(slot.slice(0, 10));
     const k = urlKeyOf(pin);
-    let live = Math.max(slotDay, (lastForUrl.get(k) ?? -Infinity) + GAP_DAYS);
+    let live = Math.max(first, (lastForUrl.get(k) ?? -Infinity) + GAP_DAYS);
     while ((perDay.get(live) || 0) >= MAX_LIVE_PER_DAY) live++;
-    if (live > slotDay + HORIZON_DAYS) {
-      console.error(`  SKIP ${pin.id}: no live date inside ${HORIZON_DAYS} days of ${slot}`);
+    if (live > first + HORIZON_DAYS) {
+      console.error(`  SKIP ${pin.id}: no live date inside ${HORIZON_DAYS} days`);
       continue;
     }
-    perSession.set(slot, (perSession.get(slot) || 0) + 1);
     perDay.set(live, (perDay.get(live) || 0) + 1);
     lastForUrl.set(k, live);
-    plan.push({ pin, todoistDue: slot, scheduledFor: dayISO(live) });
+    const iso = dayISO(live);
+    plan.push({ pin, scheduledFor: iso, todoistDue: `${iso}T${slotFor(iso)}:00` });
   }
   return plan;
 }
@@ -238,14 +263,15 @@ function taskFor(pin) {
       "",
       `**Alt text:** ${pin.altText}`,
       "",
-      `**Schedule this pin in Pinterest for ${pin.scheduledFor}.**`,
+      // The task is due AT the posting moment now, so there is no date to type
+      // and no scheduler to drive. Saying "post it now" is the whole
+      // instruction, and the old set-the-date-then-Schedule wording would
+      // actively mislead: following it would schedule the pin for a date that
+      // has already arrived.
+      `**Post it now.** This task is due at the moment the pin should go out.`,
       "",
       `Image and description arrive pre-filled. Pick the board, paste the title,`,
-      `set the date above, then Schedule. Only publish now if the composer will`,
-      `not let you pick a date.`,
-      "",
-      `Pinterest holds 10 scheduled pins at a time, 30 days out. If you hit`,
-      `either limit, publish the rest of this batch now and say so.`,
+      `then publish.`,
       "",
       // The tick is the only "it went out" signal there is: the Pinterest API
       // is dead to us, so the reconcile job reads a completed task as
@@ -258,13 +284,17 @@ function taskFor(pin) {
     ]
       .filter((line) => line !== null)
       .join("\n"),
-    // Due = when Will TAPS the task (his Buffalo block), which is deliberately
-    // not the same as pin.scheduledFor, the date the pin should go LIVE. See
-    // the 2026-09-27 cadence entry in SCOPE_OF_WORK.md: he approves in batches
-    // on Tue/Fri, the pins themselves go out spread via Pinterest's scheduler.
+    // Due = the moment the pin should go live, to the hour. Rewritten
+    // 2026-10-01: this used to be Will's next Buffalo block, a separate thing
+    // from pin.scheduledFor. They are the same moment now. `scheduledFor` is
+    // kept as the date half of it because the rest of the pipeline, CAPCOM's
+    // pane and the reconcile job included, compares plain dates.
     due: { date: pin.todoistDue, timezone: TIMEZONE },
     labels: [LABEL],
-    priority: 3, // Todoist p2
+    // Todoist's integer is inverted: 4 is p1, 1 is p4. Will asked for p1
+    // (2026-10-01) and the rest of the Buffalo Rentals Dated project is p1, so
+    // p2 made the pins the odd ones out in his own list.
+    priority: 4, // Todoist p1
     project_id: PROJECT_ID,
   };
 }

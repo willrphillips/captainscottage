@@ -33,6 +33,15 @@ you produce stops at `status: "draft"` and waits for Will.
   they outrank the playbook.** The playbook describes what Pinterest does; this
   describes what we do, and it was settled in a session with Will. Read it every
   run. Never write to it.
+
+**Never firm up a hedged claim from the source post.** If the post says
+"approximately a five-hour trip on a good day", the pin does not say "a 5 hour
+drive". Carry the hedge or drop the number. Caught on
+`northern-neck-vs-outer-banks-v1`, 2026-10-01: the drive time from the cottage
+is verified (`site.ts` DRIVE_TIMES, DC is 165 minutes), the five hours to the
+Outer Banks is not, and the post hedged it for that reason. A pin is a worse
+place for an unhedged claim than a post, because nobody who reads the pin can
+see the hedge that was removed.
 - `content/pinterest/keywords.json`: the keyword bank. The `variants` array for
   a post is what you A/B test across that post's pins.
 - `PINTEREST_PLAN.md`: phases, variants, UTM scheme.

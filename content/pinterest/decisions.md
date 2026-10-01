@@ -108,3 +108,85 @@ at all.** If Will wants to review from his phone rather than at CAPCOM, that
 is no longer possible, and the fix would be a CAPCOM change, not a Todoist
 one. Intended, but worth knowing before he goes looking for a pin that is not
 there.
+
+## The task became a post-now reminder, 2026-10-01
+
+Will: *"The todoist task is a good reminder of when I need to post to pin. That
+helps from todoist since there isn't a native post option elsewhere. But I'd
+like to approve a bank of them in capcom, then have them schedule on todoist
+for time to post."*
+
+So the two dates above collapsed into one. The task now fires at the moment the
+pin should go out, at **priority 1**, and Will just posts it.
+
+| | before (2026-09-27 to 09-30) | after |
+|---|---|---|
+| task due | his next Buffalo block | the moment the pin goes live |
+| what he does | set a date, then Schedule | post it |
+| how many per sitting | capped at 2 | as many as he approved |
+| priority | p2 | p1 |
+
+**The per-session cap of 2 is retired.** It existed only because tapping a
+click-to-publish link *was* publishing, so batching his attention and batching
+the pins were the same action. The 2026-09-29 inversion broke that link and
+this finished the job. Approving is the batched act now; posting is spread. A
+bank approval may produce as many tasks as he approved, and that is the point:
+each fires at its own moment rather than landing on him at once.
+
+**What stayed, because it protects the account rather than his attention:** five
+days between pins to the same URL, at most three live in a day, and a 30-day
+placement horizon. Pinterest's own 10-scheduled/30-day ceiling no longer binds,
+because he posts rather than schedules, but the horizon is kept so one bank
+approval cannot sprawl into next quarter. Verified in a sandbox: 12 approvals
+produced 12 tasks across 2026-10-02 to 10-13, three a day at most, every
+same-URL trio exactly five days apart.
+
+### The slot table is a guess, and it is labelled one
+
+`scripts/pinterest-todoist-queue.mjs` posts weekday evenings at **20:00** and
+weekend mornings at **10:00**. Two constants, local time. They are **a
+session's guess, not a finding.**
+
+`pinterest-research.yml` was activated on 2026-10-01 specifically to source
+them, and the researcher came back with: *"The timing evidence is thin and
+contradictory, and I recommend nothing. This is the exact finding, not a
+hedge."* No first-party Pinterest source gives best-time guidance. Every source
+is a scheduler vendor's marketing blog with no stated method. They contradict
+each other on weekdays: one ranks Wednesday last, another ranks it among the
+best. The only agreement is evenings and weekend mornings, and several of those
+same sources say timing barely matters for evergreen pins anyway, because
+Pinterest is search-driven and a pin lives for months.
+
+**Two slots and not four, deliberately.** Four would imply a weekday pattern the
+evidence does not support. These stand until our own Pinterest Analytics can
+answer it, and the day-90 review (2026-11-19) is the first chance.
+
+### The cost of this change, which Will has not answered yet
+
+An overdue task used to mean he was busy. It now means **a pin missed its
+window.** Two tasks were already overdue on 2026-10-01 from the first session
+of the 2-per-session cadence, so due-at-his-own-block did not make him act
+either, and moving the time will not fix that by itself. Raised with him
+2026-10-01; recorded here because "nothing is late" was his own framing on
+2026-09-27 and this change quietly redefines late.
+
+## Warning for the next person changing this pipeline
+
+The 2026-09-29 inversion broke two checks that read for the old shape, and
+neither was found for two days because the job that would have tripped over
+them was switched off.
+
+1. **`pinterest-queue.yml` counted approved pins with
+   `grep -c '"status": "approved"'`.** After the inversion an approved pin keeps
+   `status: "queued"` and carries `approvedAt`, so the count read **zero
+   forever**. It failed OPEN, into "the floor is breached, make more pins",
+   which is worse than failing closed into silence. Fixed 2026-10-01; counted
+   in node now, against the approved bank.
+2. **Its floor was 14 pins "at 1/day".** The rate is 4 a week (`pacing.md`), so
+   the floor is 12, which is three weeks of approved stock.
+
+The shape of both, and of nearly everything else found this week: a change made
+in one place, and a check left reading for the old shape somewhere else.
+**`approvedAt` is the approval marker. `status` is not.** Anything asking "has
+Will seen this" must read `approvedAt`, and anything counting the approved bank
+must exclude `posted` and `rejected`.
