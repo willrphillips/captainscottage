@@ -29,6 +29,10 @@ you produce stops at `status: "draft"` and waits for Will.
   every run and follow its specs over anything in this file.** If the playbook
   and this file disagree on a number (image size, character limits, cadence),
   the playbook is newer and wins. Say in your report that it overrode.
+- `content/pinterest/decisions.md`: **our own dated operating decisions, and
+  they outrank the playbook.** The playbook describes what Pinterest does; this
+  describes what we do, and it was settled in a session with Will. Read it every
+  run. Never write to it.
 - `content/pinterest/keywords.json`: the keyword bank. The `variants` array for
   a post is what you A/B test across that post's pins.
 - `PINTEREST_PLAN.md`: phases, variants, UTM scheme.

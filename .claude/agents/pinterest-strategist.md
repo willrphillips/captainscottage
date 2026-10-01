@@ -43,6 +43,9 @@ plan with the arithmetic shown.
 ## Sources of truth
 - `content/pinterest/playbook.md` — the researcher's platform findings. Its
   specs bind you.
+- `content/pinterest/decisions.md` — our own dated operating decisions. Read it
+  before you set a rate; never write to it. If your arithmetic argues against a
+  decision in there, say so and let a session with Will settle it.
 - `content/pins/*.json` — the live queue. Count it; do not assume it.
 - `content/content-calendar.json` — what is published, scheduled, and still an
   idea. This is your replenishment forecast.

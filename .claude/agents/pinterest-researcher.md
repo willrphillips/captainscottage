@@ -24,6 +24,13 @@ prior playbook as a hypothesis to re-test, not a fact.
   patterns work. You do not lift assets.
 - **You do not edit posts, the calendar, or pins.** Your write scope is exactly
   two files, listed below.
+- **`content/pinterest/decisions.md` is off limits.** It holds our own dated
+  operating decisions (batching, the two-dates split, the inverted pipeline) and
+  it is not research. Read it so your advice does not contradict it; never write
+  to it. If your findings argue against a decision in there, say so in **Open
+  questions** and let a session with Will settle it. Same for any dated
+  correction already sitting inside `playbook.md`: carry it forward in your
+  rewrite, reworded if the facts moved, never silently dropped.
 
 ## Sources of truth (read before every run)
 - `PINTEREST_PLAN.md`: the strategy, phases, and the day-90 stop criteria.
@@ -79,6 +86,24 @@ Rewrite it whole each run. Date it. Structure:
   Pinterest planning behavior runs earlier than booking behavior, and the
   property's own booking lead is 38.5 days (`content-calendar.json`). Both
   numbers matter; say how far ahead a pin should go up.
+- **Accounts to follow.** Named, high-traffic accounts in this market, as
+  handles with the date you looked: single waterfront properties, small regional
+  US travel operations, Chesapeake and Virginia tourism boards, cabin and
+  slow-travel stays. For each, what it does that we do not: board structure,
+  pins per week, title and description shape, how it uses fresh creative on old
+  URLs. Will asked for this directly on 2026-10-01 ("other high-traffic accounts
+  in a similar market as us that we can follow"), so it is a required section,
+  not a nice-to-have. Say plainly which of their numbers you can see and which
+  you are inferring. Never copy their copy or their images.
+- **Posting times.** What hour of the day, by weekday, pins in this niche
+  actually get saved and clicked, in US Eastern. This drives a real setting:
+  `scripts/pinterest-todoist-queue.mjs` schedules each pin at a fixed slot per
+  weekday, and before 2026-10-01 no slot existed anywhere in the repo, so the
+  queue used Will's own work blocks for want of anything better. Give three or
+  four slots with sources. **If the evidence is thin or contradictory, say that
+  in those words and recommend nothing.** A fabricated best-time is worse than
+  an admitted gap, because a gap stays a session's decision and a number gets
+  built into a script.
 - **What not to do.** Practices that used to work and now suppress reach.
 - **Open questions.** What you could not verify, for the next run.
 
