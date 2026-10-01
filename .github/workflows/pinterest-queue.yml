@@ -100,16 +100,41 @@ jobs:
                 }
               }
             }
-            let uncovered = 0;
+            // Published blog posts with no pins file.
+            const gaps = [];
             for (const f of fs.readdirSync("src/content/blog").filter((f) => f.endsWith(".mdx"))) {
               if (!/^draft:\s*false/m.test(fs.readFileSync("src/content/blog/" + f, "utf8"))) continue;
-              if (!fs.existsSync(dir + "/" + f.replace(/\.mdx$/, ".json"))) uncovered++;
+              const slug = f.replace(/\.mdx$/, "");
+              if (!fs.existsSync(`${dir}/${slug}.json`)) gaps.push(slug);
             }
+            // Evergreen SITE pages with no pins file, added 2026-10-01.
+            //
+            // These were invisible to this job until today, and on 2026-10-01
+            // that cost 24 pins. Will wiped every unposted pin to start the new
+            // flow; two thirds of them pointed at site pages, and because this
+            // count only ever looked at src/content/blog, nothing could
+            // regenerate them. The playbook has said since 2026-08-08 that
+            // inventory is not only blog posts and that /what-to-bring is one
+            // of the strongest travel formats on Pinterest, which made the gap
+            // a documented idea that no code implemented.
+            //
+            // Listed explicitly rather than globbed: src/pages also holds 404,
+            // privacy, book and the journal index, none of which is a pin
+            // destination.
+            const SITE_PAGES = [
+              "activities", "amenities", "area", "faq",
+              "getaway-guide", "photos", "the-cottage", "what-to-bring",
+            ];
+            for (const slug of SITE_PAGES) {
+              if (!fs.existsSync(`${dir}/${slug}.json`)) gaps.push(slug);
+            }
+            const uncovered = gaps.length;
             const floor = Number(process.env.FLOOR || 12);
             const need = bank < floor ? 1 : 0;
             fs.appendFileSync(process.env.GITHUB_OUTPUT,
-              `bank=${bank}\ndrafts=${drafts}\nposted=${posted}\nuncovered=${uncovered}\nneed=${need}\n`);
-            console.log(`approved bank=${bank} (floor ${floor}) | awaiting-approval=${drafts} | posted=${posted} | published-posts-with-no-pins=${uncovered} | run=${need}`);
+              `bank=${bank}\ndrafts=${drafts}\nposted=${posted}\nuncovered=${uncovered}\ngaps=${gaps.join(",")}\nneed=${need}\n`);
+            console.log(`approved bank=${bank} (floor ${floor}) | awaiting-approval=${drafts} | posted=${posted} | pages-with-no-pins=${uncovered} | run=${need}`);
+            if (uncovered) console.log(`  no pins yet: ${gaps.join(", ")}`);
           '
         env:
           FLOOR: ${{ inputs.queue_floor || '12' }}
@@ -121,6 +146,7 @@ jobs:
           MAX_POSTS: ${{ inputs.max_posts || '3' }}
           DRAFTS_WAITING: ${{ steps.plan.outputs.drafts }}
           DRAFTS_CEILING: ${{ inputs.drafts_ceiling || '12' }}
+          GAPS: ${{ steps.plan.outputs.gaps }}
         run: |
           claude -p "You are the Captain's Cottage Pin Writer running headless on the weekly cron.
 
@@ -130,7 +156,7 @@ jobs:
 
           Read content/pinterest/decisions.md before you choose dates. It holds our own operating decisions and it outranks the playbook. Read content/pinterest/pacing.md for the current rate and runway.
 
-          Otherwise pick up to $MAX_POSTS PUBLISHED posts (frontmatter draft:false) that have the fewest pins, preferring any with none at all, and for each: run 'npm run build:pins -- <slug>', check the renders are sensible, then write the pin copy into content/pins/<slug>.json per the agent file. Each pin tests a DIFFERENT keyword variant from keywords.json and gets its own utm_content. Space one post's variants at least 5 days apart, never more than 3 pins on any one date across the whole queue, and never a date less than 2 days out.
+          Otherwise pick up to $MAX_POSTS destinations that have the fewest pins, preferring any with none at all. These have none at all right now: $GAPS. A destination is EITHER a published journal post (src/content/blog/<slug>.mdx with frontmatter draft:false) OR one of the evergreen site pages, which are always live and need no draft check: activities, amenities, area, faq, getaway-guide, photos, the-cottage, what-to-bring. Site pages are inventory too, and the playbook rates /what-to-bring among the strongest travel formats on Pinterest; build pins from the page's own content and images rather than from a post. For each: run 'npm run build:pins -- <slug>', check the renders are sensible, then write the pin copy into content/pins/<slug>.json per the agent file. Each pin tests a DIFFERENT keyword variant from keywords.json and gets its own utm_content. Space one post's variants at least 5 days apart, never more than 3 pins on any one date across the whole queue, and never a date less than 2 days out.
 
           HARD RULES: every pin status is 'draft'. Never write 'approved'. Never post or call any API. Never pin a post whose frontmatter says draft:true. No 'Hull Creek' in any title or keyword. No em dashes and no 'honest' anywhere. Do NOT run git; the workflow commits.
 

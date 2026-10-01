@@ -107,6 +107,15 @@ const bank = pins.filter((p) => p.approvedAt && p.status !== "posted" && p.statu
 const drafts = pins.filter((p) => (p.status || "draft") === "draft").length;
 const queued = pins.filter((p) => p.status === "queued").length;
 
+// Evergreen site pages are pin destinations too, and leaving them out of this
+// count is what let 24 pins vanish on 2026-10-01 with nothing able to rebuild
+// them. Listed explicitly: src/pages also holds 404, privacy, book and the
+// journal index, none of which is a pin destination.
+const SITE_PAGES = [
+  "activities", "amenities", "area", "faq",
+  "getaway-guide", "photos", "the-cottage", "what-to-bring",
+];
+
 let uncovered = [];
 if (fs.existsSync(BLOG_DIR)) {
   for (const f of fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".mdx"))) {
@@ -114,6 +123,9 @@ if (fs.existsSync(BLOG_DIR)) {
     if (!/^draft:\s*false/m.test(text)) continue;
     if (!fs.existsSync(path.join(PINS_DIR, f.replace(/\.mdx$/, ".json")))) uncovered.push(f.replace(/\.mdx$/, ""));
   }
+}
+for (const slug of SITE_PAGES) {
+  if (!fs.existsSync(path.join(PINS_DIR, `${slug}.json`))) uncovered.push(slug);
 }
 
 const checks = [];
@@ -148,10 +160,10 @@ add(
 );
 
 add(
-  "Published posts with no pins",
+  "Pages with no pins",
   uncovered.length === 0,
   uncovered.length ? `${uncovered.length}: ${uncovered.join(", ")}` : "none",
-  "every published post should have pins; a gap here is free inventory going unused",
+  "every published post and every evergreen site page should have pins; a gap here is free inventory going unused",
 );
 
 for (const w of WORKFLOWS) {
