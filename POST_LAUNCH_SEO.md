@@ -28,8 +28,8 @@
 A staged proliferation plan for **Captain's Cottage** once the production
 domain is live. Operates inside the project's locked constraints:
 
-- **No social media** (no Facebook, Instagram, X, TikTok, Threads, etc.)
-- **No email collection or newsletter** on-site
+- **No social media except Pinterest** (no Facebook, Instagram, X, TikTok, Threads). Pinterest became a live channel on 2026-08-07 with its own agents, playbook and pin queue; this line said "no social media" flat until 2026-10-01.
+- ~~**No email collection or newsletter** on-site~~ **No longer true, corrected 2026-10-01.** A Buttondown signup band is live in the footer (`SITE.newsletterAction` in `src/lib/site.ts` points at a real embed endpoint). The journal-to-newsletter send is built (`.github/scripts/newsletter-send.mjs`, wired into `auto-publish.yml`) but **does not send**, because the `BUTTONDOWN_API_KEY` secret has never been added. So: collection yes, sending no.
 - **No direct booking** — every CTA routes to the Airbnb listing
 - **No Google Business Profile / Bing Places** (no walk-in location)
 - **No on-site reviews UI** — review proof comes through schema + Airbnb
@@ -204,7 +204,7 @@ internet will recommend at least one of these:
 | Google Business Profile             | No walk-in location; would misrepresent property    |
 | Bing Places                         | Same                                                |
 | Instagram / Facebook / X            | No social — owner constraint                        |
-| Email newsletter capture            | No email channel — owner constraint                 |
+| Email newsletter capture            | **Built and live in the footer since 2026-06-09.** Sending blocked on a missing secret |
 | Live chat widget                    | Brief explicitly forbids                            |
 | Paid review platforms (Yelp etc.)   | Off-brand and not the booking channel               |
 | Booking widgets / OTA mirrors       | Phase 6 only; Airbnb is the channel until then      |

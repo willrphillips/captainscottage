@@ -15,7 +15,7 @@ Legend:
 
 ## Technical Setup
 
-- ✅ HTTPS enabled with active SSL cert (GH Pages cert; custom domain cert pending DNS)
+- ✅ HTTPS enabled with active SSL cert. **The custom domain is done** (`https://captainscottageva.com/` returns 200 over TLS, verified 2026-10-01); the "cert pending DNS" note stood for months after the swap completed.
 - ✅ Fully mobile responsive
 - ⏸ Page load under 3s (verify with PageSpeed Insights after custom domain swap)
 - ✅ Images compressed (sharp pipeline; ~500–800 KB for hero photos)
@@ -219,24 +219,33 @@ All ⏸ — outreach work outside the codebase:
 - ⏸ Titles / meta descriptions reviewed
 - ⏸ All pages indexed (`site:` search after GSC)
 
-## Custom Domain (Namecheap → GitHub Pages)
+## Custom Domain (Namecheap → GitHub Pages) — DONE
 
-- ❓ Domain name confirmed by Will (?)
-- ⏸ Add `public/CNAME` file containing the apex domain
-- ⏸ GitHub repo Settings → Pages → set Custom Domain
-- ⏸ Namecheap DNS: A records to GH Pages IPs + CNAME for `www`
-- ⏸ Wait for DNS propagation
-- ⏸ GitHub provisions Let's Encrypt cert
-- ⏸ "Enforce HTTPS" toggle in GH Settings
-- ⏸ `astro.config.mjs`: update `SITE` to `https://<domain>` and clear `BASE` to `""`
-- ⏸ Re-test canonicals, sitemap, OG URLs
+**Every item below was marked deferred until 2026-10-01, and all of it had
+already shipped.** The domain is `captainscottageva.com`, DNS moved to
+Cloudflare during the 2026-06 guest-reply webhook work, `public/CNAME` is in the
+repo, `BASE` is `/`, and the apex serves 200 over TLS. Left as a record of what
+the swap involved rather than rewritten as a checklist of things to do.
+
+- ✅ Domain confirmed: `captainscottageva.com`
+- ✅ `public/CNAME` present
+- ✅ Custom domain set in GitHub Pages
+- ✅ DNS live (now on Cloudflare, not Namecheap; web records grey-clouded so GitHub Pages still serves)
+- ✅ Cert provisioned and HTTPS enforced
+- ✅ `SITE` is the apex domain and `BASE` is `/`
+- ⚠️ Canonicals, sitemap and OG URLs: not re-checked by this audit. UNVERIFIED.
 
 ## Immediate Next Actions (when work resumes)
 
-1. **Custom domain swap** (highest impact — see Custom Domain section).
-2. **Approve / publish journal posts** (5 are `in-review`; nothing live until Will batch-approves).
-3. **Search Console + sitemap submission** (after domain).
-4. **`/the-cottage` page** (still a stub — write a real long-form tour page).
+**This list is from before launch and all four were done long ago. Kept for
+history; do not work from it.** As of 2026-10-01: the domain swap shipped, 12
+journal posts are published with 4 in draft, `/the-cottage` is a real page, and
+`SCOPE_OF_WORK.md` is where current next-actions live.
+
+1. ~~**Custom domain swap**~~ — done.
+2. ~~**Approve / publish journal posts**~~ — 12 published.
+3. ~~**Search Console + sitemap submission**~~ — done per `SCOPE_OF_WORK.md` 2026-06-21 (GSC green). Not independently re-verified by this audit.
+4. ~~**`/the-cottage` page**~~ — real and indexed, no longer a stub.
 5. **Replace `og-default.jpg`** with a real branded social image.
 6. **`/photos` standalone page** (or fold into `/the-cottage`).
 7. **Updated-date display** on evergreen guides.

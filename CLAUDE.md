@@ -10,11 +10,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Phase status
 
-Phase 1 (foundation + home page) is in. Phases 2–6 (blog content, full property page, area/activity guides, polish, direct booking) are still pending. Don't skip ahead.
+**Corrected 2026-10-01 by a documentation audit.** The paragraph that stood here said "Phase 1 (foundation + home page) is in. Phases 2–6 are still pending. Don't skip ahead." That had been wrong for months: the site is live at the apex domain, every page is real and indexed, and 12 journal posts are published with 4 more in draft. Phase 6 (direct booking) is the only one genuinely outstanding, and `/book` still redirects to Airbnb by design.
+
+Verified 2026-10-01: `curl https://captainscottageva.com/` returns 200, `/journal/the-art-of-the-slow-weekend/` returns 200, `grep -l '^draft: false' src/content/blog/*.mdx` counts 12, and no page in `src/pages/` imports `ComingSoon`.
 
 **Owner override (2026-05-15):** Will explicitly directed building the real `/area` and `/activities` pages ahead of phase order, driven by the host Airbnb guidebook (`src/lib/guidebook.ts`). Those two pages are now live and indexed. This was a one-time, owner-authorized exception — it is not a precedent to skip phasing generally. Blog system (Workstream A) is still the next planned build; `/the-cottage`, `/amenities`, `/faq` remain `ComingSoon` stubs until their phases.
 
-**Owner override (2026-05-19):** `/what-to-bring` — a real, indexed seasonal "what to pack" utility page (`src/pages/what-to-bring.astro`, content of record `content/what-to-bring.draft.md`) — was built ahead of phase order at Will's direction. Same one-time-exception status. It is currently orphaned (no nav/footer link in yet); placement is a pending chrome decision.
+**Owner override (2026-05-19):** `/what-to-bring` — a real, indexed seasonal "what to pack" utility page (`src/pages/what-to-bring.astro`, content of record `content/what-to-bring.draft.md`) — was built ahead of phase order at Will's direction. Same one-time-exception status. It is linked from the footer (`src/components/Footer.astro`); the "currently orphaned" note that stood here was corrected 2026-10-01.
 
 ## Locked conventions added since launch (read these — newer than the stack/code sections below)
 
@@ -22,7 +24,12 @@ The stack/code sections further down predate launch and have drifted in spots; *
 
 - **Live on a custom domain.** Site is live at https://captainscottageva.com. `BASE` is now `/` (not `/captainscottage`), and analytics is **Cloudflare Web Analytics**, not Plausible (those mentions below are stale). Most pages (`/the-cottage`, `/amenities`, `/area`, `/activities`, `/faq`, `/photos`, `/getaway-guide`, `/what-to-bring`) are real and indexed, not `ComingSoon` stubs.
 - **Location wording (geo-SEO) — locked 2026-06-21.** Lead all titles/metas/H1s/hero/schema/`llms.txt` with recognizable geography: **Virginia's Northern Neck**, **where the Potomac meets the Chesapeake Bay**, near **Heathsville** / Northumberland County, ~2¾ hrs from DC. Use **"Hull Creek" as body texture only — never a headline, page title, or search keyword** (too hyperlocal to rank). Canonical tagline lives in `site.ts → PROPERTY.tagline`.
-- **Agents (`.claude/agents/`, `.claude/workflows/`).** Blog pipeline `blog-editor → blog-researcher → blog-writer ⇄ blog-seo-editor`, plus `blog-reviewer` (read-only, citation-backed voice review) and `cottage-overseer` (read-only "state of the cottage" briefing). `cottage-pipeline` is a **workflow** (deterministic driver running the chain for the next N idea slots) — a workflow, not an agent, because subagents can't spawn subagents. Guest replies: `guest-reply`, `guest-reply-harvest` + the GitHub Actions watcher/tuner. Every agent stops at the human gate (never approves/publishes/sends).
+- **Agents (`.claude/agents/`, `.claude/workflows/`).** 14 agent files. Every one stops at the human gate: none approves, publishes or sends. **Rewritten 2026-10-01 after an audit found this bullet listed half of them and misdescribed what triggers the rest.**
+  - **Blog, automated.** `blog-editor → blog-researcher → blog-writer ⇄ blog-seo-editor`, run weekly by `draft-batch.yml` (Sat 09:00 UTC) via `claude -p`.
+  - **Blog, on demand only, no cron.** `blog-reviewer` (citation-backed voice review; also runs from CAPCOM's Rewrite button alongside the writer and SEO editor), `blog-metrics`, `cottage-overseer`.
+  - **Pinterest.** `pinterest-researcher` + `pinterest-strategist` (`pinterest-research.yml`, monthly, dispatch-first), `pin-writer` (`pinterest-queue.yml`, Sun 11:00 UTC), `edwin` (`pinterest-briefing.yml`, Fri 12:00 UTC — the cottage Pinterest overseer, a different process from the Edwin on atlas). Three of these four were switched off from mid-August until 2026-10-01 and two had never executed at all; `content/pinterest/decisions.md` has the detail.
+  - **Guest replies: the three agent files are NOT wired to anything.** `guest-reply`, `guest-reply-harvest` and `guest-reply-bootstrap` run only when a human invokes them in a session. The production path is a plain script (`.github/scripts/guest-reply-cloud.mjs` via `guest-reply-watch.yml`) plus an inline `claude -p` prompt in `guest-reply-tune.yml`; neither reads an agent file. Verified 2026-10-01 by grepping `.github/` for those filenames.
+  - `cottage-pipeline` is a **workflow** (`.claude/workflows/cottage-pipeline.mjs`), not an agent, because subagents cannot spawn subagents.
 - **Notifications → Discord.** Guest-reply alerts post to **Discord** via the `DISCORD_WEBHOOK_URL` secret. The earlier **Telegram** and **ntfy** paths are retired. Voice tuning learns from Will's **sent** Gmail replies (sent-vs-draft diff in `build-voice-diff.mjs`), not from reply-capture.
 - **Human gate unchanged.** Posts stay `draft:true` at `in-review` until Will approves; approved posts auto-publish on their `publishedAt` date.
 - **Banned AI tells (locked 2026-08-07).** Two things never appear in copy: the em dash character, and "honest"/"honestly"/"candidly"/"full transparency" used to vouch for what follows. Applies to body copy, headings, page titles, meta descriptions, alt text, and MDX comments, on every post and every page. Use a comma, colon, parentheses, semicolon, or two sentences in place of an em dash; say the point plainly in place of "honest". One exemption: verbatim quotes of someone else's words, i.e. the guest reviews in `src/lib/site.ts`. Will's host notes in `src/lib/guidebook.ts` were swept too (his call, 2026-08-07). Enforced by `blog-writer.md` voice principles #6/#7 and `blog-seo-editor.md` checklist #10 (grep, either hit is a FAIL).
@@ -42,34 +49,34 @@ pipeline meaning lives in `SCOPE_OF_WORK.md`. This repo only emits live status.
 - **Tailwind v4** via the `@tailwindcss/vite` plugin and `@import "tailwindcss"` in `src/styles/global.css`. Color/font tokens live in `@theme` in that same file — no `tailwind.config.*` file.
 - **`@fontsource-variable/fraunces` + `@fontsource-variable/inter-tight`** — self-hosted, imported once in `global.css`.
 - **Astro `<Image>` is intentionally _not_ used yet.** The home page uses plain `<img>` against expected slugs in `/public/images/` so the layout renders even before photos arrive. Swap to `<Image>` when real assets are placed in `src/assets/` (typed via `image()` in the content schema for blog heroes).
-- **Plausible** analytics (placeholder `data-domain` in `src/lib/site.ts → SITE.plausibleDomain`).
+- **Cloudflare Web Analytics** (beacon in `src/layouts/BaseLayout.astro`). Plausible was never shipped and `SITE.plausibleDomain` no longer exists; corrected 2026-10-01 after the audit found it still named here.
 - **Hosting:** GitHub Pages via `.github/workflows/deploy.yml` (Actions → upload-pages-artifact → deploy-pages). Triggered on push to `main`.
 
 ## Develop
 
 ```bash
 npm install
-npm run dev        # http://localhost:4321/captainscottage
+npm run dev        # http://localhost:4321/
 npm run build      # astro check + static build → ./dist
 npm run preview
 ```
 
-The `base: "/captainscottage"` setting means every URL is served under `/captainscottage/*` locally and on GH Pages. Internal links go through `withBase()` in `src/lib/site.ts` — never hard-code `/foo`, always `withBase("/foo")`. Canonical/OG URLs go through `absoluteUrl()`; default `pathname` in `BaseLayout` is derived via `stripBase(Astro.url.pathname)` because Astro's `Astro.url.pathname` already includes the base in static builds.
+`BASE` is `/` (it was `/captainscottage` before the custom domain; `https://captainscottageva.com/captainscottage/` now 404s, verified 2026-10-01). Internal links go through `withBase()` in `src/lib/site.ts` — never hard-code `/foo`, always `withBase("/foo")`. Canonical/OG URLs go through `absoluteUrl()`; default `pathname` in `BaseLayout` is derived via `stripBase(Astro.url.pathname)` because Astro's `Astro.url.pathname` already includes the base in static builds.
 
 ## Code layout (as built)
 
 - `src/lib/site.ts` — single source of truth for property facts (`PROPERTY`), drive times, standout amenities, headline reviews, nav links, and the `SITE` deployment constants. Every page reads from here. Change a fact in one place, never in markup.
 - `src/styles/global.css` — Tailwind import, fontsource imports, `@theme` tokens, base layer (grain overlay, selection color, heading defaults), and component-layer utilities (`.eyebrow`, `.display-hero`/`-xl`/`-lg`/`-md`, `.lede`, `.body-prose`, `.drop-cap`, `.btn`/`.btn-rust`/`.btn-ghost`, `.container-wide`/`-narrow`, `.section-pad`, `.reveal`). Use these utilities — don't redefine them inline.
-- `src/layouts/BaseLayout.astro` — owns `<head>` (canonical, OG, Twitter, RSS link, sitemap link, Plausible script), the skip link, `<Nav>`/`<Footer>` chrome, and the scroll-reveal `IntersectionObserver`. Exposes a named `head` slot for per-page schema/meta injection. `BlogPost.astro` (Phase 2) will wrap this.
+- `src/layouts/BaseLayout.astro` — owns `<head>` (canonical, OG, Twitter, RSS link, sitemap link, Cloudflare Analytics beacon), the skip link, `<Nav>`/`<Footer>` chrome, and the scroll-reveal `IntersectionObserver`. Exposes a named `head` slot for per-page schema/meta injection. `BlogPost.astro` (Phase 2) will wrap this.
 - `src/components/Schema*.astro` — emit JSON-LD via `<script is:inline type="application/ld+json">`. Pages that render in the head should pass them through the `head` slot of `BaseLayout`. Breadcrumbs are passed as a `breadcrumbs={[...]}` prop on `BaseLayout` and rendered automatically.
 - `src/components/` — section components for the home page (`Hero`, `Marquee`, `StorySection`, `ReviewQuote`, `AmenityGrid`, `PhotoGallery`, `LocationSection`, `JournalPreview`, `BookingCTA`), plus `Nav`, `Footer`, `BlogCard`, and the `ComingSoon` placeholder used by stub pages.
-- `src/pages/` — the home page is real. Every other page (`/the-cottage`, `/amenities`, `/area`, `/activities`, `/journal`, `/faq`) is a `ComingSoon` stub set to `noindex` until its phase fills it in. `/book` redirects to the Airbnb listing (meta-refresh + visible fallback) and stays that way until Phase 6.
+- `src/pages/` — **every page is real and indexed.** `/the-cottage`, `/amenities`, `/area`, `/activities`, `/journal`, `/faq`, `/photos`, `/getaway-guide`, `/what-to-bring`. No page imports `ComingSoon` any more (verified 2026-10-01); the `ComingSoon` component itself still exists but is unused. `/book` redirects to the Airbnb listing (meta-refresh + visible fallback) and stays that way until Phase 6.
 - `src/content/config.ts` — typed `blog` and `guides` collections. The `blog` collection enforces `category: "Lifestyle" | "Travel" | "Real Estate"` to match the brief's content mix.
 - `src/pages/rss.xml.js` + `@astrojs/sitemap` — feed and sitemap auto-generated. The RSS endpoint tolerates an empty `blog` collection (try/catch) so the build doesn't break before posts land.
 
 ## Adding a blog post
 
-When Phase 2 begins, create `src/content/blog/<slug>.mdx` with the frontmatter shape in `src/content/config.ts`. The category enum is intentionally narrow — don't widen it without checking the brief's content plan. Add a hero image to `src/assets/blog/` so the schema can type it.
+Create `src/content/blog/<slug>.mdx` with the frontmatter shape in `src/content/config.ts`. The category enum is intentionally narrow — don't widen it without checking the brief's content plan. Add a hero image to `src/assets/blog/` so the schema can type it.
 
 ## Image workflow
 

@@ -25,7 +25,8 @@ name: Pinterest queue to Todoist
 #
 # 13:30 UTC, ahead of the 14:00 slot the API job used, and clear of the
 # auto-publish crons (12:00/16:00/21:00) and guest-reply-tune (13:00). Pins are
-# queued the morning of their date, so this must run before PIN_PUBLISH_TIME.
+# queued the morning of their date, so this must run before the earliest slot
+# (10:00 local, weekend mornings). PIN_PUBLISH_TIME was deleted 2026-10-01.
 
 on:
   schedule:
@@ -74,7 +75,6 @@ jobs:
         env:
           TODOIST_API_TOKEN: ${{ secrets.TODOIST_API_TOKEN }}
           TODOIST_PROJECT_ID: ${{ vars.TODOIST_PROJECT_ID }}
-          PIN_PUBLISH_TIME: ${{ vars.PIN_PUBLISH_TIME }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
         run: |
           node scripts/pinterest-todoist-queue.mjs --limit "${{ inputs.limit || '25' }}" | tee /tmp/pin-queue.txt

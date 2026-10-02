@@ -199,7 +199,7 @@ Both now act on the task.
 | Action in capcom | What happens in Todoist |
 |---|---|
 | **Reject** | The task is **deleted**. |
-| **Reschedule** | The task moves to the new date at `PIN_PUBLISH_TIME` in `PIN_TIMEZONE`. |
+| **Reschedule** | The task moves to the new date at that weekday's slot (weekday evenings 20:00, weekend mornings 10:00) in `PIN_TIMEZONE`. `PIN_PUBLISH_TIME` is gone, deleted 2026-10-01: a single constant cannot vary by weekday. |
 | **Approve / Adjust** | Nothing. The task stands. |
 
 **Reject deletes; it must never complete.** This is load-bearing, not a style
@@ -224,21 +224,28 @@ save link on rejected copy is the dangerous half.
 
 ### Queueing a draft (`--include-drafts`)
 
-Since 2026-08-21 the publisher is `pinterest-todoist-queue.mjs`, and a queued
-pin publishes only when Will clicks its Todoist task. That makes the task itself
-a usable review surface, so drafts may be queued directly with the manual
-`--include-drafts` flag. Such a task is titled "Review + publish" and opens with
-"Not reviewed yet", so nothing unread can be mistaken for approved copy.
+Since 2026-08-21 the publisher is `pinterest-todoist-queue.mjs`, and a pin
+publishes only when Will clicks its Todoist task.
 
-This does **not** loosen the gate. `--include-drafts` never sets `approved`, the
-scheduled workflow never passes it, and no pin reaches Pinterest without Will's
-click. Pair it with `--until <ISO date>` so a run cannot queue further ahead
-than intended.
+**`--include-drafts` NO LONGER WORKS, and this section described it as if it did
+until 2026-10-01.** It was built when the Todoist task was the review surface: a
+draft could be queued directly, the task was titled "Review + publish", and it
+opened with "Not reviewed yet". The 2026-09-29 inversion made the task a post-now
+reminder that exists only after review, and the gate is now
+`if (!pin.approvedAt) continue;`, so a draft is skipped before the flag is ever
+consulted. The flag is still parsed and does nothing, and no task anywhere reads
+"Review + publish" any more.
 
-**Queued 2026-08-22 at Will's direction:** first the 19 pins through 2026-09-30,
-then the remaining 28 on his go-ahead. The whole queue is now in Todoist: 50
-tasks, 2026-08-21 through 2026-11-25, every other day at 10:00 ET. 47 of them
-are draft-origin and read "Review + publish".
+Review happens in CAPCOM. That is the only review surface, and the trade was
+recorded when it was made: an unapproved pin has no presence in Todoist at all,
+so reviewing from a phone is no longer possible.
+
+**That 2026-08-22 queue no longer exists.** It read: 50 tasks, 2026-08-21
+through 2026-11-25, every other day at 10:00 ET, 47 of them draft-origin. All of
+it was superseded, and on 2026-10-01 Will wiped every unposted pin to restart on
+the current flow. As of that date: 14 posted pins, 1 rejected, 18 drafts awaiting
+approval, and **zero Todoist tasks**. Tasks now exist only for pins he has
+approved. Do not read this paragraph as current state; read `content/pins/*.json`.
 
 ## Rules any publisher must honor
 

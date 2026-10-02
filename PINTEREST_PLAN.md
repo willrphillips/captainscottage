@@ -207,7 +207,11 @@ works out, since the same 2:3 renders serve Instagram and the Airbnb listing.
 ## Built 2026-08-07: agents and schedule
 
 Will's direction: three agents (research, write/schedule, oversee) with the
-overseer named Edwin, and a schedule built around them.
+overseer named Edwin, and a schedule built around them. **A fourth,
+`pinterest-strategist`, was added 2026-08-14 and owns the posting rate against
+inventory runway; it is missing from the table below.** It writes
+`content/pinterest/pacing.md` and, like the researcher, had never run until
+2026-10-01.
 
 ### The agents
 
@@ -225,23 +229,31 @@ and says so in its report. That is what keeps this from going stale.
 
 | Workflow | Cron (UTC) | What it does |
 |---|---|---|
-| `pinterest-research.yml` | 1st of month, 08:00 | Re-verify specs and behavior, rewrite playbook + keywords, Discord ping |
-| `pinterest-queue.yml` | Sunday, 11:00 | If approved pins < 14, render and queue more at `draft`. Skips entirely if 12+ already await approval |
-| `pinterest-publish.yml` | Daily, 14:00 | Post pins that are `approved` AND past `scheduledFor`, max 3/day |
-| `pinterest-briefing.yml` | Friday, 12:00 | Edwin posts the state of play to Discord |
+| `pinterest-research.yml` | 1st of month, 08:00 | Re-verify specs and behavior, rewrite playbook + keywords, Discord ping. **Never executed once between being written 2026-08-07 and 2026-10-01**; now dispatch-first with `dry_run` defaulting true |
+| `pinterest-queue.yml` | Sunday, 11:00 | If the approved bank < 12, render and queue more at `draft`. Skips entirely if 12+ already await approval. **Was off from 2026-08-16 to 2026-10-01**, and its count was broken by the 09-29 inversion; both fixed 2026-10-01 |
+| ~~`pinterest-publish.yml`~~ | **never, parked** | This row described the API publisher. It is dead: the app cannot get past Trial access, the cron is removed, and the workflow is `disabled_manually`. Publishing is a Todoist tap |
+| `pinterest-briefing.yml` | Friday, 12:00 | Edwin posts the state of play to Discord. **Was off from 2026-08-14 to 2026-10-01**, which is most of why the gaps above went unnoticed. It now reports staleness as well as state |
 
 Times are clear of the existing crons: draft-batch Sat 09:00, auto-publish
 12:00/16:00/21:00, guest-reply-tune 13:00.
 
 ### The gate, stated once
 
-Agents write `status: "draft"`. Only Will writes `status: "approved"`. The
-publisher posts nothing that is not `approved` and past its date. There is no
-override flag, and adding one would defeat the design.
+Agents write `status: "draft"`. Only Will approves. There is no override flag,
+and adding one would defeat the design.
 
-`pinterest-publish.yml` is safe to merge before the Pinterest app exists: with
-no `PINTEREST_ACCESS_TOKEN` secret it runs as a dry run, logs what it would have
-posted, and exits clean.
+**Two corrections, 2026-10-01.** The marker is `approvedAt`, not
+`status: "approved"`: since the 2026-09-29 inversion CAPCOM stamps `approvedAt`
+and leaves a queued pin's status alone. And "the publisher posts nothing that is
+not approved and past its date" describes a publisher that does not exist;
+nothing posts automatically at all.
+
+~~`pinterest-publish.yml` is safe to merge before the Pinterest app exists: with
+no `PINTEREST_ACCESS_TOKEN` secret it runs as a dry run.~~ **This reasoning
+stopped holding once the secret existed.** `PINTEREST_ACCESS_TOKEN` was set
+2026-08-13, so from then until 2026-09-27 a bare dispatch would have posted for
+real. It is now hardened: `dry_run` defaults true and the token is passed only
+when that is explicitly unticked.
 
 ### Render pipeline
 

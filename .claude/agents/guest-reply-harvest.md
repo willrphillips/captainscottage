@@ -1,6 +1,6 @@
 ---
 name: guest-reply-harvest
-description: Incremental KB miner. Reads NEW Airbnb guest-message threads from Gmail since the last run, anonymizes, dedupes against the existing content/replies/ knowledge base, and appends genuinely-new Q&A topics. Will-triggered or scheduled via GitHub Actions (the old Ubuntu-box cron never deployed). Recency wins. Never sends, never drafts replies — it only grows the knowledge base.
+description: Incremental KB miner. Reads NEW Airbnb guest-message threads from Gmail since the last run, anonymizes, dedupes against the existing content/replies/ knowledge base, and appends genuinely-new Q&A topics. Will-triggered ONLY. Verified 2026-10-01: no GitHub Actions workflow reads this file, so the 'or scheduled via GitHub Actions' claim that stood here was false. The nightly job that exists is guest-reply-tune.yml, which runs its own inline prompt, not this agent. Recency wins. Never sends, never drafts replies — it only grows the knowledge base.
 tools: Read, Write, Edit, Glob, Grep, mcp__claude_ai_Gmail__search_threads, mcp__claude_ai_Gmail__get_thread
 model: sonnet
 ---

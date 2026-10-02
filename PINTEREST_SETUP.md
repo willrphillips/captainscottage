@@ -310,7 +310,7 @@ timer any more: Will publishes by tapping a Todoist task.
 |---|---|
 | Sunday 11:00 UTC | Pins get rendered and queued at `draft`. Discord ping. |
 | Daily 13:30 UTC, first | **Reconcile.** Completed Todoist tasks are read back and their pins marked `posted`. |
-| Daily 13:30 UTC, then | **Queue.** Approved pins with no task yet get one, due at `PIN_PUBLISH_TIME`. |
+| Daily 13:30 UTC, then | **Queue.** Approved pins with no task yet get one, **due at the moment the pin should go live** and at Todoist **p1**. Rewritten 2026-10-01: the task used to be due in one of Will's two work blocks, batched 2 per session, and the two dates were deliberately different. They are the same moment now. |
 | You, whenever | Review pins in capcom (Buffalo tab, Pinterest queue) |
 | You, at the task | Tap the Todoist task, pick the board, paste the title, publish |
 | Friday 12:00 UTC | Edwin posts the state of play to Discord |
@@ -355,11 +355,15 @@ written into the task description for copy/paste. Everything else arrives.
 | `url` | the pin's `destinationUrl`, UTMs already baked in |
 | `description` | the pin's `description` |
 | due date | the pin's `scheduledFor` |
-| due time | `PIN_PUBLISH_TIME`, default `10:00` `America/New_York` |
+| due time | that weekday's slot: **20:00 weekday evenings, 10:00 weekend mornings**, `America/New_York`. `PIN_PUBLISH_TIME` was deleted 2026-10-01. `content/pinterest/decisions.md` records that both slots are a session's guess rather than a research finding. |
 
-**The approval gate is unchanged.** Only `status: "approved"` is queued. Agents
-write `"draft"`; `"approved"` is Will's word alone. A queued pin flips to
-`status: "queued"` and records its `todoistTaskId`, so it is never queued twice.
+**The approval gate is unchanged in spirit, but the marker moved.** The gate is
+`approvedAt`, not `status`, since the 2026-09-29 inversion: CAPCOM stamps
+`approvedAt` and, on a pin that was already queued, deliberately leaves the
+status alone. So a pin Will has approved can read `status: "queued"`, and
+anything asking "has he seen this" must read `approvedAt`. Agents still write
+`"draft"` and only Will approves. A queued pin records its `todoistTaskId`, so it
+is never queued twice. Corrected 2026-10-01.
 
 **Reviewing, and getting publishes back into the repo (both added 2026-08-26).**
 
@@ -380,11 +384,11 @@ read-only against Todoist and can only move `queued → posted`.
 | Workflow | `.github/workflows/pinterest-todoist-queue.yml`, daily 13:30 UTC — reconcile, then queue |
 | Reconciler | `scripts/pinterest-todoist-reconcile.mjs` (also runs standalone; `--dry-run`, `--since`) |
 | Review UI | capcom, `src/pinterest.js` + the Buffalo tab |
-| Parked workflow | `.github/workflows/pinterest-publish.yml`, cron removed, manual only |
+| Parked workflow | `.github/workflows/pinterest-publish.yml`, cron removed, `disabled_manually` on GitHub, and since 2026-09-27 `dry_run` defaults to true with the token passed only when it is explicitly unticked. A bare dispatch cannot post. |
 | Todoist project | `Buffalo Rentals Dated` (`6FwqXhv2wM64hGGg`) |
 | Todoist label | `pinterest` |
 | Repo secret | `TODOIST_API_TOKEN` — **set 2026-08-21** |
-| Repo vars | `TODOIST_PROJECT_ID` = `6FwqXhv2wM64hGGg`, `PIN_PUBLISH_TIME` = `10:00` |
+| Repo vars | `TODOIST_PROJECT_ID` = `6FwqXhv2wM64hGGg`. The `PIN_PUBLISH_TIME` = `10:00` repo variable **still exists on GitHub but nothing reads it** (the constant was deleted 2026-10-01). Safe to delete; left in place because deleting repo config was outside the audit's scope. |
 | Optional repo var | `PIN_TIMEZONE`, default `America/New_York`. The reconciler stamps `postedAt` with it, so an evening publish is not recorded as the next day. |
 
 Without `TODOIST_API_TOKEN` the script dry-runs, logs the links it would have

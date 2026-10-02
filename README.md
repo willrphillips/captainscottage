@@ -8,12 +8,12 @@ See `captains_cottage_brief.md` for product context, SEO targets, and the multi-
 
 ```bash
 npm install
-npm run dev        # http://localhost:4321/captainscottage
+npm run dev        # http://localhost:4321/
 npm run build      # type-check + static build into ./dist
 npm run preview    # serve the built site locally
 ```
 
-Astro 5 + MDX + Tailwind v4 + self-hosted Fraunces & Inter Tight. Deploys to GitHub Pages on every push to `main` via `.github/workflows/deploy.yml`.
+Astro 5 + MDX + Tailwind v4 + self-hosted Fraunces & Inter Tight. Deploys to GitHub Pages on every push to `main` via `.github/workflows/deploy.yml`, serving https://captainscottageva.com (apex domain, `BASE` is `/`).
 
 ## Add images
 
