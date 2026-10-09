@@ -33,6 +33,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { execFileSync } from "node:child_process";
 import { gmailAccessToken, gmailList, gmailGet, header, plainBody } from "../lib/gmail.mjs";
+import { identifyListing } from "./identify-listing.mjs";
 
 const ROOT = process.cwd();
 const STATE_PATH = resolve(ROOT, "content/replies/.watch-state.json");
@@ -292,6 +293,8 @@ if (process.env.MARK_SEEN === "true") {
 let newCount = 0;
 let drafted = 0;
 let escalated = 0;
+// Will's rule: the run report names the property for every thread it touched.
+const byProperty = {};
 
 for (const { id } of list) {
   if (seen.has(id)) continue;
@@ -317,6 +320,51 @@ for (const { id } of list) {
   const guestText = plainBody(msg);
 
   const guestMessage = extractGuestMessage(guestText);
+
+  // WHICH PROPERTY? Will owns two Airbnb listings and this repo holds the facts
+  // for one. His rule, 2026-07-20: the Richmond monthly-stay listing is always
+  // NEEDS-WILL, never drafted for, and never called "the cottage". That rule
+  // lived only in .claude/agents/guest-reply.md, which this script does not
+  // read, so until 2026-10-08 every guest thread was drafted as if it were the
+  // cottage. Nothing is drafted now unless the thread positively identifies as
+  // the cottage.
+  const listing = identifyListing({ subject, body: guestText });
+  console.log(`  property=${listing.listing} draftable=${listing.draftable} (${listing.why})`);
+
+  if (!listing.draftable) {
+    escalated++;
+    byProperty[listing.property] = (byProperty[listing.property] || 0) + 1;
+    await notify({
+      title:
+        listing.listing === "apperson"
+          ? "Apperson message: needs you (not drafted)"
+          : "Guest message, listing unclear: needs you (not drafted)",
+      message:
+        `Property: ${listing.property}
+
+` +
+        `Guest asked:
+${guestMessage}
+
+` +
+        (listing.listing === "apperson"
+          ? "This is the Richmond monthly-stay listing, not the cottage. Different minimum, " +
+            "different lease, different facts, so nothing was drafted."
+          : "Could not tell which listing this is from the subject or the body, so nothing " +
+            "was drafted. If this is the cottage and it keeps happening, the Airbnb listing " +
+            "title probably changed: update .github/scripts/identify-listing.mjs.") +
+        grbMeta(replyTo, subject),
+      priority: 5,
+    });
+    seen.add(id);
+    if (newCount >= MAX_PER_RUN) {
+      console.log(`Hit per-run cap (${MAX_PER_RUN}); remaining will process next run.`);
+      break;
+    }
+    continue;
+  }
+
+  byProperty[listing.property] = (byProperty[listing.property] || 0) + 1;
 
   if (isReactionOnly(guestMessage)) {
     await notify({
@@ -369,4 +417,6 @@ if (newCount > 0) {
   saveState(state);
 }
 
+const propertyLine = Object.entries(byProperty).map(([k, v]) => `${k}: ${v}`).join("; ") || "none";
 console.log(`watch: ${newCount} new guest message(s), ${drafted} drafted, ${escalated} escalated.`);
+console.log(`watch: by property: ${propertyLine}`);

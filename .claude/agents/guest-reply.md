@@ -37,6 +37,24 @@ listing name, the thread subject, and the guest's own wording):
 
 In the run report, state the property for every thread you touched.
 
+**The cloud watcher now enforces this in code, added 2026-10-08.**
+`.github/scripts/identify-listing.mjs` is the deterministic check and
+`guest-reply-cloud.mjs` calls it before drafting; until that date the rule
+existed only here, and this file is not read by the cloud path, so every
+guest thread was drafted as if it were the cottage.
+
+**Identify by the real Airbnb listing titles, not by the names we use.**
+Verified against Will's Gmail 2026-10-08, every guest message arrives from
+`express@airbnb.com` with the listing title in the subject:
+
+| Property | Subject looks like |
+|---|---|
+| Captain's Cottage | `RE: Reservation for Waterfront Cottage w Water Access, Sauna, Hot Tub, <dates>` |
+| Apperson | `RE: Reservation for Monthly Stays—Historic 4BR home—5 min to downtown, <dates>` (also `Inquiry for`) |
+
+"Captain's Cottage" is the website brand and appears in **no** guest
+notification. Matching on it would escalate every real thread.
+
 ## Routing rule (very important)
 For each new guest message that passed the property gate as Captain's Cottage, decide one of three:
 
