@@ -14,6 +14,15 @@ const blog = defineCollection({
       // morning, etc.). Honored by .github/scripts/auto-publish.mjs; absent
       // means the post flips on the first cron run of its publishedAt date.
       publishTime: z.string().regex(/^\d{2}:\d{2}$/).optional(),
+      // Which demand season this post is written to serve, as a key from
+      // content/season-model.json, or "evergreen" for a post with no season.
+      // Added 2026-10-10 with the seasonal planner: scripts/season-gaps.mjs
+      // uses it to tell a covered season from an uncovered one. Without it the
+      // only signal is how close a post's date sits to the derived publish
+      // date, which produced a false positive immediately (an evergreen
+      // place-story counted as covering spring striped bass because it landed
+      // three weeks away). Optional, so old posts stay valid.
+      season: z.string().optional(),
       updatedAt: z.coerce.date().optional(),
       author: z.string().default("Will Phillips"),
       // Public image path under /images (already optimized by

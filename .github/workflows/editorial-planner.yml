@@ -1,0 +1,146 @@
+name: Editorial planner (seasonal, monthly)
+
+# Monthly. Looks 6 months ahead, finds demand seasons with no post pointed at
+# their booking window, and proposes topics with a research brief into the
+# calendar as `idea` slots for Will to approve.
+#
+# WHY THIS EXISTS. Until 2026-10-10 the blog published on a fixed biweekly
+# Wednesday rhythm. That rhythm was set in May 2026 with real reasoning, and the
+# reasoning expired: it assumed a Wednesday publish would be indexed in time for
+# Thursday trip-planning, which confuses indexing with ranking. Measured against
+# booking windows, every seasonal draft was months late. The fall-rockfish post
+# was 215 days late and would have published 47 days into its own season.
+#
+# Will, 2026-10-10: "Your job is to be figuring out what topics need to be
+# publishing based on what season we're in and how far ahead of dates that
+# people usually book. Then schedule accordingly. Not just a static
+# set-and-forget schedule. That should be the beauty of using AI to publish: you
+# can research times and be a better expert than just every other week."
+#
+# THE GATE IS UNCHANGED. This writes `idea` slots and a brief. It never drafts a
+# post, never sets `draft: false`, never writes `approvedAt`. Will approves.
+#
+# Counting is done by scripts/season-gaps.mjs, not by the agent. An agent asked
+# "are we covered?" has to hold seven seasons, two lead times each and a 45-day
+# runway in its head, and it will round. The script does not round.
+#
+# 1st of the month, 07:00 UTC. Clear of pinterest-research (08:00 on the 1st),
+# draft-batch (Sat 09:00), the auto-publish crons (12:00/16:00/21:00) and
+# guest-reply-tune (13:00).
+
+on:
+  schedule:
+    - cron: "0 7 1 * *"
+  workflow_dispatch:
+    inputs:
+      months:
+        description: "How far ahead to plan"
+        type: string
+        default: "6"
+      dry_run:
+        description: "Report the gaps, propose nothing, commit nothing"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: editorial-planner
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Find the gaps
+        id: gaps
+        env:
+          MONTHS: ${{ inputs.months || '6' }}
+        run: |
+          node scripts/season-gaps.mjs --months "$MONTHS" --markdown > /tmp/gaps.md
+          cat /tmp/gaps.md
+          node scripts/season-gaps.mjs --months "$MONTHS" --json > /tmp/gaps.json
+          node -e '
+            const g = require("/tmp/gaps.json");
+            require("fs").appendFileSync(process.env.GITHUB_OUTPUT,
+              `count=${g.gaps.length}\nseasons=${g.gaps.map((x) => x.season).join(",")}\n`);
+          '
+
+      - name: Propose topics for the gaps
+        if: steps.gaps.outputs.count != '0'
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          claude -p "You are the Editor-in-chief for the Captain's Cottage blog, running headless on the monthly editorial planner.
+
+          Read and FOLLOW .claude/agents/blog-editor.md as your role instructions. Read content/season-model.json (the authority on seasons, lead times and sources), content/content-calendar.json, CLAUDE.md (the locked location wording is binding), and analysis/candy-point-decline-2026-10.md (why off-season topics outrank peak ones).
+
+          READ /tmp/gaps.md FIRST. It is the computed list of demand seasons with no post pointed at their booking window, with the date each post must be live by. Those dates are derived, not opinions. Do not recompute them and do not argue with them.
+
+          For EACH gap, in the priority order the file gives:
+          1. Add ONE new entry to content/content-calendar.json at status 'idea', with slug, category (the locked enum: Lifestyle | Travel | Real Estate), keywords that are search-intent-shaped, the season key, and publishDate set to the derived date from /tmp/gaps.md EXACTLY.
+          2. Write content/research/<slug>.md as a brief the writer can draft from without doing its own fact-finding: the angle, the target reader from the season's segment, which internal pages it should link to (at least two), and what still needs verifying. Mark anything you could not verify as UNVERIFIED rather than filling it in.
+          3. If a gap's season carries an 'unverified' caution in the model, repeat that caution in the brief.
+
+          HARD RULES: status is 'idea' and nothing else. Never write a draft post, never touch src/content/blog/, never set draft:false, never write approvedAt. Never widen the category enum. Do NOT run git; the workflow commits. No em dashes, and never use 'honest'/'honestly'/'candidly' to vouch for a statement, in any file you write.
+
+          Finish by printing 'PROPOSED:' and one line per topic: season key, slug, derived publish date." --permission-mode bypassPermissions --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch"
+
+      - name: Upload the plan
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: editorial-plan
+          path: |
+            /tmp/gaps.md
+            content/content-calendar.json
+            content/research/
+          if-no-files-found: warn
+
+      - name: Guard the gate
+        if: always()
+        run: |
+          if ! git diff --quiet src/content/blog/; then
+            echo "::error::The planner wrote to src/content/blog/. It proposes ideas, it does not draft posts. Not committing."
+            git --no-pager diff --stat src/content/blog/
+            exit 1
+          fi
+          if git diff content/content-calendar.json | grep -qE '^\+.*"status": *"(approved|published|in-review)"'; then
+            echo "::error::The planner set a status other than 'idea'. Not committing."
+            exit 1
+          fi
+          echo "Gate intact: no post drafted, no status beyond 'idea'."
+
+      - name: Commit + notify
+        if: steps.gaps.outputs.count != '0' && !inputs.dry_run
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_DRAFTS_WEBHOOK_URL }}
+          SEASONS: ${{ steps.gaps.outputs.seasons }}
+          COUNT: ${{ steps.gaps.outputs.count }}
+        run: |
+          if [[ -z "$(git status --porcelain content/content-calendar.json content/research)" ]]; then
+            echo "Planner proposed nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/content-calendar.json content/research
+          git commit -m "editorial-planner: propose topics for ${COUNT} uncovered season(s): ${SEASONS}"
+          git pull --rebase origin main
+          git push
+          if [[ -n "$DISCORD_WEBHOOK_URL" ]]; then
+            curl -s -o /dev/null -X POST "$DISCORD_WEBHOOK_URL" -H "Content-Type: application/json" \
+              --data "{\"username\":\"Captain's Cottage\",\"embeds\":[{\"title\":\"${COUNT} season(s) have no post scheduled\",\"description\":\"${SEASONS}\\n\\nTopics proposed as idea slots with research briefs. Nothing is drafted and nothing publishes until you approve. The dates are derived from the booking window, so they will look early.\",\"color\":5793266}]}"
+          fi
+
+      - name: Say so if it found nothing
+        if: steps.gaps.outputs.count == '0'
+        run: echo "Every season inside the horizon has a post pointed at it. Nothing proposed."

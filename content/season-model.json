@@ -1,0 +1,150 @@
+{
+  "_comment": "WHEN should a post be live, derived rather than decided. Replaces the fixed biweekly cadence killed 2026-10-10 at Will's direction: 'Your job is to be figuring out what topics need to be publishing based on what season we're in and how far ahead of dates that people usually book. Then schedule accordingly. Not just a static set-and-forget schedule.' Every lead time here has a source. Anything unsourced is marked unverified and says what would settle it.",
+  "version": 1,
+  "updatedAt": "2026-10-10",
+  "owner": "blog-editor agent; changes to the RULE belong to a session with Will",
+
+  "rule": {
+    "formula": "publishDate = seasonStart - bookingLeadDays - pinterestRunwayDays",
+    "clamp": "Never later than seasonStart. If the derived date is already past, publish as soon as the draft is clean, because a late post still earns the tail of its own season and banks authority for the next one.",
+    "pinterestRunwayDays": 45,
+    "whyRunway": "A pin cannot precede its destination post, and Pinterest's own creator guidance is to place seasonal content 45 days before the event (45 to 60 is the common range). So the post has to exist before the pin, which has to exist before the search peak.",
+    "whyNotWeekday": "Publish weekday is close to irrelevant for search. Only 1.74% of new pages reach Google's top 10 within a year and 3 to 6 months is typical to rank at all, so the original 'Wednesday gives Google 24 to 48 hours to index before Thursday planning' reasoning confused indexing with ranking. Pick any morning; the post only has to be live before its pins fire.",
+    "gapFiller": "Evergreen posts (place stories, culture, property pieces) have no season and exist to fill the gaps the seasonal dates leave. Uneven gaps are correct output, not a bug to smooth.",
+    "sources": [
+      "https://sproutsocial.com/insights/schedule-pinterest-posts/",
+      "https://burnpedia.com/blog/pinterest-seasonal-content",
+      "https://bloggerspassion.com/how-long-does-it-take-to-rank-on-google/",
+      "https://www.growandconvert.com/content-marketing/how-long-does-it-take-to-rank-on-the-first-page-of-google/"
+    ]
+  },
+
+  "bookingLeadResearch": {
+    "offSeason": { "days": 90, "range": "60 to 90", "note": "Nov to early Dec and late Jan to Feb. Sources give 2 to 3 months." },
+    "shoulder": { "days": 120, "range": "60 to 120", "note": "May, Sep, Oct. Sources give 2 to 4 months." },
+    "peakSummer": { "days": 90, "range": "60 to 90", "note": "Compressed from 34 days to 29 in recent data for the booking itself, but planning starts earlier; 60 to 90 is the advance-booking guidance." },
+    "holidays": { "thanksgivingDays": 120, "christmasDays": 150, "newYearDays": 90, "note": "Thanksgiving 2 to 4 months, Christmas 3 to 5 months, New Year 2 to 3 months." },
+    "propertySpecific": {
+      "ownBookingLeadDaysAvg": 38.5,
+      "asOf": "2026-05-15",
+      "source": "Airbnb Performance dashboard, manual paste, recorded in content/metrics/airbnb-metrics.json",
+      "WARNING": "Do NOT use 38.5 as the planning lead. It is the average across all bookings and is dragged down by last-minute peak reservations; the US STR average has compressed to roughly 15 days for the same reason. The off-season traveller this planner targets decides 2 to 3 months out. Using the blended average is how the old schedule ended up months late."
+    },
+    "sources": [
+      "https://avantstay.com/blog/how-far-in-advance-book-vacation-rental/",
+      "https://staystra.com/str-booking-window-compression-2026/",
+      "https://myvacationhub.com/blog/booking-window-playbook/"
+    ]
+  },
+
+  "whyOffSeasonFirst": {
+    "finding": "2026-10-09 revenue analysis: Candy Point's off-season is down 31% year over year while peak is up 29%. Peak does not need help.",
+    "consequence": "When two seasons compete for the same slot, the off-season or shoulder topic wins. Rank topics by the revenue gap they address, not by the calendar.",
+    "source": "analysis/candy-point-decline-2026-10.md"
+  },
+
+  "seasons": [
+    {
+      "key": "winter-cozy",
+      "label": "Winter cozy: sauna, hot tub, fire pit",
+      "segment": "Couples and small groups, DC and Richmond drive market, looking for a quiet off-season weekend",
+      "seasonStart": "12-01",
+      "seasonEnd": "02-28",
+      "bookingLeadDays": 90,
+      "leadBasis": "offSeason",
+      "idealPublish": "07-19",
+      "priority": 1,
+      "why": "The single biggest revenue gap. December 2025 earned $0 and Jan and Feb 2026 came in at $681 and $737. The sauna and hot tub are the only amenities that are actively better in the cold, so this is the property's strongest off-season argument and it has never been published into its booking window.",
+      "anchorVerified": true
+    },
+    {
+      "key": "winter-birding",
+      "label": "Winter birding and waterfowl",
+      "segment": "Birders and slow-travel solo or couple guests, shoulder of the quiet season",
+      "seasonStart": "12-15",
+      "seasonEnd": "02-28",
+      "bookingLeadDays": 90,
+      "leadBasis": "offSeason",
+      "idealPublish": "08-02",
+      "priority": 2,
+      "why": "Same booking window as winter-cozy and a different search intent, so the two do not cannibalise. Niche, low-competition keywords.",
+      "anchorVerified": false,
+      "unverified": "Peak waterfowl concentration dates on the lower Potomac are taken from the existing winter-birding draft rather than from a primary source. Settle with Virginia DWR or the Rappahannock River Valley NWR seasonal counts before leaning harder on this season."
+    },
+    {
+      "key": "holidays",
+      "label": "Thanksgiving, Christmas, New Year",
+      "segment": "Multi-generational family groups, the one off-season window that fills a 4-bedroom house",
+      "seasonStart": "11-26",
+      "seasonEnd": "01-01",
+      "bookingLeadDays": 150,
+      "leadBasis": "holidays.christmasDays",
+      "idealPublish": "06-13",
+      "priority": 3,
+      "why": "The longest lead times of any season, 3 to 5 months for Christmas, so this is the one that punishes lateness hardest. Larger properties also book further out: 6-bedroom homes average 83 days against 41 for a one-bedroom.",
+      "anchorVerified": true
+    },
+    {
+      "key": "spring-birding",
+      "label": "Osprey return and spring birding",
+      "segment": "Birders, photographers, early-season weekenders",
+      "seasonStart": "03-15",
+      "seasonEnd": "05-31",
+      "bookingLeadDays": 120,
+      "leadBasis": "shoulder",
+      "idealPublish": "10-01",
+      "priority": 4,
+      "why": "Osprey season on the Chesapeake runs March into September, and the return is the moment with search intent behind it.",
+      "anchorVerified": true,
+      "anchorSource": "content/pins and src/content/blog/mornings-with-the-ospreys-hull-creek.mdx, researched 2026-08"
+    },
+    {
+      "key": "spring-rockfish",
+      "label": "Spring striped bass",
+      "segment": "Anglers, charter customers, father-and-son trips",
+      "seasonStart": "05-16",
+      "seasonEnd": "07-06",
+      "bookingLeadDays": 120,
+      "leadBasis": "shoulder",
+      "idealPublish": "01-02",
+      "priority": 5,
+      "why": "A hard regulatory date, which makes it the easiest season to schedule against correctly.",
+      "anchorVerified": true,
+      "anchorSource": "4 VAC 20-252-100, Potomac River tributaries: May 16 to Jul 6 and Aug 21 to Dec 31. https://law.lis.virginia.gov/admincodefull/title4/agency20/chapter252/",
+      "note": "HULL CREEK IS A POTOMAC TRIBUTARY, not Chesapeake Bay. It is a 6.5-mile tributary of the tidal Potomac. The Bay season (Oct 4 opening) does NOT apply here. Will corrected this on 2026-10-10 and he is right; an earlier draft of the schedule review had it wrong."
+    },
+    {
+      "key": "summer-families",
+      "label": "Summer on the water: crabbing, kayaks, swimming",
+      "segment": "Families with children, the peak-season core",
+      "seasonStart": "06-15",
+      "seasonEnd": "08-31",
+      "bookingLeadDays": 90,
+      "leadBasis": "peakSummer",
+      "idealPublish": "01-21",
+      "priority": 7,
+      "why": "Deliberately the LOWEST priority despite being the biggest revenue season. Peak is up 29% year over year and does not need the help. Write for it only when no off-season or shoulder gap is open.",
+      "anchorVerified": true
+    },
+    {
+      "key": "fall-shoulder",
+      "label": "Fall: rockfish, cooler water, no crowds",
+      "segment": "Anglers and couples wanting the shoulder quiet",
+      "seasonStart": "08-21",
+      "seasonEnd": "12-31",
+      "bookingLeadDays": 120,
+      "leadBasis": "shoulder",
+      "idealPublish": "03-24",
+      "priority": 6,
+      "why": "The fall rockfish season opens 08-21 on Potomac tributaries, seven weeks before the Bay. A post aimed at it must be live in late March, which is counter-intuitive enough that it was missed by five months in 2026.",
+      "anchorVerified": true,
+      "anchorSource": "4 VAC 20-252-100"
+    }
+  ],
+
+  "knownGaps": [
+    "No season covers March to early May beyond spring-birding. Shoulder-season content for that window is thin.",
+    "Guest-segment definitions are inferred from the content calendar's target-reader notes and from the drive market, not from booking data. Airbnb reservation exports would replace inference with fact; requested in analysis/candy-point-decline-2026-10.md and still outstanding.",
+    "No season model survives contact with real occupancy data. Revisit once the Airbnb CSVs land."
+  ]
+}
