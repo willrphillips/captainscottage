@@ -78,9 +78,21 @@ around 30 posts a month, which is far above anything contemplated here.
 [Social Media Today](https://www.socialmediatoday.com/content/scheduling-your-blog-how-often-and-best-times-publish)
 
 **Finding 5, the one that indicts the current dates: every seasonal post is
-scheduled into its season rather than ahead of it.** Virginia's Chesapeake fall
-rockfish season runs **Oct 4 to Dec 31, 2026**, and spring runs **May 16 to Jun
-15**. [Virginia Administrative Code](https://law.lis.virginia.gov/admincode/title4/agency20/chapter252/section80/)
+scheduled into its season rather than ahead of it.**
+
+**Corrected after drafting, and it makes the gap worse.** This section first
+cited Virginia's **Chesapeake Bay** rockfish season, Oct 4 to Dec 31. That is the
+wrong zone for this property. Will's own feedback of 2026-10-10 on the rockfish
+draft says *"I believe we are a potomac tributary and NOT a chesapeake bay
+house"*, and he is right: `site.ts` describes the property as where the Potomac
+meets the Chesapeake, and Hull Creek is a Potomac tributary. The governing season
+is therefore **4 VAC 20-252-100: May 16 to Jul 6 and Aug 21 to Dec 31**, not the
+Bay dates.
+[Virginia Administrative Code, Ch. 252](https://law.lis.virginia.gov/admincodefull/title4/agency20/chapter252/)
+
+The fall season opened **Aug 21**, seven weeks earlier than the Bay's. So the
+rockfish post needed to be live around **2026-04-23** and is scheduled for
+2026-10-07: **167 days late, and 47 days into the season.**
 
 Chaining findings 2 and 3 backwards from a stay gives the rule:
 
@@ -93,7 +105,7 @@ stay date
 
 | Draft | Target season | Needed live by | Currently | Verdict |
 |---|---|---|---|---|
-| `fall-rockfish-northern-neck` | fall rockfish, Oct 4 | ~Jun 6 | 2026-10-07 | **4 months late**, publishes 3 days into the season |
+| `fall-rockfish-northern-neck` | Potomac tributary, opened **Aug 21** | ~Apr 23 | 2026-10-07 | **5.5 months late**, publishes 47 days into the season |
 | `winter-birding-northern-neck` | winter, Dec to Feb | ~Aug 3 | 2026-11-04 | **3 months late** |
 | `health-case-for-hot-tub-and-cold-creek` | winter, Dec to Feb | ~Aug 3 | 2026-10-15 | **2 months late** |
 | `reedville-charter-fishing-guide` | spring, May 16 | ~Jan 16 | 2027-03-18 | **2 months late** |
@@ -123,6 +135,15 @@ these three still earn something this winter:
 
 *Effort: six date edits. Impact: recovers most of one off-season's worth of
 runway. Cost: three posts in three weeks, then a five-week gap.*
+
+**BLOCKER on the first two dates.** Will filed four corrections on 2026-10-10
+that are still open in `AGENT_FEEDBACK.md`, three on the rockfish post and one on
+the hot-tub post, and two of them are factual rather than stylistic: the
+Potomac-versus-Bay zone above, and *"the creek is 50 feet from the hot tub"*
+against a draft saying twenty. Neither post can publish until those are applied
+and he re-approves. That is a Rewrite-button run, not a date edit, and it has to
+happen first. `winter-birding-northern-neck` is the only one of the three already
+approved and clean.
 
 **B. Keep the biweekly rhythm, only re-order it.**
 Same cadence and spacing, but the two winter posts move to the front of the queue
