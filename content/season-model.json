@@ -3,7 +3,6 @@
   "version": 1,
   "updatedAt": "2026-10-10",
   "owner": "blog-editor agent; changes to the RULE belong to a session with Will",
-
   "rule": {
     "formula": "publishDate = seasonStart - bookingLeadDays - pinterestRunwayDays",
     "clamp": "Never later than seasonStart. If the derived date is already past, publish as soon as the draft is clean, because a late post still earns the tail of its own season and banks authority for the next one.",
@@ -18,31 +17,60 @@
       "https://www.growandconvert.com/content-marketing/how-long-does-it-take-to-rank-on-the-first-page-of-google/"
     ]
   },
-
   "bookingLeadResearch": {
-    "offSeason": { "days": 90, "range": "60 to 90", "note": "Nov to early Dec and late Jan to Feb. Sources give 2 to 3 months." },
-    "shoulder": { "days": 120, "range": "60 to 120", "note": "May, Sep, Oct. Sources give 2 to 4 months." },
-    "peakSummer": { "days": 90, "range": "60 to 90", "note": "Compressed from 34 days to 29 in recent data for the booking itself, but planning starts earlier; 60 to 90 is the advance-booking guidance." },
-    "holidays": { "thanksgivingDays": 120, "christmasDays": 150, "newYearDays": 90, "note": "Thanksgiving 2 to 4 months, Christmas 3 to 5 months, New Year 2 to 3 months." },
+    "offSeason": {
+      "days": 90,
+      "range": "60 to 90",
+      "note": "Nov to early Dec and late Jan to Feb. Sources give 2 to 3 months."
+    },
+    "shoulder": {
+      "days": 120,
+      "range": "60 to 120",
+      "note": "May, Sep, Oct. Sources give 2 to 4 months."
+    },
+    "peakSummer": {
+      "days": 90,
+      "range": "60 to 90",
+      "note": "Compressed from 34 days to 29 in recent data for the booking itself, but planning starts earlier; 60 to 90 is the advance-booking guidance."
+    },
+    "holidays": {
+      "thanksgivingDays": 120,
+      "christmasDays": 150,
+      "newYearDays": 90,
+      "note": "Thanksgiving 2 to 4 months, Christmas 3 to 5 months, New Year 2 to 3 months."
+    },
     "propertySpecific": {
-      "ownBookingLeadDaysAvg": 38.5,
-      "asOf": "2026-05-15",
-      "source": "Airbnb Performance dashboard, manual paste, recorded in content/metrics/airbnb-metrics.json",
-      "WARNING": "Do NOT use 38.5 as the planning lead. It is the average across all bookings and is dragged down by last-minute peak reservations; the US STR average has compressed to roughly 15 days for the same reason. The off-season traveller this planner targets decides 2 to 3 months out. Using the blended average is how the old schedule ended up months late."
+      "ownBookingLeadDaysAvg": 56.4,
+      "asOf": "2026-10-09",
+      "window": "Oct 10 2025 to Oct 9 2026",
+      "source": "Airbnb Performance > Conversion > Booking lead time, listing 39025485, read from the host dashboard 2026-10-10",
+      "supersedes": "The 38.5 recorded in content/metrics/airbnb-metrics.json on 2026-05-15. That file is now stale by 18 days of lead time.",
+      "observedMonthlyRange": "0 to about 92 days",
+      "observedByPeriod": {
+        "Nov-Dec stays": "about 90, the highest of the year",
+        "Jun-Jul stays": "about 85",
+        "Feb": "about 57",
+        "Apr-May": "about 51",
+        "Aug-Sep": "about 50 falling to 45",
+        "Dec-Jan and Mar": "about 0 to 12"
+      },
+      "readingCaution": "Read off the dashboard chart by eye, so treat these as approximate. The axis does not make clear whether a point is the stay month or the booking month, and the near-zero months are the months with almost no revenue, so their 'lead' is computed from a handful of last-minute bookings and carries almost no signal.",
+      "WARNING": "Still do NOT plan against 56.4. It is a realised average across all bookings and is dragged down by last-minute ones, exactly as 38.5 was. Plan against the HIGH end of a season's observed lead, because the job is to be live before the EARLIEST planners arrive, not the average one. A post live at the average lead has already missed half its demand."
     },
     "sources": [
       "https://avantstay.com/blog/how-far-in-advance-book-vacation-rental/",
       "https://staystra.com/str-booking-window-compression-2026/",
       "https://myvacationhub.com/blog/booking-window-playbook/"
-    ]
+    ],
+    "propertyValidatesTheModel": "The property's own observed peaks (about 90 for Nov-Dec, about 85 for Jun-Jul) sit at or just below the industry lead times this model already uses (90 off-season, 120 shoulder, 150 holidays). So the model is conservative in the right direction and the property data confirms rather than overturns it. The lead times below are therefore UNCHANGED on 2026-10-10. Lowering them to match the realised average would mean publishing later, which is the direction that caused the original problem."
   },
-
   "whyOffSeasonFirst": {
-    "finding": "2026-10-09 revenue analysis: Candy Point's off-season is down 31% year over year while peak is up 29%. Peak does not need help.",
-    "consequence": "When two seasons compete for the same slot, the off-season or shoulder topic wins. Rank topics by the revenue gap they address, not by the calendar.",
-    "source": "analysis/candy-point-decline-2026-10.md"
+    "finding": "CORRECTED 2026-10-10 once monthly data back to 2023 arrived. 84% of the 2024-to-2025 decline was SUMMER, not the off-season: July fell $4,462 and August fell $5,812. The earlier reading, that the off-season was the main cause, came from seeing only 2025 and 2026.",
+    "august": "August is the one month that never recovered: $6,898 (2023), $7,749 (2024), $1,937 (2025), $2,546 (2026). July and September both came back in 2026. About $5,200 a year sits in that one month and the cause is UNVERIFIED.",
+    "offSeason": "Still real, still worsening, and still second: Jan-May fell from $15,652 in 2025 to $11,168 in 2026. December has gone $3,151, $476, $0 across three years.",
+    "consequence": "Peak topics are NOT deprioritised as heavily as this model first said. summer-families stays low priority for June, July and September, which have recovered on their own. But AUGUST is a hole in the best season and content aimed at late-summer availability is now worth writing.",
+    "source": "analysis/candy-point-decline-2026-10.md and analysis/candy-point-monthly-net.json"
   },
-
   "seasons": [
     {
       "key": "winter-cozy",
@@ -122,9 +150,10 @@
       "bookingLeadDays": 90,
       "leadBasis": "peakSummer",
       "idealPublish": "01-21",
-      "priority": 7,
-      "why": "Deliberately the LOWEST priority despite being the biggest revenue season. Peak is up 29% year over year and does not need the help. Write for it only when no off-season or shoulder gap is open.",
-      "anchorVerified": true
+      "priority": 5,
+      "why": "Re-ranked 2026-10-10. Was lowest priority on the reading that peak needed no help. June, July and September did recover in 2026 and still need nothing. AUGUST did not: it fell from $7,749 in 2024 to $1,937 in 2025 and only $2,546 in 2026, the largest single recoverable sum on the property at about $5,200 a year. Write for late-summer and August availability specifically, not for summer in general.",
+      "anchorVerified": true,
+      "note": "The August hole is the target here, not the season as a whole."
     },
     {
       "key": "fall-shoulder",
@@ -141,10 +170,10 @@
       "anchorSource": "4 VAC 20-252-100"
     }
   ],
-
   "knownGaps": [
     "No season covers March to early May beyond spring-birding. Shoulder-season content for that window is thin.",
     "Guest-segment definitions are inferred from the content calendar's target-reader notes and from the drive market, not from booking data. Airbnb reservation exports would replace inference with fact; requested in analysis/candy-point-decline-2026-10.md and still outstanding.",
-    "No season model survives contact with real occupancy data. Revisit once the Airbnb CSVs land."
+    "No season model survives contact with real occupancy data. Revisit once the Airbnb CSVs land.",
+    "WHY August broke is unknown. The earnings report carries no nights and no rates, so it cannot say whether August lost bookings or lost rate. The Airbnb reservations export is still required and is now the highest-value missing input."
   ]
 }
