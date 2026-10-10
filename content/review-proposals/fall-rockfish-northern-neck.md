@@ -16,3 +16,26 @@
 **Length & restraint:** ~430 words of body copy (excluding frontmatter and the TODO comment) vs the ~500-900 boutique-journal target — on the short side, which is generally in Will's favor (brevity over padding). The concern isn't raw length: it's that the regulatory paragraph still reads heavier and more instructional than the-art-of-the-slow-weekend benchmark, which has no comparable fact-dense block anywhere in it.
 
 **Internal links & CTA:** 2 internal links present (`/journal/crabbers-morning-on-hull-creek`, `/journal/complete-guide-to-reedville-virginia`, both live/`draft: false`, confirmed) — meets the ≥2 minimum. Exactly one booking CTA to `/book`. Title (59 chars) and meta description (158 chars) both land inside the SEO checklist's target ranges; single H1 via frontmatter; descriptive alt text; hero image file confirmed present at `public/images/extras/fire-pit-creek.jpg`.
+
+## Follow-up correction after the round, 2026-10-10
+
+**The licence paragraph was rewritten again, outside this round.** The round
+applied Will's note correctly as far as it went: it stopped telling guests to
+ring VMRC and stated the renter exemption. But it left out the **free FIP
+registration**, and a guest fishing from the dock on that exemption still has to
+register. That turns "go and ask VMRC yourself" into "you need nothing", which
+is the same complaint inverted and the more expensive direction to be wrong in.
+
+Verified before changing it: Va. Code 28.2-302.5 does exempt "a person fishing
+from private real property that he owns or rents", so the renter reading is
+sound, and **that statute never mentions FIP**, which is exactly why the gap is
+easy to miss. VMRC's own page is the source for the registration: anyone 16 or
+over fishing without a licence must register, free, online. A licensed charter
+covers both. A 10-day temporary saltwater licence is $10.
+
+Also dropped the "under 16 or over 65" exemptions, which were accurate but
+incomplete the same way: a 65+ angler is exempt from the paid licence yet still
+needs FIP unless they hold the $5 lifetime.
+
+Build clean, 26 pages. Nothing else in the post was touched.
+

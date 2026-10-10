@@ -63,5 +63,22 @@
   ],
   "writerChanges": [],
   "freeNoteAddressed": null,
-  "untouched": "Per instruction, this round made exactly the two orchestrator-directed clause swaps and nothing else. Frontmatter (including draft: true), the rest of the post body, and content-calendar.json status (left at in-review) are untouched. No other post was touched."
+  "untouched": "Per instruction, this round made exactly the two orchestrator-directed clause swaps and nothing else. Frontmatter (including draft: true), the rest of the post body, and content-calendar.json status (left at in-review) are untouched. No other post was touched.",
+  "followUps": [
+    {
+      "appliedAt": "2026-10-10T12:13:00.000Z",
+      "by": "buffalo-rentals session, outside the rewrite flow",
+      "kind": "factual correction",
+      "anchor": "On the license:",
+      "why": "The round answered Will's 'you figure it out, not our guests' by stating the renter exemption, but left out the FIP registration. That turned 'call VMRC yourself' into 'you need nothing', which is his complaint inverted and the more expensive way to be wrong. A guest fishing from the dock on the renter exemption still has to register.",
+      "verified": [
+        "Va. Code 28.2-302.5 exempts 'a person fishing from private real property that he owns or rents', so the renter reading is sound. That statute does NOT mention FIP, which is why the gap is easy to miss.",
+        "VMRC: 'If you don't have a license to fish in Virginia, you need to register with the FIP unless you're under the age of 16.' Free, online. https://mrc.virginia.gov/regulations/recfish-licensing.shtm and https://www.mrc.virginia.gov/fip/",
+        "Paying customers on a licensed charter or headboat are exempt from both the licence and FIP.",
+        "10-day temporary saltwater licence is $10, residents and non-residents alike."
+      ],
+      "alsoDropped": "The 'under 16 or over 65' licence exemptions. Accurate but incomplete in the same way: a 65+ angler is exempt from the paid licence yet still needs FIP unless they hold the $5 lifetime. Listing them without that caveat would have reintroduced the same error in a smaller place.",
+      "buildAfter": "clean, 26 pages"
+    }
+  ]
 }
