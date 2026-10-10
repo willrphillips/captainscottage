@@ -34,6 +34,29 @@ The stack/code sections further down predate launch and have drifted in spots; *
 - **Human gate unchanged.** Posts stay `draft:true` at `in-review` until Will approves; approved posts auto-publish on their `publishedAt` date.
 - **Banned AI tells (locked 2026-08-07).** Two things never appear in copy: the em dash character, and "honest"/"honestly"/"candidly"/"full transparency" used to vouch for what follows. Applies to body copy, headings, page titles, meta descriptions, alt text, and MDX comments, on every post and every page. Use a comma, colon, parentheses, semicolon, or two sentences in place of an em dash; say the point plainly in place of "honest". One exemption: verbatim quotes of someone else's words, i.e. the guest reviews in `src/lib/site.ts`. Will's host notes in `src/lib/guidebook.ts` were swept too (his call, 2026-08-07). Enforced by `blog-writer.md` voice principles #6/#7 and `blog-seo-editor.md` checklist #10 (grep, either hit is a FAIL).
 
+## Never leave an edit uncommitted in a file CAPCOM can stage
+
+Learned the hard way 2026-10-10. CAPCOM's approve path (`capcom/src/buffalo.js`
+`approveDraft()`) does `git add <the post>` and commits **whatever is in the
+working tree for that path**, then pushes. It does not check whether the change
+is yours.
+
+A session was mid-edit on `fall-rockfish-northern-neck.mdx`, correcting a
+fishing-licence paragraph. Will hit Approve in CAPCOM **53 seconds before that
+edit was committed**. The approve commit swept the uncommitted edit up and
+published it. The paragraph happened to be finished, so the live post is
+correct. Had it been half-written, that is what would have gone out.
+
+So: **commit the moment an edit to a post is complete, or do not start it.**
+The window between editing and committing is a window in which Will can publish
+your draft for you. The same applies to `content-calendar.json`,
+`AGENT_FEEDBACK.md`, `.flowstatus.json` and the rewrite manifests, all of which
+the rewrite and approve paths stage by name.
+
+Related: `capcom/src/rewrite.js` `repoBusy()` blocks every rewrite while any
+file other than `AGENT_FEEDBACK.md` is modified in this tree, so an uncommitted
+edit also quietly stops Will using the Rewrite button.
+
 ## Live flowchart status (when building the agent pipeline)
 
 `FLOWSTATUS.md` is the integration contract for the Living Flowcharts app in the
