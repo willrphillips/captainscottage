@@ -44,13 +44,13 @@
     },
     "writer": {
       "status": "idle",
-      "lastRun": "2026-09-20",
-      "note": "src/content/blog/fall-rockfish-northern-neck.mdx, draft:true, ~450 words, one hedged regulations paragraph, links crabbers + Reedville guide + /book CTA, hero fire-pit-creek.jpg. 1 TODO (dock story; watermen link after Oct 29; keep license paragraph?)."
+      "lastRun": "2026-10-10",
+      "note": "fall-rockfish-northern-neck revision round 3: applied the single SEO-editor round-1 FAIL fix (meta description swapped 'Striped bass' to 'Rockfish' so the primary keyword leads; now 154 chars). No other text touched. draft:true kept, status left in-review. Manifest content/rewrites/fall-rockfish-northern-neck.json (round 3)."
     },
     "seo-editor": {
       "status": "idle",
-      "lastRun": "2026-09-20",
-      "note": "fall-rockfish-northern-neck PASS: title 59, description 158 w/ keyword, 453 body words (at the floor, complete and on-idea), 2 internal links + 1 CTA, hero alt descriptive, all six banned-tell greps zero, cspell only proper nouns. Set to in-review."
+      "lastRun": "2026-10-10",
+      "note": "fall-rockfish-northern-neck round 4 re-audit: PASS. The two regulations sentences were reworded to attribute the Potomac-tributary season and the license reading as the host's own stated determination ('we go by,' 'by our reading') rather than settled VMRC fact, resolving the prior FAIL on checklist #8 per Will's dated override. All other items re-verified clean: title 59 chars/front-loaded, description 154 chars/front-loaded, single h1, 2 internal links + 1 CTA via withBase(), hero image/alt descriptive, category Travel + draft:true, BlogPosting+BreadcrumbList confirmed in dist HTML (temp .env.local INCLUDE_DRAFTS build, removed after), npm run build clean both with and without drafts, all six banned-tell greps zero hits. Handed back to Writer to set in-review."
     },
     "approve": {
       "status": "planned",

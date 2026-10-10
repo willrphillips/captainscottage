@@ -1,0 +1,67 @@
+{
+  "slug": "fall-rockfish-northern-neck",
+  "round": 4,
+  "appliedAt": "2026-10-10T18:00:00.000Z",
+  "priorRounds": [
+    {
+      "round": 1,
+      "appliedAt": "2026-10-10T12:00:00.000Z",
+      "summary": "Applied Will's 3 direct notes: asserted Hull Creek's Potomac-tributary classification plainly instead of punting to VMRC/the guest (keeping the sourced slot, creel, and both season dates); stated the owns-or-rents license exemption applies directly to a renting guest instead of 'call VMRC to be sure'; cut the unsourced 'take it to Reedville and let someone else [cook it]' clause. Full detail in this file's git history (round 1) and in the content-calendar.json note for this slug."
+    },
+    {
+      "round": 2,
+      "appliedAt": "2026-10-10T12:00:00.000Z",
+      "summary": "Reviewer clear fix: cut the unsourced 'for about twelve weeks' duration claim and replaced it with 'for the whole run' (no number invented). See this file's git history (round 2) for the full edit entry.",
+      "edits": [
+        {
+          "editId": "clearfix-1",
+          "kind": "comment",
+          "anchor": "for about twelve weeks the water in front of the cottage is part of that traffic",
+          "before": "As the water cools the striped bass, rockfish to everyone on this shore, move down the rivers toward the Bay and feed hard before winter, and for about twelve weeks the water in front of the cottage is part of that traffic.",
+          "after": "As the water cools the striped bass, rockfish to everyone on this shore, move down the rivers toward the Bay and feed hard before winter, and for the whole run the water in front of the cottage is part of that traffic.",
+          "status": "applied",
+          "note": "content/review-proposals/fall-rockfish-northern-neck.md clear fix: content/research/fall-rockfish-northern-neck.md ('Season character') caps this paragraph to qualitative language only ('as the water cools,' 'late season'), explicitly 'no temperatures, no dates beyond the regulatory ones above.' 'Twelve weeks' isn't sourced anywhere (brief, site.ts, guidebook.ts) and doesn't cleanly match either season length (Potomac-tributary ~19 wks, Bay ~13 wks from Oct 4). Cut the invented duration and replaced with 'for the whole run,' a qualitative fishing-register phrase that invents no number, keeping the sentence's original shape and rhythm."
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "appliedAt": "2026-10-10T00:00:00.000Z",
+      "summary": "SEO editor round-1 FAIL on the meta description (missing primary keyword 'rockfish'); swapped 'Striped bass' to 'Rockfish' at the start of the description sentence. No body content touched.",
+      "edits": [
+        {
+          "editId": "seo-round1-description",
+          "kind": "suggest",
+          "anchor": "description (frontmatter, line 3)",
+          "before": "Striped bass season runs October through December on the lower Potomac and the Bay. Fish it from the cottage dock or a Reedville charter fifteen minutes away.",
+          "after": "Rockfish season runs October through December on the lower Potomac and the Bay. Fish it from the cottage dock or a Reedville charter fifteen minutes away.",
+          "status": "applied",
+          "note": "SEO editor round-1 FAIL: meta description omitted the primary keyword 'rockfish' (used 'striped bass' only). Swapped 'Striped bass' to 'Rockfish' at the start of the sentence; nothing else in the description changed. New length: 154 characters, inside the required 140-160 range. No other content in the post was touched."
+        }
+      ]
+    }
+  ],
+  "edits": [
+    {
+      "editId": "orchestrator-round4-classification",
+      "kind": "rewrite",
+      "anchor": "so it falls under Virginia's Potomac tributary season",
+      "before": "Hull Creek is fed by the Potomac, so it falls under Virginia's Potomac tributary season, already open since August 21 and running through December 31.",
+      "after": "Hull Creek is fed by the Potomac, so we go by Virginia's Potomac tributary season here, already open since August 21 and running through December 31.",
+      "status": "applied",
+      "note": "Orchestrator resolution, not a straight SEO-fix application. The SEO editor's round-2 audit flagged this sentence as an unmarked UNVERIFIED claim stated as settled fact, citing content/research/fall-rockfish-northern-neck.md's original hedge ('Which VMRC section governs Hull Creek... is not stated in the regulation text... Writer: ... tell the reader to confirm the creek's classification with VMRC. Do not assert which one applies.'). Its proposed fix would revert to sending the reader to VMRC. But that brief predates this session: AGENT_FEEDBACK.md's 2026-10-10 entry (fb:draftfb-fall-rockfish-northern-neck-mv2bfi1c) has Will directly instructing 'You need to figure this out, not our guests. I believe we are a potomac tributary and NOT a chesapeake bay house,' which round 1 of this file already applied by asserting the classification outright. Reverting now would silently undo that same-session instruction. Resolution: keep the no-VMRC-deflection outcome Will directed, but reframe the clause from an unqualified claim of settled administrative fact ('it falls under') to the host's own stated determination ('we go by... here'), grounded in the already-sourced facts (Hull Creek's Potomac geography and the statute text quoted in the research brief). This satisfies the SEO editor's 'don't overstate as settled fact' concern without reintroducing the ask-VMRC-yourself framing Will rejected. Everything else in the sentence and paragraph (slot, creel, both season dates, the charter line) is unchanged."
+    },
+    {
+      "editId": "orchestrator-round4-license",
+      "kind": "rewrite",
+      "anchor": "fishing from our dock falls under that exemption outright",
+      "before": "During your stay, you're the one renting the property, so fishing from our dock falls under that exemption outright, and a Reedville charter's license covers you there too.",
+      "after": "During your stay, you're the one renting the property, so by our reading that covers fishing from our dock, and a Reedville charter's license covers you there too.",
+      "status": "applied",
+      "note": "Orchestrator resolution, not a straight SEO-fix application. Same conflict as the classification edit above, on the license sentence. The SEO editor's round-2 audit flagged this as an unmarked UNVERIFIED claim, citing the research brief's original hedge ('Interpretation, not sourced as such... Nobody at VMRC has confirmed the short-term-rental reading. Writer: say \"you likely won't need your own license from the dock or on a charter, and it's a quick call to VMRC to be sure\"; do not state it as settled.'). Its proposed fix would revert to the 'call VMRC to be sure' framing. But AGENT_FEEDBACK.md's 2026-10-10 entry (fb:draftfb-fall-rockfish-northern-neck-mv2bg405) has Will directly instructing 'Smae thing here. You figure it out, not our guests,' which round 1 already applied by stating the exemption applies outright. Reverting would silently undo that instruction. Resolution: keep the no-VMRC-deflection outcome, reframe 'falls under that exemption outright' (unqualified claim of settled fact) to 'by our reading that covers' (the host's own stated determination), grounded in the statute text already quoted in the research brief (the owns-or-rents exemption's plain language) and the fact that guests rent the property. Satisfies the SEO editor's concern without reintroducing the ask-VMRC-yourself framing Will rejected. Everything else in the sentence is unchanged."
+    }
+  ],
+  "writerChanges": [],
+  "freeNoteAddressed": null,
+  "untouched": "Per instruction, this round made exactly the two orchestrator-directed clause swaps and nothing else. Frontmatter (including draft: true), the rest of the post body, and content-calendar.json status (left at in-review) are untouched. No other post was touched."
+}
