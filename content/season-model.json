@@ -187,7 +187,12 @@
     }
   },
   "channels": {
-    "note": "This is NOT an Airbnb-only property, which an earlier version of this file and the first revenue analysis both assumed. VRBO (HomeAway Payments, listing 4338771) onboarded 2024-12-17 and carried $2,692 in 2025 and $1,817.93 in 2026. Any revenue figure drawn from the Airbnb export alone understates 2025 and 2026.",
-    "vrboListingStatus": "Went dark 2026-05-10 ('Your listing is no longer visible'), four days after its last booking arrived. Whether that was deliberate is UNVERIFIED and worth Will's answer, because it is a closed sales channel."
+    "live": "Airbnb only, by Will's deliberate choice.",
+    "willsWords": "VRBO hide was on purpose. VRBO is harder to deal with than Airbnb.",
+    "decidedAt": "2026-10-10, confirming the listing hide of 2026-05-10",
+    "note": "This was NOT an Airbnb-only property for its whole history, which an earlier version of this file and the first revenue analysis both assumed. VRBO (HomeAway Payments, listing 4338771) ran from 2024-12-17 to 2026-05-10 and carried $2,692 in 2025 and $1,817.93 in 2026. Any revenue figure for those two years drawn from the Airbnb export alone understates them.",
+    "doNotRecommendReopening": "The hide was deliberate and the reason is operational cost, not performance. Do not propose VRBO as a demand fix, do not treat the closed channel as lost revenue to recover, and do not read the 2025 to 2026 drop as a channel problem. If a future analysis wants to revisit it, that is a conversation with Will about his time, not a content or pricing recommendation.",
+    "historyStillCounts": "VRBO revenue from Dec 2024 to May 2026 is real and belongs in every historical total. See analysis/candy-point-monthly-net.json in the parent repo.",
+    "openTaxItem": "The 2025 Vrbo 1099-K was issued 2026-01-31 and is not filed beside the Airbnb one. Raised with Will separately."
   }
 }
