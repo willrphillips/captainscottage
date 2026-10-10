@@ -65,11 +65,11 @@
     "propertyValidatesTheModel": "The property's own observed peaks (about 90 for Nov-Dec, about 85 for Jun-Jul) sit at or just below the industry lead times this model already uses (90 off-season, 120 shoulder, 150 holidays). So the model is conservative in the right direction and the property data confirms rather than overturns it. The lead times below are therefore UNCHANGED on 2026-10-10. Lowering them to match the realised average would mean publishing later, which is the direction that caused the original problem."
   },
   "whyOffSeasonFirst": {
-    "finding": "CORRECTED 2026-10-10 once monthly data back to 2023 arrived. 84% of the 2024-to-2025 decline was SUMMER, not the off-season: July fell $4,462 and August fell $5,812. The earlier reading, that the off-season was the main cause, came from seeing only 2025 and 2026.",
-    "august": "August is the one month that never recovered: $6,898 (2023), $7,749 (2024), $1,937 (2025), $2,546 (2026). July and September both came back in 2026. About $5,200 a year sits in that one month and the cause is UNVERIFIED.",
-    "offSeason": "Still real, still worsening, and still second: Jan-May fell from $15,652 in 2025 to $11,168 in 2026. December has gone $3,151, $476, $0 across three years.",
-    "consequence": "Peak topics are NOT deprioritised as heavily as this model first said. summer-families stays low priority for June, July and September, which have recovered on their own. But AUGUST is a hole in the best season and content aimed at late-summer availability is now worth writing.",
-    "source": "analysis/candy-point-decline-2026-10.md and analysis/candy-point-monthly-net.json"
+    "finding": "CORRECTED TWICE on 2026-10-10, and the second correction is the one that sticks. With both sales channels counted the 2024-to-2025 decline is -$10,876, not -$13,569: a fifth of it was VRBO revenue nobody had counted. 2026 Jan-Sep is +1.8% on 2025.",
+    "august": "NOT a collapse and NOT a content problem. Will blocks roughly a week of August for his own use (Aug 16-23 in 2026), it recurs by design, and he does not want it changed. With VRBO counted August reads $6,898 / $7,749 / $2,718 / $4,364 across 2023-2026, a gap to 2024 of about $3,385 of which seven nights are simply not for sale. An earlier version of this file told the editor to write for August availability. That instruction is withdrawn.",
+    "offSeason": "The one real and worsening gap. Jan-May fell from $15,652 (2025) to $11,168 (2026). December has gone $3,151, $476, $0 across three years. This is where content can actually move money.",
+    "consequence": "Off-season and shoulder topics outrank peak topics. Peak needs no content help at all.",
+    "source": "analysis/candy-point-decline-2026-10.md"
   },
   "seasons": [
     {
@@ -150,10 +150,9 @@
       "bookingLeadDays": 90,
       "leadBasis": "peakSummer",
       "idealPublish": "01-21",
-      "priority": 5,
-      "why": "Re-ranked 2026-10-10. Was lowest priority on the reading that peak needed no help. June, July and September did recover in 2026 and still need nothing. AUGUST did not: it fell from $7,749 in 2024 to $1,937 in 2025 and only $2,546 in 2026, the largest single recoverable sum on the property at about $5,200 a year. Write for late-summer and August availability specifically, not for summer in general.",
-      "anchorVerified": true,
-      "note": "The August hole is the target here, not the season as a whole."
+      "priority": 7,
+      "why": "Lowest priority, restored 2026-10-10 after the August correction. June, July and September recovered on their own in 2026. August is soft mainly because Will blocks a week of it for his own use and because a VRBO booking sat outside the Airbnb data, not because the content is missing. There is no content job in this season.",
+      "anchorVerified": true
     },
     {
       "key": "fall-shoulder",
@@ -174,6 +173,21 @@
     "No season covers March to early May beyond spring-birding. Shoulder-season content for that window is thin.",
     "Guest-segment definitions are inferred from the content calendar's target-reader notes and from the drive market, not from booking data. Airbnb reservation exports would replace inference with fact; requested in analysis/candy-point-decline-2026-10.md and still outstanding.",
     "No season model survives contact with real occupancy data. Revisit once the Airbnb CSVs land.",
-    "WHY August broke is unknown. The earnings report carries no nights and no rates, so it cannot say whether August lost bookings or lost rate. The Airbnb reservations export is still required and is now the highest-value missing input."
-  ]
+    "The 2025 Vrbo 1099-K was issued 2026-01-31 and is not filed in Dropbox beside the Airbnb one. The CPA will need it.",
+    "Nights and nightly rate are still unknown for every year. Neither the Airbnb earnings export nor the VRBO deposit statements carry them, so occupancy and ADR remain UNVERIFIED."
+  ],
+  "ownerUse": {
+    "august": {
+      "dates": "about Aug 16-23",
+      "nights": 7,
+      "recurring": true,
+      "willsWords": "I did block a chunk of August for our own use this year, but that's a pattern, and we don't want to change.",
+      "rule": "Treat the owner week as fixed capacity, never as lost revenue, and never market it. August has 31 nights and about 24 sellable ones.",
+      "unverified": "Whether 2025 was also blocked. The pattern suggests yes and would explain 2025's $2,718, but no owner-block record is reachable from this repo. The Airbnb calendar would settle it."
+    }
+  },
+  "channels": {
+    "note": "This is NOT an Airbnb-only property, which an earlier version of this file and the first revenue analysis both assumed. VRBO (HomeAway Payments, listing 4338771) onboarded 2024-12-17 and carried $2,692 in 2025 and $1,817.93 in 2026. Any revenue figure drawn from the Airbnb export alone understates 2025 and 2026.",
+    "vrboListingStatus": "Went dark 2026-05-10 ('Your listing is no longer visible'), four days after its last booking arrived. Whether that was deliberate is UNVERIFIED and worth Will's answer, because it is a closed sales channel."
+  }
 }

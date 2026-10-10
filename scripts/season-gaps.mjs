@@ -91,8 +91,15 @@ for (const s of model.seasons) {
   for (const year of [today.getUTCFullYear(), today.getUTCFullYear() + 1, today.getUTCFullYear() + 2]) {
     const start = new Date(Date.UTC(year, mm - 1, dd));
     const due = addDays(start, -(s.bookingLeadDays + RUNWAY));
-    if (due < today) continue;          // this occurrence's window has closed
+
+    // Pick the occurrence by its SEASON START, not by its publish window.
+    // Keying off the window rolled a whole year forward the moment that window
+    // closed, which hid "we are late for the season that is almost here"
+    // behind "the next one is ten months out". Caught by hand 2026-10-10 while
+    // re-deriving the draft dates; auto-publish.mjs carries the same fix.
+    if (start <= today) continue;       // this occurrence is already over
     if (due > horizon) break;           // beyond the planning horizon
+    const late = due < today;           // season still ahead, window already shut
 
     // Covered if any post or idea is tagged to this season, or dated within
     // 21 days of the derived date (an untagged post serving it in practice).
@@ -106,7 +113,7 @@ for (const s of model.seasons) {
       ...ideas.filter((i) => (i.season ? i.season === s.key : near(i.publishDate))),
     ];
     rows.push({
-      season: s.key, label: s.label, priority: s.priority,
+      season: s.key, label: s.label, priority: s.priority, late,
       seasonStart: iso(start), derivedPublish: iso(due),
       daysUntilDue: Math.round((due - today) / 86400000),
       bookingLeadDays: s.bookingLeadDays, segment: s.segment, why: s.why,
@@ -130,7 +137,8 @@ if (AS_JSON) {
   console.log("| season | season starts | post must be live | days left | covered |");
   console.log("|---|---|---|---|---|");
   for (const r of rows) {
-    console.log(`| ${r.label} | ${r.seasonStart} | **${r.derivedPublish}** | ${r.daysUntilDue} | ${r.covered ? r.coveredBy.join(", ") : "**NOTHING**"} |`);
+    const due = r.late ? `~~${r.derivedPublish}~~ **LATE**` : `**${r.derivedPublish}**`;
+    console.log(`| ${r.label} | ${r.seasonStart} | ${due} | ${r.daysUntilDue} | ${r.covered ? r.coveredBy.join(", ") : "**NOTHING**"} |`);
   }
   if (!gaps.length) {
     console.log("\nEvery season inside the horizon has a post pointed at it. Propose nothing.");
@@ -149,7 +157,8 @@ if (AS_JSON) {
 } else {
   console.log(`Season coverage, next ${MONTHS} months (today ${iso(today)})`);
   for (const r of rows) {
-    console.log(`  ${r.covered ? "ok   " : "GAP  "} ${r.derivedPublish}  ${r.label}  ${r.covered ? "<- " + r.coveredBy.join(", ") : ""}`);
+    const tag = r.covered ? (r.late ? "ok*  " : "ok   ") : (r.late ? "LATE " : "GAP  ");
+    console.log(`  ${tag} ${r.derivedPublish}  ${r.label}  ${r.covered ? "<- " + r.coveredBy.join(", ") : ""}${r.late ? "   (window shut; publish when clean)" : ""}`);
   }
   console.log(gaps.length ? `\n${gaps.length} gap(s): ${gaps.map((g) => g.season).join(", ")}` : "\nno gaps");
 }
