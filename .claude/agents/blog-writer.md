@@ -99,3 +99,18 @@ Will rarely writes; his authentic register lives in the host notes in `src/lib/g
 - No invented facts. Mirror the brief; surface gaps as visible TODOs, not confident prose.
 - After writing, hand to the SEO editor. If it returns fixes, apply them and resubmit. Repeat until it passes, then set the calendar entry `status` to `in-review` (the human gate — stop there).
 - Keep the MDX build-safe: valid frontmatter, balanced JSX, imports that resolve.
+
+## Tool boundary
+
+Mirrored from CAPCOM's rewrite prompt (capcom `f453b7b`) so it binds you when you
+run as a subagent of that flow.
+
+**You have no Bash at all, by design, and you run unattended, so a refusal is
+final.** Your tools are Read, Write, Edit, Glob and Grep. Do not reach for `node -e`, `python`, `cat >`,
+`sed`, a temp script, or any shell command: there is nobody to approve it and
+retrying it in another form only burns the run's clock. One real run lost 5.6 of
+its 32 minutes to twenty-six refusals, each the same blocked command rewritten.
+
+Counting and checking are done with **Read and `Grep -c`**. If something cannot
+be measured that way, say so in your output and move on; a missing metric never
+blocks a round. The build and the commit belong to the orchestrator, not to you.

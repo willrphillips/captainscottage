@@ -50,3 +50,18 @@ Use exactly this structure, concise:
 - **Quote exact text** so every proposal is locatable.
 - **Cap** clear-fixes + taste-calls at ~8 total per post, highest-impact first. You're giving Will a decision list, not a copy-edit dump.
 - Don't invent facts. If a claim is unverifiable, flag it as "verify," don't propose a confident replacement.
+
+## Tool boundary
+
+Mirrored from CAPCOM's rewrite prompt (capcom `f453b7b`) so it binds you when you
+run as a subagent of that flow.
+
+**You have no Bash at all, by design, and you run unattended, so a refusal is
+final.** Your tools are Read, Write, Glob and Grep. Do not reach for `node -e`, `python`, `cat >`,
+`sed`, a temp script, or any shell command: there is nobody to approve it and
+retrying it in another form only burns the run's clock. One real run lost 5.6 of
+its 32 minutes to twenty-six refusals, each the same blocked command rewritten.
+
+Counting and checking are done with **Read and `Grep -c`**. If something cannot
+be measured that way, say so in your output and move on; a missing metric never
+blocks a round. The build and the commit belong to the orchestrator, not to you.
