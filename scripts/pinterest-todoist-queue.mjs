@@ -230,8 +230,54 @@ function planSlots(pins, allPins, todayISO) {
   // slot is 10:00 local, so a task placed today could be due within half an
   // hour of being created, or already past. Start tomorrow.
   const first = dayNum(todayISO) + 1;
-  const plan = [];
+
+  // A DATE WILL CHOSE WINS. Added 2026-10-13 at his direction: he asked for the
+  // pin dates to start the following Monday and for Approve in CAPCOM to be one
+  // tap. Until now this function re-derived scheduledFor from scratch on every
+  // run and overwrote whatever he picked, so the tap decided nothing and the
+  // first approved pin would have gone out the next day regardless of the date
+  // on it.
+  //
+  // So a pin already carrying a future date keeps it. The two rules that
+  // protect the Pinterest account still apply and can push it LATER, never
+  // earlier: at most MAX_LIVE_PER_DAY live in one day, and GAP_DAYS between
+  // pins pointing at the same URL. A date in the past, or no date at all, is
+  // still derived from scratch.
+  //
+  // The horizon check applies to derived dates only. It exists to stop
+  // automatic placement sprawling into next quarter, and skipping a pin because
+  // Will deliberately chose a date five weeks out would be the opposite of the
+  // point.
+  const honoured = [];
+  const derived = [];
   for (const pin of pins) {
+    const d = pin.scheduledFor ? dayNum(pin.scheduledFor) : null;
+    (d !== null && d >= first ? honoured : derived).push(pin);
+  }
+
+  // Honoured pins are placed first so they claim their days before anything is
+  // derived around them. Otherwise a derived pin could take the last free slot
+  // on a day Will had explicitly chosen and push his pin off it.
+  const out = new Map();
+  for (const pin of honoured) {
+    const k = urlKeyOf(pin);
+    const kept = dayNum(pin.scheduledFor);
+    let live = kept;
+    const minByGap = (lastForUrl.get(k) ?? -Infinity) + GAP_DAYS;
+    if (live < minByGap) live = minByGap;                        // same-URL spacing
+    while ((perDay.get(live) || 0) >= MAX_LIVE_PER_DAY) live++;  // per-day cap
+    perDay.set(live, (perDay.get(live) || 0) + 1);
+    lastForUrl.set(k, live);
+    const iso = dayISO(live);
+    console.log(
+      live === kept
+        ? `  ${pin.id}: keeping chosen date ${iso}`
+        : `  ${pin.id}: chosen date ${pin.scheduledFor} pushed to ${iso} (spacing or daily cap)`,
+    );
+    out.set(pin, { pin, scheduledFor: iso, todoistDue: `${iso}T${slotFor(iso)}:00` });
+  }
+
+  for (const pin of derived) {
     const k = urlKeyOf(pin);
     let live = Math.max(first, (lastForUrl.get(k) ?? -Infinity) + GAP_DAYS);
     while ((perDay.get(live) || 0) >= MAX_LIVE_PER_DAY) live++;
@@ -242,9 +288,13 @@ function planSlots(pins, allPins, todayISO) {
     perDay.set(live, (perDay.get(live) || 0) + 1);
     lastForUrl.set(k, live);
     const iso = dayISO(live);
-    plan.push({ pin, scheduledFor: iso, todoistDue: `${iso}T${slotFor(iso)}:00` });
+    const why = pin.scheduledFor ? `date ${pin.scheduledFor} is past, re-derived` : "no date, derived";
+    console.log(`  ${pin.id}: ${why} to ${iso}`);
+    out.set(pin, { pin, scheduledFor: iso, todoistDue: `${iso}T${slotFor(iso)}:00` });
   }
-  return plan;
+
+  // Original order, so the run log reads in the order the queue was read.
+  return pins.map((p) => out.get(p)).filter(Boolean);
 }
 
 // A task only exists for a pin Will has already approved in CAPCOM, so it is
