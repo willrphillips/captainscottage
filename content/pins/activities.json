@@ -15,9 +15,10 @@
       "altText": "A wooden dock with pilings stretching out over calm, pale creek water in daylight.",
       "board": "Chesapeake Bay Travel",
       "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=act-things-to-do",
-      "scheduledFor": "2026-10-07",
+      "scheduledFor": "2026-10-23",
       "keywordVariant": "things to do on the Chesapeake Bay",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-07"
     },
     {
       "id": "activities-v2",
@@ -26,9 +27,10 @@
       "altText": "An osprey perched on top of a bare, pale snag beside green trees, with open water and a sandbar behind.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=act-birding",
-      "scheduledFor": "2026-10-13",
+      "scheduledFor": "2026-10-29",
       "keywordVariant": "birding Virginia Northern Neck",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-13"
     },
     {
       "id": "activities-v3",
@@ -37,9 +39,10 @@
       "altText": "Top half: a long dock over a calm creek. Bottom half: an osprey on a bare snag above open water.",
       "board": "Slow Weekends and Cabin Trips",
       "destinationUrl": "https://captainscottageva.com/activities/?utm_source=pinterest&utm_medium=social&utm_campaign=activities&utm_content=act-cabin-weekend",
-      "scheduledFor": "2026-10-19",
+      "scheduledFor": "2026-11-04",
       "keywordVariant": "weekend cabin activities",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-19"
     }
   ]
 }

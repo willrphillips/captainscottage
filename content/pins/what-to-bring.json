@@ -15,9 +15,10 @@
       "altText": "Two stemless glasses of rosé on a wooden dock rail at dusk, with a still creek and dark tree line behind.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=wtb-weekend-packing",
-      "scheduledFor": "2026-10-03",
+      "scheduledFor": "2026-10-19",
       "keywordVariant": "what to pack for a weekend getaway",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-03"
     },
     {
       "id": "what-to-bring-v2",
@@ -26,9 +27,10 @@
       "altText": "A weathered wooden dock with pilings reaching out over calm, pale creek water in daylight.",
       "board": "Chesapeake Bay Travel",
       "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=wtb-chesapeake-list",
-      "scheduledFor": "2026-10-09",
+      "scheduledFor": "2026-10-25",
       "keywordVariant": "Chesapeake Bay packing list",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-09"
     },
     {
       "id": "what-to-bring-v3",
@@ -37,9 +39,10 @@
       "altText": "Top half: two glasses of rosé on a dock rail at dusk. Bottom half: a wooden dock extending over calm creek water.",
       "board": "Waterfront Cottage Stays",
       "destinationUrl": "https://captainscottageva.com/what-to-bring/?utm_source=pinterest&utm_medium=social&utm_campaign=what-to-bring&utm_content=wtb-sauna-hot-tub",
-      "scheduledFor": "2026-10-15",
+      "scheduledFor": "2026-10-31",
       "keywordVariant": "what to bring to a cottage with a sauna and hot tub",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-15"
     }
   ]
 }

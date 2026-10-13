@@ -15,9 +15,10 @@
       "altText": "An osprey perched at the top of a bare, silvery snag above Chesapeake water, with green shoreline trees below.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/journal/northern-neck-in-fall-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-in-fall-from-dc&utm_content=fall-weekend-dc",
-      "scheduledFor": "2026-10-03",
+      "scheduledFor": "2026-10-19",
       "keywordVariant": "fall weekend trip from DC",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-03"
     },
     {
       "id": "northern-neck-in-fall-from-dc-v2",
@@ -26,9 +27,10 @@
       "altText": "A cedar-sided hot tub with steps on a stone patio, beside the cottage with a tidal creek and tree line beyond, in soft light.",
       "board": "Chesapeake Bay Travel",
       "destinationUrl": "https://captainscottageva.com/journal/northern-neck-in-fall-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-in-fall-from-dc&utm_content=fall-chesapeake-getaway",
-      "scheduledFor": "2026-10-09",
+      "scheduledFor": "2026-10-25",
       "keywordVariant": "Chesapeake Bay fall getaway",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-09"
     },
     {
       "id": "northern-neck-in-fall-from-dc-v3",
@@ -37,9 +39,10 @@
       "altText": "Top half: an osprey on a bare snag over the water. Bottom half: a hot tub on a patio beside the cottage.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/journal/northern-neck-in-fall-from-dc/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-in-fall-from-dc&utm_content=fall-virginia-waterfront",
-      "scheduledFor": "2026-10-15",
+      "scheduledFor": "2026-10-31",
       "keywordVariant": "Virginia waterfront fall weekend",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-15"
     }
   ]
 }

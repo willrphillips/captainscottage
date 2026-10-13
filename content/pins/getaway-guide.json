@@ -15,9 +15,10 @@
       "altText": "A gray cottage with white Adirondack chairs on a small deck, green lawn and mature trees under a clear blue sky.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=gg-northern-neck-guide",
-      "scheduledFor": "2026-10-05",
+      "scheduledFor": "2026-10-21",
       "keywordVariant": "Northern Neck Virginia getaway guide",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-05"
     },
     {
       "id": "getaway-guide-v2",
@@ -26,9 +27,10 @@
       "altText": "The inside of a screened porch with a wooden table and tall screens looking out over a tidal creek.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=gg-dc-weekend-planner",
-      "scheduledFor": "2026-10-11",
+      "scheduledFor": "2026-10-27",
       "keywordVariant": "weekend trip from DC planner",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-11"
     },
     {
       "id": "getaway-guide-v3",
@@ -37,9 +39,10 @@
       "altText": "Top half: a gray cottage with Adirondack chairs. Bottom half: a screened porch looking over a creek.",
       "board": "Chesapeake Bay Travel",
       "destinationUrl": "https://captainscottageva.com/getaway-guide/?utm_source=pinterest&utm_medium=social&utm_campaign=getaway-guide&utm_content=gg-chesapeake-planning",
-      "scheduledFor": "2026-10-17",
+      "scheduledFor": "2026-11-02",
       "keywordVariant": "Chesapeake Bay vacation planning",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-17"
     }
   ]
 }

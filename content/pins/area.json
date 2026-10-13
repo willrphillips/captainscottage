@@ -15,9 +15,10 @@
       "altText": "Stone fire pit ringed by black Adirondack chairs on a paved patio, with two orange kayaks resting on a rack and tall trees behind.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=area-things-to-do",
-      "scheduledFor": "2026-10-08",
+      "scheduledFor": "2026-10-24",
       "keywordVariant": "Northern Neck Virginia things to do",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-08"
     },
     {
       "id": "area-v2",
@@ -26,9 +27,10 @@
       "altText": "The inside of a screened porch, with a wooden bench-style table and screens opening onto a tidal creek.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=area-day-trips",
-      "scheduledFor": "2026-10-14",
+      "scheduledFor": "2026-10-30",
       "keywordVariant": "day trips from Washington DC",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-14"
     },
     {
       "id": "area-v3",
@@ -37,9 +39,10 @@
       "altText": "Top half: a stone fire pit with Adirondack chairs and kayaks. Bottom half: a screened porch over a creek.",
       "board": "Chesapeake Bay Travel",
       "destinationUrl": "https://captainscottageva.com/area/?utm_source=pinterest&utm_medium=social&utm_campaign=area&utm_content=area-waterfront-towns",
-      "scheduledFor": "2026-10-20",
+      "scheduledFor": "2026-11-05",
       "keywordVariant": "Virginia waterfront towns",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-20"
     }
   ]
 }

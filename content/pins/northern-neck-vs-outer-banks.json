@@ -15,9 +15,10 @@
       "altText": "A single-story cottage with a screened porch under tall trees and a blue sky.",
       "board": "Virginia's Northern Neck",
       "destinationUrl": "https://captainscottageva.com/journal/northern-neck-vs-outer-banks/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-vs-outer-banks&utm_content=obx-vs-nn",
-      "scheduledFor": "2026-10-04",
+      "scheduledFor": "2026-10-20",
       "keywordVariant": "Northern Neck vs Outer Banks",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-04"
     },
     {
       "id": "northern-neck-vs-outer-banks-v2",
@@ -26,9 +27,10 @@
       "altText": "A wooden staircase leading down to a long dock over a calm, sunlit creek.",
       "board": "Weekend Getaways from Washington DC",
       "destinationUrl": "https://captainscottageva.com/journal/northern-neck-vs-outer-banks/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-vs-outer-banks&utm_content=obx-alternative-dc",
-      "scheduledFor": "2026-10-10",
+      "scheduledFor": "2026-10-26",
       "keywordVariant": "Outer Banks alternative from DC",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-10"
     },
     {
       "id": "northern-neck-vs-outer-banks-v3",
@@ -37,9 +39,10 @@
       "altText": "Top half: a cottage with a screened porch under tall trees. Bottom half: a staircase and dock over still creek water.",
       "board": "Chesapeake Bay Travel",
       "destinationUrl": "https://captainscottageva.com/journal/northern-neck-vs-outer-banks/?utm_source=pinterest&utm_medium=social&utm_campaign=northern-neck-vs-outer-banks&utm_content=obx-quiet-beach-trip",
-      "scheduledFor": "2026-10-16",
+      "scheduledFor": "2026-11-01",
       "keywordVariant": "quiet Chesapeake beach weekend",
-      "status": "draft"
+      "status": "draft",
+      "previousScheduledFor": "2026-10-16"
     }
   ]
 }
