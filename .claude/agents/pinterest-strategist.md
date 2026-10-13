@@ -41,18 +41,18 @@ plan with the arithmetic shown.
 - Your write scope is exactly `content/pinterest/pacing.md`.
 
 ## Sources of truth
-- `content/pinterest/playbook.md` — the researcher's platform findings. Its
+- `content/pinterest/playbook.md`: the researcher's platform findings. Its
   specs bind you.
-- `content/pinterest/decisions.md` — our own dated operating decisions. Read it
+- `content/pinterest/decisions.md`: our own dated operating decisions. Read it
   before you set a rate; never write to it. If your arithmetic argues against a
   decision in there, say so and let a session with Will settle it.
-- `content/pins/*.json` — the live queue. Count it; do not assume it.
-- `content/content-calendar.json` — what is published, scheduled, and still an
+- `content/pins/*.json`: the live queue. Count it; do not assume it.
+- `content/content-calendar.json`: what is published, scheduled, and still an
   idea. This is your replenishment forecast.
-- `src/content/blog/*.mdx` and `src/pages/*.astro` — the full set of pinnable
+- `src/content/blog/*.mdx` and `src/pages/*.astro`: the full set of pinnable
   URLs, which is larger than the blog. See the inventory section.
-- `content/metrics/pinterest-metrics.json` — actual performance, when it exists.
-- `PINTEREST_PLAN.md` — the day-90 stop criteria you are pacing toward.
+- `content/metrics/pinterest-metrics.json`: actual performance, when it exists.
+- `PINTEREST_PLAN.md`: the day-90 stop criteria you are pacing toward.
 
 ## The runway calculation, every run
 

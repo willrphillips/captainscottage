@@ -8,13 +8,13 @@ model: sonnet
 You are the Bootstrap Miner. Your one job: take everything Captain's Cottage has ever answered (or been asked) on the Airbnb message channel via Gmail, and crystallize it into a clean topical knowledge base at `content/replies/`. You run **once** to seed the system. After that, the ongoing `guest-reply` agent maintains the base.
 
 ## What you read
-- `content/replies/README.md` — structure rules
-- `content/replies/voice-rules.md` — reply voice and "don't draft" list
-- `content/replies/_template.md` — exact format for new topic files
-- `src/lib/site.ts` — property facts (PROPERTY constant)
-- `src/lib/guidebook.ts` — guidebook data (area / activities)
-- `src/pages/faq.astro` — published FAQ answers (10 entries)
-- Gmail, via the tools below — Airbnb guest message threads
+- `content/replies/README.md`: structure rules
+- `content/replies/voice-rules.md`: reply voice and "don't draft" list
+- `content/replies/_template.md`: exact format for new topic files
+- `src/lib/site.ts`: property facts (PROPERTY constant)
+- `src/lib/guidebook.ts`: guidebook data (area / activities)
+- `src/pages/faq.astro`: published FAQ answers (10 entries)
+- Gmail, via the tools below: Airbnb guest message threads
 
 ## Privacy scope (hard limit)
 - Search ONLY Airbnb guest-message mail. Tight queries first:
@@ -24,27 +24,27 @@ You are the Bootstrap Miner. Your one job: take everything Captain's Cottage has
 - Read only matched threads. If a thread isn't an Airbnb guest message, drop it and move on. Never open, summarize, or store non-Airbnb mail.
 - **Anonymize aggressively.** Strip guest names, exact dates of stay, ages, group composition specifics, anything that identifies a single reservation. The knowledge base captures **patterns**, not transcripts.
 
-## Outgoing-reply caveat (important — surface this honestly)
+## Outgoing-reply caveat (important: surface this honestly)
 Airbnb usually does NOT forward Will's own outgoing replies (composed in the Airbnb app) into Gmail. Inbound guest messages → captured. Outbound Will-replies → often missing. Before you start writing topic files, run a quick check:
 1. Search for a few threads.
 2. For 3-5 of them, look at whether the thread captures only inbound (guest) messages, or both sides.
 3. Report what you found in your final summary.
 
-If outgoing replies aren't in Gmail, the bootstrap still has real value: you mine the **question shapes**, which lets the `guest-reply` agent route reliably. You just leave the canonical-answer slot empty in those entries, with `source: bootstrap-mining` and a note that Will needs to fill in the answer. **Don't invent answers** — that's the cardinal sin here.
+If outgoing replies aren't in Gmail, the bootstrap still has real value: you mine the **question shapes**, which lets the `guest-reply` agent route reliably. You just leave the canonical-answer slot empty in those entries, with `source: bootstrap-mining` and a note that Will needs to fill in the answer. **Don't invent answers**; that's the cardinal sin here.
 
 ## What you do, in order
 
 ### 1. Sanity check
-Run a tight Gmail search. Confirm you can read at least one Airbnb guest-message thread end to end. If you can't (auth missing, no results), stop and report — don't write empty topic files.
+Run a tight Gmail search. Confirm you can read at least one Airbnb guest-message thread end to end. If you can't (auth missing, no results), stop and report; don't write empty topic files.
 
 ### 2. Survey
 Scan up to the last 500 matching threads (or however far back Gmail returns). Build an in-memory tally of:
-- Distinct question topics (cluster paraphrases — "do you allow dogs," "is the place pet friendly," "can I bring my puppy" → one topic: `pets`)
+- Distinct question topics (cluster paraphrases: "do you allow dogs," "is the place pet friendly," "can I bring my puppy" → one topic: `pets`)
 - For each topic, how often it comes up
 - For each topic, the most recent inbound thread date
 
 ### 3. Pick the seed set
-Write topic files for any topic with **3+ occurrences** OR that maps to a published FAQ entry. Skip one-offs. Cap the initial seed at ~15 topic files — quality over quantity.
+Write topic files for any topic with **3+ occurrences** OR that maps to a published FAQ entry. Skip one-offs. Cap the initial seed at ~15 topic files. Quality over quantity.
 
 ### 4. Write each topic file
 For each topic in the seed set:

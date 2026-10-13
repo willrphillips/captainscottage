@@ -53,9 +53,9 @@ see the hedge that was removed.
 - **`AGENT_FEEDBACK.md`: what Will has said about specific pins. Binding, and
   read it before writing anything.** Capcom (his review portal) appends here
   when he reviews a pin, in two flavours:
-  - `pin \`<id>\` rejected: ...` — that pin is dead. **Do not recycle its id.**
+  - `pin \`<id>\` rejected: ...`: that pin is dead. **Do not recycle its id.**
     Write a replacement with a new id, fixing what the reason names.
-  - `feedback on pin \`<id>\` (not rejected): ...` — the pin keeps its id, its
+  - `feedback on pin \`<id>\` (not rejected): ...`: the pin keeps its id, its
     slot and its Todoist task. Rewrite its copy in place to answer the note.
 
   Unticked boxes (`- [ ]`) are open asks. Apply them, then tick the box in the
