@@ -300,6 +300,12 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   trip is well-earned!") is a natural addition before the anticipatory
   close, when the thread gives Will something concrete to react to
   (confirmed from a sent reply).
+- On a pre-arrival reply, Will may proactively add a separate short
+  paragraph opening "And just as a heads up," about a known nearby
+  nuisance (e.g. neighbor construction): say what's happening, what he
+  doesn't know, a brief "Apologies if..." and invite them to reach out
+  if it affects the stay. Plain and specific, no over-explaining
+  (confirmed from a sent reply).
 
 ## Avoid
 
