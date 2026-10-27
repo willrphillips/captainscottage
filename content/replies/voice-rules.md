@@ -300,6 +300,7 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   trip is well-earned!") is a natural addition before the anticipatory
   close, when the thread gives Will something concrete to react to
   (confirmed from a sent reply).
+- For an early-arrival ask the cottage can accommodate, say they're welcome to come when ready, name the one caveat plainly (e.g. turnover still wrapping up), and keep it upbeat ("might as well get the weekend started!"). A quick occasion well-wish ("happy anniversary again!") can end the message after "Just let me know if you have any issues." (confirmed from a sent reply).
 - On a pre-arrival reply, Will may proactively add a separate short
   paragraph opening "And just as a heads up," about a known nearby
   nuisance (e.g. neighbor construction): say what's happening, what he
