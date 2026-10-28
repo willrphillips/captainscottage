@@ -301,6 +301,7 @@ journal. Distinct from the blog voice in `content/voice-feedback-log.md`.
   close, when the thread gives Will something concrete to react to
   (confirmed from a sent reply).
 - For an early-arrival ask the cottage can accommodate, say they're welcome to come when ready, name the one caveat plainly (e.g. turnover still wrapping up), and keep it upbeat ("might as well get the weekend started!"). A quick occasion well-wish ("happy anniversary again!") can end the message after "Just let me know if you have any issues." (confirmed from a sent reply).
+- When approving a party-size or booking change, say yes first, then flag the one practical caveat up front (e.g. how a particular bed is set up) and ask them to say so if it won't work, before the approval line: "If those arrangements suit you, that's fine with us." (confirmed from a sent reply).
 - On a pre-arrival reply, Will may proactively add a separate short
   paragraph opening "And just as a heads up," about a known nearby
   nuisance (e.g. neighbor construction): say what's happening, what he
