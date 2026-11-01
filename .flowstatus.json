@@ -65,9 +65,9 @@
       "note": "Weekly GitHub Actions cron rebuild + publishDate gate. Not built (Workstream C)."
     },
     "pinterest-research": {
-      "status": "planned",
-      "lastRun": "2026-08-07",
-      "note": "Agent + monthly cron built 2026-08-07; first run pending"
+      "status": "idle",
+      "lastRun": "2026-11-01",
+      "note": "Full pass: specs verified; timing and accounts evidence gaps stated, nothing recommended"
     },
     "pin-writer": {
       "status": "idle",

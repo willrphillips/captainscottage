@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-08",
+  "updatedAt": "2026-11-01",
   "note": "Keyword bank for Pinterest. `variants` are what the pin-writer A/B tests: one pin per variant, each with its own utm_content, so outbound clicks tell us which phrasing wins. Status moves untested -> testing -> winner|retired. Never delete a retired term; move it to `retired` so we do not re-test a settled question. Board names must match the live Pinterest boards exactly.",
   "rules": [
     "Never use 'Hull Creek' as a keyword or in a pin title. Locked in CLAUDE.md, and nobody searches it.",
@@ -10,31 +10,56 @@
     {
       "name": "Virginia's Northern Neck",
       "primary": "Virginia Northern Neck",
-      "supporting": ["Northern Neck Virginia things to do", "Reedville Virginia", "Irvington Virginia", "Northumberland County Virginia"],
+      "supporting": [
+        "Northern Neck Virginia things to do",
+        "Reedville Virginia",
+        "Irvington Virginia",
+        "Northumberland County Virginia"
+      ],
       "sourceNote": "Geography term with real search volume and low competition. The place name is the whole point: it is what someone types when they have heard of the region but not decided anything."
     },
     {
       "name": "Weekend Getaways from Washington DC",
       "primary": "weekend getaways from Washington DC",
-      "supporting": ["weekend trips from DC", "day trips from Washington DC", "romantic getaways near DC", "quick escapes from DC"],
+      "supporting": [
+        "weekend trips from DC",
+        "day trips from Washington DC",
+        "romantic getaways near DC",
+        "quick escapes from DC"
+      ],
       "sourceNote": "Highest-intent board we have. Pinterest travel behavior in 2026 skews to weekend itineraries and trips without heavy logistics, which is exactly this."
     },
     {
       "name": "Chesapeake Bay Travel",
       "primary": "Chesapeake Bay travel",
-      "supporting": ["Chesapeake Bay vacation", "Virginia waterfront towns", "crabbing Chesapeake Bay", "Potomac River Virginia"],
+      "supporting": [
+        "Chesapeake Bay vacation",
+        "Virginia waterfront towns",
+        "crabbing Chesapeake Bay",
+        "Potomac River Virginia"
+      ],
       "sourceNote": "Broader than the Northern Neck and catches people who know the bay but not the peninsula."
     },
     {
       "name": "Waterfront Cottage Stays",
       "primary": "waterfront cottage rental",
-      "supporting": ["cottage with private dock", "cabin with hot tub and sauna", "lake house weekend", "waterfront Airbnb Virginia"],
+      "supporting": [
+        "cottage with private dock",
+        "cabin with hot tub and sauna",
+        "lake house weekend",
+        "waterfront Airbnb Virginia"
+      ],
       "sourceNote": "Stay-type board. Catches people shopping for a kind of place rather than a destination, which is a different and often earlier moment."
     },
     {
       "name": "Slow Weekends and Cabin Trips",
       "primary": "slow travel weekend",
-      "supporting": ["unplugged weekend", "digital detox getaway", "wellness getaway", "shoulder season travel"],
+      "supporting": [
+        "unplugged weekend",
+        "digital detox getaway",
+        "wellness getaway",
+        "shoulder season travel"
+      ],
       "sourceNote": "Wellness and nature-stay framing is called out in the 2026 travel trend reporting. This is the board where the journal's register works as-is."
     }
   ],
@@ -139,5 +164,6 @@
       "status": "untested"
     }
   },
-  "retired": []
+  "retired": [],
+  "reviewNote": "2026-11-01: re-read, no term changed. No outbound-click data exists yet in content/metrics/, so every status stays untested. Pinterest keyword-volume tools were not reachable, so the board sourceNotes remain reasoning rather than measured volume."
 }
